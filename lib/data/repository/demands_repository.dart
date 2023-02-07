@@ -87,6 +87,8 @@ class DemandsRepository {
   Future<List<Demand>> getDemands({
     required GeoPoint geo,
     required double radius,
+    required List<String> categoryUUIDs,
+    required int page,
   }) async {
     final center = _geoFlutterFire.point(
       latitude: geo.latitude,
