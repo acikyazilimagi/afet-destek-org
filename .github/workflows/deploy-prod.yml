@@ -19,6 +19,7 @@ jobs:
       - run: flutter test
   build_web:
     name: Build Flutter (Web)
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -48,5 +49,5 @@ jobs:
         with:
           args: deploy --only hosting --public web-build
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: default
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          PROJECT_ID: deprem-destek-org
