@@ -9,7 +9,7 @@ class LocationRepository {
     isLogged: kDebugMode,
   );
 
-  Future<Iterable<GoogleGeocodingResult>> getPosition() async {
+  Future<GoogleGeocodingResult> getLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -37,6 +37,6 @@ class LocationRepository {
       language: 'tr',
     );
 
-    return res.results;
+    return res.results.first;
   }
 }

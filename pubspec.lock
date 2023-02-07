@@ -272,13 +272,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.1.1"
-  flutter_lints:
-    dependency: "direct dev"
-    description:
-      name: flutter_lints
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -289,6 +282,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  freezed:
+    dependency: "direct dev"
+    description:
+      name: freezed
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.2"
   freezed_annotation:
     dependency: "direct main"
     description:
@@ -415,13 +415,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.8.0"
-  lints:
-    dependency: transitive
+  json_serializable:
+    dependency: "direct dev"
     description:
-      name: lints
+      name: json_serializable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "6.6.1"
   logging:
     dependency: transitive
     description:
@@ -539,6 +539,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  source_gen:
+    dependency: transitive
+    description:
+      name: source_gen
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.7"
+  source_helper:
+    dependency: transitive
+    description:
+      name: source_helper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.3"
   source_span:
     dependency: transitive
     description:
