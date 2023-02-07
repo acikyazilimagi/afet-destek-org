@@ -15,14 +15,16 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
   late final List<String> categoryIds;
   Future<void> getCurrentDemand() async {
     try {
-      emit(state.copyWith(loading: !state.loading));
+      emit(state.copyWith(loading: true));
 
+      print(state.loading);
       final demand = await _demandsRepository.getCurrentDemand();
 
       if (demand != null) {
         categoryIds = demand.categoryIds;
       }
-      emit(state.copyWith(loading: !state.loading, demand: demand));
+      emit(state.copyWith(loading: false, demand: demand));
+      print(state.loading);
     } catch (_) {
       // emit(const MyDemandState.failed());
     }

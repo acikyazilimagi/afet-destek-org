@@ -31,144 +31,145 @@ class _MyDemandPageState extends State<MyDemandPage> {
       },
     );
 
-    formGroup = FormGroup({
+    myFormGroup = FormGroup({
       _MyFormFields.geoLocation.name: FormControl<String>(
         value: location.formattedAddress,
       ),
       _MyFormFields.demands.name: FormControl<DemandCategory>(),
       _MyFormFields.needText.name: FormControl<String?>(),
       _MyFormFields.phoneNumber.name: FormControl<String?>(
-        validators: [
-          Validators.required,
-          Validators.number,
-          Validators.max(10)
-        ],
+        validators: [Validators.required, Validators.minLength(10)],
       ),
       _MyFormFields.wpPhoneNumber.name: FormControl<String?>(),
     });
   }
 
-  late final FormGroup formGroup;
+  late final FormGroup myFormGroup;
 
   @override
   Widget build(BuildContext context) {
     final provider = context.read<MyDemandsCubit>();
     final providerState = context.watch<MyDemandsCubit>();
+
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Talep Ekle/Düzenle'),
+      ),
       body: SingleChildScrollView(
         child: ReactiveForm(
           onWillPop: () async => false,
-          formGroup: formGroup,
+          formGroup: myFormGroup,
           child: Container(
             padding: const EdgeInsets.all(20),
-            child: providerState.state.loading
-                ? const Loader()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ReactiveTextField(
-                        formControlName: _MyFormFields.geoLocation.name,
-                        decoration: const InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.location_on,
-                          ),
-                        ),
-                      ),
-                      ReactiveDropdownField<DemandCategory>(
-                        formControlName: _MyFormFields.demands.name,
-                        decoration:
-                            const InputDecoration(labelText: "İhtiyaç Türü"),
-                        items: demansCategories
-                            .map(
-                              (e) => DropdownMenuItem<DemandCategory>(
-                                value: e,
-                                child: Text(e.name),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                      Wrap(
-                        alignment: WrapAlignment.spaceEvenly,
-                        runAlignment: WrapAlignment.spaceEvenly,
-                        spacing: 12,
-                        children: List.generate(
-                          5,
-                          (index) => RawChip(
-                            label: const Text('barınma'),
-                            onDeleted: () {},
-                          ),
-                        ),
-                      ),
-                      ReactiveTextField(
-                        decoration: const InputDecoration(
-                            hintText: 'Neye İhtiyacın Var?'),
-                        formControlName: _MyFormFields.needText.name,
-                      ),
-                      ReactiveTextField(
-                        decoration: const InputDecoration(
-                          prefixIcon: Text('+90'),
-                          // isDense: true,
-                          prefixIconConstraints: BoxConstraints(),
-                        ),
-                        formControlName: _MyFormFields.phoneNumber.name,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                      Row(
-                        children: const [
-                          Icon(FontAwesomeIcons.whatsapp),
-                          Text('Whatsapp ile ulaşılsın'),
-                        ],
-                      ),
-                      ReactiveTextField(
-                        formControlName: _MyFormFields.wpPhoneNumber.name,
-                        decoration: const InputDecoration(
-                          prefixIcon: Text('+90'),
-                          prefixIconConstraints: BoxConstraints(),
-                        ),
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                      ),
-                      ReactiveFormConsumer(
-                        builder: (context, formGroup, child) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              ElevatedButton(
-                                onPressed: formGroup.valid
-                                    ? () {
-                                        // provider.submitDemand(
-                                        //     demand: Demand(
-                                        //         id: id,
-                                        //         userId: userId,
-                                        //         categoryIds: categoryIds,
-                                        //         geo: geo,
-                                        //         notes: notes,
-                                        //         addressText: addressText,
-                                        //         phoneNumber: phoneNumber,
-                                        //         isActive: isActive),
-                                        //     categories: []);
-                                      }
-                                    : null,
-                                child: const Text(
-                                  'Kaydet',
-                                ),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {},
-                                child: const Text('Talebi durdur'),
-                              ),
-                            ],
-                          );
-                        },
-                      )
-                    ],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ReactiveTextField(
+                  formControlName: _MyFormFields.geoLocation.name,
+                  decoration: const InputDecoration(
+                    suffixIcon: Icon(
+                      Icons.location_on,
+                    ),
                   ),
+                ),
+                ReactiveDropdownField<DemandCategory>(
+                  formControlName: _MyFormFields.demands.name,
+                  decoration: const InputDecoration(labelText: 'İhtiyaç Türü'),
+                  items: demansCategories
+                      .map(
+                        (e) => DropdownMenuItem<DemandCategory>(
+                          value: e,
+                          child: Text(e.name),
+                        ),
+                      )
+                      .toList(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Wrap(
+                    alignment: WrapAlignment.spaceEvenly,
+                    runAlignment: WrapAlignment.center,
+                    spacing: 12,
+                    children: List.generate(
+                      5,
+                      (index) => RawChip(
+                        label: const Text('barınma'),
+                        onDeleted: () {},
+                      ),
+                    ),
+                  ),
+                ),
+                ReactiveTextField(
+                  decoration:
+                      const InputDecoration(hintText: 'Neye İhtiyacın Var?'),
+                  formControlName: _MyFormFields.needText.name,
+                ),
+                ReactiveTextField(
+                  decoration: const InputDecoration(
+                    prefixIcon: Text('+90'),
+                    // isDense: true,
+                    prefixIconConstraints: BoxConstraints(),
+                  ),
+                  formControlName: _MyFormFields.phoneNumber.name,
+                  inputFormatters: [LengthLimitingTextInputFormatter(10)],
+                ),
+                Row(
+                  children: const [
+                    Icon(FontAwesomeIcons.whatsapp),
+                    Text('Whatsapp ile ulaşılsın'),
+                  ],
+                ),
+                ReactiveTextField(
+                  formControlName: _MyFormFields.wpPhoneNumber.name,
+                  decoration: const InputDecoration(
+                    prefixIcon: Text('+90'),
+                    prefixIconConstraints: BoxConstraints(),
+                  ),
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(10),
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                  ),
+                  child: ReactiveFormConsumer(
+                    builder: (context, formGroup, child) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          ElevatedButton(
+                            onPressed: formGroup.valid
+                                ? () {
+                                    // provider.submitDemand(
+                                    //     demand: Demand(
+                                    //         id: id,
+                                    //         userId: userId,
+                                    //         categoryIds: categoryIds,
+                                    //         geo: geo,
+                                    //         notes: notes,
+                                    //         addressText: addressText,
+                                    //         phoneNumber: phoneNumber,
+                                    //         isActive: isActive),
+                                    //     categories: []);
+                                  }
+                                : null,
+                            child: const Text(
+                              'Kaydet',
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('Talebi durdur'),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
