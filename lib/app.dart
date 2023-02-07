@@ -9,6 +9,8 @@ import 'package:deprem_destek/shared/state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'pages/my_demand_page/my_demand_page.dart';
+
 class DepremDestekApp extends StatefulWidget {
   const DepremDestekApp({super.key});
 
@@ -44,7 +46,8 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
           builder: (context, state) {
             return MaterialApp(
               home: state.maybeWhen(
-                orElse: DemandsPage.new,
+                // orElse: DemandsPage.new,
+                orElse: () => const MyDemandPage(),
                 failed: () => const AppLoadFailurePage(),
                 loading: () => const Scaffold(body: Loader()),
               ),
