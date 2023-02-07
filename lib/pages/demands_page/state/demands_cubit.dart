@@ -66,8 +66,8 @@ class DemandsCubit extends Cubit<DemandsState> {
       demands = await demandsRepository.getDemands(
           page: 1,
           radius: 1,
-          categoryUUIDs: categoryUid,
-          geo: GeoPoint(currentLocation!.lat, currentLocation.lng));
+          categoryIds: categoryUid,
+          geo: googleGeocodingResult.geometry?.location );
 
       changeLoading();
 

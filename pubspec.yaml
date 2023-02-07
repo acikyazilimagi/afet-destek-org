@@ -14,6 +14,7 @@ dependencies:
 
   collection: 1.17.0
   cupertino_icons: 1.0.2
+  dio: ^4.0.6
   firebase_auth: 4.2.5
   firebase_core: 2.4.1
   flutter:
@@ -21,9 +22,9 @@ dependencies:
   flutter_bloc: 8.1.1
   flutter_svg: ^2.0.0+1
   freezed_annotation: 2.2.0
-  geoflutterfire2: 2.3.14
   geolocator: 9.0.2
   google_geocoding_api: 1.2.0
+  http: 0.13.5
   json_annotation: 4.8.0
   reactive_forms: 14.1.0
   syncfusion_flutter_sliders: ^20.4.48

@@ -27,9 +27,7 @@ class SliderDialogPage extends StatelessWidget {
           final contextRead = context.read<DialogCubit>();
           final contextWatch = context.watch<DialogCubit>();
           return state.when(
-              initial: (state) {
-                return SizedBox();
-              },
+             
               onDialog: (value, material, isDialog, states) => Padding(
                     padding: const EdgeInsets.only(top: 50.0, bottom: 20),
                     child: Column(
