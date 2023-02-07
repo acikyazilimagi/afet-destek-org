@@ -12,7 +12,7 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
         super(
           const MyDemandState(
             demand: null,
-            status: MyDemandStateStatus.loadingCurrentDemand,
+            status: MyDemandStateStatus.loadingCurrentDemand(),
           ),
         ) {
     getCurrentDemand();
@@ -21,18 +21,22 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
 
   Future<void> getCurrentDemand() async {
     try {
-      emit(state.copyWith(status: MyDemandStateStatus.loadingCurrentDemand));
+      emit(
+        state.copyWith(
+          status: const MyDemandStateStatus.loadingCurrentDemand(),
+        ),
+      );
 
       final demand = await _demandsRepository.getCurrentDemand();
 
       emit(
         state.copyWith(
           demand: demand,
-          status: MyDemandStateStatus.loadedCurrentDemand,
+          status: const MyDemandStateStatus.loadedCurrentDemand(),
         ),
       );
     } catch (_) {
-      emit(state.copyWith(status: MyDemandStateStatus.loadFailed));
+      emit(state.copyWith(status: const MyDemandStateStatus.loadFailed()));
     }
   }
 
@@ -44,7 +48,7 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
     required String? whatsappNumber,
   }) async {
     try {
-      emit(state.copyWith(status: MyDemandStateStatus.saving));
+      emit(state.copyWith(status: const MyDemandStateStatus.saving()));
 
       await _demandsRepository.addDemand(
         categoryIds: categoryIds,
@@ -54,9 +58,9 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
         whatsappNumber: whatsappNumber,
       );
 
-      emit(state.copyWith(status: MyDemandStateStatus.saveSuccess));
+      emit(state.copyWith(status: const MyDemandStateStatus.saveSuccess()));
     } catch (_) {
-      emit(state.copyWith(status: MyDemandStateStatus.saveFail));
+      emit(state.copyWith(status: const MyDemandStateStatus.saveFail()));
     }
 
     unawaited(getCurrentDemand());
@@ -71,7 +75,7 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
     required String? whatsappNumber,
   }) async {
     try {
-      emit(state.copyWith(status: MyDemandStateStatus.saving));
+      emit(state.copyWith(status: const MyDemandStateStatus.saving()));
 
       await _demandsRepository.updateDemand(
         demandId: demandId,
@@ -82,9 +86,9 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
         whatsappNumber: whatsappNumber,
       );
 
-      emit(state.copyWith(status: MyDemandStateStatus.saveSuccess));
+      emit(state.copyWith(status: const MyDemandStateStatus.saveSuccess()));
     } catch (_) {
-      emit(state.copyWith(status: MyDemandStateStatus.saveFail));
+      emit(state.copyWith(status: const MyDemandStateStatus.saveFail()));
     }
   }
 
@@ -97,13 +101,13 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
     // required String whatsappNumber,
   }) async {
     try {
-      emit(state.copyWith(status: MyDemandStateStatus.saving));
+      emit(state.copyWith(status: const MyDemandStateStatus.saving()));
 
       await _demandsRepository.activateDemand(demandId: demandId);
 
-      emit(state.copyWith(status: MyDemandStateStatus.saveSuccess));
+      emit(state.copyWith(status: const MyDemandStateStatus.saveSuccess()));
     } catch (_) {
-      emit(state.copyWith(status: MyDemandStateStatus.saveFail));
+      emit(state.copyWith(status: const MyDemandStateStatus.saveFail()));
     }
   }
 
@@ -116,13 +120,13 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
     // required String whatsappNumber,
   }) async {
     try {
-      emit(state.copyWith(status: MyDemandStateStatus.saving));
+      emit(state.copyWith(status: const MyDemandStateStatus.saving()));
 
       await _demandsRepository.deactivateDemand(demandId: demandId);
 
-      emit(state.copyWith(status: MyDemandStateStatus.saveSuccess));
+      emit(state.copyWith(status: const MyDemandStateStatus.saveSuccess()));
     } catch (_) {
-      emit(state.copyWith(status: MyDemandStateStatus.saveFail));
+      emit(state.copyWith(status: const MyDemandStateStatus.saveFail()));
     }
   }
 }

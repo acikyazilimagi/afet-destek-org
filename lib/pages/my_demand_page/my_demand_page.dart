@@ -21,6 +21,16 @@ import '../../data/repository/auth_repository.dart';
 class MyDemandPage extends StatefulWidget {
   const MyDemandPage({super.key});
 
+  static Future<void> show(BuildContext context) async {
+    await Navigator.of(context).push<bool>(
+      MaterialPageRoute<bool>(
+        builder: (context) {
+          return const MyDemandPage();
+        },
+      ),
+    );
+  }
+
   @override
   State<MyDemandPage> createState() => _MyDemandPageState();
 }
