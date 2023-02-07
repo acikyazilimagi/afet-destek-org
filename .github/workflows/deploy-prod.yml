@@ -1,9 +1,7 @@
-name: Build Web
+name: Build Web & Deploy
 
 on:
   push:
-    branches: [master]
-  pull_request:
     branches: [master]
 
 jobs:
