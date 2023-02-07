@@ -584,6 +584,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
+  reactive_forms:
+    dependency: "direct main"
+    description:
+      name: reactive_forms
+      sha256: a6dc324c7f69d278163ecefa7d30a7f8af4e0854d4d8d1bdaae1f6baede358af
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.1.0"
   rxdart:
     dependency: transitive
     description:

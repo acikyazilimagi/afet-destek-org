@@ -43,6 +43,7 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
         child: BlocBuilder<AppCubit, AppState>(
           builder: (context, state) {
             return MaterialApp(
+              debugShowCheckedModeBanner: false,
               home: state.maybeWhen(
                 orElse: DemandsPage.new,
                 failed: () => const AppLoadFailurePage(),
