@@ -1,45 +1,31 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deprem_destek/data/models/demand.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 
 class DemandRepository {
   final _geoFlutterFire = GeoFlutterFire();
   final _collection = FirebaseFirestore.instance.collection('demands');
+  final _auth = FirebaseAuth.instance;
 
   Future<void> addDemand({
-    required String userId,
     required List<String> categories,
     required GeoPoint geo,
     required String notes,
     required String phoneNumber,
     required bool isActive,
   }) async {
-    await _collection.add({
-      'userId': userId,
-      'categories': categories,
-      'geo': geo,
-      'notes': notes,
-      'phoneNumber': phoneNumber,
-      'isActive': isActive,
-    });
-  }
+    if (_auth.currentUser == null) {
+      throw Exception('User is not logged in');
+    }
 
-  Future<void> updateDemandById({
-    required String id,
-    required String userId,
-    required List<String> categories,
-    required GeoPoint geo,
-    required String notes,
-    required String phoneNumber,
-    required bool isActive,
-  }) async {
     final location = _geoFlutterFire.point(
       latitude: geo.latitude,
       longitude: geo.longitude,
     );
 
-    await _collection.doc(id).update({
-      'userId': userId,
+    await _collection.add({
+      'userId': _auth.currentUser!.uid,
       'categories': categories,
       'geo': location,
       'notes': notes,
@@ -48,33 +34,47 @@ class DemandRepository {
     });
   }
 
-  Future<void> deleteDemandById(String id) async {
-    await _collection.doc(id).delete();
+  Future<void> activateCurrentDemand() async {
+    if (_auth.currentUser == null) {
+      throw Exception('User is not logged in');
+    }
+
+    await _collection.doc(_auth.currentUser!.uid).update({
+      'isActive': true,
+    });
   }
 
-  Future<Demand> getDemandById(String id) async {
-    final doc = await _collection.doc(id).get();
+  Future<void> deactivateCurrentDemand() async {
+    if (_auth.currentUser == null) {
+      throw Exception('User is not logged in');
+    }
+
+    await _collection.doc(_auth.currentUser!.uid).update({
+      'isActive': false,
+    });
+  }
+
+  Future<void> deleteCurrentDemand() async {
+    if (_auth.currentUser == null) {
+      throw Exception('User is not logged in');
+    }
+
+    await _collection.doc(_auth.currentUser!.uid).delete();
+  }
+
+  Future<Demand> getCurrentDemand() async {
+    if (_auth.currentUser == null) {
+      throw Exception('User is not logged in');
+    }
+
+    final doc = await _collection.doc(_auth.currentUser!.uid).get();
     return Demand.fromMap(doc.data()!, doc.id);
   }
 
-  Future<List<Demand>> getDemands() async {
-    final snapshot = await _collection.get();
-    return snapshot.docs.map((doc) {
-      return Demand.fromMap(doc.data(), doc.id);
-    }).toList();
-  }
-
-  Future<List<Demand>> getDemandsByUserId(String userId) async {
-    final snapshot = await _collection.where('userId', isEqualTo: userId).get();
-    return snapshot.docs.map((doc) {
-      return Demand.fromMap(doc.data(), doc.id);
-    }).toList();
-  }
-
-  Stream<List<Demand>> getDemandsByLocationStream({
+  Future<List<Demand>> getDemands({
     required GeoPoint geo,
     required double radius,
-  }) {
+  }) async {
     final center = _geoFlutterFire.point(
       latitude: geo.latitude,
       longitude: geo.longitude,
@@ -87,36 +87,16 @@ class DemandRepository {
           radius: radius,
           field: 'geo',
         )
-        .map(
+        .asyncMap(
           (event) => event
               .map(
-                (e) => e.data() != null
-                    ? Demand.fromMap(
-                        e.data() as Map<String, dynamic>,
-                        e.id,
-                      )
-                    : null,
+                (e) => Demand.fromMap(
+                  e.data() as Map<String, dynamic>,
+                  e.id,
+                ),
               )
-              .where((element) => element != null)
-              .toList() as List<Demand>,
-        );
-  }
-
-  Stream<List<Demand>> getDemandsStream() {
-    return _collection.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        return Demand.fromMap(doc.data(), doc.id);
-      }).toList();
-    });
-  }
-
-  Stream<List<Demand>> getDemandsByUserIdStream(String userId) {
-    return _collection.where('userId', isEqualTo: userId).snapshots().map(
-      (snapshot) {
-        return snapshot.docs.map((doc) {
-          return Demand.fromMap(doc.data(), doc.id);
-        }).toList();
-      },
-    );
+              .toList(),
+        )
+        .first;
   }
 }
