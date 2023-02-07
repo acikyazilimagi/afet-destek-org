@@ -4,14 +4,11 @@ import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/data/repository/location_repository.dart';
 import 'package:deprem_destek/pages/app_load_failure_page/app_load_failure_page.dart';
 import 'package:deprem_destek/pages/demands_page/demands_page.dart';
-import 'package:deprem_destek/pages/my_demand_page/state/my_demands_cubit.dart';
 import 'package:deprem_destek/pages/my_demand_page/widgets/loader.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:deprem_destek/shared/state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'pages/my_demand_page/my_demand_page.dart';
 
 class DepremDestekApp extends StatefulWidget {
   const DepremDestekApp({super.key});
@@ -45,11 +42,6 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
               locationRepository: context.read<LocationRepository>(),
             ),
           ),
-          BlocProvider<MyDemandsCubit>(
-            create: (context) => MyDemandsCubit(
-              demandsRepository: context.read<DemandsRepository>(),
-            ),
-          )
         ],
         child: BlocBuilder<AppCubit, AppState>(
           builder: (context, state) {

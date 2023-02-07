@@ -13,15 +13,16 @@ class Demand with _$Demand {
     required String notes,
     required String addressText,
     required String phoneNumber,
-    required String whatsappNumber,
+    required String? whatsappNumber,
     required DateTime modifiedTimeUtc,
+    required bool isActive,
     // required int distanceKm,
   }) = _Demand;
 
   factory Demand.fromJson(Map<String, dynamic> json) => _$DemandFromJson(json);
 
   factory Demand.fromFirebaseJson(Map<String, dynamic> json) {
-    final time = json.remove('modifiedTime') as Timestamp;
+    final time = json.remove('updatedTime') as Timestamp;
     json['modifiedTimeUtc'] =
         DateTime.fromMillisecondsSinceEpoch(time.millisecondsSinceEpoch)
             .toIso8601String();
