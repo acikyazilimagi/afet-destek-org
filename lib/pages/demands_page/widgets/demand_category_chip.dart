@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class HomeCardChip extends StatelessWidget {
-  const HomeCardChip({
+class DemandCategoryChip extends StatelessWidget {
+  const DemandCategoryChip({
     super.key,
     required this.label,
   });

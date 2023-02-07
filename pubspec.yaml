@@ -26,7 +26,6 @@ dependencies:
   http: 0.13.5
   json_annotation: 4.8.0
   reactive_forms: 14.1.0
-  syncfusion_flutter_sliders: ^20.4.48
 
 
 dev_dependencies:
@@ -39,6 +38,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/
-    - assets/svg/

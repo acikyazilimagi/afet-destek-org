@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
+import 'package:deprem_destek/data/models/demand_category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'demand.freezed.dart';
@@ -19,6 +21,8 @@ class Demand with _$Demand {
     required int distanceMeter,
   }) = _Demand;
 
+  const Demand._();
+
   factory Demand.fromJson(Map<String, dynamic> json) => _$DemandFromJson(json);
 
   factory Demand.fromFirebaseJson(Map<String, dynamic> json) {
@@ -29,5 +33,18 @@ class Demand with _$Demand {
 
     json['distanceMeter'] = -1;
     return _$DemandFromJson(json);
+  }
+  List<String> categoryNames({required List<DemandCategory> demandCategories}) {
+    return categoryIds
+        .map(
+          (id) =>
+              demandCategories
+                  .firstWhereOrNull(
+                    (category) => category.id == id,
+                  )
+                  ?.name ??
+              '-',
+        )
+        .toList();
   }
 }
