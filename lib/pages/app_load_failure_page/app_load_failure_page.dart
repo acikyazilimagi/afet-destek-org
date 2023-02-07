@@ -1,3 +1,4 @@
+import 'package:deprem_destek/pages/app_load_failure_page/widgets/enable_location_dialog.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ class AppLoadFailurePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // implement try again button that calls AppCubit.load again
     // implement a location required warning in the page
+    Future.delayed(Duration.zero, () => CustomDialog.locationPermissionDialog(context));
     return Scaffold(
       body: Center(
         child: Column(
