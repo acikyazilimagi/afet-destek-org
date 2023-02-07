@@ -1,5 +1,5 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter/foundation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'demand_category.freezed.dart';
 part 'demand_category.g.dart';
@@ -11,5 +11,6 @@ class DemandCategory with _$DemandCategory {
     required String name,
   }) = _DemandCategory;
 
-  factory DemandCategory.fromJson(Map<String, dynamic> json) => _$DemandCategoryFromJson(json);
+  factory DemandCategory.fromJson(Map<String, dynamic> json) =>
+      _$DemandCategoryFromJson(json);
 }

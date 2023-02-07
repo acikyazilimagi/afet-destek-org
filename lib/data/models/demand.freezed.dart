@@ -23,6 +23,9 @@ mixin _$Demand {
   String get id => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
   List<String> get categoryIds => throw _privateConstructorUsedError;
+  @JsonKey(
+      fromJson: _DemandJsonParsers.geoFromJson,
+      toJson: _DemandJsonParsers.geoToJson)
   GeoFirePoint get geo => throw _privateConstructorUsedError;
   String get notes => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
@@ -42,7 +45,8 @@ abstract class $DemandCopyWith<$Res> {
       {String id,
       String userId,
       List<String> categoryIds,
-      GeoFirePoint geo,
+      @JsonKey(fromJson: _DemandJsonParsers.geoFromJson, toJson: _DemandJsonParsers.geoToJson)
+          GeoFirePoint geo,
       String notes,
       String phoneNumber,
       bool isActive});
@@ -112,7 +116,8 @@ abstract class _$$_DemandCopyWith<$Res> implements $DemandCopyWith<$Res> {
       {String id,
       String userId,
       List<String> categoryIds,
-      GeoFirePoint geo,
+      @JsonKey(fromJson: _DemandJsonParsers.geoFromJson, toJson: _DemandJsonParsers.geoToJson)
+          GeoFirePoint geo,
       String notes,
       String phoneNumber,
       bool isActive});
@@ -176,7 +181,8 @@ class _$_Demand with DiagnosticableTreeMixin implements _Demand {
       {required this.id,
       required this.userId,
       required final List<String> categoryIds,
-      required this.geo,
+      @JsonKey(fromJson: _DemandJsonParsers.geoFromJson, toJson: _DemandJsonParsers.geoToJson)
+          required this.geo,
       required this.notes,
       required this.phoneNumber,
       required this.isActive})
@@ -198,6 +204,9 @@ class _$_Demand with DiagnosticableTreeMixin implements _Demand {
   }
 
   @override
+  @JsonKey(
+      fromJson: _DemandJsonParsers.geoFromJson,
+      toJson: _DemandJsonParsers.geoToJson)
   final GeoFirePoint geo;
   @override
   final String notes;
@@ -273,7 +282,8 @@ abstract class _Demand implements Demand {
       {required final String id,
       required final String userId,
       required final List<String> categoryIds,
-      required final GeoFirePoint geo,
+      @JsonKey(fromJson: _DemandJsonParsers.geoFromJson, toJson: _DemandJsonParsers.geoToJson)
+          required final GeoFirePoint geo,
       required final String notes,
       required final String phoneNumber,
       required final bool isActive}) = _$_Demand;
@@ -287,6 +297,9 @@ abstract class _Demand implements Demand {
   @override
   List<String> get categoryIds;
   @override
+  @JsonKey(
+      fromJson: _DemandJsonParsers.geoFromJson,
+      toJson: _DemandJsonParsers.geoToJson)
   GeoFirePoint get geo;
   @override
   String get notes;

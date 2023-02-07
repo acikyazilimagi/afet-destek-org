@@ -10,6 +10,6 @@ class DepremDestekApp extends StatefulWidget {
 class _DepremDestekAppState extends State<DepremDestekApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp();
+    return const MaterialApp();
   }
 }

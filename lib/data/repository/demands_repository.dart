@@ -7,13 +7,14 @@ import 'package:geoflutterfire2/geoflutterfire2.dart';
 class DemandsRepository {
   final _geoFlutterFire = GeoFlutterFire();
   final _demandsCollection = FirebaseFirestore.instance.collection('demands');
-  final _demandCategoriesCollection = FirebaseFirestore.instance.collection('demand_categories');
+  final _demandCategoriesCollection =
+      FirebaseFirestore.instance.collection('demand_categories');
   final _auth = FirebaseAuth.instance;
 
   Future<List<DemandCategory>> getDemandCategories() async {
     final snapshot = await _demandCategoriesCollection.get();
     return snapshot.docs.map((doc) {
-      return DemandCategory.fromMap(doc.data(), doc.id);
+      return DemandCategory.fromJson(doc.data());
     }).toList();
   }
 
@@ -69,7 +70,7 @@ class DemandsRepository {
     }
 
     final doc = await _demandsCollection.doc(_auth.currentUser!.uid).get();
-    return Demand.fromMap(doc.data()!, doc.id);
+    return Demand.fromJson(doc.data()!);
   }
 
   Future<List<Demand>> getDemands({
@@ -88,13 +89,10 @@ class DemandsRepository {
           radius: radius,
           field: 'geo',
         )
-        .asyncMap(
+        .map(
           (event) => event
               .map(
-                (e) => Demand.fromMap(
-                  e.data() as Map<String, dynamic>,
-                  e.id,
-                ),
+                (e) => Demand.fromJson(e.data()! as Map<String, dynamic>),
               )
               .toList(),
         )
