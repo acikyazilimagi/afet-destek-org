@@ -1,3 +1,4 @@
+import 'package:deprem_destek/core/res/theme.dart';
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/data/repository/location_repository.dart';
@@ -43,6 +44,8 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
         child: BlocBuilder<AppCubit, AppState>(
           builder: (context, state) {
             return MaterialApp(
+              theme: AppTheme.theme(),
+              debugShowCheckedModeBanner: false,
               home: state.maybeWhen(
                 orElse: DemandsPage.new,
                 failed: () => const AppLoadFailurePage(),
