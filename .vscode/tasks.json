@@ -1,9 +1,8 @@
 {
     "version": "2.0.0",
     "tasks": [
-
         {
-            "label": "pub get main",
+            "label": "pub get main (fvm)",
             "type": "shell",
             "command": "fvm",
             "args": [
@@ -13,9 +12,8 @@
             ],
             "problemMatcher": []
         },
-
         {
-            "label": "build_runner main",
+            "label": "build_runner main (fvm)",
             "type": "shell",
             "command": "fvm",
             "args": [
@@ -33,6 +31,33 @@
             ],
             "problemMatcher": []
         },
-
+        {
+            "label": "pub get main",
+            "type": "shell",
+            "command": "flutter",
+            "args": [
+                "pub",
+                "get"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "build_runner main",
+            "type": "shell",
+            "command": "flutter",
+            "args": [
+                "pub",
+                "run",
+                "build_runner",
+                "build",
+                "--delete-conflicting-outputs",
+                "--verbose"
+            ],
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "pub get main"
+            ],
+            "problemMatcher": []
+        },
     ]
 }
