@@ -44,8 +44,8 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
           builder: (context, state) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-              home: state.maybeWhen(
-                orElse: DemandsPage.new,
+              home: state.when(
+                loaded: (_, __) => const DemandsPage(),
                 failed: () => const AppLoadFailurePage(),
                 loading: () => const Scaffold(body: Loader()),
               ),
