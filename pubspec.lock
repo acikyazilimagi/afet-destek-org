@@ -271,7 +271,7 @@ packages:
       name: flutter_lints
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "1.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -290,7 +290,7 @@ packages:
     source: hosted
     version: "2.3.2"
   freezed_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: freezed_annotation
       url: "https://pub.dartlang.org"
@@ -303,6 +303,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.0"
+  geoflutterfire2:
+    dependency: "direct main"
+    description:
+      name: geoflutterfire2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.14"
   glob:
     dependency: transitive
     description:
@@ -353,19 +360,26 @@ packages:
     source: hosted
     version: "0.6.4"
   json_annotation:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.8.0"
+  json_serializable:
+    dependency: "direct dev"
+    description:
+      name: json_serializable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.6.1"
   lints:
     dependency: transitive
     description:
       name: lints
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "1.0.1"
   logging:
     dependency: transitive
     description:
@@ -457,6 +471,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.1"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.27.7"
   shelf:
     dependency: transitive
     description:
@@ -483,6 +504,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.7"
+  source_helper:
+    dependency: transitive
+    description:
+      name: source_helper
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.3"
   source_span:
     dependency: transitive
     description:

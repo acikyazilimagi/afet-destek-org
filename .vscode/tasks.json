@@ -1,0 +1,38 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+
+        {
+            "label": "pub get main",
+            "type": "shell",
+            "command": "fvm",
+            "args": [
+                "flutter",
+                "pub",
+                "get"
+            ],
+            "problemMatcher": []
+        },
+
+        {
+            "label": "build_runner main",
+            "type": "shell",
+            "command": "fvm",
+            "args": [
+                "flutter",
+                "pub",
+                "run",
+                "build_runner",
+                "build",
+                "--delete-conflicting-outputs",
+                "--verbose"
+            ],
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "pub get main"
+            ],
+            "problemMatcher": []
+        },
+
+    ]
+}
