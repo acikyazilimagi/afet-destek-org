@@ -19,6 +19,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: 8.1.1
+  flutter_svg: 1.1.6
   font_awesome_flutter: 10.3.0
   freezed_annotation: 2.2.0
   geolocator: 9.0.2
@@ -37,3 +38,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+assets:
+  - assets/
