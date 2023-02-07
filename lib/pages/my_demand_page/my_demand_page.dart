@@ -19,7 +19,7 @@ import 'package:google_geocoding_api/google_geocoding_api.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class MyDemandPage extends StatefulWidget {
-  const MyDemandPage._({super.key});
+  const MyDemandPage._();
 
   static Future<void> show(BuildContext context) async {
     await Navigator.of(context).push<bool>(
@@ -183,7 +183,6 @@ class _MyDemandPageState extends State<MyDemandPage> {
             ),
             body: SingleChildScrollView(
               child: ReactiveForm(
-                onWillPop: () async => false,
                 formGroup: _myDemandPageFormGroup,
                 child: Container(
                   padding: const EdgeInsets.all(20),
@@ -196,15 +195,11 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         decoration: InputDecoration(
                           focusedBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(width: 2, color: Colors.red),
+                            borderSide: BorderSide(width: 2),
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: Colors.grey.shade200,
-                            ),
+                          border: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderSide: BorderSide(width: 2),
                           ),
                           hintStyle: TextStyle(color: Colors.grey.shade500),
                         ),

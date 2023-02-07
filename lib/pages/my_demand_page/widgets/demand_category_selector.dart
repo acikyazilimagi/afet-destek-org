@@ -154,9 +154,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                   (c) => c.id == categoryId,
                 );
                 return RawChip(
-                  padding: EdgeInsets.all(
-                    12,
-                  ),
+                  padding: const EdgeInsets.all(12),
                   backgroundColor: Colors.transparent,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
