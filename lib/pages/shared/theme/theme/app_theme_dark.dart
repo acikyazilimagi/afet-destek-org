@@ -1,10 +1,9 @@
 // ignore_for_file: lines_longer_than_80_chars
 
-import 'package:flutter/material.dart';
-
-import 'package:deprem_destek/pages/shared/theme/yardim_agi_theme.dart';
 import 'package:deprem_destek/pages/shared/theme/theme/app_theme.dart';
 import 'package:deprem_destek/pages/shared/theme/theme/dark/dark_theme_interface.dart';
+import 'package:deprem_destek/pages/shared/theme/yardim_agi_theme.dart';
+import 'package:flutter/material.dart';
 
 class AppThemeDark extends AppTheme with IDarkTheme {
   AppThemeDark._init();
@@ -31,7 +30,10 @@ class AppThemeDark extends AppTheme with IDarkTheme {
           filled: true,
           fillColor: Colors.black,
           hintStyle: textThemeDark.headline6.copyWith(color: colorSchemeDark.baseWhite),
-          labelStyle: textThemeDark.headline6.copyWith(color: colorSchemeDark.baseWhite, fontWeight: FontWeight.w400),
+          labelStyle: textThemeDark.headline6.copyWith(
+            color: colorSchemeDark.baseWhite,
+            fontWeight: FontWeight.w400,
+          ),
           helperStyle: textThemeDark.subtitle2.copyWith(
             color: colorSchemeDark.baseDarkGrey,
           ),

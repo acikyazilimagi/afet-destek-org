@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ColorSchemeLight {
-
   ColorSchemeLight._init();
   static ColorSchemeLight? _instance;
   static ColorSchemeLight get instance {

@@ -22,7 +22,10 @@ class AppThemeLight extends AppTheme with ILightTheme {
           filled: true,
           fillColor: colorSchemeLight.baseFormFillColor,
           hintStyle: textThemeLight.headline6.copyWith(color: colorSchemeLight.baseBlack),
-          labelStyle: textThemeLight.headline6.copyWith(color: colorSchemeLight.baseBlack, fontWeight: FontWeight.w400),
+          labelStyle: textThemeLight.headline6.copyWith(
+            color: colorSchemeLight.baseBlack,
+            fontWeight: FontWeight.w400,
+          ),
           helperStyle: textThemeLight.subtitle2.copyWith(color: colorSchemeLight.baseDarkGrey),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
