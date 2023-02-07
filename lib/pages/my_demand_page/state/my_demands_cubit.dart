@@ -21,8 +21,11 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
 
   Future<void> getCurrentDemand() async {
     try {
-      emit(state.copyWith(
-          status: const MyDemandStateStatus.loadingCurrentDemand()));
+      emit(
+        state.copyWith(
+          status: const MyDemandStateStatus.loadingCurrentDemand(),
+        ),
+      );
 
       final demand = await _demandsRepository.getCurrentDemand();
 

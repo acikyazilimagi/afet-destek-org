@@ -81,10 +81,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
       ),
       child: BlocConsumer<MyDemandsCubit, MyDemandState>(
         listener: (context, state) {
-          if (state.status.maybeWhen(
-            orElse: () => false,
-            loadedCurrentDemand: () => true,
-          )) {
+          if (state.status == MyDemandStateStatus.loadedCurrentDemand) {
             final existingDemand = state.demand!;
 
             _myDemandPageFormGroup
@@ -95,15 +92,13 @@ class _MyDemandPageState extends State<MyDemandPage> {
                 .value = existingDemand.notes;
           }
 
-          if (state.status
-              .maybeWhen(orElse: () => false, loadFailed: () => true)) {
+          if (state.status == MyDemandStateStatus.loadFailed) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Sayfa yüklenemedi'),
               ),
             );
-          } else if (state.status
-              .maybeWhen(orElse: () => false, saveFail: () => true)) {
+          } else if (state.status == MyDemandStateStatus.saveFail) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('kaydetme başarısız'),
@@ -111,8 +106,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
             );
           }
 
-          if (state.status
-              .maybeWhen(orElse: () => false, saveSuccess: () => true)) {
+          if (state.status == MyDemandStateStatus.saveSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('kaydetme başarılı'),
@@ -121,15 +115,11 @@ class _MyDemandPageState extends State<MyDemandPage> {
           }
         },
         builder: (context, state) {
-          if (state.status.maybeWhen(
-            orElse: () => false,
-            loadingCurrentDemand: () => true,
-          )) {
+          if (state.status == MyDemandStateStatus.loadingCurrentDemand) {
             return const Scaffold(body: Loader());
           }
 
-          final deactivateButtons = state.status
-              .maybeWhen(orElse: () => false, loadedCurrentDemand: () => true);
+          final deactivateButtons = state.status == MyDemandStateStatus.saving;
 
           return Scaffold(
             appBar: AppBar(
@@ -137,7 +127,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
             ),
             body: SingleChildScrollView(
               child: ReactiveForm(
-                // onWillPop: () async => false,
+                onWillPop: () async => false,
                 formGroup: _myDemandPageFormGroup,
                 child: Container(
                   padding: const EdgeInsets.all(20),

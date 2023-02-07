@@ -45,11 +45,7 @@ class DemandsPage extends StatelessWidget {
                   if (!authorized) {
                     AuthPage.show(context);
                   } else {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute<bool>(
-                        builder: (ctx) => const MyDemandPage(),
-                      ),
-                    );
+                    MyDemandPage.show(context);
                   }
                 },
                 child: const Text('Taleplerim'),
