@@ -24,6 +24,7 @@ dependencies:
   geolocator: 9.0.2
   google_geocoding_api: 1.2.0
   json_annotation: 4.8.0
+  reactive_forms: 14.1.0
 
 dev_dependencies:
   build_runner: 2.3.3
