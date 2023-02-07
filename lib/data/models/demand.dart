@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 
@@ -18,6 +17,7 @@ class Demand with _$Demand {
     )
         required GeoFirePoint geo,
     required String notes,
+    required String addressText,
     required String phoneNumber,
     required bool isActive,
   }) = _Demand;
