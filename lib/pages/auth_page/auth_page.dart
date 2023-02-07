@@ -40,7 +40,7 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     final authState = context.watch<AuthCubit>().state;
-    final isFirstStep = authState.state == AuthStateStatus.initial ||
+    final isFirstStep = authState.status == AuthStateStatus.initial ||
         authState.status == AuthStateStatus.smsFailure ||
         authState.status == AuthStateStatus.sendingSms;
 

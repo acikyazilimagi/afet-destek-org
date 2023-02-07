@@ -1,16 +1,15 @@
-part of 'demands_cubit.dart';
+import 'package:deprem_destek/data/models/demand.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-class DemandsState {
-  const DemandsState({this.demands});
+part 'demands_state.freezed.dart';
 
-  final List<Demand>? demands;
-
-  DemandsState copyWith({
+@freezed
+class DemandsState with _$DemandsState {
+  const factory DemandsState.loading() = _loadingDemandState;
+  const factory DemandsState.loaded({
     List<Demand>? demands,
-  }) {
-    return DemandsState(
-      demands: demands ?? this.demands,
-    );
-  }
+    bool? showFilter,
+    double? radius,
+  }) = loadedAppState;
+  const factory DemandsState.failed() = _failedAppState;
 }

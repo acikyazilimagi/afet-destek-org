@@ -1,5 +1,4 @@
 import 'package:deprem_destek/core/res/colors.dart';
-import 'package:deprem_destek/core/res/utils.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -9,6 +8,12 @@ class AppTheme {
           brightness: isDark ? Brightness.dark : Brightness.light,
           primarySwatch: AppColors.primarySwatch,
         ),
+        sliderTheme: const SliderThemeData(
+            showValueIndicator: ShowValueIndicator.always,
+            valueIndicatorTextStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            )),
         toggleableActiveColor: AppColors.primarySwatch,
         indicatorColor: AppColors.primarySwatch,
         appBarTheme: const AppBarTheme(
@@ -21,7 +26,7 @@ class AppTheme {
         cardTheme: CardTheme(
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppDimens.xs),
+            borderRadius: BorderRadius.circular(4),
           ),
         ),
         elevatedButtonTheme: elevatedButtonTheme,
@@ -41,7 +46,7 @@ class AppTheme {
           errorMaxLines: 2,
           isDense: true,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(AppDimens.s),
+            borderRadius: BorderRadius.circular(8),
           ),
         ),
         bottomNavigationBarTheme: bottomNavigationBarTheme,
@@ -58,33 +63,18 @@ class AppTheme {
   );
 
   static ButtonThemeData buttonTheme = const ButtonThemeData(
-    padding: EdgeInsets.only(
-      top: AppDimens.m,
-      bottom: AppDimens.m,
-      left: AppDimens.m,
-      right: AppDimens.m,
-    ),
+    padding: EdgeInsets.all(16),
   );
 
   static TextButtonThemeData textButtonTheme = TextButtonThemeData(
     style: ElevatedButton.styleFrom(
-      padding: const EdgeInsets.only(
-        top: AppDimens.m,
-        bottom: AppDimens.m,
-        left: AppDimens.m,
-        right: AppDimens.m,
-      ),
+      padding: const EdgeInsets.all(16),
     ),
   );
   static ElevatedButtonThemeData elevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       elevation: 0,
-      padding: const EdgeInsets.only(
-        top: AppDimens.m,
-        bottom: AppDimens.m,
-        left: AppDimens.m,
-        right: AppDimens.m,
-      ),
+      padding: const EdgeInsets.all(16),
     ),
   );
 
@@ -92,12 +82,7 @@ class AppTheme {
       OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       side: BorderSide(color: AppColors.primarySwatch),
-      padding: const EdgeInsets.only(
-        top: AppDimens.m,
-        bottom: AppDimens.m,
-        left: AppDimens.m,
-        right: AppDimens.m,
-      ),
+      padding: const EdgeInsets.all(16),
     ),
   );
 

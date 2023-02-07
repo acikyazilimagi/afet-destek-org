@@ -13,92 +13,95 @@ class DemandWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFF0F0F0)),
-        borderRadius: BorderRadius.circular(9),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          DecoratedBox(
-            decoration: BoxDecoration(
-              color: theme.primaryColor,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border.all(color: const Color(0xFFF0F0F0)),
+          borderRadius: BorderRadius.circular(9),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DecoratedBox(
+              decoration: BoxDecoration(
+                color: theme.primaryColor,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+              ),
+              child: const SizedBox(
+                height: 10,
               ),
             ),
-            child: const SizedBox(
-              height: 10,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      demand.addressText,
-                      style: theme.textTheme.headlineSmall,
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    const Text(
-                      '', //TODO: Talep saati eklenecek
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w300,
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        demand.addressText,
+                        style: theme.textTheme.headlineSmall,
                       ),
-                    ),
-                  ],
-                ),
-                heightGap,
-                Text(
-                  demand.notes,
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.titleSmall,
-                ),
-                heightGap,
-                Wrap(
-                  alignment: WrapAlignment.spaceEvenly,
-                  spacing: 8,
-                  children: List.generate(
-                    demand.categoryIds.length,
-                    (index) => DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                        border: Border.all(
-                          color: const Color(0xFFD0D5DD),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      const Text(
+                        '', //TODO: Talep saati eklenecek
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300,
                         ),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 8,
+                    ],
+                  ),
+                  heightGap,
+                  Text(
+                    demand.notes,
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.titleSmall,
+                  ),
+                  heightGap,
+                  Wrap(
+                    alignment: WrapAlignment.spaceEvenly,
+                    spacing: 8,
+                    children: List.generate(
+                      demand.categoryIds.length,
+                      (index) => DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(
+                            color: const Color(0xFFD0D5DD),
+                          ),
                         ),
-                        child: Text(
-                          demand.categoryIds[index],
-                          style: theme.textTheme.titleSmall,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8,
+                            horizontal: 8,
+                          ),
+                          child: Text(
+                            demand.categoryIds[index],
+                            style: theme.textTheme.titleSmall,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                heightGap,
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Detay'),
-                )
-              ],
+                  heightGap,
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('Detay'),
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
