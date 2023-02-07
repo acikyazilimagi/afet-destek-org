@@ -82,7 +82,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
       child: BlocConsumer<MyDemandsCubit, MyDemandState>(
         listener: (context, state) {
           if (state.status.maybeWhen(
-              orElse: () => false, loadedCurrentDemand: () => true)) {
+            orElse: () => false,
+            loadedCurrentDemand: () => true,
+          )) {
             final existingDemand = state.demand!;
 
             _myDemandPageFormGroup
@@ -93,15 +95,15 @@ class _MyDemandPageState extends State<MyDemandPage> {
                 .value = existingDemand.notes;
           }
 
-          if (state.status.maybeWhen(
-              orElse: () => false, loadedCurrentDemand: () => true)) {
+          if (state.status
+              .maybeWhen(orElse: () => false, loadFailed: () => true)) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Sayfa yüklenemedi'),
               ),
             );
-          } else if (state.status.maybeWhen(
-              orElse: () => false, loadedCurrentDemand: () => true)) {
+          } else if (state.status
+              .maybeWhen(orElse: () => false, saveFail: () => true)) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('kaydetme başarısız'),
@@ -109,8 +111,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
             );
           }
 
-          if (state.status.maybeWhen(
-              orElse: () => false, loadedCurrentDemand: () => true)) {
+          if (state.status
+              .maybeWhen(orElse: () => false, saveSuccess: () => true)) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('kaydetme başarılı'),
@@ -120,7 +122,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
         },
         builder: (context, state) {
           if (state.status.maybeWhen(
-              orElse: () => false, loadedCurrentDemand: () => true)) {
+            orElse: () => false,
+            loadingCurrentDemand: () => true,
+          )) {
             return const Scaffold(body: Loader());
           }
 
