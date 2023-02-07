@@ -7,14 +7,16 @@ import 'package:geoflutterfire2/geoflutterfire2.dart';
 class DemandsRepository {
   final _geoFlutterFire = GeoFlutterFire();
   final _demandsCollection = FirebaseFirestore.instance.collection('demands');
-  final _demandCategoriesCollection =
-      FirebaseFirestore.instance.collection('demand_categories');
+  final _demandCategoriesCollection = FirebaseFirestore.instance.collection('demand_categories');
   final _auth = FirebaseAuth.instance;
 
   Future<List<DemandCategory>> getDemandCategories() async {
     final snapshot = await _demandCategoriesCollection.get();
     return snapshot.docs.map((doc) {
-      return DemandCategory.fromJson(doc.data());
+      return DemandCategory.fromJson({
+        'id': doc.id,
+        ...doc.data(),
+      });
     }).toList();
   }
 
@@ -37,7 +39,7 @@ class DemandsRepository {
     await _demandsCollection.add({
       'userId': _auth.currentUser!.uid,
       'categories': categories,
-      'geo': location,
+      'geo': location.data,
       'notes': notes,
       'phoneNumber': phoneNumber,
       'isActive': isActive,
@@ -64,13 +66,21 @@ class DemandsRepository {
     });
   }
 
-  Future<Demand> getCurrentDemand() async {
+  Future<Demand?> getCurrentDemand() async {
     if (_auth.currentUser == null) {
       throw Exception('User is not logged in');
     }
 
     final doc = await _demandsCollection.doc(_auth.currentUser!.uid).get();
-    return Demand.fromJson(doc.data()!);
+
+    if (!doc.exists) {
+      return null;
+    }
+
+    return Demand.fromJson({
+      'id': doc.id,
+      ...doc.data()!,
+    });
   }
 
   Future<List<Demand>> getDemands({

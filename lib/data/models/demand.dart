@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
@@ -26,10 +27,15 @@ class Demand with _$Demand {
 
 abstract class _DemandJsonParsers {
   static Map<String, dynamic> geoToJson(GeoFirePoint geoFirePoint) {
-    return {'lat': geoFirePoint.latitude, 'long': geoFirePoint.longitude};
+    return geoFirePoint.data as Map<String, dynamic>;
   }
 
   static GeoFirePoint geoFromJson(Map<String, dynamic> json) {
-    return GeoFirePoint(json['lat'] as double, json['long'] as double);
+    final geoPoint = json['geopoint'] as GeoPoint;
+
+    return GeoFirePoint(
+      geoPoint.latitude,
+      geoPoint.longitude,
+    );
   }
 }
