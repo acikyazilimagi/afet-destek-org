@@ -10,16 +10,19 @@ class AppLoadFailurePage extends StatelessWidget {
     // implement try again button that calls AppCubit.load again
     // implement a location required warning in the page
     return Scaffold(
-        body: Center(
-            child: Column(
-      children: [
-        const Text('Lokasyon izni verdiğinizden emin olunuz.'),
-        const SizedBox(height: 16),
-        ElevatedButton(
-          onPressed: context.read<AppCubit>().load,
-          child: const Text('Tekrar Dene'),
-        )
-      ],
-    )));
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Lokasyon izni verdiğinizden emin olunuz.'),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: context.read<AppCubit>().load,
+              child: const Text('Tekrar Dene'),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

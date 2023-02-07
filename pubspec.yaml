@@ -6,12 +6,13 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.18.6 <3.0.0"
+  sdk: 2.19.1
+  flutter: 3.7.1
 
 dependencies:
   cloud_firestore: 4.3.1
-  collection: 1.16.0
 
+  collection: 1.17.0
   cupertino_icons: 1.0.2
   firebase_auth: 4.2.5
   firebase_core: 2.4.1
