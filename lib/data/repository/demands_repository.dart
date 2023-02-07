@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:deprem_destek/data/api/demands_api_client.dart';
 import 'package:deprem_destek/data/models/demand.dart';
 import 'package:deprem_destek/data/models/demand_category.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:geoflutterfire2/geoflutterfire2.dart';
+import 'package:google_geocoding_api/google_geocoding_api.dart';
 
 class DemandsRepository {
-  final _geoFlutterFire = GeoFlutterFire();
+  DemandsRepository({required DemandsApiClient demandsApiClient})
+      : _demandsApiClient = demandsApiClient;
+
+  final DemandsApiClient _demandsApiClient;
   final _demandsCollection = FirebaseFirestore.instance.collection('demands');
   final _demandCategoriesCollection =
       FirebaseFirestore.instance.collection('demand_categories');
@@ -22,47 +26,63 @@ class DemandsRepository {
   }
 
   Future<void> addDemand({
-    required List<String> categories,
-    required GeoPoint geo,
+    required GoogleGeocodingLocation geo,
+    required List<String> categoryIds,
+    required String addressText,
     required String notes,
     required String phoneNumber,
-    required bool isActive,
+    required String whatsappNumber,
   }) async {
     if (_auth.currentUser == null) {
       throw Exception('User is not logged in');
     }
 
-    final location = _geoFlutterFire.point(
-      latitude: geo.latitude,
-      longitude: geo.longitude,
-    );
-
     await _demandsCollection.add({
       'userId': _auth.currentUser!.uid,
-      'categories': categories,
-      'geo': location.data,
+      'geo': GeoPoint(geo.lat, geo.lng),
       'notes': notes,
+      'addressText': addressText,
+      'categoryIds': FieldValue.arrayUnion(categoryIds),
       'phoneNumber': phoneNumber,
-      'isActive': isActive,
+      'whatsappNumber': whatsappNumber,
+      'isActive': true,
+      'createdTime': FieldValue.serverTimestamp(),
+      'updatedTime': FieldValue.serverTimestamp()
     });
   }
 
-  Future<void> activateCurrentDemand() async {
+  Future<void> updateDemand({
+    required String demandId,
+    required String addressText,
+    required GoogleGeocodingLocation geo,
+    required List<String> categoryIds,
+    required String notes,
+    required String phoneNumber,
+    required String whatsappNumber,
+  }) async {
     if (_auth.currentUser == null) {
       throw Exception('User is not logged in');
     }
 
-    await _demandsCollection.doc(_auth.currentUser!.uid).update({
+    await _demandsCollection.doc(demandId).update({
+      'geo': GeoPoint(geo.lat, geo.lng),
+      'notes': notes,
+      'addressText': addressText,
+      'categoryIds': categoryIds,
+      'phoneNumber': phoneNumber,
+      'whatsappNumber': whatsappNumber,
+      'updatedTime': FieldValue.serverTimestamp()
+    });
+  }
+
+  Future<void> activateDemand({required String demandId}) async {
+    await _demandsCollection.doc(demandId).update({
       'isActive': true,
     });
   }
 
-  Future<void> deactivateCurrentDemand() async {
-    if (_auth.currentUser == null) {
-      throw Exception('User is not logged in');
-    }
-
-    await _demandsCollection.doc(_auth.currentUser!.uid).update({
+  Future<void> deactivateDemand({required String demandId}) async {
+    await _demandsCollection.doc(demandId).update({
       'isActive': false,
     });
   }
@@ -72,43 +92,38 @@ class DemandsRepository {
       throw Exception('User is not logged in');
     }
 
-    final doc = await _demandsCollection.doc(_auth.currentUser!.uid).get();
+    final query = await _demandsCollection
+        .where(
+          'userId',
+          isEqualTo: _auth.currentUser!.uid,
+        )
+        .get();
 
-    if (!doc.exists) {
+    if (query.docs.isEmpty) {
       return null;
     }
 
-    return Demand.fromJson({
-      'id': doc.id,
-      ...doc.data()!,
+    return Demand.fromFirebaseJson({
+      'id': query.docs.first.id,
+      ...query.docs.first.data(),
     });
   }
 
   Future<List<Demand>> getDemands({
-    required GeoPoint geo,
-    required double radius,
-    required List<String> categoryUUIDs,
+    required GoogleGeocodingLocation? geo,
+    required double? radius,
+    required List<String>? categoryIds,
     required int page,
   }) async {
-    final center = _geoFlutterFire.point(
-      latitude: geo.latitude,
-      longitude: geo.longitude,
-    );
-
-    return _geoFlutterFire
-        .collection(collectionRef: _demandsCollection)
-        .within(
-          center: center,
-          radius: radius,
-          field: 'geo',
-        )
-        .map(
-          (event) => event
-              .map(
-                (e) => Demand.fromJson(e.data()! as Map<String, dynamic>),
-              )
-              .toList(),
-        )
-        .first;
+    try {
+      return await _demandsApiClient.getDemands(
+        geo: geo,
+        page: page,
+        radius: radius,
+        categoryIds: categoryIds,
+      );
+    } catch (_) {
+      rethrow;
+    }
   }
 }
