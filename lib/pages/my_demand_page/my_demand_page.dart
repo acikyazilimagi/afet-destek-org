@@ -1,13 +1,15 @@
+import 'package:deprem_destek/data/models/demand.dart';
+import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
-import 'package:deprem_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:deprem_destek/pages/my_demand_page/state/my_demands_cubit.dart';
 import 'package:deprem_destek/pages/my_demand_page/state/my_demands_state.dart';
 import 'package:deprem_destek/pages/my_demand_page/widgets/demand_category_selector.dart';
 import 'package:deprem_destek/pages/my_demand_page/widgets/geo_value_accessor.dart';
-import 'package:deprem_destek/pages/my_demand_page/widgets/loader.dart';
 import 'package:deprem_destek/pages/my_demand_page/widgets/my_demand_textfield.dart';
 import 'package:deprem_destek/shared/extensions/reactive_forms_extensions.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
+import 'package:deprem_destek/shared/widgets/loader.dart';
+import 'package:deprem_destek/shared/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,16 +18,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import '../../data/repository/auth_repository.dart';
-
 class MyDemandPage extends StatefulWidget {
-  const MyDemandPage({super.key});
+  const MyDemandPage._({super.key});
 
   static Future<void> show(BuildContext context) async {
     await Navigator.of(context).push<bool>(
       MaterialPageRoute<bool>(
         builder: (context) {
-          return const MyDemandPage();
+          return BlocProvider<MyDemandsCubit>(
+            create: (context) => MyDemandsCubit(
+              demandsRepository: context.read<DemandsRepository>(),
+            ),
+            child: const MyDemandPage._(),
+          );
         },
       ),
     );
@@ -69,6 +74,91 @@ class _MyDemandPageState extends State<MyDemandPage> {
         .value = FirebaseAuth.instance.currentUser!.phoneNumber;
   }
 
+  void _onToggleActivation({required Demand demand}) {
+    if (demand.isActive) {
+      context.read<MyDemandsCubit>().deactivateDemand(
+            demandId: demand.id,
+          );
+    } else {
+      context.read<MyDemandsCubit>().activateDemand(
+            demandId: demand.id,
+          );
+    }
+  }
+
+  void _onSave({required String? demandId}) {
+    final categories = _myDemandPageFormGroup.readByControlName<List<String>>(
+      _MyDemandPageFormFields.categories.name,
+    );
+    final geo = _myDemandPageFormGroup.readByControlName<GoogleGeocodingResult>(
+      _MyDemandPageFormFields.geoLocation.name,
+    );
+
+    final notes = _myDemandPageFormGroup.readByControlName<String>(
+      _MyDemandPageFormFields.notes.name,
+    );
+
+    final phoneNumber = _myDemandPageFormGroup.readByControlName<String>(
+      _MyDemandPageFormFields.phoneNumber.name,
+    );
+
+    final whatsappNumber = _myDemandPageFormGroup
+            .control(
+              _MyDemandPageFormFields.wpPhoneNumber.name,
+            )
+            .enabled
+        ? _myDemandPageFormGroup.readByControlName<String>(
+            _MyDemandPageFormFields.wpPhoneNumber.name,
+          )
+        : null;
+
+    if (demandId == null) {
+      context.read<MyDemandsCubit>().addDemand(
+            categoryIds: categories,
+            geo: geo,
+            notes: notes,
+            phoneNumber: phoneNumber,
+            whatsappNumber: whatsappNumber,
+          );
+    } else {
+      context.read<MyDemandsCubit>().updateDemand(
+            demandId: demandId,
+            categoryIds: categories,
+            geo: geo,
+            notes: notes,
+            phoneNumber: phoneNumber,
+            whatsappNumber: whatsappNumber,
+          );
+    }
+  }
+
+  void _populateWithExistingData({required Demand? existingDemand}) {
+    if (existingDemand != null) {
+      _myDemandPageFormGroup
+          .control(_MyDemandPageFormFields.categories.name)
+          .value = existingDemand.categoryIds;
+      _myDemandPageFormGroup.control(_MyDemandPageFormFields.notes.name).value =
+          existingDemand.notes;
+    }
+  }
+
+  void _listener(BuildContext context, MyDemandState state) {
+    state.status.whenOrNull(
+      loadedCurrentDemand: () {
+        _populateWithExistingData(existingDemand: state.demand);
+      },
+      loadFailed: () {
+        showFailureSnackBar(context, 'Sayfa yüklemesi başarısız.');
+      },
+      saveFail: () {
+        showFailureSnackBar(context, 'Kaydetme başarısız.');
+      },
+      saveSuccess: () {
+        showInfoSnackBar(context, 'Değişiklikler kaydedildi.');
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final appState = context.read<AppCubit>().state.mapOrNull(
@@ -79,68 +169,15 @@ class _MyDemandPageState extends State<MyDemandPage> {
       return const Scaffold(body: Loader());
     }
 
-    return BlocProvider<MyDemandsCubit>(
-      create: (context) => MyDemandsCubit(
-        demandsRepository: context.read<DemandsRepository>(),
-      ),
-      child: BlocConsumer<MyDemandsCubit, MyDemandState>(
-        listener: (context, state) {
-          if (state.status.whenOrNull(loadedCurrentDemand: () => true) ??
-              false) {
-            final existingDemand = state.demand;
+    return BlocConsumer<MyDemandsCubit, MyDemandState>(
+      listener: _listener,
+      builder: (context, state) {
+        final deactivateButtons =
+            state.status.maybeWhen(saving: () => true, orElse: () => false);
 
-            if (existingDemand != null) {
-              _myDemandPageFormGroup
-                  .control(_MyDemandPageFormFields.categories.name)
-                  .value = existingDemand.categoryIds;
-              _myDemandPageFormGroup
-                  .control(_MyDemandPageFormFields.notes.name)
-                  .value = existingDemand.notes;
-            }
-          }
-
-          if (state.status.whenOrNull(loadFailed: () => true) ?? false) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Sayfa yüklenemedi'),
-              ),
-            );
-          } else if (state.status.whenOrNull(
-                saveFail: () => true,
-              ) ??
-              false) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('kaydetme başarısız'),
-              ),
-            );
-          }
-
-          if (state.status.whenOrNull(
-                saveSuccess: () => true,
-              ) ??
-              false) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('kaydetme başarılı'),
-              ),
-            );
-          }
-        },
-        builder: (context, state) {
-          if (state.status.whenOrNull(
-                loadingCurrentDemand: () => true,
-              ) ??
-              false) {
-            return const Scaffold(body: Loader());
-          }
-
-          final deactivateButtons = state.status.whenOrNull(
-                saving: () => true,
-              ) ??
-              false;
-
-          return Scaffold(
+        return state.status.maybeWhen(
+          loadingCurrentDemand: () => const Scaffold(body: Loader()),
+          orElse: () => Scaffold(
             appBar: AppBar(
               title: const Text('Talep Ekle/Düzenle'),
             ),
@@ -232,41 +269,6 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               ],
                             ),
                           );
-
-                          // return Row(
-                          //   children: [
-                          //     const Spacer(),
-                          //     Checkbox(
-                          //       onChanged: (value) => value != true
-                          //           ? form
-                          //               .control(
-                          //                 _MyDemandPageFormFields
-                          //                     .wpPhoneNumber.name,
-                          //               )
-                          //               .markAsDisabled()
-                          //           : form
-                          //               .control(
-                          //                 _MyDemandPageFormFields
-                          //                     .wpPhoneNumber.name,
-                          //               )
-                          //               .markAsEnabled(),
-                          //       value: form
-                          //           .control(
-                          //             _MyDemandPageFormFields
-                          //                 .wpPhoneNumber.name,
-                          //           )
-                          //           .enabled,
-                          //     ),
-                          //     const Text('Whatsapp ile ulaşılsın'),
-                          //     const SizedBox(
-                          //       width: 8,
-                          //     ),
-                          //     const Icon(
-                          //       FontAwesomeIcons.whatsapp,
-                          //       color: Colors.green,
-                          //     ),
-                          //   ],
-                          // );
                         },
                       ),
                       Padding(
@@ -283,78 +285,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.red,
                                     ),
-                                    onPressed: formGroup.valid &&
-                                            !deactivateButtons
-                                        ? () {
-                                            final categories =
-                                                _myDemandPageFormGroup
-                                                    .readByControlName<
-                                                        List<String>>(
-                                              _MyDemandPageFormFields
-                                                  .categories.name,
-                                            );
-                                            final geo = _myDemandPageFormGroup
-                                                .readByControlName<
-                                                    GoogleGeocodingResult>(
-                                              _MyDemandPageFormFields
-                                                  .geoLocation.name,
-                                            );
-
-                                            final notes = _myDemandPageFormGroup
-                                                .readByControlName<String>(
-                                              _MyDemandPageFormFields
-                                                  .notes.name,
-                                            );
-
-                                            final phoneNumber =
-                                                _myDemandPageFormGroup
-                                                    .readByControlName<String>(
-                                              _MyDemandPageFormFields
-                                                  .phoneNumber.name,
-                                            );
-
-                                            final whatsappNumber =
-                                                _myDemandPageFormGroup
-                                                        .control(
-                                                          _MyDemandPageFormFields
-                                                              .wpPhoneNumber
-                                                              .name,
-                                                        )
-                                                        .enabled
-                                                    ? _myDemandPageFormGroup
-                                                        .readByControlName<
-                                                            String>(
-                                                        _MyDemandPageFormFields
-                                                            .wpPhoneNumber.name,
-                                                      )
-                                                    : null;
-
-                                            if (state.demand == null) {
-                                              context
-                                                  .read<MyDemandsCubit>()
-                                                  .addDemand(
-                                                    categoryIds: categories,
-                                                    geo: geo,
-                                                    notes: notes,
-                                                    phoneNumber: phoneNumber,
-                                                    whatsappNumber:
-                                                        whatsappNumber,
-                                                  );
-                                            } else {
-                                              context
-                                                  .read<MyDemandsCubit>()
-                                                  .updateDemand(
-                                                    demandId: state.demand!.id,
-                                                    categoryIds: categories,
-                                                    geo: geo,
-                                                    notes: notes,
-                                                    phoneNumber: phoneNumber,
-                                                    whatsappNumber:
-                                                        whatsappNumber,
-                                                  );
-                                            }
-                                          }
-                                        : null,
+                                    onPressed:
+                                        formGroup.valid && !deactivateButtons
+                                            ? () => _onSave(
+                                                  demandId: state.demand?.id,
+                                                )
+                                            : null,
                                     child: Padding(
                                       padding: const EdgeInsets.all(14),
                                       child: Text(
@@ -380,23 +316,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                         backgroundColor: Colors.red,
                                       ),
                                       onPressed: !deactivateButtons
-                                          ? () {
-                                              final demand = state.demand!;
-
-                                              if (state.demand!.isActive) {
-                                                context
-                                                    .read<MyDemandsCubit>()
-                                                    .deactivateDemand(
-                                                      demandId: demand.id,
-                                                    );
-                                              } else {
-                                                context
-                                                    .read<MyDemandsCubit>()
-                                                    .activateDemand(
-                                                      demandId: demand.id,
-                                                    );
-                                              }
-                                            }
+                                          ? () => _onToggleActivation(
+                                                demand: state.demand!,
+                                              )
                                           : null,
                                       child: Padding(
                                         padding: const EdgeInsets.all(14),
@@ -426,6 +348,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         child: OutlinedButton(
                           onPressed: () {
                             context.read<AuthRepository>().logout();
+                            Navigator.of(context).pop();
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8),
@@ -447,9 +370,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

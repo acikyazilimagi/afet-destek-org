@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
-import 'package:deprem_destek/pages/my_demand_page/widgets/loader.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
+import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -86,6 +86,9 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(12),
                                     child: Card(
+                                      color: isSelected
+                                          ? Colors.grey
+                                          : Colors.white,
                                       child: Padding(
                                         padding: const EdgeInsets.all(12),
                                         child: Row(
@@ -97,12 +100,6 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                                     .textTheme
                                                     .labelMedium,
                                               ),
-                                            ),
-                                            Icon(
-                                              Icons.check,
-                                              color: isSelected
-                                                  ? Colors.green
-                                                  : Colors.grey,
                                             ),
                                           ],
                                         ),

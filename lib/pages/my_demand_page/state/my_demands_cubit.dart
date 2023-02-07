@@ -106,6 +106,7 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
       await _demandsRepository.activateDemand(demandId: demandId);
 
       emit(state.copyWith(status: const MyDemandStateStatus.saveSuccess()));
+      unawaited(getCurrentDemand());
     } catch (_) {
       emit(state.copyWith(status: const MyDemandStateStatus.saveFail()));
     }
@@ -125,6 +126,7 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
       await _demandsRepository.deactivateDemand(demandId: demandId);
 
       emit(state.copyWith(status: const MyDemandStateStatus.saveSuccess()));
+      unawaited(getCurrentDemand());
     } catch (_) {
       emit(state.copyWith(status: const MyDemandStateStatus.saveFail()));
     }
