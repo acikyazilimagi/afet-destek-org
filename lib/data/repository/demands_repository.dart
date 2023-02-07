@@ -7,7 +7,8 @@ import 'package:geoflutterfire2/geoflutterfire2.dart';
 class DemandsRepository {
   final _geoFlutterFire = GeoFlutterFire();
   final _demandsCollection = FirebaseFirestore.instance.collection('demands');
-  final _demandCategoriesCollection = FirebaseFirestore.instance.collection('demand_categories');
+  final _demandCategoriesCollection =
+      FirebaseFirestore.instance.collection('demand_categories');
   final _auth = FirebaseAuth.instance;
 
   Future<List<DemandCategory>> getDemandCategories() async {

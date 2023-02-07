@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthRepository {
   final Stream<User?> userStream = FirebaseAuth.instance.userChanges();
   ConfirmationResult? _confirmationResult;
-  
+
   Future<void> sendSMS({required String number}) async {
     try {
       _confirmationResult =
