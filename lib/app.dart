@@ -1,3 +1,4 @@
+import 'package:deprem_destek/data/api/demands_api_client.dart';
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/data/repository/location_repository.dart';
@@ -25,7 +26,9 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
           create: (context) => AuthRepository(),
         ),
         RepositoryProvider<DemandsRepository>(
-          create: (context) => DemandsRepository(),
+          create: (context) => DemandsRepository(
+            demandsApiClient: DemandsApiClient(),
+          ),
         ),
         RepositoryProvider<LocationRepository>(
           create: (context) => LocationRepository(),

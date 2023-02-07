@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:geoflutterfire2/geoflutterfire2.dart';
 
 part 'demand.freezed.dart';
 part 'demand.g.dart';
@@ -11,31 +10,23 @@ class Demand with _$Demand {
     required String id,
     required String userId,
     required List<String> categoryIds,
-    @JsonKey(
-      fromJson: _DemandJsonParsers.geoFromJson,
-      toJson: _DemandJsonParsers.geoToJson,
-    )
-        required GeoFirePoint geo,
     required String notes,
     required String addressText,
     required String phoneNumber,
-    required bool isActive,
+    required String whatsappNumber,
+    required DateTime modifiedTimeUtc,
+    required int distanceKm,
   }) = _Demand;
 
   factory Demand.fromJson(Map<String, dynamic> json) => _$DemandFromJson(json);
-}
 
-abstract class _DemandJsonParsers {
-  static Map<String, dynamic> geoToJson(GeoFirePoint geoFirePoint) {
-    return geoFirePoint.data as Map<String, dynamic>;
-  }
+  factory Demand.fromFirebaseJson(Map<String, dynamic> json) {
+    final time = json.remove('modifiedTime') as Timestamp;
+    json['modifiedTimeUtc'] =
+        DateTime.fromMillisecondsSinceEpoch(time.millisecondsSinceEpoch)
+            .toIso8601String();
 
-  static GeoFirePoint geoFromJson(Map<String, dynamic> json) {
-    final geoPoint = json['geopoint'] as GeoPoint;
-
-    return GeoFirePoint(
-      geoPoint.latitude,
-      geoPoint.longitude,
-    );
+    json['distanceKm'] = -1;
+    return _$DemandFromJson(json);
   }
 }
