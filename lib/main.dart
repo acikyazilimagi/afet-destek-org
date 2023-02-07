@@ -12,5 +12,6 @@ void main() async {
       projectId: 'deprem-destek-org',
     ),
   );
+
   runApp(const DepremDestekApp());
 }
