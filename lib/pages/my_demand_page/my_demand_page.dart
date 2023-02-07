@@ -72,18 +72,18 @@ class _MyDemandPageState extends State<MyDemandPage> {
                     ),
                   ),
                 ),
-                // ReactiveDropdownField<DemandCategory>(
-                //   formControlName: _MyFormFields.demands.name,
-                //   decoration: InputDecoration(labelText: "İhtiyaç Türü"),
-                //   items: demandCategories
-                //       .map(
-                //         (e) => DropdownMenuItem<DemandCategory>(
-                //           value: e,
-                //           child: Text(e.name),
-                //         ),
-                //       )
-                //       .toList(),
-                // ),
+                ReactiveDropdownField<DemandCategory>(
+                  formControlName: _MyFormFields.demands.name,
+                  decoration: const InputDecoration(labelText: "İhtiyaç Türü"),
+                  items: demansCategories
+                      .map(
+                        (e) => DropdownMenuItem<DemandCategory>(
+                          value: e,
+                          child: Text(e.name),
+                        ),
+                      )
+                      .toList(),
+                ),
                 Wrap(
                   alignment: WrapAlignment.spaceEvenly,
                   crossAxisAlignment: WrapCrossAlignment.start,
@@ -92,18 +92,18 @@ class _MyDemandPageState extends State<MyDemandPage> {
                   children: List.generate(
                     5,
                     (index) => RawChip(
-                      label: Text("barınma"),
+                      label: Text('barınma'),
                       onDeleted: () {},
                     ),
                   ),
                 ),
                 ReactiveTextField(
-                  decoration: InputDecoration(hintText: "Neye İhtiyacın Var?"),
+                  decoration: InputDecoration(hintText: 'Neye İhtiyacın Var?'),
                   formControlName: _MyFormFields.needText.name,
                 ),
                 ReactiveTextField(
                   decoration: InputDecoration(
-                    prefixIcon: Text("+90"),
+                    prefixIcon: Text('+90'),
                     // isDense: true,
                     prefixIconConstraints:
                         BoxConstraints(minWidth: 0, minHeight: 0),
@@ -117,13 +117,13 @@ class _MyDemandPageState extends State<MyDemandPage> {
                 Row(
                   children: const [
                     Icon(FontAwesomeIcons.whatsapp),
-                    Text("Whatsapp ile ulaşılsın"),
+                    Text('Whatsapp ile ulaşılsın'),
                   ],
                 ),
                 ReactiveTextField(
                   formControlName: _MyFormFields.wpPhoneNumber.name,
-                  decoration: InputDecoration(
-                    prefixIcon: Text("+90"),
+                  decoration: const InputDecoration(
+                    prefixIcon: Text('+90'),
                     // isDense: true,
                     prefixIconConstraints:
                         BoxConstraints(minWidth: 0, minHeight: 0),
@@ -139,11 +139,15 @@ class _MyDemandPageState extends State<MyDemandPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         ElevatedButton(
-                            onPressed: formGroup.valid ? () {} : null,
-                            child: const Text("Kaydet")),
+                          onPressed: formGroup.valid ? () {} : null,
+                          child: const Text(
+                            'Kaydet',
+                          ),
+                        ),
                         ElevatedButton(
-                            onPressed: () {},
-                            child: const Text("Talebi durdur")),
+                          onPressed: () {},
+                          child: const Text('Talebi durdur'),
+                        ),
                       ],
                     );
                   },
