@@ -11,11 +11,24 @@ class MyDemandState with _$MyDemandState {
   }) = _MyDemandState;
 }
 
-enum MyDemandStateStatus {
-  loadingCurrentDemand,
-  loadFailed,
-  loadedCurrentDemand,
-  saving,
-  saveSuccess,
-  saveFail,
+// enum MyDemandStateStatus {
+//   loadingCurrentDemand,
+//   loadFailed,
+//   loadedCurrentDemand,
+//   saving,
+//   saveSuccess,
+//   saveFail,
+// }
+
+@freezed
+class MyDemandStateStatus with _$MyDemandStateStatus {
+  const factory MyDemandStateStatus.loadingCurrentDemand() =
+      _loadingCurrentDemand;
+  const factory MyDemandStateStatus.loadFailed() = _loadFailed;
+
+  const factory MyDemandStateStatus.loadedCurrentDemand() =
+      _loadedCurrentDemand;
+  const factory MyDemandStateStatus.saving() = _saving;
+  const factory MyDemandStateStatus.saveSuccess() = _saveSuccess;
+  const factory MyDemandStateStatus.saveFail() = _saveFail;
 }

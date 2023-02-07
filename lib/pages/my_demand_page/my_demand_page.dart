@@ -17,6 +17,16 @@ import 'package:reactive_forms/reactive_forms.dart';
 class MyDemandPage extends StatefulWidget {
   const MyDemandPage({super.key});
 
+  static Future<void> show(BuildContext context) async {
+    await Navigator.of(context).push<bool>(
+      MaterialPageRoute<bool>(
+        builder: (context) {
+          return const MyDemandPage();
+        },
+      ),
+    );
+  }
+
   @override
   State<MyDemandPage> createState() => _MyDemandPageState();
 }
@@ -71,7 +81,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
       ),
       child: BlocConsumer<MyDemandsCubit, MyDemandState>(
         listener: (context, state) {
-          if (state.status == MyDemandStateStatus.loadedCurrentDemand) {
+          if (state.status.maybeWhen(
+              orElse: () => false, loadedCurrentDemand: () => true)) {
             final existingDemand = state.demand!;
 
             _myDemandPageFormGroup
@@ -82,13 +93,15 @@ class _MyDemandPageState extends State<MyDemandPage> {
                 .value = existingDemand.notes;
           }
 
-          if (state.status == MyDemandStateStatus.loadFailed) {
+          if (state.status.maybeWhen(
+              orElse: () => false, loadedCurrentDemand: () => true)) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Sayfa yüklenemedi'),
               ),
             );
-          } else if (state.status == MyDemandStateStatus.saveFail) {
+          } else if (state.status.maybeWhen(
+              orElse: () => false, loadedCurrentDemand: () => true)) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('kaydetme başarısız'),
@@ -96,7 +109,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
             );
           }
 
-          if (state.status == MyDemandStateStatus.saveSuccess) {
+          if (state.status.maybeWhen(
+              orElse: () => false, loadedCurrentDemand: () => true)) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('kaydetme başarılı'),
@@ -105,11 +119,13 @@ class _MyDemandPageState extends State<MyDemandPage> {
           }
         },
         builder: (context, state) {
-          if (state.status == MyDemandStateStatus.loadingCurrentDemand) {
+          if (state.status.maybeWhen(
+              orElse: () => false, loadedCurrentDemand: () => true)) {
             return const Scaffold(body: Loader());
           }
 
-          final deactivateButtons = state.status == MyDemandStateStatus.saving;
+          final deactivateButtons = state.status
+              .maybeWhen(orElse: () => false, loadedCurrentDemand: () => true);
 
           return Scaffold(
             appBar: AppBar(
@@ -117,7 +133,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
             ),
             body: SingleChildScrollView(
               child: ReactiveForm(
-                onWillPop: () async => false,
+                // onWillPop: () async => false,
                 formGroup: _myDemandPageFormGroup,
                 child: Container(
                   padding: const EdgeInsets.all(20),

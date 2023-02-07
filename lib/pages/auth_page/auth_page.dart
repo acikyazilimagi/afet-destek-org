@@ -1,7 +1,7 @@
-import 'package:deprem_destek/data/repository/auth_repository.dart';
-import 'package:deprem_destek/pages/auth_page/state/auth_cubit.dart';
-import 'package:deprem_destek/pages/auth_page/state/auth_state.dart';
-import 'package:deprem_destek/pages/my_demand_page/widgets/loader.dart';
+import '../../data/repository/auth_repository.dart';
+import 'state/auth_cubit.dart';
+import 'state/auth_state.dart';
+import '../my_demand_page/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
