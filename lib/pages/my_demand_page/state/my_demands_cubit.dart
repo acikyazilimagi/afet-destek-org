@@ -94,11 +94,11 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
 
   Future<void> activateDemand({
     required String demandId,
-    required GoogleGeocodingResult geo,
-    required List<String> categoryIds,
-    required String notes,
-    required String phoneNumber,
-    required String whatsappNumber,
+    // required GoogleGeocodingResult geo,
+    // required List<String> categoryIds,
+    // required String notes,
+    // required String phoneNumber,
+    // required String whatsappNumber,
   }) async {
     try {
       emit(state.copyWith(status: const MyDemandStateStatus.saving()));
@@ -113,11 +113,11 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
 
   Future<void> deactivateDemand({
     required String demandId,
-    required GoogleGeocodingResult geo,
-    required List<String> categoryIds,
-    required String notes,
-    required String phoneNumber,
-    required String whatsappNumber,
+    // required GoogleGeocodingResult geo,
+    // required List<String> categoryIds,
+    // required String notes,
+    // required String phoneNumber,
+    // required String whatsappNumber,
   }) async {
     try {
       emit(state.copyWith(status: const MyDemandStateStatus.saving()));
