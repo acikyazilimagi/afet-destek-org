@@ -18,6 +18,7 @@ jobs:
       - run: flutter pub get
       - run: flutter pub run build_runner build --delete-conflicting-outputs
       - run: flutter analyze
+      - run: dart format . --set-exit-if-changed
   build_web:
     name: Build Flutter (Web)
     needs: test
