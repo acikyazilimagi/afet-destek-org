@@ -3,6 +3,8 @@ import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/data/repository/location_repository.dart';
 import 'package:deprem_destek/pages/app_load_failure_page/app_load_failure_page.dart';
 import 'package:deprem_destek/pages/demands_page/demands_page.dart';
+import 'package:deprem_destek/pages/demands_page/state/demands_cubit.dart';
+import 'package:deprem_destek/pages/demands_page/state/dialog_cubit.dart';
 import 'package:deprem_destek/pages/my_demand_page/widgets/loader.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:deprem_destek/shared/state/app_state.dart';
@@ -33,6 +35,15 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => DemandsCubit(
+                authRepository: AuthRepository(),
+                locationRepository: LocationRepository(),
+                demandsRepository: DemandsRepository()),
+          ),
+          BlocProvider(
+            create: (context) => DialogCubit(),
+          ),
           BlocProvider<AppCubit>(
             create: (context) => AppCubit(
               demandsRepository: context.read<DemandsRepository>(),
