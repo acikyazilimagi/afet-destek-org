@@ -7,6 +7,8 @@ import 'package:deprem_destek/pages/demands_page/demands_page.dart';
 import 'package:deprem_destek/pages/my_demand_page/widgets/loader.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:deprem_destek/shared/state/app_state.dart';
+import 'package:deprem_destek/theme/app_theme.dart';
+import 'package:deprem_destek/theme/state/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,6 +38,9 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
       ],
       child: MultiBlocProvider(
         providers: [
+          BlocProvider<ThemeCubit>(
+              create: (context) => ThemeCubit(),
+          ),
           BlocProvider<AppCubit>(
             create: (context) => AppCubit(
               demandsRepository: context.read<DemandsRepository>(),
@@ -47,6 +52,11 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
           builder: (context, state) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
+              title: 'Yardim Agi',
+              theme: AppTheme.ThemeLight(context),
+              darkTheme: AppTheme.ThemeDark(context),
+              themeMode: context.select(
+                      (ThemeCubit themeCubit) => themeCubit.state.themeMode),
               home: state.when(
                 loaded: (_, __) => const DemandsPage(),
                 failed: () => const AppLoadFailurePage(),
