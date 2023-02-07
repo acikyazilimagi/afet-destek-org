@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_positional_boolean_parameters
+
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/pages/auth_page/auth_page.dart';
 import 'package:deprem_destek/pages/demands_page/home_page.dart';
@@ -12,6 +14,7 @@ class DemandsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     final appState = context.read<AppCubit>().state;
 
     return StreamBuilder<User?>(
@@ -20,7 +23,7 @@ class DemandsPage extends StatelessWidget {
         // ignore: unused_local_variable
         final authorized = snapshot.data != null;
 
-        return Scaffold(
+        return const Scaffold(
           body: HomePage(), //authorizeColumn(authorized, appState, context),
         );
       },
@@ -28,7 +31,10 @@ class DemandsPage extends StatelessWidget {
   }
 
   Column authorizeColumn(
-      bool authorized, AppState appState, BuildContext context) {
+    bool authorized,
+    AppState appState,
+    BuildContext context,
+  ) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
