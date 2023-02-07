@@ -1,12 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deprem_destek/data/models/demand.dart';
+import 'package:deprem_destek/data/models/demand_category.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geoflutterfire2/geoflutterfire2.dart';
 
-class DemandRepository {
+class DemandsRepository {
   final _geoFlutterFire = GeoFlutterFire();
-  final _collection = FirebaseFirestore.instance.collection('demands');
+  final _demandsCollection = FirebaseFirestore.instance.collection('demands');
+  final _demandCategoriesCollection = FirebaseFirestore.instance.collection('demand_categories');
   final _auth = FirebaseAuth.instance;
+
+  Future<List<DemandCategory>> getDemandCategories() async {
+    final snapshot = await _demandCategoriesCollection.get();
+    return snapshot.docs.map((doc) {
+      return DemandCategory.fromMap(doc.data(), doc.id);
+    }).toList();
+  }
 
   Future<void> addDemand({
     required List<String> categories,
@@ -24,7 +33,7 @@ class DemandRepository {
       longitude: geo.longitude,
     );
 
-    await _collection.add({
+    await _demandsCollection.add({
       'userId': _auth.currentUser!.uid,
       'categories': categories,
       'geo': location,
@@ -39,7 +48,7 @@ class DemandRepository {
       throw Exception('User is not logged in');
     }
 
-    await _collection.doc(_auth.currentUser!.uid).update({
+    await _demandsCollection.doc(_auth.currentUser!.uid).update({
       'isActive': true,
     });
   }
@@ -49,17 +58,9 @@ class DemandRepository {
       throw Exception('User is not logged in');
     }
 
-    await _collection.doc(_auth.currentUser!.uid).update({
+    await _demandsCollection.doc(_auth.currentUser!.uid).update({
       'isActive': false,
     });
-  }
-
-  Future<void> deleteCurrentDemand() async {
-    if (_auth.currentUser == null) {
-      throw Exception('User is not logged in');
-    }
-
-    await _collection.doc(_auth.currentUser!.uid).delete();
   }
 
   Future<Demand> getCurrentDemand() async {
@@ -67,7 +68,7 @@ class DemandRepository {
       throw Exception('User is not logged in');
     }
 
-    final doc = await _collection.doc(_auth.currentUser!.uid).get();
+    final doc = await _demandsCollection.doc(_auth.currentUser!.uid).get();
     return Demand.fromMap(doc.data()!, doc.id);
   }
 
@@ -81,7 +82,7 @@ class DemandRepository {
     );
 
     return _geoFlutterFire
-        .collection(collectionRef: _collection)
+        .collection(collectionRef: _demandsCollection)
         .within(
           center: center,
           radius: radius,

@@ -1,26 +1,15 @@
-class DemandCategory {
-  const DemandCategory({
-    required this.id,
-    required this.name,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
-  factory DemandCategory.fromMap(Map<String, dynamic> data, String documentId) {
-    if (data.isEmpty) {
-      throw Exception('Data is empty');
-    }
+part 'demand_category.freezed.dart';
+part 'demand_category.g.dart';
 
-    return DemandCategory(
-      id: documentId,
-      name: data['name'] as String,
-    );
-  }
+@freezed
+class DemandCategory with _$DemandCategory {
+  const factory DemandCategory({
+    required String id,
+    required String name,
+  }) = _DemandCategory;
 
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-    };
-  }
-
-  final String id;
-  final String name;
+  factory DemandCategory.fromJson(Map<String, dynamic> json) => _$DemandCategoryFromJson(json);
 }
