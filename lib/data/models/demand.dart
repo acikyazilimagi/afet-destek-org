@@ -16,7 +16,7 @@ class Demand with _$Demand {
     required String? whatsappNumber,
     required DateTime modifiedTimeUtc,
     required bool isActive,
-    // required int distanceKm,
+    required int distanceMeter,
   }) = _Demand;
 
   factory Demand.fromJson(Map<String, dynamic> json) => _$DemandFromJson(json);
@@ -27,7 +27,7 @@ class Demand with _$Demand {
         DateTime.fromMillisecondsSinceEpoch(time.millisecondsSinceEpoch)
             .toIso8601String();
 
-    // json['distanceKm'] = -1;
+    json['distanceMeter'] = -1;
     return _$DemandFromJson(json);
   }
 }
