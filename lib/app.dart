@@ -1,5 +1,6 @@
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
+import 'package:deprem_destek/data/repository/location_repository.dart';
 import 'package:deprem_destek/pages/demands_page/demands_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,9 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
         ),
         RepositoryProvider<DemandsRepository>(
           create: (context) => DemandsRepository(),
+        ),
+        RepositoryProvider<LocationRepository>(
+          create: (context) => LocationRepository(),
         ),
       ],
       child: const MaterialApp(
