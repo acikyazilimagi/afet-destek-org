@@ -1,13 +1,21 @@
+import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_geocoding_api/google_geocoding_api.dart';
 
-class Location {
-  static Future<Position> getPosition() async {
+class LocationRepository {
+  final _googleGeocodingApi = GoogleGeocodingApi(
+    // TODO(BRTZL): Get this from env
+    'AIzaSyBhcGwfVK2wWFRwo7fpKQ64BLdH0qS6Nb0',
+    isLogged: kDebugMode,
+  );
+
+  Future<Iterable<GoogleGeocodingResult>> getPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
-    
+
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+      return Future.error('Location services are disabled');
     }
 
     permission = await Geolocator.checkPermission();
@@ -19,10 +27,16 @@ class Location {
     }
 
     if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      return Future.error('Location permissions are permanently denied');
     }
-    Position position = await Geolocator.getCurrentPosition();
-    return position; // position.latitude = 41.0153479, position.longitude 28.7314618
+
+    final position = await Geolocator.getCurrentPosition();
+
+    final res = await _googleGeocodingApi.reverse(
+      '${position.latitude},${position.longitude}',
+      language: 'tr',
+    );
+
+    return res.results;
   }
 }
