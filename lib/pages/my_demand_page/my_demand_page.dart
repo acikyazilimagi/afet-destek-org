@@ -81,24 +81,30 @@ class _MyDemandPageState extends State<MyDemandPage> {
       ),
       child: BlocConsumer<MyDemandsCubit, MyDemandState>(
         listener: (context, state) {
-          if (state.status == MyDemandStateStatus.loadedCurrentDemand) {
-            final existingDemand = state.demand!;
+          if (state.status.whenOrNull(loadedCurrentDemand: () => true) ??
+              false) {
+            final existingDemand = state.demand;
 
-            _myDemandPageFormGroup
-                .control(_MyDemandPageFormFields.categories.name)
-                .value = existingDemand.categoryIds;
-            _myDemandPageFormGroup
-                .control(_MyDemandPageFormFields.notes.name)
-                .value = existingDemand.notes;
+            if (existingDemand != null) {
+              _myDemandPageFormGroup
+                  .control(_MyDemandPageFormFields.categories.name)
+                  .value = existingDemand.categoryIds;
+              _myDemandPageFormGroup
+                  .control(_MyDemandPageFormFields.notes.name)
+                  .value = existingDemand.notes;
+            }
           }
 
-          if (state.status == MyDemandStateStatus.loadFailed) {
+          if (state.status.whenOrNull(loadFailed: () => true) ?? false) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Sayfa yüklenemedi'),
               ),
             );
-          } else if (state.status == MyDemandStateStatus.saveFail) {
+          } else if (state.status.whenOrNull(
+                saveFail: () => true,
+              ) ??
+              false) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('kaydetme başarısız'),
@@ -106,7 +112,10 @@ class _MyDemandPageState extends State<MyDemandPage> {
             );
           }
 
-          if (state.status == MyDemandStateStatus.saveSuccess) {
+          if (state.status.whenOrNull(
+                saveSuccess: () => true,
+              ) ??
+              false) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('kaydetme başarılı'),
@@ -115,11 +124,17 @@ class _MyDemandPageState extends State<MyDemandPage> {
           }
         },
         builder: (context, state) {
-          if (state.status == MyDemandStateStatus.loadingCurrentDemand) {
+          if (state.status.whenOrNull(
+                loadingCurrentDemand: () => true,
+              ) ??
+              false) {
             return const Scaffold(body: Loader());
           }
 
-          final deactivateButtons = state.status == MyDemandStateStatus.saving;
+          final deactivateButtons = state.status.whenOrNull(
+                saving: () => true,
+              ) ??
+              false;
 
           return Scaffold(
             appBar: AppBar(
