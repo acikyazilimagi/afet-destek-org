@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "pub get main (fvm)",
+            "label": "pub get main",
             "type": "shell",
             "command": "fvm",
             "args": [
@@ -13,7 +13,7 @@
             "problemMatcher": []
         },
         {
-            "label": "build_runner main (fvm)",
+            "label": "build_runner main",
             "type": "shell",
             "command": "fvm",
             "args": [
