@@ -1,10 +1,12 @@
 import 'package:deprem_destek/core/res/theme.dart';
+import 'package:deprem_destek/data/api/demands_api_client.dart';
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/data/repository/location_repository.dart';
 import 'package:deprem_destek/pages/app_load_failure_page/app_load_failure_page.dart';
 import 'package:deprem_destek/pages/demands_page/demands_page.dart';
 import 'package:deprem_destek/pages/demands_page/state/demands_cubit.dart';
+import 'package:deprem_destek/pages/my_demand_page/state/my_demands_cubit.dart';
 import 'package:deprem_destek/pages/my_demand_page/widgets/loader.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:deprem_destek/shared/state/app_state.dart';
@@ -27,7 +29,9 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
           create: (context) => AuthRepository(),
         ),
         RepositoryProvider<DemandsRepository>(
-          create: (context) => DemandsRepository(),
+          create: (context) => DemandsRepository(
+            demandsApiClient: DemandsApiClient(),
+          ),
         ),
         RepositoryProvider<LocationRepository>(
           create: (context) => LocationRepository(),
@@ -46,15 +50,20 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
               locationRepository: context.read<LocationRepository>(),
               demandsRepository: context.read<DemandsRepository>(),
             ),
-          )
+          ),
+          BlocProvider<MyDemandsCubit>(
+            create: (context) => MyDemandsCubit(
+              demandsRepository: context.read<DemandsRepository>(),
+            ),
+          ),
         ],
         child: BlocBuilder<AppCubit, AppState>(
           builder: (context, state) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: AppTheme.theme(),
-              home: state.maybeWhen(
-                orElse: DemandsPage.new,
+              home: state.when(
+                loaded: (_, __) => const DemandsPage(),
                 failed: () => const AppLoadFailurePage(),
                 loading: () => const Scaffold(body: Loader()),
               ),

@@ -1,0 +1,42 @@
+// TODO(enes): use retrofit
+import 'dart:convert';
+
+import 'package:deprem_destek/data/models/demand.dart';
+import 'package:dio/dio.dart';
+import 'package:google_geocoding_api/google_geocoding_api.dart';
+
+class DemandsApiClient {
+  Future<List<Demand>> getDemands({
+    required GoogleGeocodingLocation? geo,
+    required double? radius,
+    required List<String>? categoryIds,
+    required int page,
+  }) async {
+    try {
+      final payload = jsonEncode({
+        if (geo != null) ...{
+          'geo': {
+            'longitude': geo.lng,
+            'latitude': geo.lat,
+          },
+        },
+        'radius': radius,
+        'categoryIds': categoryIds,
+        'page': page
+      });
+
+      final response = await Dio().post<String>(
+        'https://us-central1-deprem-destek-org.cloudfunctions.net/getDemands',
+        data: payload,
+      );
+
+      // TODO(enes): use DTO for API parsing
+      return ((jsonDecode(response.data!) as Map<String, dynamic>)['demands']
+              as List<Map<String, dynamic>>)
+          .map(Demand.fromJson)
+          .toList();
+    } catch (_) {
+      rethrow;
+    }
+  }
+}

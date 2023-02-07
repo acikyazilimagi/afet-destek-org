@@ -1,7 +1,5 @@
 import 'package:deprem_destek/core/res/theme.dart';
 import 'package:deprem_destek/data/repository/auth_repository.dart';
-import 'package:deprem_destek/data/repository/demands_repository.dart';
-import 'package:deprem_destek/data/repository/location_repository.dart';
 import 'package:deprem_destek/pages/app_load_failure_page/app_load_failure_page.dart';
 import 'package:deprem_destek/pages/auth_page/auth_page.dart';
 import 'package:deprem_destek/pages/demands_page/state/demands_cubit.dart';
