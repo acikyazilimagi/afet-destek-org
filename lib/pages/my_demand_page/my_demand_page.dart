@@ -1,3 +1,8 @@
+import 'package:deprem_destek/data/models/demand.dart';
+import 'package:deprem_destek/data/models/demand_category.dart';
+import 'package:deprem_destek/pages/my_demand_page/state/my_demands_cubit.dart';
+import 'package:deprem_destek/pages/my_demand_page/widgets/loader.dart';
+import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,14 +10,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import '../../data/models/demand_category.dart';
-import '../../shared/state/app_cubit.dart';
-import '../../shared/state/app_state.dart';
-
 class MyDemandPage extends StatefulWidget {
-  const MyDemandPage({
-    super.key,
-  });
+  const MyDemandPage({super.key});
 
   @override
   State<MyDemandPage> createState() => _MyDemandPageState();
@@ -53,6 +52,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = context.read<MyDemandsCubit>();
+    final providerState = context.watch<MyDemandsCubit>();
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -61,99 +62,113 @@ class _MyDemandPageState extends State<MyDemandPage> {
           formGroup: formGroup,
           child: Container(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ReactiveTextField(
-                  formControlName: _MyFormFields.geoLocation.name,
-                  decoration: const InputDecoration(
-                    suffixIcon: Icon(
-                      Icons.location_on,
-                    ),
-                  ),
-                ),
-                ReactiveDropdownField<DemandCategory>(
-                  formControlName: _MyFormFields.demands.name,
-                  decoration: const InputDecoration(labelText: "İhtiyaç Türü"),
-                  items: demansCategories
-                      .map(
-                        (e) => DropdownMenuItem<DemandCategory>(
-                          value: e,
-                          child: Text(e.name),
-                        ),
-                      )
-                      .toList(),
-                ),
-                Wrap(
-                  alignment: WrapAlignment.spaceEvenly,
-                  crossAxisAlignment: WrapCrossAlignment.start,
-                  runAlignment: WrapAlignment.spaceEvenly,
-                  spacing: 12,
-                  children: List.generate(
-                    5,
-                    (index) => RawChip(
-                      label: Text('barınma'),
-                      onDeleted: () {},
-                    ),
-                  ),
-                ),
-                ReactiveTextField(
-                  decoration: InputDecoration(hintText: 'Neye İhtiyacın Var?'),
-                  formControlName: _MyFormFields.needText.name,
-                ),
-                ReactiveTextField(
-                  decoration: InputDecoration(
-                    prefixIcon: Text('+90'),
-                    // isDense: true,
-                    prefixIconConstraints:
-                        BoxConstraints(minWidth: 0, minHeight: 0),
-                  ),
-                  formControlName: _MyFormFields.phoneNumber.name,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(10),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                ),
-                Row(
-                  children: const [
-                    Icon(FontAwesomeIcons.whatsapp),
-                    Text('Whatsapp ile ulaşılsın'),
-                  ],
-                ),
-                ReactiveTextField(
-                  formControlName: _MyFormFields.wpPhoneNumber.name,
-                  decoration: const InputDecoration(
-                    prefixIcon: Text('+90'),
-                    // isDense: true,
-                    prefixIconConstraints:
-                        BoxConstraints(minWidth: 0, minHeight: 0),
-                  ),
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(10),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                ),
-                ReactiveFormConsumer(
-                  builder: (context, formGroup, child) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ElevatedButton(
-                          onPressed: formGroup.valid ? () {} : null,
-                          child: const Text(
-                            'Kaydet',
+            child: providerState.state.loading
+                ? const Loader()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ReactiveTextField(
+                        formControlName: _MyFormFields.geoLocation.name,
+                        decoration: const InputDecoration(
+                          suffixIcon: Icon(
+                            Icons.location_on,
                           ),
                         ),
-                        ElevatedButton(
-                          onPressed: () {},
-                          child: const Text('Talebi durdur'),
+                      ),
+                      ReactiveDropdownField<DemandCategory>(
+                        formControlName: _MyFormFields.demands.name,
+                        decoration:
+                            const InputDecoration(labelText: "İhtiyaç Türü"),
+                        items: demansCategories
+                            .map(
+                              (e) => DropdownMenuItem<DemandCategory>(
+                                value: e,
+                                child: Text(e.name),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                      Wrap(
+                        alignment: WrapAlignment.spaceEvenly,
+                        runAlignment: WrapAlignment.spaceEvenly,
+                        spacing: 12,
+                        children: List.generate(
+                          5,
+                          (index) => RawChip(
+                            label: const Text('barınma'),
+                            onDeleted: () {},
+                          ),
                         ),
-                      ],
-                    );
-                  },
-                )
-              ],
-            ),
+                      ),
+                      ReactiveTextField(
+                        decoration: const InputDecoration(
+                            hintText: 'Neye İhtiyacın Var?'),
+                        formControlName: _MyFormFields.needText.name,
+                      ),
+                      ReactiveTextField(
+                        decoration: const InputDecoration(
+                          prefixIcon: Text('+90'),
+                          // isDense: true,
+                          prefixIconConstraints: BoxConstraints(),
+                        ),
+                        formControlName: _MyFormFields.phoneNumber.name,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(10),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                      Row(
+                        children: const [
+                          Icon(FontAwesomeIcons.whatsapp),
+                          Text('Whatsapp ile ulaşılsın'),
+                        ],
+                      ),
+                      ReactiveTextField(
+                        formControlName: _MyFormFields.wpPhoneNumber.name,
+                        decoration: const InputDecoration(
+                          prefixIcon: Text('+90'),
+                          prefixIconConstraints: BoxConstraints(),
+                        ),
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(10),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                      ),
+                      ReactiveFormConsumer(
+                        builder: (context, formGroup, child) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ElevatedButton(
+                                onPressed: formGroup.valid
+                                    ? () {
+                                        // provider.submitDemand(
+                                        //     demand: Demand(
+                                        //         id: id,
+                                        //         userId: userId,
+                                        //         categoryIds: categoryIds,
+                                        //         geo: geo,
+                                        //         notes: notes,
+                                        //         addressText: addressText,
+                                        //         phoneNumber: phoneNumber,
+                                        //         isActive: isActive),
+                                        //     categories: []);
+                                      }
+                                    : null,
+                                child: const Text(
+                                  'Kaydet',
+                                ),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: const Text('Talebi durdur'),
+                              ),
+                            ],
+                          );
+                        },
+                      )
+                    ],
+                  ),
           ),
         ),
       ),
