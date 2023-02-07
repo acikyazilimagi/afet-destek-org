@@ -25,6 +25,9 @@ dependencies:
   google_geocoding_api: 1.2.0
   json_annotation: 4.8.0
   reactive_forms: 14.1.0
+  flutter_svg: 2.0.0
+  syncfusion_flutter_core: 20.4.48
+  syncfusion_flutter_sliders: 20.4.48
 
 dev_dependencies:
   build_runner: 2.3.3
@@ -36,3 +39,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/
+    - assets/svg/
