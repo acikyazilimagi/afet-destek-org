@@ -19,5 +19,6 @@ jobs:
         with:
           flutter-version: "2.x"
       - run: flutter pub get
+      - run: dart format . --set-exit-if-changed
       - run: flutter analyze
       - run: flutter build web
