@@ -2,9 +2,7 @@ name: Deploy to Preview Channel
 
 on:
   pull_request:
-    # Optionally configure to run only for specific files. For example:
-    # paths:
-    # - "website/**"
+    branches: [master, develop]
 
 jobs:
   build_web:
