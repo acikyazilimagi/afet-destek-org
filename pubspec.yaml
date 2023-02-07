@@ -14,7 +14,7 @@ dependencies:
 
   collection: 1.17.0
   cupertino_icons: 1.0.2
-  dio: ^4.0.6
+  dio: 4.0.6
   firebase_auth: 4.2.5
   firebase_core: 2.4.1
   flutter:
