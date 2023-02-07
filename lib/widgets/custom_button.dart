@@ -7,8 +7,8 @@ import 'package:flutter_svg/svg.dart';
 enum CustomButtonType { primary, secondary, delete, confirm, cancel, formField, flat, whatsapp, sms, faded, outlined, deleteOutlined }
 
 Map<CustomButtonType, Color> _customButtonColors = {
-  CustomButtonType.confirm: Palette.successColor,
-  CustomButtonType.cancel: Palette.grayColor,
+  CustomButtonType.confirm: Palette.primaryColor,
+  CustomButtonType.cancel: Palette.primaryColor,
   CustomButtonType.formField: Palette.backgroundColor,
   CustomButtonType.flat: Colors.black,
   CustomButtonType.whatsapp: Palette.successColor,
