@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/data/repository/location_repository.dart';
 import 'package:deprem_destek/pages/demands_page/state/demands_state.dart';
-import 'package:deprem_destek/shared/state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
@@ -35,9 +34,9 @@ class DemandsCubit extends Cubit<DemandsState> {
       final location = position?.geometry?.location;
       if (location != null) {
         final demands = await _demandsRepository.getDemands(
-          geo: GeoPoint(location.lat, location.lng),
+          geo: GoogleGeocodingLocation(lat: location.lat, lng: location.lng),
           radius: radius, // TODO: Radius max değer aldığında null gönderilecek
-          categoryUUIDs: [],
+          categoryIds: [],
           page: page,
         );
         emit(DemandsState.loaded(demands: demands));
