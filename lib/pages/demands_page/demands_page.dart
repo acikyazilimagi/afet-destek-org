@@ -1,6 +1,7 @@
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/pages/auth_page/auth_page.dart';
+import 'package:deprem_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class DemandsPage extends StatelessWidget {
       builder: (context, snapshot) {
         // ignore: unused_local_variable
         final authorized = snapshot.data != null;
+
         return Scaffold(
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -46,9 +48,16 @@ class DemandsPage extends StatelessWidget {
                 },
               ),
               ElevatedButton(
-                onPressed: !authorized ? () => AuthPage.show(context) : null,
+                onPressed: () {
+                  if (!authorized) {
+                    AuthPage.show(context);
+                  } else {
+                    MyDemandPage.show(context);
+                  }
+                },
                 child: const Text('Taleplerim'),
-              )
+              ),
+              const Spacer()
             ],
           ),
         );

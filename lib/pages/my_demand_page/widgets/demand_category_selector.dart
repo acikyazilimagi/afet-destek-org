@@ -30,47 +30,119 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
     }
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextFormField(
-          onTap: () => showDialog<void>(
-            context: context,
-            builder: (context) => StatefulBuilder(
-              builder: (context, setStateForAlert) {
-                return Dialog(
-                  child: ListView.builder(
-                    itemCount: demandCategories.length,
-                    itemBuilder: (context, index) {
-                      final category = demandCategories[index];
-                      final isSelected =
-                          _selectedCategoryIds.contains(category.id);
-                      return GestureDetector(
-                        onTap: () {
-                          setState(
-                            () => isSelected
-                                ? _selectedCategoryIds.remove(category.id)
-                                : _selectedCategoryIds.add(category.id),
-                          );
-                          setStateForAlert(() {});
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: TextFormField(
+            decoration: InputDecoration(
+              hintText: 'Kategori seçin',
+              focusedBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderSide: BorderSide(width: 2, color: Colors.red),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                borderSide: BorderSide(width: 2, color: Colors.grey.shade200),
+              ),
+              hintStyle: TextStyle(color: Colors.grey.shade500),
+            ),
+            onTap: () => showDialog<void>(
+              context: context,
+              builder: (context) => StatefulBuilder(
+                builder: (context, setStateForAlert) {
+                  return Dialog(
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        maxHeight: MediaQuery.of(context).size.height * .5,
+                        minHeight: MediaQuery.of(context).size.height * .5,
+                        minWidth: MediaQuery.of(context).size.width * .8,
+                        maxWidth: MediaQuery.of(context).size.width * .8,
+                      ),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: demandCategories.length,
+                              itemBuilder: (context, index) {
+                                final category = demandCategories[index];
+                                final isSelected =
+                                    _selectedCategoryIds.contains(category.id);
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(
+                                      () => isSelected
+                                          ? _selectedCategoryIds
+                                              .remove(category.id)
+                                          : _selectedCategoryIds
+                                              .add(category.id),
+                                    );
+                                    setStateForAlert(() {});
 
-                          widget.formControl.value = _selectedCategoryIds;
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Row(
-                            children: [
-                              Expanded(child: Text(category.name)),
-                              Icon(
-                                Icons.check,
-                                color: isSelected ? Colors.green : Colors.grey,
-                              ),
-                            ],
+                                    widget.formControl.value =
+                                        _selectedCategoryIds;
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: Card(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                category.name,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .labelMedium,
+                                              ),
+                                            ),
+                                            Icon(
+                                              Icons.check,
+                                              color: isSelected
+                                                  ? Colors.green
+                                                  : Colors.grey,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              },
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12,
+                            ),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                              ),
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Text(
+                                  'Tamam',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),
@@ -78,7 +150,6 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
           padding: const EdgeInsets.all(8),
           child: Wrap(
             alignment: WrapAlignment.spaceEvenly,
-            runAlignment: WrapAlignment.center,
             spacing: 12,
             children: _selectedCategoryIds.map(
               (categoryId) {
@@ -86,9 +157,19 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                   (c) => c.id == categoryId,
                 );
                 return RawChip(
+                  padding: EdgeInsets.all(
+                    12,
+                  ),
+                  backgroundColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: const BorderSide(color: Colors.grey),
+                  ),
                   label: Text(
                     category?.name ?? '-',
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
+                  labelStyle: Theme.of(context).textTheme.bodyLarge,
                   onDeleted: () {
                     setState(() {
                       _selectedCategoryIds
