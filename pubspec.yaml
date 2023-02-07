@@ -12,20 +12,21 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: 1.0.2
-  firebase_core: 2.4.1
-  firebase_auth: 4.2.5
-  cloud_firestore: 4.3.1
-  flutter_bloc: 8.1.1
-  collection: 1.16.0
+  cupertino_icons:
+  firebase_core:
+  firebase_auth:
+  cloud_firestore:
+  flutter_bloc:
+  collection:
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   flutter_lints: 2.0.0
   very_good_analysis: 3.1.0
   freezed: 2.3.2
   build_runner: 2.3.3
 
 flutter:
-  uses-material-design: true
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Medium.ttf
