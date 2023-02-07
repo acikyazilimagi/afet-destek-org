@@ -45,5 +45,5 @@ app.*.map.json
 
 .vscode/settings.json
 
-# *.g.dart
-# *.freezed.dart
+*.g.dart
+*.freezed.dart
