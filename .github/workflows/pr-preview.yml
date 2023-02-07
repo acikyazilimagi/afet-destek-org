@@ -7,7 +7,6 @@ on:
 jobs:
   build_web:
     name: Build Flutter (Web)
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
