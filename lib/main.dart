@@ -1,6 +1,7 @@
 import 'package:deprem_destek/app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,5 +13,11 @@ void main() async {
       projectId: 'deprem-destek-org',
     ),
   );
-  runApp(const DepremDestekApp());
+  runApp(
+    Sizer(
+      builder: (BuildContext context, Orientation orientation, DeviceType deviceType) {
+        return const DepremDestekApp();
+      },
+    ),
+  );
 }

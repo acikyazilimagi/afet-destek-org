@@ -1,6 +1,7 @@
+import 'package:deprem_destek/config/theme.dart';
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
-import 'package:deprem_destek/pages/demands_page/demands_page.dart';
+import 'package:deprem_destek/pages/demands_page/widgets/demands_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,8 +24,10 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
           create: (context) => DemandsRepository(),
         ),
       ],
-      child: const MaterialApp(
-        home: DemandsPage(),
+      child: MaterialApp(
+        theme: CustomTheme.lightTheme,
+        debugShowCheckedModeBanner: false,
+        home: DemandsDetail(),
       ),
     );
   }
