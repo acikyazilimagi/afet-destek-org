@@ -52,8 +52,8 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
           builder: (context, state) {
             return MaterialApp(
               home: state.maybeWhen(
-                orElse: DemandsPage.new,
-                // orElse: () => const MyDemandPage(),
+                // orElse: DemandsPage.new,
+                orElse: () => const MyDemandPage(),
                 failed: () => const AppLoadFailurePage(),
                 loading: () => const Scaffold(body: Loader()),
               ),
