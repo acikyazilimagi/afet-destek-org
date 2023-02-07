@@ -1,6 +1,12 @@
+import 'package:deprem_destek/data/api/demands_api_client.dart';
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
+import 'package:deprem_destek/data/repository/location_repository.dart';
+import 'package:deprem_destek/pages/app_load_failure_page/app_load_failure_page.dart';
 import 'package:deprem_destek/pages/demands_page/demands_page.dart';
+import 'package:deprem_destek/pages/my_demand_page/widgets/loader.dart';
+import 'package:deprem_destek/shared/state/app_cubit.dart';
+import 'package:deprem_destek/shared/state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,11 +26,35 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
           create: (context) => AuthRepository(),
         ),
         RepositoryProvider<DemandsRepository>(
-          create: (context) => DemandsRepository(),
+          create: (context) => DemandsRepository(
+            demandsApiClient: DemandsApiClient(),
+          ),
+        ),
+        RepositoryProvider<LocationRepository>(
+          create: (context) => LocationRepository(),
         ),
       ],
-      child: const MaterialApp(
-        home: DemandsPage(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AppCubit>(
+            create: (context) => AppCubit(
+              demandsRepository: context.read<DemandsRepository>(),
+              locationRepository: context.read<LocationRepository>(),
+            ),
+          )
+        ],
+        child: BlocBuilder<AppCubit, AppState>(
+          builder: (context, state) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: state.when(
+                loaded: (_, __) => const DemandsPage(),
+                failed: () => const AppLoadFailurePage(),
+                loading: () => const Scaffold(body: Loader()),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

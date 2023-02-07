@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.deprem_destek">
+   <uses-permission android:name="android.permission.INTERNET"/>
+   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
    <application
         android:label="deprem_destek"
         android:name="${applicationName}"
