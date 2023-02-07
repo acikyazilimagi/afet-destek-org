@@ -5,10 +5,13 @@ part 'my_demands_state.freezed.dart';
 
 @freezed
 class MyDemandState with _$MyDemandState {
-  const factory MyDemandState.loading() = _loadingMyDemandState;
   const factory MyDemandState.loaded({
     required bool loading,
     required Demand? demand,
   }) = _loadedMyDemandState;
-  const factory MyDemandState.failed() = _failedMyDemandState;
+
+  // const factory MyDemandState.copyWith({
+  //   bool? loading,
+  //   Demand? demand,
+  // }) = _loadedMyDemandState;
 }

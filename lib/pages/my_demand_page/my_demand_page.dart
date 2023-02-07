@@ -8,139 +8,152 @@ import 'package:reactive_forms/reactive_forms.dart';
 import '../../data/models/demand_category.dart';
 import '../../shared/state/app_cubit.dart';
 import '../../shared/state/app_state.dart';
-import '../app_load_failure_page/app_load_failure_page.dart';
-import 'widgets/loader.dart';
 
-class MyDemandPage extends StatelessWidget {
+class MyDemandPage extends StatefulWidget {
   const MyDemandPage({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    final location = context.read<AppCubit>().state;
+  State<MyDemandPage> createState() => _MyDemandPageState();
+}
 
-    return location.when(failed: () {
-      return const SizedBox();
-    }, loaded: (
-      GoogleGeocodingResult currentLocation,
-      List<DemandCategory> demandCategories,
-    ) {
-      return Scaffold(
-        appBar: AppBar(),
-        body: SingleChildScrollView(
-          child: ReactiveForm(
-            onWillPop: () async => false,
-            formGroup: FormGroup({
-              _MyFormFields.geoLocation.name: FormControl<String>(
-                value: currentLocation.formattedAddress,
-              ),
-              _MyFormFields.demands.name: FormControl<DemandCategory>(),
-              _MyFormFields.needText.name: FormControl<String?>(),
-              _MyFormFields.phoneNumber.name: FormControl<String?>(
-                validators: [
-                  Validators.required,
-                  Validators.number,
-                  Validators.max(10)
-                ],
-              ),
-              _MyFormFields.wpPhoneNumber.name: FormControl<String?>(
-                validators: [
-                  Validators.required,
-                  Validators.number,
-                  Validators.max(10)
-                ],
-              ),
-            }),
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ReactiveTextField(
-                    formControlName: _MyFormFields.geoLocation.name,
-                    decoration: const InputDecoration(
-                      suffixIcon: Icon(
-                        Icons.location_on,
-                      ),
+class _MyDemandPageState extends State<MyDemandPage> {
+  late final GoogleGeocodingResult location;
+  late final List<DemandCategory> demansCategories;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<AppCubit>().state.mapOrNull(
+      loaded: (state) {
+        location = state.currentLocation;
+        demansCategories = state.demandCategories;
+      },
+    );
+
+    formGroup = FormGroup({
+      _MyFormFields.geoLocation.name: FormControl<String>(
+        value: location.formattedAddress,
+      ),
+      _MyFormFields.demands.name: FormControl<DemandCategory>(),
+      _MyFormFields.needText.name: FormControl<String?>(),
+      _MyFormFields.phoneNumber.name: FormControl<String?>(
+        validators: [
+          Validators.required,
+          Validators.number,
+          Validators.max(10)
+        ],
+      ),
+      _MyFormFields.wpPhoneNumber.name: FormControl<String?>(),
+    });
+  }
+
+  late final FormGroup formGroup;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+        child: ReactiveForm(
+          onWillPop: () async => false,
+          formGroup: formGroup,
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ReactiveTextField(
+                  formControlName: _MyFormFields.geoLocation.name,
+                  decoration: const InputDecoration(
+                    suffixIcon: Icon(
+                      Icons.location_on,
                     ),
                   ),
-                  ReactiveDropdownField<DemandCategory>(
-                    formControlName: _MyFormFields.demands.name,
-                    decoration: InputDecoration(labelText: "İhtiyaç Türü"),
-                    items: demandCategories
-                        .map(
-                          (e) => DropdownMenuItem<DemandCategory>(
-                            value: e,
-                            child: Text(e.name),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                  Wrap(
-                    alignment: WrapAlignment.spaceEvenly,
-                    crossAxisAlignment: WrapCrossAlignment.start,
-                    runAlignment: WrapAlignment.spaceEvenly,
-                    spacing: 12,
-                    children: List.generate(
-                      5,
-                      (index) => RawChip(
-                        label: Text("barınma"),
-                        onDeleted: () {},
-                      ),
+                ),
+                // ReactiveDropdownField<DemandCategory>(
+                //   formControlName: _MyFormFields.demands.name,
+                //   decoration: InputDecoration(labelText: "İhtiyaç Türü"),
+                //   items: demandCategories
+                //       .map(
+                //         (e) => DropdownMenuItem<DemandCategory>(
+                //           value: e,
+                //           child: Text(e.name),
+                //         ),
+                //       )
+                //       .toList(),
+                // ),
+                Wrap(
+                  alignment: WrapAlignment.spaceEvenly,
+                  crossAxisAlignment: WrapCrossAlignment.start,
+                  runAlignment: WrapAlignment.spaceEvenly,
+                  spacing: 12,
+                  children: List.generate(
+                    5,
+                    (index) => RawChip(
+                      label: Text("barınma"),
+                      onDeleted: () {},
                     ),
                   ),
-                  ReactiveTextField(
-                    decoration:
-                        InputDecoration(hintText: "Neye İhtiyacın Var?"),
-                    formControlName: _MyFormFields.needText.name,
+                ),
+                ReactiveTextField(
+                  decoration: InputDecoration(hintText: "Neye İhtiyacın Var?"),
+                  formControlName: _MyFormFields.needText.name,
+                ),
+                ReactiveTextField(
+                  decoration: InputDecoration(
+                    prefixIcon: Text("+90"),
+                    // isDense: true,
+                    prefixIconConstraints:
+                        BoxConstraints(minWidth: 0, minHeight: 0),
                   ),
-                  ReactiveTextField(
-                    decoration: InputDecoration(prefixText: "+90"),
-                    formControlName: _MyFormFields.phoneNumber.name,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(10),
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
+                  formControlName: _MyFormFields.phoneNumber.name,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(10),
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                ),
+                Row(
+                  children: const [
+                    Icon(FontAwesomeIcons.whatsapp),
+                    Text("Whatsapp ile ulaşılsın"),
+                  ],
+                ),
+                ReactiveTextField(
+                  formControlName: _MyFormFields.wpPhoneNumber.name,
+                  decoration: InputDecoration(
+                    prefixIcon: Text("+90"),
+                    // isDense: true,
+                    prefixIconConstraints:
+                        BoxConstraints(minWidth: 0, minHeight: 0),
                   ),
-                  Row(
-                    children: const [
-                      Icon(FontAwesomeIcons.whatsapp),
-                      Text("Whatsapp ile ulaşılsın"),
-                    ],
-                  ),
-                  ReactiveTextField(
-                    decoration: InputDecoration(prefixText: "+90"),
-                    formControlName: _MyFormFields.wpPhoneNumber.name,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(10),
-                      FilteringTextInputFormatter.digitsOnly
-                    ],
-                  ),
-                  ReactiveFormConsumer(
-                    builder: (context, formState, child) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          ElevatedButton(
-                              onPressed: formState.valid ? () {} : null,
-                              child: const Text("Kaydet")),
-                          ElevatedButton(
-                              onPressed: () {},
-                              child: const Text("Talebi durdur")),
-                        ],
-                      );
-                    },
-                  )
-                ],
-              ),
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(10),
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                ),
+                ReactiveFormConsumer(
+                  builder: (context, formGroup, child) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                            onPressed: formGroup.valid ? () {} : null,
+                            child: const Text("Kaydet")),
+                        ElevatedButton(
+                            onPressed: () {},
+                            child: const Text("Talebi durdur")),
+                      ],
+                    );
+                  },
+                )
+              ],
             ),
           ),
         ),
-      );
-    }, loading: () {
-      return Loader();
-    });
+      ),
+    );
   }
 }
 
