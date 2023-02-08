@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../auth_page/kvkk_page.dart';
+
 class IntroductionPage extends StatelessWidget {
   const IntroductionPage({super.key});
 
@@ -45,10 +47,19 @@ class IntroductionPage extends StatelessWidget {
       ),
     );
   }
+
   //DO NOT USE FUNCTION FOR WIDGET
   TextButton buildKvkkTextButton(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) {
+              return const KVKKPage();
+            },
+          ),
+        );
+      },
       style: TextButton.styleFrom(
         foregroundColor: Theme.of(context).textTheme.titleSmall?.color,
       ),
