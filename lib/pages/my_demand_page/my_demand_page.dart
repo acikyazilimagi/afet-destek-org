@@ -8,14 +8,12 @@ import 'package:deprem_destek/pages/my_demand_page/widgets/geo_value_accessor.da
 import 'package:deprem_destek/pages/my_demand_page/widgets/my_demand_textfield.dart';
 import 'package:deprem_destek/shared/extensions/reactive_forms_extensions.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
-import 'package:deprem_destek/shared/theme/colors.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:deprem_destek/shared/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
