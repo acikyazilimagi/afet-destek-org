@@ -25,27 +25,24 @@ class CustomDialog {
                           itemCount: imageNames.length,
                           itemBuilder: (context, pagePosition) {
                             return Container(
-                              margin: const EdgeInsets.all(10),
-                              child: Image.asset(
-                                'assets/images/location/${imageNames[pagePosition]}.jpg',
-                              ),
-                            );
+                                margin: const EdgeInsets.all(10),
+                                child: Image.asset(
+                                    'assets/images/location/${imageNames[pagePosition]}.jpg',),);
                           },
                           onPageChanged: (page) {
                             setState(() {
                               activePage = page;
                             });
-                          }),
+                          },),
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: CustomDialog()
-                          .indicators(imageNames.length, activePage),
-                    )
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: CustomDialog()
+                            .indicators(imageNames.length, activePage),)
                   ],
                 );
-              }));
-        });
+              },),);
+        },);
   }
 
   List<Widget> indicators(int imagesLength, int currentIndex) {
@@ -55,9 +52,8 @@ class CustomDialog {
         width: 10,
         height: 10,
         decoration: BoxDecoration(
-          color: currentIndex == index ? Colors.black : Colors.black26,
-          shape: BoxShape.circle,
-        ),
+            color: currentIndex == index ? Colors.black : Colors.black26,
+            shape: BoxShape.circle,),
       );
     });
   }
