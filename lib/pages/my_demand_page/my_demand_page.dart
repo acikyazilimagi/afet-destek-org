@@ -48,8 +48,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
       validators: [Validators.required, Validators.minLength(1)],
       value: [],
     ),
-    _MyDemandPageFormFields.notes.name:
-        FormControl<String>(validators: [Validators.required]),
+    _MyDemandPageFormFields.notes.name: FormControl<String>(
+      validators: [Validators.required],
+    ),
     _MyDemandPageFormFields.phoneNumber.name: FormControl<String>(
       validators: [Validators.required, Validators.minLength(10)],
     ),
