@@ -9,7 +9,6 @@ class AuthRepository {
       _confirmationResult =
           await FirebaseAuth.instance.signInWithPhoneNumber(number);
     } catch (_) {
-      
       rethrow;
     }
   }
