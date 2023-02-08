@@ -23,7 +23,9 @@ class IntroductionPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'Bu platform lokasyon verinizi kullanarak\n çalışmaktadır. Lütfen cihazınızdaki konum servisini\n aktif ettiğinizden emin olunuz.',
+                'Bu platform lokasyon verinizi kullanarak çalışmaktadır. \n'
+                'Lütfen cihazınızdaki konum servisini \n'
+                'aktif ettiğinizden emin olunuz.',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       fontSize: 20,
