@@ -49,7 +49,7 @@ class DemandsRepository {
       'isActive': true,
       'createdTime': FieldValue.serverTimestamp(),
       'updatedTime': FieldValue.serverTimestamp()
-    });
+    }).timeout(const Duration(seconds: 3));
   }
 
   Future<void> updateDemand({
@@ -73,7 +73,7 @@ class DemandsRepository {
       'phoneNumber': phoneNumber,
       'whatsappNumber': whatsappNumber,
       'updatedTime': FieldValue.serverTimestamp()
-    });
+    }).timeout(const Duration(seconds: 3));
   }
 
   Future<void> activateDemand({required String demandId}) async {
