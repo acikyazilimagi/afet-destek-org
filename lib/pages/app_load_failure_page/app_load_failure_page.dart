@@ -67,34 +67,34 @@ class AppLoadFailurePage extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              width: size.width,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(
-                      width: 2,
-                      color: Colors.red,
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 6,
-                    ),
-                    child: Text(
-                      'Konumumu nasıl açarım?',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                            fontSize: 16,
-                            color: Colors.red,
-                          ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // SizedBox(
+            //   width: size.width,
+            //   child: Padding(
+            //     padding:
+            //         const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+            //     child: OutlinedButton(
+            //       style: OutlinedButton.styleFrom(
+            //         side: const BorderSide(
+            //           width: 2,
+            //           color: Colors.red,
+            //         ),
+            //       ),
+            //       onPressed: () {},
+            //       child: Padding(
+            //         padding: const EdgeInsets.symmetric(
+            //           vertical: 6,
+            //         ),
+            //         child: Text(
+            //           'Konumumu nasıl açarım?',
+            //           style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            //                 fontSize: 16,
+            //                 color: Colors.red,
+            //               ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
