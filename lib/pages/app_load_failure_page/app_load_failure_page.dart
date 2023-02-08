@@ -1,5 +1,3 @@
-import 'dart:ui' if (dart.library.html) 'dart:html' as html;
-
 import 'package:deprem_destek/gen/assets.gen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
