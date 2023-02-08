@@ -24,7 +24,7 @@ class MyDemandsTextField<T> extends StatelessWidget {
         formControlName: formControlName,
         // onChanged: onChanged,
         decoration: InputDecoration(
-          hintText: hintText,
+          labelText: hintText,
           focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(width: 2, color: Colors.red),

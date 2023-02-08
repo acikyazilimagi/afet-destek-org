@@ -45,7 +45,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
     _MyDemandPageFormFields.geoLocation.name:
         FormControl<GoogleGeocodingResult>(),
     _MyDemandPageFormFields.categories.name: FormControl<List<String>>(
-        validators: [Validators.required, Validators.minLength(1)], value: []),
+      validators: [Validators.required, Validators.minLength(1)],
+      value: [],
+    ),
     _MyDemandPageFormFields.notes.name:
         FormControl<String>(validators: [Validators.required]),
     _MyDemandPageFormFields.phoneNumber.name: FormControl<String>(
@@ -193,6 +195,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         formControlName:
                             _MyDemandPageFormFields.geoLocation.name,
                         decoration: InputDecoration(
+                          labelText: 'Adres',
                           focusedBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(width: 2),
@@ -215,13 +218,13 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         formControlName: _MyDemandPageFormFields.notes.name,
                       ),
                       MyDemandsTextField<String>(
-                        hintText: '',
+                        hintText: 'Telefon numarası',
                         formControlName:
                             _MyDemandPageFormFields.phoneNumber.name,
                         inputFormatters: [LengthLimitingTextInputFormatter(10)],
                       ),
                       MyDemandsTextField<String>(
-                        hintText: '',
+                        hintText: 'Whatsapp Numarası',
                         formControlName:
                             _MyDemandPageFormFields.wpPhoneNumber.name,
                         inputFormatters: [
