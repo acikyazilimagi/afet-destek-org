@@ -1,7 +1,7 @@
+import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../shared/state/app_cubit.dart';
 
 class AppLoadFailurePage extends StatelessWidget {
   const AppLoadFailurePage({super.key});
