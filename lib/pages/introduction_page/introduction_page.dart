@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_escaping_inner_quotes
+
 import 'package:deprem_destek/gen/assets.gen.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,6 @@ class IntroductionPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: height * 0.2),
             buildLogo(height),
@@ -47,20 +48,25 @@ class IntroductionPage extends StatelessWidget {
 
   TextButton buildKvkkTextButton(BuildContext context) {
     return TextButton(
-        onPressed: () {},
-        style: TextButton.styleFrom(
-            foregroundColor: Theme.of(context).textTheme.titleSmall?.color),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            Text("KVKK Açık Rıza Metni'ni oku "),
-            Icon(Icons.arrow_forward),
-          ],
-        ));
+      onPressed: () {},
+      style: TextButton.styleFrom(
+        foregroundColor: Theme.of(context).textTheme.titleSmall?.color,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Text('KVKK Açık Rıza Metni\'ni oku '),
+          Icon(Icons.arrow_forward),
+        ],
+      ),
+    );
   }
 
   ElevatedButton buildRequestButton(
-      BuildContext context, double width, double height) {
+    BuildContext context,
+    double width,
+    double height,
+  ) {
     return ElevatedButton(
       onPressed: () => context.read<AppCubit>().startApp(),
       style: ElevatedButton.styleFrom(
@@ -82,9 +88,11 @@ class IntroductionPage extends StatelessWidget {
   }
 
   Text buildTitle(BuildContext context) {
-    return Text('Afet Destek Platformu',
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.headlineSmall);
+    return Text(
+      'Afet Destek Platformu',
+      textAlign: TextAlign.center,
+      style: Theme.of(context).textTheme.headlineSmall,
+    );
   }
 
   SvgPicture buildLogo(double height) {
