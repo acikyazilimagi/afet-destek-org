@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:deprem_destek/app.dart';
+import 'package:deprem_destek/utils/logger/app_loger.dart';
+import 'package:deprem_destek/utils/observer/bloc_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +17,13 @@ void main() async {
       projectId: 'deprem-destek-org',
     ),
   );
-
-  runApp(const DepremDestekApp());
+  await runZonedGuarded(
+    () async {
+      await BlocOverrides.runZoned(
+        () async => runApp(const DepremDestekApp()),
+        blocObserver: AppBlocObserver(),
+      );
+    },
+    (error, stackTrace) => AppLoggerImpl.log.e(error.toString(), stackTrace),
+  );
 }
