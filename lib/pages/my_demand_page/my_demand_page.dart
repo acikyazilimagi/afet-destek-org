@@ -254,8 +254,11 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         formControlName:
                             _MyDemandPageFormFields.wpPhoneNumber.name,
                         inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                          FilteringTextInputFormatter.digitsOnly,
+                          FilteringTextInputFormatter.allow(
+                            RegExp(
+                              '[+0-9]',
+                            ),
+                          ),
                         ],
                         validationMessages: {
                           ValidationMessage.required: (_) =>

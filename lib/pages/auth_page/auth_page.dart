@@ -137,7 +137,7 @@ class _AuthPageState extends State<AuthPage> {
                     suffixStyle: const TextStyle(color: Colors.black),
                   ),
                   onChanged: (code) => setState(() => _code = code),
-                )
+                ),
               ],
               // implement kvkk
 

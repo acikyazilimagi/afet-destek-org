@@ -62,7 +62,7 @@ class DemandCard extends StatelessWidget {
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
-                        demand.modifiedTimeUtc.toLocal().countDown,
+                        demand.modifiedTimeUtc.toLocal().asElapsedTimeString,
                         style: const TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Color(0xff101828),
