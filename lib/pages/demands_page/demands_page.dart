@@ -144,7 +144,10 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                           ),
                         ],
                       ),
-                    DemandCard(demand: demand),
+                    DemandCard(
+                      demand: demand,
+                      isDetail: false,
+                    ),
                     if (index == demands.length - 1) ...[
                       if (state.status.maybeWhen(
                         loading: () => true,
