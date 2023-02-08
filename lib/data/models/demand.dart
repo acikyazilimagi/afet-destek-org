@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
+import 'package:deprem_destek/data/models/demand_category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'demand.freezed.dart';
@@ -16,8 +18,10 @@ class Demand with _$Demand {
     required String? whatsappNumber,
     required DateTime modifiedTimeUtc,
     required bool isActive,
-    // required int distanceKm,
+    required int distanceMeter,
   }) = _Demand;
+
+  const Demand._();
 
   factory Demand.fromJson(Map<String, dynamic> json) => _$DemandFromJson(json);
 
@@ -27,7 +31,20 @@ class Demand with _$Demand {
         DateTime.fromMillisecondsSinceEpoch(time.millisecondsSinceEpoch)
             .toIso8601String();
 
-    // json['distanceKm'] = -1;
+    json['distanceMeter'] = -1;
     return _$DemandFromJson(json);
+  }
+  List<String> categoryNames({required List<DemandCategory> demandCategories}) {
+    return categoryIds
+        .map(
+          (id) =>
+              demandCategories
+                  .firstWhereOrNull(
+                    (category) => category.id == id,
+                  )
+                  ?.name ??
+              '-',
+        )
+        .toList();
   }
 }

@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 
@@ -6,7 +5,6 @@ class LocationRepository {
   final _googleGeocodingApi = GoogleGeocodingApi(
     // TODO(BRTZL): Get this from env
     'AIzaSyBhcGwfVK2wWFRwo7fpKQ64BLdH0qS6Nb0',
-    isLogged: kDebugMode,
   );
 
   Future<GoogleGeocodingResult> getLocation() async {
