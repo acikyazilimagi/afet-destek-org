@@ -1,6 +1,5 @@
+import 'package:deprem_destek/shared/assets.dart';
 import 'package:flutter/material.dart';
-
-import '../../../shared/assets.dart';
 
 class CustomDialog {
   static Future<void> locationPermissionDialog(BuildContext context) async {
