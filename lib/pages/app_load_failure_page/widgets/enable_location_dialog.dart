@@ -27,7 +27,7 @@ class CustomDialog {
                         return Container(
                           margin: const EdgeInsets.all(10),
                           child: Image.asset(
-                            'assets/images/location/${imageNames[pagePosition]}.jpg',
+                            'assets/images/${imageNames[pagePosition]}.jpg',
                           ),
                         );
                       },

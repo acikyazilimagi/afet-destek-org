@@ -41,6 +41,5 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/images/location/
 
   uses-material-design: true
