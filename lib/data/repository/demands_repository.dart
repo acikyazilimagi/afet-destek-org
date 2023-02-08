@@ -108,7 +108,7 @@ class DemandsRepository {
   }
 
   Future<List<Demand>> getDemands({
-    required GoogleGeocodingLocation? geo,
+    required GoogleGeocodingLocation geo,
     required double? radius,
     required List<String>? categoryIds,
     required int page,

@@ -7,18 +7,16 @@ import 'package:google_geocoding_api/google_geocoding_api.dart';
 
 class DemandsApiClient {
   Future<List<Demand>> getDemands({
-    required GoogleGeocodingLocation? geo,
+    required GoogleGeocodingLocation geo,
     required double? radius,
     required List<String>? categoryIds,
     required int page,
   }) async {
     try {
       final payload = jsonEncode({
-        if (geo != null) ...{
-          'geo': {
-            'longitude': geo.lng,
-            'latitude': geo.lat,
-          },
+        'geo': {
+          'longitude': geo.lng,
+          'latitude': geo.lat,
         },
         'radius': radius,
         'categoryIds': categoryIds,
@@ -32,8 +30,8 @@ class DemandsApiClient {
 
       // TODO(enes): use DTO for API parsing
       return ((jsonDecode(response.data!) as Map<String, dynamic>)['demands']
-              as List<Map<String, dynamic>>)
-          .map(Demand.fromJson)
+              as List<dynamic>)
+          .map((e) => Demand.fromJson(e as Map<String, dynamic>))
           .toList();
     } catch (_) {
       rethrow;
