@@ -1,8 +1,6 @@
 name: Build Web & Dev Deploy
 
 on:
-  push:
-    branches: [develop]
   pull_request:
     types: [closed]
 
