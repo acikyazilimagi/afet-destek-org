@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class CustomDialog {
   static Future<void> locationPermissionDialog(BuildContext context) async {
-    List<String> imageNames = [
-      "location_permission_direction_1",
-      "location_permission_direction_2",
-      "location_permission_direction_3"
+    final imageNames = <String>[
+      'location_permission_direction_1',
+      'location_permission_direction_2',
+      'location_permission_direction_3'
     ];
 
     return showDialog(
         context: context,
         builder: (context) {
-          int activePage = 0;
+          var activePage = 0;
           return AlertDialog(
               title: const Text('Konum izni vermeniz gerekiyor.'),
               content: StatefulBuilder(
@@ -23,12 +23,13 @@ class CustomDialog {
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: PageView.builder(
                           itemCount: imageNames.length,
-                          pageSnapping: true,
                           itemBuilder: (context, pagePosition) {
                             return Container(
-                                margin: EdgeInsets.all(10),
-                                child: Image.asset(
-                                    'assets/images/location/${imageNames[pagePosition]}.jpg'));
+                              margin: const EdgeInsets.all(10),
+                              child: Image.asset(
+                                'assets/images/location/${imageNames[pagePosition]}.jpg',
+                              ),
+                            );
                           },
                           onPageChanged: (page) {
                             setState(() {
@@ -37,9 +38,10 @@ class CustomDialog {
                           }),
                     ),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: CustomDialog()
-                            .indicators(imageNames.length, activePage))
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: CustomDialog()
+                          .indicators(imageNames.length, activePage),
+                    )
                   ],
                 );
               }));
@@ -49,12 +51,13 @@ class CustomDialog {
   List<Widget> indicators(int imagesLength, int currentIndex) {
     return List<Widget>.generate(imagesLength, (index) {
       return Container(
-        margin: EdgeInsets.all(3),
+        margin: const EdgeInsets.all(3),
         width: 10,
         height: 10,
         decoration: BoxDecoration(
-            color: currentIndex == index ? Colors.black : Colors.black26,
-            shape: BoxShape.circle),
+          color: currentIndex == index ? Colors.black : Colors.black26,
+          shape: BoxShape.circle,
+        ),
       );
     });
   }

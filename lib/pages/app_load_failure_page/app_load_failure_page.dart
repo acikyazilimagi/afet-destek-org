@@ -10,7 +10,9 @@ class AppLoadFailurePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // implement try again button that calls AppCubit.load again
     // implement a location required warning in the page
-    Future.delayed(Duration.zero, () => CustomDialog.locationPermissionDialog(context));
+    Future.delayed(Duration.zero, () {
+      CustomDialog.locationPermissionDialog(context);
+    });
     return Scaffold(
       body: Center(
         child: Column(
