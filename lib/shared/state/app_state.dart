@@ -13,4 +13,6 @@ class AppState with _$AppState {
     required List<DemandCategory> demandCategories,
   }) = _loadedAppState;
   const factory AppState.failed() = _failedAppState;
+
+  /*  when({required IntroductionPage Function() introduction, required DemandsPage Function(dynamic _, dynamic __) loaded, required AppLoadFailurePage Function() failed, required Scaffold Function() loading}) {} */
 }

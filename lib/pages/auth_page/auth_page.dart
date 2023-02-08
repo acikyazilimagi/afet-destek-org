@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage._();
@@ -103,7 +104,8 @@ class _AuthPageState extends State<AuthPage> {
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               const SizedBox(height: 28),
-              TextFormField(
+              IntlPhoneField(
+                initialCountryCode: 'TR',
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                     RegExp(
@@ -112,10 +114,13 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                 ],
                 keyboardType: TextInputType.phone,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'Telefon Numarası',
                 ),
-                onChanged: (number) => setState(() => _number = number),
+                onChanged: (number) => setState(() {
+                  _number = number.completeNumber;
+                  print(number.completeNumber);
+                }),
               ),
               if (!isFirstStep) ...[
                 const SizedBox(height: 8),
