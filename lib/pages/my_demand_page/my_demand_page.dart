@@ -231,19 +231,22 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         },
                       ),
                       MyDemandsTextField<String>(
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp(
-                              '[+0-9]',
-                            ),
-                          ),
-                        ],
-                        hintText: 'Telefon Numarası',
+                        icon: SvgPicture.asset(
+                          'assets/icons/whatsapp.svg',
+                        ),
+                        hintText: '',
                         formControlName:
                             _MyDemandPageFormFields.phoneNumber.name,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(10),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
                       ),
                       MyDemandsTextField<String>(
-                        hintText: 'WhatsApp',
+                        icon: SvgPicture.asset(
+                          'assets/icons/message.svg',
+                        ),
+                        hintText: '',
                         formControlName:
                             _MyDemandPageFormFields.wpPhoneNumber.name,
                         inputFormatters: [
