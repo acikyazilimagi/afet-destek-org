@@ -196,11 +196,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const AppFormFieldTitle(title: 'Adres'),
                       ReactiveTextField<GoogleGeocodingResult>(
                         formControlName:
                             _MyDemandPageFormFields.geoLocation.name,
                         decoration: InputDecoration(
-                          labelText: 'Adres',
+                          hintText: 'Adres Giriniz',
                           focusedBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(width: 2),
@@ -224,15 +225,19 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           _MyDemandPageFormFields.categories.name,
                         ) as FormControl<List<String>>,
                       ),
+                      const AppFormFieldTitle(title: 'Diğer İhtiyaçlar'),
                       MyDemandsTextField<String>(
-                        labelText: 'Neye İhtiyacın Var?',
+                        hintText: 'Diğer ihtiyaçlarınızı giriniz',
                         isLongBody: true,
                         formControlName: _MyDemandPageFormFields.notes.name,
                         validationMessages: {
                           ValidationMessage.required: (_) =>
                               'Neye ihtiyacınız olduğunu yazar mısınız?.',
+                          ValidationMessage.maxLength: (_) =>
+                              'En fazla 1000 karakter girebilirsiniz.',
                         },
                       ),
+                      const AppFormFieldTitle(title: 'Telefon Numarası'),
                       MyDemandsTextField<String>(
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
@@ -241,7 +246,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             ),
                           ),
                         ],
-                        labelText: 'Telefon Numarası',
+                        hintText: 'Telefon Numaranızı Giriniz',
                         formControlName:
                             _MyDemandPageFormFields.phoneNumber.name,
                         validationMessages: {

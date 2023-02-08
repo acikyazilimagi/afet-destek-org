@@ -50,11 +50,7 @@ class IntroductionPage extends StatelessWidget {
   //DO NOT USE FUNCTION FOR WIDGET
   TextButton buildKvkkTextButton(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute<bool>(builder: (_) => const KVKKPage()),
-        );
-      },
+      onPressed: () => KVKKPage.show(context),
       style: TextButton.styleFrom(
         foregroundColor: Theme.of(context).textTheme.titleSmall?.color,
       ),

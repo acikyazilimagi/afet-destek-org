@@ -91,7 +91,7 @@ class _DemandDetailsPageView extends StatelessWidget {
                 ),
               ),
             ),
-            DemandCard(demand: demand, isDetail: true),
+            DemandCard(demand: demand, isDetailed: true),
             // TODO(resultanyildizi): if the user is not identified
             // TODO(resultanyildizi): show the warning box
             if (dummyUserIdentified) ...[
@@ -102,22 +102,10 @@ class _DemandDetailsPageView extends StatelessWidget {
               ),
               const SizedBox(height: 15),
             ],
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: WhatsappButton(phoneNumber: demand.phoneNumber),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: CallButton(phoneNumber: demand.phoneNumber),
-            ),
-            const SizedBox(height: 30),
-            const Center(
-              child: Text(
-    '''
     GSM operatörlerindeki yoğunluk sebebiyle 
     SMS kullanmayı tercih ediniz.'''),
             ),
+
           ],
         ),
       ),
