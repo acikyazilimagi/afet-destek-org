@@ -10,7 +10,7 @@ class IntroductionPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: ElevatedButton(
-          child: Text('konum izni ver'),
+          child: const Text('konum izni ver'),
           onPressed: () => context.read<AppCubit>().startApp(),
         ),
       ),
