@@ -1,6 +1,7 @@
 import 'package:deprem_destek/data/models/demand.dart';
 import 'package:deprem_destek/data/repository/auth_repository.dart';
-import 'package:deprem_destek/pages/demand_details_page/widgets/sms_button.dart';
+import 'package:deprem_destek/gen/assets.gen.dart';
+import 'package:deprem_destek/pages/demand_details_page/widgets/call_button.dart';
 import 'package:deprem_destek/pages/demand_details_page/widgets/whatsapp_button.dart';
 import 'package:deprem_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
@@ -9,6 +10,7 @@ import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class DemandDetailsPage extends StatelessWidget {
   const DemandDetailsPage._({required this.demand});
@@ -64,6 +66,14 @@ class _DemandDetailsPageView extends StatelessWidget {
     const dummyUserIdentified = true;
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: SvgPicture.asset(Assets.logoSvg),
+          )
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,11 +102,10 @@ class _DemandDetailsPageView extends StatelessWidget {
               ),
               const SizedBox(height: 15),
             ],
-            WhatsappButton(phoneNumber: demand.phoneNumber),
-            const SizedBox(height: 15),
-            SmsButton(phoneNumber: demand.phoneNumber),
-            const SizedBox(height: 30),
-            const Center(child: Text('Lütfen aramayı tercih etmeyiniz'))
+    GSM operatörlerindeki yoğunluk sebebiyle 
+    SMS kullanmayı tercih ediniz.'''),
+            ),
+
           ],
         ),
       ),
