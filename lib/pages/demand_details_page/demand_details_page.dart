@@ -62,9 +62,6 @@ class _DemandDetailsPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(resultanyildizi): if the user is not identified show the warning box
-    const dummyUserIdentified = true;
-
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -75,14 +72,14 @@ class _DemandDetailsPageView extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 30),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Text(
-                'Talep Detayı',
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 30),
+              const Text(
+                'Yardım Talebi',
                 maxLines: 1,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
@@ -90,23 +87,25 @@ class _DemandDetailsPageView extends StatelessWidget {
                   color: Color(0xff101828),
                 ),
               ),
-            ),
-            DemandCard(demand: demand, isDetailed: true),
-            // TODO(resultanyildizi): if the user is not identified
-            // TODO(resultanyildizi): show the warning box
-            if (dummyUserIdentified) ...[
+              DemandCard(demand: demand, isDetailed: true),
+              const SizedBox(height: 8),
               const Infobox(
                 info: '''
-                    Bu kişinin kimliği tarafımızca doğrulanmamıştır.
-                    Lütfen dikkatli olunuz.''',
+                      Bu kişinin kimliği tarafımızca doğrulanmamıştır.
+                      Lütfen dikkatli olunuz.''',
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 8),
+              WhatsappButton(phoneNumber: demand.phoneNumber),
+              const SizedBox(height: 8),
+              CallButton(phoneNumber: demand.phoneNumber),
+              const SizedBox(height: 32),
+              const Text(
+                'GSM operatörlerindeki yoğunluk sebebiyle '
+                'arama yerine SMS kullanmayı tercih ediniz.',
+                textAlign: TextAlign.center,
+              )
             ],
-    GSM operatörlerindeki yoğunluk sebebiyle 
-    SMS kullanmayı tercih ediniz.'''),
-            ),
-
-          ],
+          ),
         ),
       ),
     );

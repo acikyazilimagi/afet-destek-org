@@ -239,13 +239,7 @@ class _KVKKCheckBox extends StatelessWidget {
                     fontSize: 14,
                   ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () => Navigator.of(context).push<bool>(
-                          MaterialPageRoute<bool>(
-                            builder: (context) {
-                              return const KVKKPage();
-                            },
-                          ),
-                        ),
+                    ..onTap = () => KVKKPage.show(context),
                 ),
                 const TextSpan(
                   text: "'ni okudum ve kabul ediyorum.",

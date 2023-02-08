@@ -144,7 +144,13 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                           ),
                         ],
                       ),
-                    DemandCard(demand: demand),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
+                      ),
+                      child: DemandCard(demand: demand),
+                    ),
                     if (index == demands.length - 1) ...[
                       if (state.status.maybeWhen(
                         loading: () => true,
