@@ -5,7 +5,7 @@ on:
     branches: [develop]
   pull_request:
     types: [opened, reopened]
-    
+
 jobs:
   test:
     name: Test Flutter (Web)
@@ -50,8 +50,6 @@ jobs:
           path: web-build
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
-        with:
-          args: target:apply hosting prod prod
         with:
           args: deploy --only hosting:test-deprem-destek-org --public web-build
         env:
