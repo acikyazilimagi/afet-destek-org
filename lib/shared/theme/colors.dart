@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static MaterialColor primarySwatch = const Color(0xFFDC2626).toMaterial();
+  // static MaterialColor primarySwatch = const Color(0xFFC93131).toMaterial();
+  static MaterialColor primarySwatch =
+      const Color.fromARGB(255, 222, 31, 42).toMaterial();
   static const Color appBarColor = Color(0xFFFDF0E5);
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF000000);
@@ -18,6 +20,7 @@ class AppColors {
   static const Color darkGrey = Color(0xFF444444);
   static const Color cardBorderColor = Color(0xffF0F0F0);
   static const Color whatsapp = Color(0xff25D366);
+  static const Color chipTextColor = Color(0xff2D3849);
 }
 
 extension ColorsEx on Color {

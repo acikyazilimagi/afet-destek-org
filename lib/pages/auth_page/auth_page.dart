@@ -153,7 +153,6 @@ class _AuthPageState extends State<AuthPage> {
                             },
                           ),
                     isDense: true,
-                    suffixStyle: const TextStyle(color: Colors.black),
                   ),
                   onChanged: (code) => setState(() => _code = code),
                 ),
@@ -271,7 +270,7 @@ class _AuthErrorMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: ColoredBox(color: Colors.red, child: Text(message)),
+      child: ColoredBox(color: Colors.transparent, child: Text(message)),
     );
   }
 }

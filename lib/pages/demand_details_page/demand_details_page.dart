@@ -76,7 +76,6 @@ class _DemandDetailsPageView extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 24,
-                color: Color(0xff101828),
               ),
             ),
           ),

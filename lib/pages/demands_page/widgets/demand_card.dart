@@ -28,9 +28,10 @@ class DemandCard extends StatelessWidget {
         children: [
           Container(
             height: 10,
-            decoration: const BoxDecoration(
-              color: Color(0xffDC2626),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(9)),
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(9)),
             ),
           ),
           Container(
@@ -55,7 +56,6 @@ class DemandCard extends StatelessWidget {
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 24,
-                          color: Color(0xff101828),
                         ),
                       ),
                     ),
@@ -65,7 +65,6 @@ class DemandCard extends StatelessWidget {
                         demand.modifiedTimeUtc.toLocal().asElapsedTimeString,
                         style: const TextStyle(
                           fontWeight: FontWeight.w300,
-                          color: Color(0xff101828),
                         ),
                       ),
                     ),
@@ -75,7 +74,6 @@ class DemandCard extends StatelessWidget {
                         '${demand.distanceMeter ~/ 1000} km',
                         style: const TextStyle(
                           fontWeight: FontWeight.w300,
-                          color: Color(0xff101828),
                         ),
                       ),
                     ),
@@ -85,7 +83,6 @@ class DemandCard extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(
                     demand.notes,
-                    style: const TextStyle(color: Color(0xff475467)),
                   ),
                 ),
                 Wrap(
@@ -102,15 +99,12 @@ class DemandCard extends StatelessWidget {
                       DemandDetailsPage.show(context, demand: demand);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xffDC2626),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
-                        side: const BorderSide(color: Colors.red),
                       ),
                     ),
                     child: const Text(
                       'Detay',
-                      style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ),
               ],

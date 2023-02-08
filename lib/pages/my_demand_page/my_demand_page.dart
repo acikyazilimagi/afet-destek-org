@@ -8,6 +8,7 @@ import 'package:deprem_destek/pages/my_demand_page/widgets/geo_value_accessor.da
 import 'package:deprem_destek/pages/my_demand_page/widgets/my_demand_textfield.dart';
 import 'package:deprem_destek/shared/extensions/reactive_forms_extensions.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
+import 'package:deprem_destek/shared/theme/colors.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:deprem_destek/shared/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -199,17 +200,15 @@ class _MyDemandPageState extends State<MyDemandPage> {
                       ReactiveTextField<GoogleGeocodingResult>(
                         formControlName:
                             _MyDemandPageFormFields.geoLocation.name,
-                        decoration: InputDecoration(
-                          labelText: 'Adres',
-                          focusedBorder: const OutlineInputBorder(
+                        decoration: const InputDecoration(
+                          focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(width: 2),
                           ),
-                          border: const OutlineInputBorder(
+                          border: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(width: 2),
                           ),
-                          hintStyle: TextStyle(color: Colors.grey.shade500),
                         ),
                         valueAccessor: GeoValueAccessor(),
                         validationMessages: {
@@ -294,13 +293,6 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             title: Row(
                               children: const [
                                 Text('Whatsapp ile ulaşılsın'),
-                                SizedBox(
-                                  width: 8,
-                                ),
-                                Icon(
-                                  FontAwesomeIcons.whatsapp,
-                                  color: Colors.green,
-                                ),
                               ],
                             ),
                           );
@@ -325,28 +317,16 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               children: [
                                 Expanded(
                                   child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red,
-                                    ),
                                     onPressed:
                                         formGroup.valid && !deactivateButtons
                                             ? () => _onSave(
                                                   demandId: state.demand?.id,
                                                 )
                                             : null,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(14),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(14),
                                       child: Text(
-                                        state.demand == null
-                                            ? 'Talep Oluştur'
-                                            : 'Talebi Güncelle',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge
-                                            ?.copyWith(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                            ),
+                                        'Kaydet',
                                       ),
                                     ),
                                   ),
@@ -357,9 +337,6 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       horizontal: 12,
                                     ),
                                     child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.red,
-                                      ),
                                       onPressed: !deactivateButtons
                                           ? () => _onToggleActivation(
                                                 demand: state.demand!,
@@ -395,17 +372,10 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             context.read<AuthRepository>().logout();
                             Navigator.of(context).pop();
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
+                          child: const Padding(
+                            padding: EdgeInsets.all(2),
                             child: Text(
                               'Çıkış yap',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w600,
-                                  ),
                             ),
                           ),
                         ),

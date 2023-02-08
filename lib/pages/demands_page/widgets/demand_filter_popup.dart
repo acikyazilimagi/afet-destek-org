@@ -138,7 +138,6 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
                       ),
                       child: ChoiceChip(
                         padding: const EdgeInsets.all(8),
-                        selectedColor: Colors.red,
                         selected: isSelected,
                         label: Text(category.name),
                         onSelected: (value) => setState(() {

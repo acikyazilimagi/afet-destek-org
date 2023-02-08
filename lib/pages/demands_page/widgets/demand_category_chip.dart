@@ -1,3 +1,4 @@
+import 'package:deprem_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class DemandCategoryChip extends StatelessWidget {
@@ -15,7 +16,10 @@ class DemandCategoryChip extends StatelessWidget {
         border: Border.all(color: Colors.grey.shade300),
         borderRadius: BorderRadius.circular(6),
       ),
-      child: Text(label),
+      child: Text(
+        label,
+        style: const TextStyle(color: AppColors.chipTextColor),
+      ),
     );
   }
 }
