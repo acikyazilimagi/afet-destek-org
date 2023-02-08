@@ -12,10 +12,10 @@ class DemandCard extends StatelessWidget {
   const DemandCard({
     super.key,
     required this.demand,
-    this.showDetailButton = true,
+    required this.isDetail,
   });
   final Demand demand;
-  final bool showDetailButton;
+  final bool isDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class DemandCard extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            height: 10,
+            height: 6,
             decoration: const BoxDecoration(
               color: Color(0xffDC2626),
               borderRadius: BorderRadius.vertical(top: Radius.circular(9)),
@@ -35,58 +35,71 @@ class DemandCard extends StatelessWidget {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(16),
+            padding:
+                const EdgeInsets.only(top: 14, bottom: 20, right: 16, left: 16),
             decoration: BoxDecoration(
+              color: AppColors.white,
               border: Border.all(color: AppColors.cardBorderColor),
-              borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(8),
+              borderRadius: BorderRadius.circular(
+                9,
               ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  demand.addressText,
+                  maxLines: 1,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    color: AppColors.textColor,
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        demand.addressText,
-                        maxLines: 1,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 24,
-                          color: Color(0xff101828),
-                        ),
+                    Text(
+                      demand.modifiedTimeUtc.toLocal().asElapsedTimeString,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Color(0xff475467),
                       ),
                     ),
-                    const SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        demand.modifiedTimeUtc.toLocal().asElapsedTimeString,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Color(0xff101828),
-                        ),
-                      ),
+                    const CircleAvatar(
+                      backgroundColor: AppColors.cardBorderColor,
+                      radius: 3,
                     ),
                     const SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        '${demand.distanceMeter ~/ 1000} km',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Color(0xff101828),
-                        ),
+                    Text(
+                      '${demand.distanceMeter ~/ 1000} km',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff475467),
                       ),
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
-                    demand.notes,
-                    style: const TextStyle(color: Color(0xff475467)),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  child: Divider(color: Color(0xffE7EEF5), height: 1),
+                ),
+                const Text(
+                  'İhtiyaçlar',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xff475467),
                   ),
+                ),
+                const SizedBox(
+                  height: 8,
                 ),
                 Wrap(
                   children: [
@@ -96,23 +109,51 @@ class DemandCard extends StatelessWidget {
                       DemandCategoryChip(label: category),
                   ],
                 ),
-                if (showDetailButton)
-                  ElevatedButton(
-                    onPressed: () {
-                      DemandDetailsPage.show(context, demand: demand);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xffDC2626),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        side: const BorderSide(color: Colors.red),
-                      ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  child: Divider(color: Color(0xffE7EEF5), height: 1),
+                ),
+                const Text(
+                  'Detaylar',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Color(
+                      0xff475467,
                     ),
-                    child: const Text(
-                      'Detay',
-                      style: TextStyle(fontWeight: FontWeight.w600),
-                    ),
+                    fontSize: 16,
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Text(
+                    (demand.notes * 100).substring(
+                      0,
+                      demand.notes.length <= 1000 ? demand.notes.length : 1000,
+                    ),
+                    overflow: TextOverflow.fade,
+                    style: const TextStyle(color: Color(0xff475467)),
+                  ),
+                ),
+                if (!isDetail) ...[
+                  Row(
+                    children: [
+                      const Spacer(),
+                      TextButton(
+                        onPressed: () {
+                          DemandDetailsPage.show(context, demand: demand);
+                        },
+                        child: const Text(
+                          'Talep Detayını Gör',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: AppColors.red,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ]
               ],
             ),
           ),
