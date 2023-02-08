@@ -28,7 +28,7 @@ dependencies:
   json_annotation: 4.8.0
   reactive_forms: 14.1.0
   url_launcher: 6.1.9
-  url_strategy: ^0.2.0
+  url_strategy: 0.2.0
 
 dev_dependencies:
   build_runner: 2.3.3
