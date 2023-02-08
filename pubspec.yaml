@@ -31,6 +31,7 @@ dependencies:
   sentry_flutter: 6.19.0
   url_launcher: 6.1.9
   logger:
+  logger: ^1.1.0
 
 
 dev_dependencies:
