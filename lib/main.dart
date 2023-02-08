@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:deprem_destek/app.dart';
+import 'package:deprem_destek/shared/analytics/mix_panel_analytics.dart';
 import 'package:deprem_destek/utils/logger/app_logger.dart';
 import 'package:deprem_destek/utils/observer/bloc_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,6 +14,7 @@ void main() async {
   Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
+  await MixPanelAnalytics.initMixPanelAnalytics();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: 'AIzaSyASFP7KxEb8f1JbiDkXDzsj1-e7bPRoaw0',
