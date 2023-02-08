@@ -193,7 +193,8 @@ class _AuthPageState extends State<AuthPage> {
             child: Checkbox(
               value: _kvkkAccepted,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),),
+                borderRadius: BorderRadius.circular(4),
+              ),
               onChanged: (value) {
                 setState(() {
                   _kvkkAccepted = value ?? false;
@@ -209,7 +210,9 @@ class _AuthPageState extends State<AuthPage> {
                 TextSpan(
                   text: 'KVKK Açık Rıza Metni',
                   style: const TextStyle(
-                      decoration: TextDecoration.underline, fontSize: 14,),
+                    decoration: TextDecoration.underline,
+                    fontSize: 14,
+                  ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () => Navigator.of(context).push<bool>(
                           MaterialPageRoute<bool>(
