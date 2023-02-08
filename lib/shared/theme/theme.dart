@@ -88,8 +88,15 @@ class AppTheme {
     ),
   );
 
-  static ChipThemeData chipThemeData = const ChipThemeData(
-    selectedColor: AppColors.red,
+  static ChipThemeData chipThemeData = ChipThemeData(
+    selectedColor: const Color(0xff1F2937),
+    backgroundColor: Colors.white,
+    secondaryLabelStyle: const TextStyle(color: AppColors.white),
+    padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(9),
+      side: const BorderSide(color: Color(0xffD0D5DD)),
+    ),
   );
 
   static ButtonStyle redButton() {
