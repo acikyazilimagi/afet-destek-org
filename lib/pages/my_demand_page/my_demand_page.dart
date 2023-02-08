@@ -241,39 +241,6 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           LengthLimitingTextInputFormatter(10),
                           FilteringTextInputFormatter.digitsOnly,
                         ],
-                      ),
-                      MyDemandsTextField<String>(
-                        icon: SvgPicture.asset(
-                          'assets/icons/message.svg',
-                        ),
-                        hintText: '',
-                        formControlName:
-                            _MyDemandPageFormFields.wpPhoneNumber.name,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp(
-                              '[+0-9]',
-                            ),
-                          ),
-                        ],
-                        validationMessages: {
-                          ValidationMessage.required: (_) =>
-                              'Whats App numaranız gerekli.',
-                          ValidationMessage.number: (_) =>
-                              'Whats App Numaranız geçerli olmalı',
-                        },
-                      ),
-                      MyDemandsTextField<String>(
-                        hintText: 'WhatsApp',
-                        icon: SvgPicture.asset(
-                          'assets/icons/whatsapp.svg',
-                        ),
-                        formControlName:
-                            _MyDemandPageFormFields.phoneNumber.name,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
                         validationMessages: {
                           ValidationMessage.required: (_) =>
                               'Whats App numaranız gerekli.',

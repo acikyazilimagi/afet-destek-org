@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class MyDemandsTextField<T> extends StatelessWidget {
-  const MyDemandsTextField({
+  MyDemandsTextField({
     super.key,
     required this.hintText,
     required this.formControlName,
