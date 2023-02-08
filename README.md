@@ -5,11 +5,11 @@ Bu uygulama, ihtiyaç sahibi depremzedelerin hangi adreste, nelere ihtiyaçları
 
 ### Nasıl Çalışır?
 
-- Depremzedeler veya Yardımseverler; 
+- Depremzedeler veya Yardımseverler;
   - Telefon numarası ile sisteme kayıt olabilir.
-  - Sistem tarafından girilen telefon numarasına sms gönderilir ve kullanıcıdan gelen sms’te yer alan kodu girmesi beklenir. 
-  - KVKK metni onaylaması beklenir. 
-- Depremzedeler, 
+  - Sistem tarafından girilen telefon numarasına sms gönderilir ve kullanıcıdan gelen sms’te yer alan kodu girmesi beklenir.
+  - KVKK metni onaylaması beklenir.
+- Depremzedeler,
   - İhtiyaç talebi oluşturabilir.
     - adres bilgi girişi
     - ihtiyaç bilgi girişi
@@ -17,7 +17,7 @@ Bu uygulama, ihtiyaç sahibi depremzedelerin hangi adreste, nelere ihtiyaçları
     - iletişim yöntemi sadece sms veya hem sms hem whatsapp bilgi girişi
   - Oluşturdukları ihtiyaç taleplerini listeleyebilir.
   - Oluşturdukları ihtiyaç talebinin detayını görüntüleyebilir.
-- Yardımseverler, 
+- Yardımseverler,
   - Depremzedelerin girdikleri talepleri listeleyebilir.
   - Depremzedelerin girdikleri talebin detayını görüntüleyebilir.
     - Sms veya Whatsapp ile iletişime geçebilir.

@@ -11,6 +11,9 @@ class DemandsState with _$DemandsState {
     required List<String>? categoryIds,
     required double? filterRadiusKm,
   }) = _DemandsState;
+  const DemandsState._();
+
+  bool get hasAnyFilter => categoryIds != null || filterRadiusKm != null;
 }
 
 @freezed
