@@ -124,8 +124,8 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                     Padding(
                       padding: const EdgeInsets.all(15),
                       child: Text(
-                        // TODO: Şu an toplam sonuç sayısı elimizde yok,
-                        // yalnızca sayfa başına getirilen sonuç sayısı var
+                        // TODO(adnan): we don't have total count
+                        // currently, only the count of the current page
                         'Yardım talepleri',
                         style: Theme.of(context).textTheme.displaySmall,
                       ),
