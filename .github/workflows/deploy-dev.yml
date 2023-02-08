@@ -1,8 +1,9 @@
-name: Build Web & Deploy
+name: Build Web & Dev Deploy
 
 on:
   push:
     branches: [master]
+workflow_dispatch:
 
 jobs:
   test:
