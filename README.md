@@ -47,5 +47,4 @@ Web - Link eklenecek.
   - [yardim-agi-firebase](https://github.com/acikkaynak/yardim-agi-firebase)
 
 ### Kullanılan Teknoloji ve Sistemler
-- Flutter (Web)
-- Google Firebase & Lambda (Cloud Function) & Firestore
+[![My Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?title=&borderRadius=0&fontSize=15&showBorder=false&lineCount=1&theme=github_dark&hideBg=true&hideTitle=true&line1=Flutter,Flutter,02569B;Firebase,Firebase,FFCA28;AWS%20Lambda,AWS%20Lambda,FF9900;Firestore,Firestore,ffffff;)](https://github-readme-tech-stack.vercel.app/api/cards?title=&borderRadius=0&fontSize=15&showBorder=false&lineCount=1&theme=github_dark&hideBg=true&hideTitle=true&line1=Flutter,Flutter,02569B;Firebase,Firebase,FFCA28;AWS%20Lambda,AWS%20Lambda,FF9900;Firestore,Firestore,ffffff;)
