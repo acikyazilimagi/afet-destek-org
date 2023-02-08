@@ -27,6 +27,7 @@ dependencies:
   http: 0.13.5
   json_annotation: 4.8.0
   logger: 1.1.0
+  motion_toast: 2.6.4
   reactive_forms: 14.1.0
   sentry_flutter: 6.19.0
   url_launcher: 6.1.9

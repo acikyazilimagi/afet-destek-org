@@ -154,13 +154,13 @@ class _MyDemandPageState extends State<MyDemandPage> {
         _populateWithExistingData(existingDemand: state.demand);
       },
       loadFailed: () {
-        showFailureSnackBar(context, 'Sayfa yüklemesi başarısız.');
+        const AppSnackbars.failure('Sayfa yüklemesi başarısız.').show(context);
       },
       saveFail: () {
-        showFailureSnackBar(context, 'Kaydetme başarısız.');
+        const AppSnackbars.failure('Kaydetme başarısız.').show(context);
       },
       saveSuccess: () {
-        showInfoSnackBar(context, 'Değişiklikler kaydedildi.');
+        const AppSnackbars.success('Değişiklikler kaydedildi.').show(context);
       },
     );
   }

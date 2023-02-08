@@ -1,48 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:motion_toast/motion_toast.dart';
 
-void showInfoSnackBar(
-  BuildContext context,
-  String message, {
-  Duration duration = const Duration(milliseconds: 3000),
-}) {
-  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-      content: Text(
-        message,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.onSecondary,
-          fontSize: 15,
-        ),
-      ),
-      duration: duration,
-      elevation: 0,
-    ),
-  );
-}
+enum SnackBarStatus { info, failure, success }
 
-void showFailureSnackBar(
-  BuildContext context,
-  String message, {
-  Duration duration = const Duration(seconds: 5),
-  Color? backgroundColor,
-  Color? foregroundColor,
-}) {
-  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+class AppSnackbars {
+  const AppSnackbars.info(this.message)
+      : status = SnackBarStatus.info,
+        title = 'Bilgi';
 
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.error,
-      content: Text(
-        message,
-        style: TextStyle(
-          color: foregroundColor ?? Theme.of(context).colorScheme.onError,
-          fontSize: 15,
-        ),
-      ),
-      duration: duration,
-      elevation: 0,
-    ),
-  );
+  const AppSnackbars.failure(this.message)
+      : status = SnackBarStatus.failure,
+        title = 'Hata';
+
+  const AppSnackbars.success(this.message)
+      : status = SnackBarStatus.success,
+        title = 'Başarılı';
+
+  final SnackBarStatus status;
+  final String title;
+  final String message;
+
+  void show(BuildContext context) {
+    switch (status) {
+      case SnackBarStatus.info:
+        MotionToast.info(
+          title: Text(title),
+          description: Text(message),
+        ).show(context);
+        break;
+      case SnackBarStatus.failure:
+        MotionToast.error(
+          title: Text(title),
+          description: Text(message),
+        ).show(context);
+        break;
+      case SnackBarStatus.success:
+        MotionToast.success(
+          title: Text(title),
+          description: Text(message),
+        ).show(context);
+        break;
+    }
+  }
 }
