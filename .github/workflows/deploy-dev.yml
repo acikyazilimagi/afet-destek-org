@@ -3,9 +3,9 @@ name: Build Web & Dev Deploy
 on:
   push:
     branches: [develop]
+  pull_request:
+    types: [opened, reopened]
     
-workflow_dispatch:
-
 jobs:
   test:
     name: Test Flutter (Web)
