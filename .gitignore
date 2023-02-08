@@ -47,6 +47,7 @@ app.*.map.json
 
 *.g.dart
 *.freezed.dart
+*.gen.dart
 
 
 # FVM related
