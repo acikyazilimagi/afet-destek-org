@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:deprem_destek/data/models/demand_category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
@@ -14,5 +16,5 @@ class AppState with _$AppState {
   }) = _loadedAppState;
   const factory AppState.failed() = _failedAppState;
 
-  /*  when({required IntroductionPage Function() introduction, required DemandsPage Function(dynamic _, dynamic __) loaded, required AppLoadFailurePage Function() failed, required Scaffold Function() loading}) {} */
+  /* when({required IntroductionPage Function() introduction, required DemandsPage Function(dynamic _, dynamic __) loaded, required AppLoadFailurePage Function() failed, required Scaffold Function() loading}) {} */
 }

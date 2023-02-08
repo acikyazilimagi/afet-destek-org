@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'dart:async';
 
 import 'package:deprem_destek/data/repository/auth_repository.dart';
@@ -6,6 +8,7 @@ import 'package:deprem_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:deprem_destek/pages/auth_page/state/auth_state.dart';
 import 'package:deprem_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -113,13 +116,14 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                   ),
                 ],
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Telefon Numarası',
                 ),
                 onChanged: (number) => setState(() {
                   _number = number.completeNumber;
-                  print(number.completeNumber);
+                  if (kDebugMode) {
+                    print(number.completeNumber);
+                  }
                 }),
               ),
               if (!isFirstStep) ...[
