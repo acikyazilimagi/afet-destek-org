@@ -1,5 +1,5 @@
 extension DateCountDown on DateTime {
-  String get countDown {
+  String get asElapsedTimeString {
     final delta = DateTime.now().difference(this);
     if (delta.inMinutes < 1) {
       return '${delta.inSeconds} Saniye Önce';

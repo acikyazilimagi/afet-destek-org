@@ -217,18 +217,27 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         formControlName: _MyDemandPageFormFields.notes.name,
                       ),
                       MyDemandsTextField<String>(
-                        hintText: '',
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(
+                              '[+0-9]',
+                            ),
+                          ),
+                        ],
+                        hintText: 'Telefon Numarası',
                         formControlName:
                             _MyDemandPageFormFields.phoneNumber.name,
-                        inputFormatters: [LengthLimitingTextInputFormatter(10)],
                       ),
                       MyDemandsTextField<String>(
-                        hintText: '',
+                        hintText: 'WhatsApp',
                         formControlName:
                             _MyDemandPageFormFields.wpPhoneNumber.name,
                         inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                          FilteringTextInputFormatter.digitsOnly,
+                          FilteringTextInputFormatter.allow(
+                            RegExp(
+                              '[+0-9]',
+                            ),
+                          ),
                         ],
                       ),
                       ReactiveFormConsumer(
