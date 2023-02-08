@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:deprem_destek/data/models/demand.dart';
-import 'package:deprem_destek/utils/logger/app_loger.dart';
+import 'package:deprem_destek/utils/logger/app_logger.dart';
 import 'package:dio/dio.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 

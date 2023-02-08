@@ -1,4 +1,4 @@
-import 'package:deprem_destek/utils/logger/app_loger.dart';
+import 'package:deprem_destek/utils/logger/app_logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppBlocObserver extends BlocObserver {

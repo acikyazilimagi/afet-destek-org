@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:deprem_destek/app.dart';
-import 'package:deprem_destek/utils/logger/app_loger.dart';
+import 'package:deprem_destek/utils/logger/app_logger.dart';
 import 'package:deprem_destek/utils/observer/bloc_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
