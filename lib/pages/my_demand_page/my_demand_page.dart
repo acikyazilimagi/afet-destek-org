@@ -14,7 +14,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -235,7 +234,6 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         },
                       ),
                       MyDemandsTextField<String>(
-
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                             RegExp(
@@ -244,13 +242,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           ),
                         ],
                         labelText: 'Telefon Numarası',
-
                         formControlName:
                             _MyDemandPageFormFields.phoneNumber.name,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
                         validationMessages: {
                           ValidationMessage.required: (_) =>
                               'Whats App numaranız gerekli.',

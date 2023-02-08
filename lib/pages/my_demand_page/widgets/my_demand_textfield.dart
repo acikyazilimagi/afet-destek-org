@@ -9,14 +9,13 @@ class MyDemandsTextField<T> extends StatelessWidget {
     required this.formControlName,
     this.isLongBody = false,
     this.inputFormatters,
-    this.icon,
     this.validationMessages,
   });
   final String labelText;
   final String formControlName;
   final List<TextInputFormatter>? inputFormatters;
   final bool isLongBody;
-
+  final Map<String, String Function(Object)>? validationMessages;
 
   @override
   Widget build(BuildContext context) {
