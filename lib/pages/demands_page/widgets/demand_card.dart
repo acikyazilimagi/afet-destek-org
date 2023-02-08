@@ -1,7 +1,9 @@
 import 'package:deprem_destek/data/models/demand.dart';
+import 'package:deprem_destek/pages/demand_details_page/demand_details_page.dart';
 import 'package:deprem_destek/pages/demands_page/widgets/demand_category_chip.dart';
 import 'package:deprem_destek/shared/extensions/date_count_down_extension.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
+import 'package:deprem_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,8 +12,10 @@ class DemandCard extends StatelessWidget {
   const DemandCard({
     super.key,
     required this.demand,
+    this.showDetailButton = true,
   });
   final Demand demand;
+  final bool showDetailButton;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +37,9 @@ class DemandCard extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xffF0F0F0)),
+              border: Border.all(color: AppColors.cardBorderColor),
               borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(9),
+                bottom: Radius.circular(8),
               ),
             ),
             child: Column(
@@ -92,20 +96,23 @@ class DemandCard extends StatelessWidget {
                       DemandCategoryChip(label: category),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffDC2626),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      side: const BorderSide(color: Colors.red),
+                if (showDetailButton)
+                  ElevatedButton(
+                    onPressed: () {
+                      DemandDetailsPage.show(context, demand: demand);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xffDC2626),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: const BorderSide(color: Colors.red),
+                      ),
+                    ),
+                    child: const Text(
+                      'Detay',
+                      style: TextStyle(fontWeight: FontWeight.w600),
                     ),
                   ),
-                  child: const Text(
-                    'Detay',
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                ),
               ],
             ),
           ),
