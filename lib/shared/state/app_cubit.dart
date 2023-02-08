@@ -3,9 +3,7 @@ import 'dart:async';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/data/repository/location_repository.dart';
 import 'package:deprem_destek/shared/state/app_state.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:universal_html/html.dart' as html;
 
 class AppCubit extends Cubit<AppState> {
   AppCubit({
@@ -17,11 +15,9 @@ class AppCubit extends Cubit<AppState> {
   final LocationRepository _locationRepository;
   final DemandsRepository _demandsRepository;
 
-  void load() {
-    if(kIsWeb) {
-      html.window.location.reload();
-    }
-  }
+
+
+
 
   Future<void> startApp() async {
     try {

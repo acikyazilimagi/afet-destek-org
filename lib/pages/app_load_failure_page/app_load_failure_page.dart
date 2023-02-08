@@ -1,6 +1,5 @@
-import 'package:deprem_destek/shared/state/app_cubit.dart';
+import 'package:deprem_destek/shared/util/web_reload/web_reload.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class AppLoadFailurePage extends StatelessWidget {
@@ -20,7 +19,7 @@ class AppLoadFailurePage extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                 context.read<AppCubit>().load();
+                WebReload.reload();
               },
               child: const Text('Tekrar Dene'),
             )
