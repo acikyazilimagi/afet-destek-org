@@ -33,7 +33,6 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
 
   void _onClear() {
     setState(() {
-      //widget.demandsCubit.setFilters(categoryIds: null, filterRadiusKm: null);
       _filterRadiusKm = null;
       _categoryIds.clear();
     });
