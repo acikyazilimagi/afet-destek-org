@@ -55,7 +55,7 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
                 loaded: (_, __) => const DemandsPage(),
                 failed: () => const AppLoadFailurePage(),
                 loading: () => const Scaffold(body: Loader()),
-              ) as Widget,
+              ),
               builder: (context, child) {
                 final width = MediaQuery.of(context).size.width;
                 return Center(
