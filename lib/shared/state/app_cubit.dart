@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:html' as html;
+import 'package:flutter/foundation.dart';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/data/repository/location_repository.dart';
 import 'package:deprem_destek/shared/state/app_state.dart';
@@ -34,4 +37,10 @@ class AppCubit extends Cubit<AppState> {
       emit(const AppState.failed());
     }
   }
+
+  void load() async {
+    if(kIsWeb)
+      html.window.location.reload();
+  }
+
 }

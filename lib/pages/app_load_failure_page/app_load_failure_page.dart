@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../shared/state/app_cubit.dart';
 
 class AppLoadFailurePage extends StatelessWidget {
   const AppLoadFailurePage({super.key});
@@ -17,7 +20,7 @@ class AppLoadFailurePage extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                // reload web window when this is pressed
+                 context.read<AppCubit>().load();
               },
               child: const Text('Tekrar Dene'),
             )
