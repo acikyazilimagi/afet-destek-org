@@ -21,8 +21,7 @@ class WhatsappButton extends StatelessWidget {
         ),
         onPressed: () async {
           // TODO(resultanyildizi): incoming phone number should start with 0
-          final whatsapplink =
-              'https://api.whatsapp.com/send?phone=9$phoneNumber';
+          final whatsapplink = 'https://wa.me/$phoneNumber';
 
           final uri = Uri.parse(whatsapplink);
           await launchUrl(uri);
