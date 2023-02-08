@@ -8,11 +8,13 @@ class MyDemandsTextField<T> extends StatelessWidget {
     required this.hintText,
     required this.formControlName,
     this.inputFormatters,
+    this.icon,
     // required this.onChanged,
   });
   final String hintText;
   final String formControlName;
   final List<TextInputFormatter>? inputFormatters;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,14 @@ class MyDemandsTextField<T> extends StatelessWidget {
         formControlName: formControlName,
         // onChanged: onChanged,
         decoration: InputDecoration(
+          prefixIcon: Align(
+            widthFactor: 2.5,
+            child: icon ?? const SizedBox(),
+          ),
+          prefixIconConstraints: const BoxConstraints(
+            minHeight: 20,
+            minWidth: 20,
+          ),
           hintText: hintText,
           focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
