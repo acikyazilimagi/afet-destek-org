@@ -358,7 +358,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(14),
                                         child: Text(
-                                          (state.demand?.isActive ?? true)
+                                          state.demand!.isActive
                                               ? 'Talebi durdur'
                                               : 'Talebi sürdür',
                                           style: Theme.of(context)
