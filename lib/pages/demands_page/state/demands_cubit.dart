@@ -25,6 +25,7 @@ class DemandsCubit extends Cubit<DemandsState> {
   final DemandsRepository _demandsRepository;
 
   int _page = 1;
+  bool _isLastPage = false;
 
   Future<void> getDemands() async {
     try {
@@ -36,10 +37,10 @@ class DemandsCubit extends Cubit<DemandsState> {
         categoryIds: state.categoryIds,
         radius: state.filterRadiusKm,
       );
-
+      _isLastPage = demands.isEmpty;
       emit(
         state.copyWith(
-          demands: demands,
+          demands: [...state.demands ?? [], ...demands],
           status: const DemandsStateStatus.loaded(),
         ),
       );
@@ -48,18 +49,31 @@ class DemandsCubit extends Cubit<DemandsState> {
     }
   }
 
-  Future<void> setCategoryIds({required List<String>? categoryIds}) async {
-    emit(state.copyWith(categoryIds: categoryIds));
+  Future<void> setFilters({
+    required List<String>? categoryIds,
+    required double? filterRadiusKm,
+  }) async {
+    _page = 1;
+    emit(
+      state.copyWith(
+        categoryIds: categoryIds,
+        filterRadiusKm: filterRadiusKm,
+        demands: null,
+      ),
+    );
+
     unawaited(getDemands());
   }
 
-  Future<void> setfilterRadiusKm({required double filterRadiusKm}) async {
-    emit(state.copyWith(filterRadiusKm: filterRadiusKm));
-    unawaited(getDemands());
-  }
-
-  Future<void> increasePage() async {
-    _page++;
-    unawaited(getDemands());
+  Future<void> loadNextPage() async {
+    state.status.maybeWhen(
+      loading: () => null,
+      orElse: () {
+        if (!_isLastPage) {
+          _page++;
+          unawaited(getDemands());
+        }
+      },
+    );
   }
 }

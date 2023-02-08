@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:deprem_destek/pages/auth_page/state/auth_state.dart';
+import 'package:deprem_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +24,8 @@ class AuthPage extends StatefulWidget {
     );
 
     if (result != null && result) {
-      // TODO(enes): push my demands page
+      // ignore: use_build_context_synchronously
+      unawaited(MyDemandPage.show(context));
     }
   }
 

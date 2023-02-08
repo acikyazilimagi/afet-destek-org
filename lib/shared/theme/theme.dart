@@ -30,6 +30,7 @@ class AppTheme {
         ),
       ),
       elevatedButtonTheme: elevatedButtonTheme,
+      chipTheme: chipThemeData,
       textTheme: const TextTheme(
         headlineSmall: TextStyle(
           color: AppColors.textColor,
@@ -85,6 +86,10 @@ class AppTheme {
       side: BorderSide(color: AppColors.primarySwatch),
       padding: const EdgeInsets.all(16),
     ),
+  );
+
+  static ChipThemeData chipThemeData = const ChipThemeData(
+    selectedColor: AppColors.red,
   );
 
   static ButtonStyle redButton() {
