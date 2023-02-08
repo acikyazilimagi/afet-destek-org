@@ -1,3 +1,4 @@
+import 'package:deprem_destek/gen/assets.gen.dart';
 import 'package:deprem_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,7 +35,7 @@ class SmsButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset('sms.svg'),
+            SvgPicture.asset(Assets.sms),
             const SizedBox(width: 4),
             const Text('SMS ile ulaş'),
           ],

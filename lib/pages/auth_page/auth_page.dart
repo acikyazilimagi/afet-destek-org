@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:deprem_destek/data/repository/auth_repository.dart';
+import 'package:deprem_destek/gen/assets.gen.dart';
 import 'package:deprem_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:deprem_destek/pages/auth_page/state/auth_state.dart';
 import 'package:deprem_destek/pages/my_demand_page/my_demand_page.dart';
@@ -87,7 +88,7 @@ class _AuthPageState extends State<AuthPage> {
           automaticallyImplyLeading: false,
           leading: Padding(
             padding: const EdgeInsets.only(left: 16),
-            child: SvgPicture.asset('assets/logo.svg'),
+            child: SvgPicture.asset(Assets.logoSvg),
           ),
           leadingWidth: 52,
         ),
