@@ -85,9 +85,9 @@ class IntroductionPage extends StatelessWidget {
 
   Text buildContent(BuildContext context) {
     return Text(
-      'Bu platform lokasyon verinizi kullanarakçalışmaktadır. '
-      'Lütfen cihazınızdaki konum servisini '
-      'aktif ettiğinizden emin olunuz.',
+      '''Bu platform lokasyon verinizi kullanarak çalışmaktadır. 
+      Lütfen cihazınızdaki konum servisini 
+      aktif ettiğinizden emin olunuz.''',
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.titleSmall,
     );
