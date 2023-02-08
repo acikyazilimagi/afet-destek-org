@@ -3,6 +3,7 @@ name: Deploy to Preview Channel
 on:
   pull_request:
     branches: [master, develop]
+  workflow_dispatch:
 
 jobs:
   build_web:
