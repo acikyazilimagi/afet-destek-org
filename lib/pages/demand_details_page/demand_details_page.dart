@@ -1,6 +1,7 @@
 import 'package:deprem_destek/data/models/demand.dart';
 import 'package:deprem_destek/data/repository/auth_repository.dart';
-import 'package:deprem_destek/pages/demand_details_page/widgets/sms_button.dart';
+import 'package:deprem_destek/gen/assets.gen.dart';
+import 'package:deprem_destek/pages/demand_details_page/widgets/call_button.dart';
 import 'package:deprem_destek/pages/demand_details_page/widgets/whatsapp_button.dart';
 import 'package:deprem_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
@@ -9,6 +10,7 @@ import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class DemandDetailsPage extends StatelessWidget {
   const DemandDetailsPage._({required this.demand});
@@ -60,43 +62,51 @@ class _DemandDetailsPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(resultanyildizi): if the user is not identified show the warning box
-    const dummyUserIdentified = true;
-
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 30),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              'Talep Detayı',
-              maxLines: 1,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 24,
-                color: Color(0xff101828),
-              ),
-            ),
-          ),
-          DemandCard(demand: demand, showDetailButton: false),
-          // TODO(resultanyildizi): if the user is not identified
-          // TODO(resultanyildizi): show the warning box
-          if (dummyUserIdentified) ...[
-            const Infobox(
-              info: '''
-                  Bu kişinin kimliği tarafımızca doğrulanmamıştır.
-                  Lütfen dikkatli olunuz.''',
-            ),
-            const SizedBox(height: 15),
-          ],
-          WhatsappButton(phoneNumber: demand.phoneNumber),
-          const SizedBox(height: 15),
-          SmsButton(phoneNumber: demand.phoneNumber),
-          const SizedBox(height: 30),
-          const Center(child: Text('Lütfen aramayı tercih etmeyiniz'))
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: SvgPicture.asset(Assets.logoSvg),
+          )
         ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 30),
+              const Text(
+                'Yardım Talebi',
+                maxLines: 1,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 24,
+                  color: Color(0xff101828),
+                ),
+              ),
+              DemandCard(demand: demand, isDetailed: true),
+              const SizedBox(height: 8),
+              const Infobox(
+                info: '''
+                      Bu kişinin kimliği tarafımızca doğrulanmamıştır.
+                      Lütfen dikkatli olunuz.''',
+              ),
+              const SizedBox(height: 8),
+              WhatsappButton(phoneNumber: demand.phoneNumber),
+              const SizedBox(height: 8),
+              CallButton(phoneNumber: demand.phoneNumber),
+              const SizedBox(height: 32),
+              const Text(
+                'GSM operatörlerindeki yoğunluk sebebiyle '
+                'arama yerine SMS kullanmayı tercih ediniz.',
+                textAlign: TextAlign.center,
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

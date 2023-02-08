@@ -17,3 +17,4 @@ jobs:
       - run: flutter pub run build_runner build --delete-conflicting-outputs
       - run: flutter analyze
       - run: dart format . --set-exit-if-changed
+      - run: sh caret_check.sh

@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:deprem_destek/data/models/demand.dart';
+import 'package:deprem_destek/utils/logger/app_logger.dart';
 import 'package:dio/dio.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 
@@ -28,6 +29,7 @@ class DemandsApiClient {
         data: payload,
       );
 
+      AppLoggerImpl.log.i(response);
       // TODO(enes): use DTO for API parsing
       return ((jsonDecode(response.data!) as Map<String, dynamic>)['demands']
               as List<dynamic>)

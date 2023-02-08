@@ -47,7 +47,9 @@ app.*.map.json
 
 *.g.dart
 *.freezed.dart
+*.gen.dart
 
 
 # FVM related
 .fvm/
+.firebase/hosting.YnVpbGQvd2Vi.cache
