@@ -36,6 +36,7 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
       _filterRadiusKm = null;
       _categoryIds.clear();
     });
+    _onSave();
   }
 
   void _onSave() {

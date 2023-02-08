@@ -77,16 +77,20 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          ElevatedButton(
-            onPressed: !widget.isAuthorized
-                ? () => AuthPage.show(context)
-                : () => MyDemandPage.show(context),
-            child: Text(
-              widget.isAuthorized ? 'Destek Taleplerim' : 'Talep Oluştur',
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-                fontSize: 16,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical:10),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: 8)),
+              onPressed: !widget.isAuthorized
+                  ? () => AuthPage.show(context)
+                  : () => MyDemandPage.show(context),
+              child: Text(
+                widget.isAuthorized ? 'Destek Taleplerim' : 'Talep Oluştur',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
