@@ -34,11 +34,10 @@ jobs:
         with:
           name: build
           path: build
-      - name: Deploy to Firebase Hosting (Preview)
-        uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
         with:
-          target: test
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
-          expires: 7d
-          projectId: deprem-destek-org
+          args: deploy --only target:apply hosting test --public web-build
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          PROJECT_ID: deprem-destek-org
