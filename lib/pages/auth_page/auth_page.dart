@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_positional_boolean_parameters, avoid_dynamic_calls, unused_element, lines_longer_than_80_chars
+
 import 'dart:async';
 
 import 'package:deprem_destek/data/repository/auth_repository.dart';
@@ -143,7 +145,11 @@ class _AuthPageState extends State<AuthPage> {
                 ),
               ],
               // implement kvkk
-              kvkkMethod(),
+              _KVKKCheckBox(_kvkkAccepted, (bool value) {
+                setState(() {
+                  _kvkkAccepted = value;
+                });
+              }),
 
               if (authState.status == AuthStateStatus.smsFailure) ...[
                 const _AuthErrorMessage('SMS gönderme başarısız')
@@ -181,8 +187,15 @@ class _AuthPageState extends State<AuthPage> {
       ),
     );
   }
+}
 
-  Widget kvkkMethod() {
+class _KVKKCheckBox extends StatelessWidget {
+  const _KVKKCheckBox(this.kvkkAccepted, this.setKvkkAccepted);
+  final bool kvkkAccepted;
+  final Function setKvkkAccepted;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8, right: 8),
       child: Row(
@@ -191,14 +204,12 @@ class _AuthPageState extends State<AuthPage> {
             height: 24,
             width: 24,
             child: Checkbox(
-              value: _kvkkAccepted,
+              value: kvkkAccepted,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(4),
               ),
               onChanged: (value) {
-                setState(() {
-                  _kvkkAccepted = value ?? false;
-                });
+                setKvkkAccepted(value ?? false);
               },
             ),
           ),
