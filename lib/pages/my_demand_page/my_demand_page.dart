@@ -50,11 +50,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
       ],
       value: [],
     ),
-
     _MyDemandPageFormFields.notes.name: FormControl<String>(
       validators: [Validators.required],
     ),
-
     _MyDemandPageFormFields.phoneNumber.name: FormControl<String>(
       validators: [Validators.required, Validators.minLength(13)],
     ),
@@ -224,7 +222,6 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         formControlName: _MyDemandPageFormFields.notes.name,
                       ),
                       MyDemandsTextField<String>(
-
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                             RegExp(
@@ -232,12 +229,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             ),
                           ),
                         ],
-                        hintText: 'Telefon Numarası',
+                        labelText: 'Telefon Numarası',
                         formControlName:
                             _MyDemandPageFormFields.phoneNumber.name,
                       ),
                       MyDemandsTextField<String>(
-                        hintText: 'WhatsApp',
+                        labelText: 'WhatsApp',
                         formControlName:
                             _MyDemandPageFormFields.wpPhoneNumber.name,
                         inputFormatters: [
