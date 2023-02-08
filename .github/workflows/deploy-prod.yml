@@ -49,8 +49,6 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: target:apply hosting prod prod
-        with:
           args: deploy --only hosting --public web-build
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
