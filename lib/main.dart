@@ -6,8 +6,10 @@ import 'package:deprem_destek/utils/observer/bloc_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 void main() async {
+  Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: const FirebaseOptions(
@@ -17,13 +19,19 @@ void main() async {
       projectId: 'deprem-destek-org',
     ),
   );
-  Bloc.observer = AppBlocObserver();
-  await runZonedGuarded(
-    () async {
-      runApp(
-        const DepremDestekApp(),
-      );
+  //catch Unhandled exceptions and errors
+  await SentryFlutter.init(
+    (options) {
+      options
+        ..dsn =
+            'https://bc941e7fb9ab4ae793bbd16c77844d29@o4504644634607616.ingest.sentry.io/4504644636246016'
+        ..tracesSampleRate = 1.0
+        ..reportPackages = false
+        ..debug = false;
     },
-    (error, stackTrace) => AppLoggerImpl.log.e(error.toString(), stackTrace),
+    appRunner: () => runZonedGuarded(
+      () async => runApp(const DepremDestekApp()),
+      (error, stackTrace) => AppLoggerImpl.log.e(error.toString(), stackTrace),
+    ),
   );
 }
