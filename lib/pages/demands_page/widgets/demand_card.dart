@@ -1,5 +1,6 @@
 import 'package:deprem_destek/data/models/demand.dart';
 import 'package:deprem_destek/pages/demands_page/widgets/demand_category_chip.dart';
+import 'package:deprem_destek/shared/extensions/date_count_down_extension.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,9 +58,7 @@ class DemandCard extends StatelessWidget {
                     const SizedBox(width: 6),
                     Expanded(
                       child: Text(
-                        dateFormatter(
-                          demand.modifiedTimeUtc.toLocal(),
-                        ),
+                        demand.modifiedTimeUtc.toLocal().countDown,
                         style: const TextStyle(
                           fontWeight: FontWeight.w300,
                           color: Color(0xff101828),

@@ -44,8 +44,10 @@ class _MyDemandPageState extends State<MyDemandPage> {
   final FormGroup _myDemandPageFormGroup = FormGroup({
     _MyDemandPageFormFields.geoLocation.name:
         FormControl<GoogleGeocodingResult>(),
-    _MyDemandPageFormFields.categories.name:
-        FormControl<List<String>>(validators: [Validators.required], value: []),
+    _MyDemandPageFormFields.categories.name: FormControl<List<String>>(
+      validators: [Validators.required],
+      value: [],
+    ),
     _MyDemandPageFormFields.notes.name:
         FormControl<String>(validators: [Validators.required]),
     _MyDemandPageFormFields.phoneNumber.name: FormControl<String>(

@@ -6,6 +6,7 @@ import 'package:deprem_destek/pages/auth_page/state/auth_state.dart';
 import 'package:deprem_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -102,6 +103,14 @@ class _AuthPageState extends State<AuthPage> {
               ),
               const SizedBox(height: 28),
               TextFormField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                    RegExp(
+                      '[+0-9]',
+                    ),
+                  ),
+                ],
+                keyboardType: TextInputType.phone,
                 decoration: const InputDecoration(
                   hintText: 'Telefon Numarası',
                 ),
