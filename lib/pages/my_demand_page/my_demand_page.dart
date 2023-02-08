@@ -247,6 +247,18 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         },
                       ),
                       MyDemandsTextField<String>(
+                        hintText: 'WhatsApp',
+                        icon: SvgPicture.asset(
+                          'assets/icons/whatsapp.svg',
+                        ),
+                        formControlName:
+                            _MyDemandPageFormFields.phoneNumber.name,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(10),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                      ),
+                      MyDemandsTextField<String>(
                         icon: SvgPicture.asset(
                           'assets/icons/message.svg',
                         ),
@@ -356,7 +368,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(14),
                                         child: Text(
-                                          state.demand!.isActive
+                                          (state.demand?.isActive ?? true)
                                               ? 'Talebi durdur'
                                               : 'Talebi sürdür',
                                           style: Theme.of(context)
