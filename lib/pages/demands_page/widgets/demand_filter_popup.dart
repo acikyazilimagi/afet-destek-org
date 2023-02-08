@@ -31,6 +31,13 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
     _filterRadiusKm = widget.demandsCubit.state.filterRadiusKm;
   }
 
+  void _onClear() {
+    setState(() {
+      _filterRadiusKm = null;
+      _categoryIds.clear();
+    });
+  }
+
   void _onSave() {
     widget.demandsCubit.setFilters(
       categoryIds: _categoryIds.isNotEmpty ? _categoryIds : null,
@@ -46,12 +53,32 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
         )!;
 
     return Dialog(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  'Filtreler',
+                  style: TextStyle(fontSize: 20),
+                ),
+                IconButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  icon: const Icon(Icons.close_rounded),
+                )
+              ],
+            ),
+            Divider(
+              color: Colors.grey[300],
+            ),
             Slider(
+              inactiveColor: Colors.grey[200],
               onChanged: (value) => setState(() {
                 if (value == 500) {
                   _filterRadiusKm = null;
@@ -63,38 +90,128 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
               max: 500,
               min: 1,
             ),
-            const SizedBox(height: 16),
-            Text(
-              _filterRadiusKm == null
-                  ? 'Her yer'
-                  : '${_filterRadiusKm!.toInt()} KM',
-            ),
-            const SizedBox(height: 16),
-            Wrap(
-              children: demandCategories.map(
-                (category) {
-                  final isSelected = _categoryIds.contains(category.id);
-                  return Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: ChoiceChip(
-                      selected: isSelected,
-                      label: Text(category.name),
-                      onSelected: (value) => setState(() {
-                        if (isSelected) {
-                          _categoryIds.remove(category.id);
-                        } else {
-                          _categoryIds.add(category.id);
-                        }
-                      }),
+            const SizedBox(height: 8),
+            Text.rich(
+              TextSpan(
+                children: [
+                  if (_filterRadiusKm == null)
+                    const TextSpan(text: 'Her yer')
+                  else
+                    const TextSpan(
+                      text: 'Mesafe:',
+                      style: TextStyle(color: Color(0xff475467)),
                     ),
-                  );
-                },
-              ).toList(),
+                  if (_filterRadiusKm != null)
+                    TextSpan(
+                      text: '${_filterRadiusKm!.toInt()}km',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
+                    )
+                  else
+                    const TextSpan(text: ''),
+                ],
+              ),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _onSave,
-              child: const Text('Filtrele'),
+            const SizedBox(height: 8),
+            Divider(
+              color: Colors.grey[300],
+            ),
+            const SizedBox(height: 8),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text('İhtiyaç türü (${_categoryIds.length})'),
+            ),
+            const SizedBox(height: 8),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Wrap(
+                children: demandCategories.map(
+                  (category) {
+                    final isSelected = _categoryIds.contains(category.id);
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 4,
+                      ),
+                      child: ChoiceChip(
+                        padding: const EdgeInsets.all(8),
+                        selectedColor: Colors.red,
+                        selected: isSelected,
+                        label: Text(category.name),
+                        onSelected: (value) => setState(() {
+                          if (isSelected) {
+                            _categoryIds.remove(category.id);
+                          } else {
+                            _categoryIds.add(category.id);
+                          }
+                        }),
+                      ),
+                    );
+                  },
+                ).toList(),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Divider(
+              color: Colors.grey[300],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      side: MaterialStateProperty.all<BorderSide?>(
+                        const BorderSide(
+                          color: Colors.grey,
+                        ),
+                      ),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(Colors.white),
+                    ),
+                    onPressed: _onClear,
+                    child: const SizedBox(
+                      height: 40,
+                      child: Center(
+                        child: Text(
+                          'Filtreyi temizle',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: _onSave,
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                    child: const SizedBox(
+                      height: 40,
+                      child: Center(
+                        child: Text(
+                          'Filtrele',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             )
           ],
         ),
