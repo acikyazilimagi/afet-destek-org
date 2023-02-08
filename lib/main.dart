@@ -10,17 +10,8 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() async {
-  Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
-  setPathUrlStrategy();
-  await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: 'AIzaSyASFP7KxEb8f1JbiDkXDzsj1-e7bPRoaw0',
-      appId: '1:529071733784:web:dfa3729d7ed5c5494c976d',
-      messagingSenderId: '529071733784',
-      projectId: 'deprem-destek-org',
-    ),
-  );
+
   //catch Unhandled exceptions and errors
   await SentryFlutter.init(
     (options) {
@@ -32,7 +23,23 @@ void main() async {
         ..debug = false;
     },
     appRunner: () => runZonedGuarded(
-      () async => runApp(const DepremDestekApp()),
+      () async {
+        Bloc.observer = AppBlocObserver();
+        await Firebase.initializeApp(
+          options: const FirebaseOptions(
+            apiKey: 'AIzaSyASFP7KxEb8f1JbiDkXDzsj1-e7bPRoaw0',
+            appId: '1:529071733784:web:dfa3729d7ed5c5494c976d',
+            messagingSenderId: '529071733784',
+            projectId: 'deprem-destek-org',
+          ),
+        );
+
+        
+        setPathUrlStrategy();
+
+
+        runApp(const DepremDestekApp());
+      },
       (error, stackTrace) => AppLoggerImpl.log.e(error.toString(), stackTrace),
     ),
   );
