@@ -14,7 +14,7 @@ class AppLoggerImpl {
     ),
   );
 
-  FutureOr<void> d(message, [error, StackTrace? stackTrace]) {
+  FutureOr<void> d(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     _log.d(
       message,
       error,
@@ -22,14 +22,14 @@ class AppLoggerImpl {
     );
   }
 
-  FutureOr<void> e(message, [error, StackTrace? stackTrace]) {
+  FutureOr<void> e(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     _log.e(message, error, stackTrace);
     if (!kDebugMode) {
       // we can use crashlytics here if we need in future
     }
   }
 
-  FutureOr<void> i(message, [error, StackTrace? stackTrace]) {
+  FutureOr<void> i(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     _log.i(message, error, stackTrace);
   }
 }

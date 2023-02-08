@@ -17,11 +17,11 @@ void main() async {
       projectId: 'deprem-destek-org',
     ),
   );
+  Bloc.observer = AppBlocObserver();
   await runZonedGuarded(
     () async {
-      await BlocOverrides.runZoned(
-        () async => runApp(const DepremDestekApp()),
-        blocObserver: AppBlocObserver(),
+      runApp(
+        const DepremDestekApp(),
       );
     },
     (error, stackTrace) => AppLoggerImpl.log.e(error.toString(), stackTrace),

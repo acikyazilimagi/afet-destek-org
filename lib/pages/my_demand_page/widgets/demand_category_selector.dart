@@ -103,9 +103,12 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                     ),
                                     leading: SvgPicture.asset(
                                       'assets/icons/check.svg',
-                                      color: isSelected
-                                          ? AppColors.white
-                                          : AppColors.red,
+                                      colorFilter: ColorFilter.mode(
+                                        isSelected
+                                            ? AppColors.white
+                                            : AppColors.red,
+                                        BlendMode.srcIn,
+                                      ),
                                     ),
                                   ),
                                 );

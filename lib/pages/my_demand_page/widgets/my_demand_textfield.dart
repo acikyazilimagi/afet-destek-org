@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class MyDemandsTextField<T> extends StatelessWidget {
-  MyDemandsTextField({
+  const MyDemandsTextField({
     super.key,
     required this.hintText,
     required this.formControlName,
@@ -15,7 +15,7 @@ class MyDemandsTextField<T> extends StatelessWidget {
   final String formControlName;
   final List<TextInputFormatter>? inputFormatters;
   final Widget? icon;
-  Map<String, ValidationMessageFunction>? validationMessages;
+  final Map<String, ValidationMessageFunction>? validationMessages;
   @override
   Widget build(BuildContext context) {
     return Padding(
