@@ -231,6 +231,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         validationMessages: {
                           ValidationMessage.required: (_) =>
                               'Neye ihtiyacınız olduğunu yazar mısınız?.',
+                          ValidationMessage.maxLength: (_) =>
+                              'En fazla 1000 karakter girebilirsiniz.',
                         },
                       ),
                       MyDemandsTextField<String>(

@@ -30,6 +30,7 @@ class MyDemandsTextField<T> extends StatelessWidget {
         formControlName: formControlName,
         // onChanged: onChanged,
         maxLines: isLongBody ? 4 : 1,
+        maxLength: isLongBody ? 1000 : null,
         decoration: InputDecoration(
           labelText: labelText,
           focusedBorder: const OutlineInputBorder(
