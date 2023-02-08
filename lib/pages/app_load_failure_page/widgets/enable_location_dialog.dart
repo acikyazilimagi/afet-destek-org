@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../../shared/assets.dart';
+
 class CustomDialog {
   static Future<void> locationPermissionDialog(BuildContext context) async {
     final imageNames = <String>[
-      'location_permission_direction_1',
-      'location_permission_direction_2',
-      'location_permission_direction_3'
+      Assets.locationPermissionDirection1,
+      Assets.locationPermissionDirection2,
+      Assets.locationPermissionDirection3,
     ];
 
     return showDialog(
@@ -27,7 +29,7 @@ class CustomDialog {
                         return Container(
                           margin: const EdgeInsets.all(10),
                           child: Image.asset(
-                            'assets/images/${imageNames[pagePosition]}.jpg',
+                            imageNames[pagePosition],
                           ),
                         );
                       },
