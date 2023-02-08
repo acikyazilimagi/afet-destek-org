@@ -2,7 +2,8 @@ name: Build Web & Dev Deploy
 
 on:
   push:
-    branches: [master]
+    branches: [develop]
+    
 workflow_dispatch:
 
 jobs:
