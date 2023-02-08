@@ -34,9 +34,7 @@ void main() async {
           ),
         );
 
-        
         setPathUrlStrategy();
-
 
         runApp(const DepremDestekApp());
       },

@@ -80,7 +80,7 @@ class _DemandDetailsPageView extends StatelessWidget {
               ),
             ),
           ),
-          DemandCard(demand: demand, showDetailButton: false),
+          DemandCard(demand: demand, isDetail: false),
           // TODO(resultanyildizi): if the user is not identified
           // TODO(resultanyildizi): show the warning box
           if (dummyUserIdentified) ...[
