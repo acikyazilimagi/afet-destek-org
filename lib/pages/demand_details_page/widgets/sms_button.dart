@@ -19,8 +19,8 @@ class SmsButton extends StatelessWidget {
           ),
         ),
         onPressed: () async {
-          // Todo: incoming phone number must be in the right pattern
-          final Uri smsLaunchUri = Uri(
+          // TODO(resultanyildizi): incoming phone number must be correct
+          final smsLaunchUri = Uri(
             scheme: 'sms',
             path: phoneNumber,
             queryParameters: <String, String>{
