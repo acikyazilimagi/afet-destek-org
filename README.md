@@ -35,7 +35,7 @@ Bu uygulama, ihtiyaç sahibi depremzedelerin hangi adreste, nelere ihtiyaçları
 Bu uygulama açık kaynak kodlu ve geliştirmeye açık. Eğer katkıda bulunmak isterseniz, lütfen GitHub deposu ziyaret edin ve katkıda bulunun.
 
 ### Yayına alınan adresler:
-Web - Link eklenecek.
+[Web Sitesi](https://afetdestek.org/#/)
 
 ### Genel Bilgilendirme ve Bağlantılar:
 - [Discord](https://discord.gg/itdepremyardim)
