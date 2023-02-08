@@ -26,12 +26,11 @@ class DemandsRepository {
   }
 
   Future<void> addDemand({
-    required GoogleGeocodingLocation geo,
+    required GoogleGeocodingResult geo,
     required List<String> categoryIds,
-    required String addressText,
     required String notes,
     required String phoneNumber,
-    required String whatsappNumber,
+    required String? whatsappNumber,
   }) async {
     if (_auth.currentUser == null) {
       throw Exception('User is not logged in');
@@ -39,9 +38,9 @@ class DemandsRepository {
 
     await _demandsCollection.add({
       'userId': _auth.currentUser!.uid,
-      'geo': GeoPoint(geo.lat, geo.lng),
+      'geo': GeoPoint(geo.geometry!.location.lat, geo.geometry!.location.lng),
       'notes': notes,
-      'addressText': addressText,
+      'addressText': geo.formattedAddress,
       'categoryIds': FieldValue.arrayUnion(categoryIds),
       'phoneNumber': phoneNumber,
       'whatsappNumber': whatsappNumber,
@@ -53,21 +52,20 @@ class DemandsRepository {
 
   Future<void> updateDemand({
     required String demandId,
-    required String addressText,
-    required GoogleGeocodingLocation geo,
+    required GoogleGeocodingResult geo,
     required List<String> categoryIds,
     required String notes,
     required String phoneNumber,
-    required String whatsappNumber,
+    required String? whatsappNumber,
   }) async {
     if (_auth.currentUser == null) {
       throw Exception('User is not logged in');
     }
 
     await _demandsCollection.doc(demandId).update({
-      'geo': GeoPoint(geo.lat, geo.lng),
+      'geo': GeoPoint(geo.geometry!.location.lat, geo.geometry!.location.lng),
       'notes': notes,
-      'addressText': addressText,
+      'addressText': geo.formattedAddress,
       'categoryIds': categoryIds,
       'phoneNumber': phoneNumber,
       'whatsappNumber': whatsappNumber,
@@ -110,7 +108,7 @@ class DemandsRepository {
   }
 
   Future<List<Demand>> getDemands({
-    required GoogleGeocodingLocation? geo,
+    required GoogleGeocodingLocation geo,
     required double? radius,
     required List<String>? categoryIds,
     required int page,
