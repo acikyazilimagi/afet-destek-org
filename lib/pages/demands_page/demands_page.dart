@@ -77,6 +77,19 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          ElevatedButton(
+            onPressed: !widget.isAuthorized
+                ? () => AuthPage.show(context)
+                : () => MyDemandPage.show(context),
+            child: Text(
+              widget.isAuthorized ? 'Destek Taleplerim' : 'Talep Oluştur',
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+          ),
           IconButton(
             icon: const Icon(Icons.filter_list),
             onPressed: () => DemandFilterPopup.show(context),
@@ -85,50 +98,27 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
       ),
       body: demands.isEmpty
           ? const Center(child: Text('Sonuç bulunamadı'))
-          : Stack(
-              fit: StackFit.expand,
-              children: [
-                ListView.builder(
-                  controller: _scrollController,
-                  itemCount: demands.length,
-                  itemBuilder: (context, index) {
-                    final demand = demands[index];
-                    return Column(
-                      children: [
-                        DemandCard(demand: demand),
-                        if (index == demands.length - 1) ...[
-                          if (state.status.maybeWhen(
-                            loading: () => true,
-                            orElse: () => false,
-                          )) ...[
-                            const SizedBox(height: 16),
-                            const Loader(),
-                          ],
-                          const SizedBox(height: 64)
-                        ]
+          : ListView.builder(
+              controller: _scrollController,
+              itemCount: demands.length,
+              itemBuilder: (context, index) {
+                final demand = demands[index];
+                return Column(
+                  children: [
+                    DemandCard(demand: demand),
+                    if (index == demands.length - 1) ...[
+                      if (state.status.maybeWhen(
+                        loading: () => true,
+                        orElse: () => false,
+                      )) ...[
+                        const SizedBox(height: 16),
+                        const Loader(),
                       ],
-                    );
-                  },
-                ),
-                Positioned(
-                  left: 16,
-                  right: 16,
-                  bottom: 16,
-                  child: ElevatedButton(
-                    onPressed: !widget.isAuthorized
-                        ? () => AuthPage.show(context)
-                        : () => MyDemandPage.show(context),
-                    child: const Text(
-                      'Destek Taleplerim',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                )
-              ],
+                      const SizedBox(height: 64)
+                    ]
+                  ],
+                );
+              },
             ),
     );
   }
