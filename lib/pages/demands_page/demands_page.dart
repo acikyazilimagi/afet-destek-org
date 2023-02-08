@@ -117,46 +117,41 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
       ),
       body: demands.isEmpty
           ? const Center(child: Text('Sonuç bulunamadı'))
-          : Column(
-              children: [
-                Row(
+          : ListView.builder(
+              controller: _scrollController,
+              itemCount: demands.length,
+              itemBuilder: (context, index) {
+                final demand = demands[index];
+                return Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Text(
-                        // TODO(adnan): we don't have total count
-                        // currently, only the count of the current page
-                        'Yardım talepleri',
-                        style: Theme.of(context).textTheme.displaySmall,
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    controller: _scrollController,
-                    itemCount: demands.length,
-                    itemBuilder: (context, index) {
-                      final demand = demands[index];
-                      return Column(
+                    if (index == 0)
+                      Row(
                         children: [
-                          DemandCard(demand: demand),
-                          if (index == demands.length - 1) ...[
-                            if (state.status.maybeWhen(
-                              loading: () => true,
-                              orElse: () => false,
-                            )) ...[
-                              const SizedBox(height: 16),
-                              const Loader(),
-                            ],
-                            const SizedBox(height: 64)
-                          ]
+                          Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Text(
+                              // TODO(adnan): we don't have total count
+                              // currently, only the count of the current page
+                              'Yardım talepleri',
+                              style: Theme.of(context).textTheme.displaySmall,
+                            ),
+                          ),
                         ],
-                      );
-                    },
-                  ),
-                ),
-              ],
+                      ),
+                    DemandCard(demand: demand),
+                    if (index == demands.length - 1) ...[
+                      if (state.status.maybeWhen(
+                        loading: () => true,
+                        orElse: () => false,
+                      )) ...[
+                        const SizedBox(height: 16),
+                        const Loader(),
+                      ],
+                      const SizedBox(height: 64)
+                    ]
+                  ],
+                );
+              },
             ),
     );
   }
