@@ -5,17 +5,18 @@ import 'package:reactive_forms/reactive_forms.dart';
 class MyDemandsTextField<T> extends StatelessWidget {
   const MyDemandsTextField({
     super.key,
-    required this.hintText,
+    required this.labelText,
     required this.formControlName,
+    this.isLongBody = false,
     this.inputFormatters,
-    this.icon,
     this.validationMessages,
   });
-  final String hintText;
+  final String labelText;
   final String formControlName;
   final List<TextInputFormatter>? inputFormatters;
-  final Widget? icon;
-  final Map<String, ValidationMessageFunction>? validationMessages;
+  final bool isLongBody;
+  final Map<String, String Function(Object)>? validationMessages;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,16 +29,9 @@ class MyDemandsTextField<T> extends StatelessWidget {
         inputFormatters: inputFormatters,
         formControlName: formControlName,
         // onChanged: onChanged,
+        maxLines: isLongBody ? 4 : 1,
         decoration: InputDecoration(
-          prefixIcon: Align(
-            widthFactor: 2.5,
-            child: icon ?? const SizedBox(),
-          ),
-          prefixIconConstraints: const BoxConstraints(
-            minHeight: 20,
-            minWidth: 20,
-          ),
-          hintText: hintText,
+          labelText: labelText,
           focusedBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(width: 2, color: Colors.red),

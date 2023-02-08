@@ -37,6 +37,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: TextFormField(
+            readOnly: true,
             decoration: InputDecoration(
               hintText: 'Kategori seçin',
               focusedBorder: const OutlineInputBorder(

@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl_phone_field/country_picker_dialog.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage._();
@@ -63,9 +65,8 @@ class _AuthPageState extends State<AuthPage> {
     final isLoading = authState.status == AuthStateStatus.sendingSms ||
         authState.status == AuthStateStatus.verifyingCode;
 
-    final isButtonEnabled = _kvkkAccepted &&
-        ((isFirstStep && _number.length > 7) ||
-            (!isFirstStep && _code.isNotEmpty));
+    final isButtonEnabled =
+        _kvkkAccepted && (isFirstStep || (!isFirstStep && _code.isNotEmpty));
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
@@ -91,11 +92,12 @@ class _AuthPageState extends State<AuthPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: SvgPicture.asset(Assets.logoSvg),
-          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: SvgPicture.asset(Assets.logoSvg),
+            )
+          ],
           leadingWidth: 52,
         ),
         body: Padding(
@@ -108,19 +110,31 @@ class _AuthPageState extends State<AuthPage> {
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               const SizedBox(height: 28),
-              TextFormField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(
-                    RegExp(
-                      '[+0-9]',
-                    ),
+
+              IntlPhoneField(
+                initialCountryCode: 'TR',
+                dropdownTextStyle: Theme.of(context).textTheme.titleMedium,
+                showCountryFlag: false,
+                pickerDialogStyle: PickerDialogStyle(
+                  searchFieldInputDecoration: const InputDecoration(
+                    labelText: 'Ülke ara',
                   ),
-                ],
-                keyboardType: TextInputType.phone,
+                ),
+                textAlignVertical: TextAlignVertical.center,
                 decoration: const InputDecoration(
                   hintText: 'Telefon Numarası',
+                  isDense: false,
+                  contentPadding: EdgeInsets.zero,
                 ),
-                onChanged: (number) => setState(() => _number = number),
+                style: Theme.of(context).textTheme.titleMedium,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                autovalidateMode: AutovalidateMode.disabled,
+                invalidNumberMessage: 'Geçersiz telefon numarası',
+                onChanged: (number) {
+                  setState(() => _number = number.completeNumber);
+                },
               ),
               if (!isFirstStep) ...[
                 const SizedBox(height: 8),
