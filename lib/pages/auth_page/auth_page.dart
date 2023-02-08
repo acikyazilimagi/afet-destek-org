@@ -123,7 +123,6 @@ class _AuthPageState extends State<AuthPage> {
                 style: Theme.of(context).textTheme.titleMedium,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
-                  LengthLimitingTextInputFormatter(10),
                 ],
                 autovalidateMode: AutovalidateMode.disabled,
                 invalidNumberMessage: 'Geçersiz telefon numarası',
