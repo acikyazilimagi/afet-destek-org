@@ -1,3 +1,4 @@
+import 'package:deprem_destek/shared/util/web_reload/web_reload.dart';
 import 'package:flutter/material.dart';
 
 class AppLoadFailurePage extends StatelessWidget {
@@ -11,15 +12,13 @@ class AppLoadFailurePage extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Bu sayfa yapım aşamasındadır.'),
-            const Text('Lokasyon izni verdiğinizden emin olunuz.'),
-            const SizedBox(height: 16),
+          children: const [
+            Text('Bu sayfa yapım aşamasındadır.'),
+            Text('Lokasyon izni verdiğinizden emin olunuz.'),
+            SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                // reload web window when this is pressed
-              },
-              child: const Text('Tekrar Dene'),
+              onPressed: WebReload.reload,
+              child: Text('Tekrar Dene'),
             )
           ],
         ),
