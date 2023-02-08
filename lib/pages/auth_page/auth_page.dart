@@ -61,8 +61,7 @@ class _AuthPageState extends State<AuthPage> {
     final isLoading = authState.status == AuthStateStatus.sendingSms ||
         authState.status == AuthStateStatus.verifyingCode;
 
-    final isButtonEnabled = (isFirstStep && _number.length == 13) ||
-        (!isFirstStep && _code.isNotEmpty);
+    final isButtonEnabled = isFirstStep || (!isFirstStep && _code.isNotEmpty);
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
