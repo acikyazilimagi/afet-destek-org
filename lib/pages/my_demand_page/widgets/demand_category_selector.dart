@@ -68,6 +68,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const AppFormFieldTitle(title: 'Ihtiyaç Türü'),
+          const SizedBox(height: 4),
           TextFormField(
             readOnly: true,
             controller: controller,

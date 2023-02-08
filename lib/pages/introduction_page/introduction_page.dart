@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_escaping_inner_quotes
 
 import 'package:deprem_destek/gen/assets.gen.dart';
-import 'package:deprem_destek/pages/auth_page/kvkk_page.dart';
+import 'package:deprem_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -82,7 +82,7 @@ class IntroductionPage extends StatelessWidget {
   Text buildContent(BuildContext context) {
     return Text(
       '''
-      Bu platform lokasyon verinizi kullanarak çalışmaktadır. 
+      Bu platform lokasyon verinizi kullanarak çalışmaktadır.
       Lütfen cihazınızdaki konum servisini aktif ettiğinizden emin olunuz.
       ''',
       textAlign: TextAlign.center,

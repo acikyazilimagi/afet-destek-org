@@ -4,9 +4,9 @@ import 'dart:async';
 
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/gen/assets.gen.dart';
-import 'package:deprem_destek/pages/auth_page/kvkk_page.dart';
 import 'package:deprem_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:deprem_destek/pages/auth_page/state/auth_state.dart';
+import 'package:deprem_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:deprem_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:flutter/gestures.dart';

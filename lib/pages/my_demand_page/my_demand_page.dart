@@ -5,14 +5,13 @@ import 'package:deprem_destek/pages/my_demand_page/state/my_demands_cubit.dart';
 import 'package:deprem_destek/pages/my_demand_page/state/my_demands_state.dart';
 import 'package:deprem_destek/pages/my_demand_page/widgets/demand_category_selector.dart';
 import 'package:deprem_destek/pages/my_demand_page/widgets/geo_value_accessor.dart';
-import 'package:deprem_destek/pages/my_demand_page/widgets/my_demand_textfield.dart';
 import 'package:deprem_destek/shared/extensions/reactive_forms_extensions.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
+import 'package:deprem_destek/shared/widgets/reactive_intl_phone_field.dart';
 import 'package:deprem_destek/shared/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
@@ -56,9 +55,13 @@ class _MyDemandPageState extends State<MyDemandPage> {
     _MyDemandPageFormFields.notes.name:
         FormControl<String>(validators: [Validators.required]),
     _MyDemandPageFormFields.phoneNumber.name: FormControl<String>(
-      validators: [Validators.required, Validators.minLength(13)],
+      validators: [
+        Validators.required,
+      ],
     ),
-    _MyDemandPageFormFields.wpPhoneNumber.name: FormControl<String>(),
+    _MyDemandPageFormFields.wpPhoneNumber.name: FormControl<String>(
+      disabled: true,
+    ),
   });
 
   @override
@@ -109,11 +112,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
       _MyDemandPageFormFields.phoneNumber.name,
     );
 
-    final whatsappNumber = _myDemandPageFormGroup
-            .control(
-              _MyDemandPageFormFields.wpPhoneNumber.name,
-            )
-            .enabled
+    final whatsappNumber = _isWpActive
         ? _myDemandPageFormGroup.readByControlName<String>(
             _MyDemandPageFormFields.wpPhoneNumber.name,
           )
@@ -139,6 +138,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
     }
   }
 
+  bool get _isWpActive => _myDemandPageFormGroup
+      .control(
+        _MyDemandPageFormFields.wpPhoneNumber.name,
+      )
+      .enabled;
+
   void _populateWithExistingData({required Demand? existingDemand}) {
     if (existingDemand != null) {
       _myDemandPageFormGroup
@@ -146,6 +151,20 @@ class _MyDemandPageState extends State<MyDemandPage> {
           .value = existingDemand.categoryIds;
       _myDemandPageFormGroup.control(_MyDemandPageFormFields.notes.name).value =
           existingDemand.notes;
+
+      _myDemandPageFormGroup
+          .control(_MyDemandPageFormFields.phoneNumber.name)
+          .value = existingDemand.phoneNumber;
+
+      _myDemandPageFormGroup
+          .control(_MyDemandPageFormFields.wpPhoneNumber.name)
+          .value = existingDemand.whatsappNumber;
+
+      if (existingDemand.whatsappNumber != null) {
+        _myDemandPageFormGroup
+            .control(_MyDemandPageFormFields.wpPhoneNumber.name)
+            .markAsEnabled();
+      }
     }
   }
 
@@ -164,6 +183,32 @@ class _MyDemandPageState extends State<MyDemandPage> {
         const AppSnackbars.success('Değişiklikler kaydedildi.').show(context);
       },
     );
+  }
+
+  void _onWpActivateToggle(bool? value) {
+    if (value != true) {
+      _myDemandPageFormGroup
+          .control(
+            _MyDemandPageFormFields.wpPhoneNumber.name,
+          )
+          .markAsDisabled();
+      _myDemandPageFormGroup
+          .control(_MyDemandPageFormFields.wpPhoneNumber.name)
+          .value = null;
+    } else {
+      _myDemandPageFormGroup
+          .control(
+            _MyDemandPageFormFields.wpPhoneNumber.name,
+          )
+          .markAsEnabled();
+
+      _myDemandPageFormGroup
+              .control(_MyDemandPageFormFields.wpPhoneNumber.name)
+              .value =
+          _myDemandPageFormGroup
+              .control(_MyDemandPageFormFields.phoneNumber.name)
+              .value;
+    }
   }
 
   @override
@@ -200,12 +245,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                       ReactiveTextField<GoogleGeocodingResult>(
                         formControlName:
                             _MyDemandPageFormFields.geoLocation.name,
+                        readOnly: true,
                         decoration: InputDecoration(
-                          hintText: 'Adres Giriniz',
-                          focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(width: 2),
-                          ),
                           border: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(width: 2),
@@ -226,10 +267,11 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         ) as FormControl<List<String>>,
                       ),
                       const AppFormFieldTitle(title: 'Diğer İhtiyaçlar'),
-                      MyDemandsTextField<String>(
-                        hintText: 'Diğer ihtiyaçlarınızı giriniz',
-                        isLongBody: true,
+                      const SizedBox(height: 4),
+                      ReactiveTextField<String>(
                         formControlName: _MyDemandPageFormFields.notes.name,
+                        minLines: 3,
+                        maxLines: 10,
                         validationMessages: {
                           ValidationMessage.required: (_) =>
                               'Neye ihtiyacınız olduğunu yazar mısınız?.',
@@ -238,86 +280,47 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         },
                       ),
                       const AppFormFieldTitle(title: 'Telefon Numarası'),
-                      MyDemandsTextField<String>(
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp(
-                              '[+0-9]',
-                            ),
-                          ),
-                        ],
-                        hintText: 'Telefon Numaranızı Giriniz',
-                        formControlName:
-                            _MyDemandPageFormFields.phoneNumber.name,
-                        validationMessages: {
-                          ValidationMessage.required: (_) =>
-                              'Whats App numaranız gerekli.',
-                          ValidationMessage.number: (_) =>
-                              'Whats App Numaranız geçerli olmalı',
-                        },
-                      ),
-                      MyDemandsTextField<String>(
-                        labelText: 'WhatsApp',
-                        formControlName:
-                            _MyDemandPageFormFields.wpPhoneNumber.name,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp(
-                              '[+0-9]',
-                            ),
-                          ),
-                        ],
-                        validationMessages: {
-                          ValidationMessage.required: (_) =>
-                              'Numaranız gerekli.',
-                          ValidationMessage.number: (_) =>
-                              'Numaranız geçerli olmalı',
-                        },
+                      ReactiveIntlPhoneField(
+                        formControl: _myDemandPageFormGroup.control(
+                          _MyDemandPageFormFields.phoneNumber.name,
+                        ) as FormControl<String>,
                       ),
                       ReactiveFormConsumer(
                         builder: (context, form, _) {
-                          return CheckboxListTile(
-                            controlAffinity: ListTileControlAffinity.leading,
-                            value: form
-                                .control(
-                                  _MyDemandPageFormFields.wpPhoneNumber.name,
-                                )
-                                .enabled,
-                            onChanged: (value) => value != true
-                                ? form
-                                    .control(
-                                      _MyDemandPageFormFields
-                                          .wpPhoneNumber.name,
-                                    )
-                                    .markAsDisabled()
-                                : form
-                                    .control(
-                                      _MyDemandPageFormFields
-                                          .wpPhoneNumber.name,
-                                    )
-                                    .markAsEnabled(),
-                            title: Row(
-                              children: const [
-                                Text('Whatsapp ile ulaşılsın'),
-                                SizedBox(
-                                  width: 8,
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CheckboxListTile(
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                value: _isWpActive,
+                                onChanged: _onWpActivateToggle,
+                                title: Row(
+                                  children: const [
+                                    Text('WhatsApp ile ulaşılsın'),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Icon(
+                                      FontAwesomeIcons.whatsapp,
+                                      color: Colors.green,
+                                    ),
+                                  ],
                                 ),
-                                Icon(
-                                  FontAwesomeIcons.whatsapp,
-                                  color: Colors.green,
+                              ),
+                              if (_isWpActive) ...[
+                                const AppFormFieldTitle(
+                                  title: 'WhatsApp Numarası',
                                 ),
-                              ],
-                            ),
+                                ReactiveIntlPhoneField(
+                                  formControl: _myDemandPageFormGroup.control(
+                                    _MyDemandPageFormFields.wpPhoneNumber.name,
+                                  ) as FormControl<String>,
+                                ),
+                              ]
+                            ],
                           );
                         },
-                      ),
-                      MyDemandsTextField<String>(
-                        labelText: 'Whatsapp Numarası',
-                        formControlName:
-                            _MyDemandPageFormFields.wpPhoneNumber.name,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(13),
-                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
@@ -339,52 +342,42 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                                   demandId: state.demand?.id,
                                                 )
                                             : null,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(14),
-                                      child: Text(
-                                        state.demand == null
-                                            ? 'Talep Oluştur'
-                                            : 'Talebi Güncelle',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge
-                                            ?.copyWith(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                      ),
+                                    child: Text(
+                                      state.demand == null
+                                          ? 'Talep Oluştur'
+                                          : 'Talebi Güncelle',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
                                   ),
                                 ),
                                 if (state.demand != null) ...[
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 12,
+                                  const SizedBox(width: 16),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.red,
                                     ),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.red,
-                                      ),
-                                      onPressed: !deactivateButtons
-                                          ? () => _onToggleActivation(
-                                                demand: state.demand!,
-                                              )
-                                          : null,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(14),
-                                        child: Text(
-                                          state.demand!.isActive
-                                              ? 'Talebi durdur'
-                                              : 'Talebi sürdür',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge
-                                              ?.copyWith(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
+                                    onPressed: !deactivateButtons
+                                        ? () => _onToggleActivation(
+                                              demand: state.demand!,
+                                            )
+                                        : null,
+                                    child: Text(
+                                      state.demand!.isActive
+                                          ? 'Talebi durdur'
+                                          : 'Talebi sürdür',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
                                   ),
                                 ],
@@ -400,18 +393,15 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             context.read<AuthRepository>().logout();
                             Navigator.of(context).pop();
                           },
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Text(
-                              'Çıkış yap',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
+                          child: Text(
+                            'Çıkış yap',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
                         ),
                       )
