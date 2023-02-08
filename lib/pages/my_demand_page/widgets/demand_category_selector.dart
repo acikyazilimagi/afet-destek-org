@@ -59,8 +59,8 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       constraints: BoxConstraints(
-                        maxHeight: MediaQuery.of(context).size.height * .6,
-                        minHeight: MediaQuery.of(context).size.height * .6,
+                        maxHeight: MediaQuery.of(context).size.height * .63,
+                        minHeight: MediaQuery.of(context).size.height * .63,
                         minWidth: MediaQuery.of(context).size.width * .9,
                         maxWidth: MediaQuery.of(context).size.width * .9,
                       ),
@@ -116,7 +116,6 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                               style: Theme.of(context).textTheme.bodySmall),
                           const SizedBox(height: 6),
                           SizedBox(
-                            height: 56,
                             width: double.infinity,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
