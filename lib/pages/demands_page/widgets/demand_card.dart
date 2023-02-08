@@ -100,13 +100,7 @@ class DemandCard extends StatelessWidget {
                 if (showDetailButton)
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push<bool>(
-                        MaterialPageRoute<bool>(
-                          builder: (context) {
-                            return DemandDetailsPage(demand: demand);
-                          },
-                        ),
-                      );
+                      DemandDetailsPage.show(context, demand: demand);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffDC2626),

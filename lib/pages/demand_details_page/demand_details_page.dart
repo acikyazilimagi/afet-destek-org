@@ -11,8 +11,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DemandDetailsPage extends StatelessWidget {
-  const DemandDetailsPage({super.key, required this.demand});
+  const DemandDetailsPage._({required this.demand});
   final Demand demand;
+
+  static Future<void> show(
+    BuildContext context, {
+    required Demand demand,
+  }) async {
+    await Navigator.of(context).push<bool>(
+      MaterialPageRoute<bool>(
+        builder: (context) {
+          return DemandDetailsPage._(demand: demand);
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
