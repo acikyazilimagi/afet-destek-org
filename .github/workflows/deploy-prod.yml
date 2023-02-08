@@ -1,9 +1,7 @@
 name: Build Web & Deploy
-
 on:
   push:
     branches: [master]
-
 jobs:
   test:
     name: Test Flutter (Web)
