@@ -15,6 +15,13 @@ class AppCubit extends Cubit<AppState> {
         super(const AppState.introduction());
   final LocationRepository _locationRepository;
   final DemandsRepository _demandsRepository;
+
+  void load() {
+    if(kIsWeb) {
+      html.window.location.reload();
+    }
+  }
+  
   Future<void> startApp() async {
     try {
       emit(const AppState.loading());
@@ -38,9 +45,6 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
-  void load() async {
-    if(kIsWeb)
-      html.window.location.reload();
-  }
+
 
 }
