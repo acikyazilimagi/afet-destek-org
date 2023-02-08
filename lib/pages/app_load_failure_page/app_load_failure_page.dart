@@ -1,5 +1,4 @@
-import 'package:deprem_destek/gen/assets.gen.dart';
-import 'package:flutter/foundation.dart';
+import 'package:deprem_destek/shared/util/web_reload/web_reload.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -46,7 +45,7 @@ class AppLoadFailurePage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     if (kIsWeb) {
-                      //TODO refresh
+                          WebReload.reload
                     } else {
                       //TODO for mobile action
                     }

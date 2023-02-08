@@ -1,8 +1,8 @@
-name: Build Web & Deploy
+name: Build Web & Dev Deploy
 
 on:
-  push:
-    branches: [master]
+  pull_request:
+    types: [closed]
 
 jobs:
   test:
@@ -49,7 +49,7 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting --public web-build
+          args: deploy --only hosting:test-deprem-destek-org --public web-build
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           PROJECT_ID: deprem-destek-org

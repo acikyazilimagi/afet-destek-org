@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/data/repository/location_repository.dart';
 import 'package:deprem_destek/shared/state/app_state.dart';
@@ -12,6 +14,7 @@ class AppCubit extends Cubit<AppState> {
         super(const AppState.introduction());
   final LocationRepository _locationRepository;
   final DemandsRepository _demandsRepository;
+
   Future<void> startApp() async {
     try {
       emit(const AppState.loading());
