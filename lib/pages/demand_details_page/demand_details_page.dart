@@ -64,39 +64,41 @@ class _DemandDetailsPageView extends StatelessWidget {
     const dummyUserIdentified = true;
 
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 30),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: Text(
-              'Talep Detayı',
-              maxLines: 1,
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 24,
-                color: Color(0xff101828),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 30),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              child: Text(
+                'Talep Detayı',
+                maxLines: 1,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 24,
+                  color: Color(0xff101828),
+                ),
               ),
             ),
-          ),
-          DemandCard(demand: demand, showDetailButton: false),
-          // TODO(resultanyildizi): if the user is not identified
-          // TODO(resultanyildizi): show the warning box
-          if (dummyUserIdentified) ...[
-            const Infobox(
-              info: '''
-                  Bu kişinin kimliği tarafımızca doğrulanmamıştır.
-                  Lütfen dikkatli olunuz.''',
-            ),
+            DemandCard(demand: demand, isDetailed: true),
+            // TODO(resultanyildizi): if the user is not identified
+            // TODO(resultanyildizi): show the warning box
+            if (dummyUserIdentified) ...[
+              const Infobox(
+                info: '''
+                    Bu kişinin kimliği tarafımızca doğrulanmamıştır.
+                    Lütfen dikkatli olunuz.''',
+              ),
+              const SizedBox(height: 15),
+            ],
+            WhatsappButton(phoneNumber: demand.phoneNumber),
             const SizedBox(height: 15),
+            SmsButton(phoneNumber: demand.phoneNumber),
+            const SizedBox(height: 30),
+            const Center(child: Text('Lütfen aramayı tercih etmeyiniz'))
           ],
-          WhatsappButton(phoneNumber: demand.phoneNumber),
-          const SizedBox(height: 15),
-          SmsButton(phoneNumber: demand.phoneNumber),
-          const SizedBox(height: 30),
-          const Center(child: Text('Lütfen aramayı tercih etmeyiniz'))
-        ],
+        ),
       ),
     );
   }

@@ -12,10 +12,10 @@ class DemandCard extends StatelessWidget {
   const DemandCard({
     super.key,
     required this.demand,
-    this.showDetailButton = true,
+    this.isDetailed = false,
   });
   final Demand demand;
-  final bool showDetailButton;
+  final bool isDetailed;
 
   @override
   Widget build(BuildContext context) {
@@ -23,100 +23,128 @@ class DemandCard extends StatelessWidget {
           loaded: (_, demandCategories) => demandCategories,
         )!;
     return Padding(
-      padding: const EdgeInsets.all(15),
-      child: Column(
-        children: [
-          Container(
-            height: 10,
-            decoration: const BoxDecoration(
-              color: Color(0xffDC2626),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(9)),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              border: Border.all(color: AppColors.cardBorderColor),
-              borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Card(
+        child: Column(
+          children: [
+            Container(
+              height: 6,
+              decoration: const BoxDecoration(
+                color: Color(0xffDC2626),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(9)),
               ),
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: Text(
-                        demand.addressText,
-                        maxLines: 1,
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    demand.addressText,
+                    maxLines: 1,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                      color: AppColors.textColor,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Text(
+                        demand.modifiedTimeUtc.asElapsedTimeString,
                         style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 24,
-                          color: Color(0xff101828),
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color: Color(0xff475467),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        demand.modifiedTimeUtc.toLocal().asElapsedTimeString,
+                      const SizedBox(width: 6),
+                      const Text(
+                        '•',
+                        style:
+                            TextStyle(color: Color(0xFFB0B5BC), fontSize: 18),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        '${demand.distanceMeter ~/ 1000}km içinde',
                         style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Color(0xff101828),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xff475467),
                         ),
                       ),
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Divider(color: Color(0xffE7EEF5), height: 1),
+                  ),
+                  const Text(
+                    'İhtiyaçlar',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff475467),
                     ),
-                    const SizedBox(width: 6),
-                    Expanded(
-                      child: Text(
-                        '${demand.distanceMeter ~/ 1000} km',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w300,
-                          color: Color(0xff101828),
-                        ),
+                  ),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    children: [
+                      for (var category in demand.categoryNames(
+                        demandCategories: demandCategories,
+                      ))
+                        DemandCategoryChip(label: category),
+                    ],
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Divider(color: Color(0xffE7EEF5), height: 1),
+                  ),
+                  const Text(
+                    'Detaylar',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Color(
+                        0xff475467,
                       ),
+                      fontSize: 16,
                     ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Text(
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
                     demand.notes,
+                    maxLines: isDetailed ? 10000 : 5,
+                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(color: Color(0xff475467)),
                   ),
-                ),
-                Wrap(
-                  children: [
-                    for (var category in demand.categoryNames(
-                      demandCategories: demandCategories,
-                    ))
-                      DemandCategoryChip(label: category),
-                  ],
-                ),
-                if (showDetailButton)
-                  ElevatedButton(
-                    onPressed: () {
-                      DemandDetailsPage.show(context, demand: demand);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xffDC2626),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        side: const BorderSide(color: Colors.red),
-                      ),
-                    ),
-                    child: const Text(
-                      'Detay',
-                      style: TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-              ],
+                  const SizedBox(height: 8),
+                  if (!isDetailed) ...[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            DemandDetailsPage.show(context, demand: demand);
+                          },
+                          child: const Text(
+                            'Talep Detayını Gör',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: AppColors.red,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ]
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

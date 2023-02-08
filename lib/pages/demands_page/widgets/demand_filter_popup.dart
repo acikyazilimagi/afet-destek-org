@@ -162,27 +162,13 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
             Row(
               children: [
                 Expanded(
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      side: MaterialStateProperty.all<BorderSide?>(
-                        const BorderSide(
-                          color: Colors.grey,
-                        ),
-                      ),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      backgroundColor: MaterialStateProperty.all(Colors.white),
-                    ),
+                  child: OutlinedButton(
                     onPressed: _onClear,
                     child: const SizedBox(
                       height: 40,
                       child: Center(
                         child: Text(
                           'Filtreyi temizle',
-                          style: TextStyle(color: Colors.grey),
                         ),
                       ),
                     ),
