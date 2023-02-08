@@ -52,6 +52,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
     _MyDemandPageFormFields.notes.name: FormControl<String>(
       validators: [Validators.required],
     ),
+    _MyDemandPageFormFields.notes.name:
+        FormControl<String>(validators: [Validators.required]),
     _MyDemandPageFormFields.phoneNumber.name: FormControl<String>(
       validators: [Validators.required, Validators.minLength(10)],
     ),
@@ -257,6 +259,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           LengthLimitingTextInputFormatter(10),
                           FilteringTextInputFormatter.digitsOnly,
                         ],
+                        validationMessages: {
+                          ValidationMessage.required: (_) =>
+                              'Whats App numaranız gerekli.',
+                          ValidationMessage.number: (_) =>
+                              'Whats App Numaranız geçerli olmalı',
+                        },
                       ),
                       MyDemandsTextField<String>(
                         icon: SvgPicture.asset(
