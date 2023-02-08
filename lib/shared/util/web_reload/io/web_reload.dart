@@ -1,5 +1,5 @@
-class WebReload{
-  static void reload(){
-       //TODO : Platform based restart
+class WebReload {
+  static void reload() {
+    //TODO : Platform based restart
   }
 }

@@ -15,10 +15,6 @@ class AppCubit extends Cubit<AppState> {
   final LocationRepository _locationRepository;
   final DemandsRepository _demandsRepository;
 
-
-
-
-
   Future<void> startApp() async {
     try {
       emit(const AppState.loading());
@@ -41,7 +37,4 @@ class AppCubit extends Cubit<AppState> {
       emit(const AppState.failed());
     }
   }
-
-
-
 }

@@ -1,7 +1,6 @@
 import 'package:deprem_destek/shared/util/web_reload/web_reload.dart';
 import 'package:flutter/material.dart';
 
-
 class AppLoadFailurePage extends StatelessWidget {
   const AppLoadFailurePage({super.key});
 
@@ -18,9 +17,7 @@ class AppLoadFailurePage extends StatelessWidget {
             const Text('Lokasyon izni verdiğinizden emin olunuz.'),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                WebReload.reload();
-              },
+              onPressed: WebReload.reload,
               child: const Text('Tekrar Dene'),
             )
           ],
