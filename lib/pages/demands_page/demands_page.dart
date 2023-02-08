@@ -90,8 +90,27 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
               ),
             ),
           ),
+          const SizedBox(width: 8),
           IconButton(
-            icon: const Icon(Icons.filter_list),
+            icon: Stack(
+              children: [
+                const Icon(Icons.filter_list),
+                if (state.hasAnyFilter) ...[
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
             onPressed: () => DemandFilterPopup.show(context),
           ),
         ],
