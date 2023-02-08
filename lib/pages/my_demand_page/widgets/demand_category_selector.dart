@@ -64,6 +64,32 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                       ),
                       child: Column(
                         children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'İhtiyaç Türü '
+                                    '(${_selectedCategoryIds.length})',
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: Navigator.of(context).pop,
+                                  icon: const Icon(Icons.close),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16,
+                            ),
+                            child: Divider(),
+                          ),
+                          const SizedBox(height: 8),
                           Expanded(
                             child: ListView.builder(
                               shrinkWrap: true,
@@ -72,8 +98,11 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                 final category = demandCategories[index];
                                 final isSelected =
                                     _selectedCategoryIds.contains(category.id);
-                                return GestureDetector(
-                                  onTap: () {
+                                return CheckboxListTile(
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  value: isSelected,
+                                  onChanged: (value) {
                                     setState(
                                       () => isSelected
                                           ? _selectedCategoryIds
@@ -86,59 +115,52 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                     widget.formControl.value =
                                         _selectedCategoryIds;
                                   },
-                                  child: ListTile(
-                                    selected: isSelected,
-                                    tileColor: AppColors.white,
-                                    selectedTileColor: AppColors.red,
-                                    contentPadding: const EdgeInsets.all(12),
-                                    title: Text(
-                                      category.name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium
-                                          ?.copyWith(
-                                            color: isSelected
-                                                ? AppColors.white
-                                                : AppColors.textColor,
-                                          ),
-                                    ),
-                                    leading: SvgPicture.asset(
-                                      'assets/icons/check.svg',
-                                      colorFilter: ColorFilter.mode(
-                                        isSelected
-                                            ? AppColors.white
-                                            : AppColors.red,
-                                        BlendMode.srcIn,
-                                      ),
-                                    ),
-                                  ),
+                                  title: Text(category.name),
                                 );
                               },
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 12,
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 8,
+                              horizontal: 16,
                             ),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red,
-                              ),
-                              onPressed: () => Navigator.of(context).pop(),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: Text(
-                                  'Tamam',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w600,
+                            child: Divider(),
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: 12,
+                                    horizontal: 16,
+                                  ),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.red,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
+                                    ),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Text(
+                                        'Kaydet',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         ],
                       ),
