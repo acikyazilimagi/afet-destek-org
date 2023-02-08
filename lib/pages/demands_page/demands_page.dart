@@ -4,7 +4,6 @@ import 'package:deprem_destek/pages/auth_page/auth_page.dart';
 import 'package:deprem_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:deprem_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:deprem_destek/pages/demands_page/widgets/demand_filter_popup.dart';
-import 'package:deprem_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:deprem_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
@@ -78,11 +77,6 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-            icon: const Icon(Icons.icecream_outlined),
-            onPressed: () => Navigator.push(
-                context, MaterialPageRoute(builder: (context) => KvkkPage())),
-          ),
           IconButton(
             icon: const Icon(Icons.filter_list),
             onPressed: () => DemandFilterPopup.show(context),
