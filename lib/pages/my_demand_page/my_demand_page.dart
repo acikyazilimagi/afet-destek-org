@@ -329,7 +329,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(14),
                                       child: Text(
-                                        'Kaydet',
+                                        state.demand == null
+                                            ? 'Talep Oluştur'
+                                            : 'Talebi Güncelle',
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge
