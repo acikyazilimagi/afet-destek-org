@@ -1,6 +1,7 @@
 import 'package:deprem_destek/app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +13,16 @@ void main() async {
       projectId: 'deprem-destek-org',
     ),
   );
-
-  runApp(const DepremDestekApp());
+  //catch Unhandled exceptions and errors
+  await SentryFlutter.init(
+    (options) {
+      options
+        ..dsn =
+            'https://bc941e7fb9ab4ae793bbd16c77844d29@o4504644634607616.ingest.sentry.io/4504644636246016'
+        ..tracesSampleRate = 1.0
+        ..reportPackages = false
+        ..debug = false;
+    },
+    appRunner: () => runApp(const DepremDestekApp()),
+  );
 }
