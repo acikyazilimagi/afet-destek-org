@@ -18,6 +18,7 @@ class AppColors {
   static const Color darkGrey = Color(0xFF444444);
   static const Color cardBorderColor = Color(0xffF0F0F0);
   static const Color whatsapp = Color(0xff25D366);
+  static const Color formFieldTitle = Color(0xFF475467);
   static const Color backgroundDemands = Color(0xffF7F7F7);
 }
 
