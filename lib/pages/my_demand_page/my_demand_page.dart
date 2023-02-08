@@ -214,17 +214,18 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         ) as FormControl<List<String>>,
                       ),
                       MyDemandsTextField<String>(
-                        hintText: 'Neye İhtiyacın Var?',
+                        labelText: 'Neye İhtiyacın Var?',
+                        isLongBody: true,
                         formControlName: _MyDemandPageFormFields.notes.name,
                       ),
                       MyDemandsTextField<String>(
-                        hintText: 'Telefon numarası',
+                        labelText: 'Telefon numarası',
                         formControlName:
                             _MyDemandPageFormFields.phoneNumber.name,
                         inputFormatters: [LengthLimitingTextInputFormatter(10)],
                       ),
                       MyDemandsTextField<String>(
-                        hintText: 'Whatsapp Numarası',
+                        labelText: 'Whatsapp Numarası',
                         formControlName:
                             _MyDemandPageFormFields.wpPhoneNumber.name,
                         inputFormatters: [
