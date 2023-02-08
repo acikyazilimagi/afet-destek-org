@@ -1,5 +1,3 @@
 class WebReload {
-  static void reload() {
-    
-  }
+  static void reload() {}
 }
