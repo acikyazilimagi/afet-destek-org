@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:deprem_destek/data/models/demand_category.dart';
 import 'package:deprem_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
