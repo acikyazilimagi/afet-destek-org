@@ -88,13 +88,12 @@ class _AuthPageState extends State<AuthPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-
-          automaticallyImplyLeading: false,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: SvgPicture.asset(Assets.logoSvg),
-          ),
-
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: SvgPicture.asset(Assets.logoSvg),
+            )
+          ],
           leadingWidth: 52,
         ),
         body: Padding(
