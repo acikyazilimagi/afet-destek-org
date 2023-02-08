@@ -25,7 +25,7 @@ dependencies:
   geolocator: 9.0.2
   google_geocoding_api: 1.2.0
   http: 0.13.5
-  intl_phone_field: ^3.1.0
+  intl_phone_field: 3.1.0
   json_annotation: 4.8.0
   logger: 1.1.0
   reactive_forms: 14.1.0
