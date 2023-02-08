@@ -12,13 +12,13 @@ class AppLoadFailurePage extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Bu sayfa yapım aşamasındadır.'),
-            const Text('Lokasyon izni verdiğinizden emin olunuz.'),
-            const SizedBox(height: 16),
+          children: const [
+            Text('Bu sayfa yapım aşamasındadır.'),
+            Text('Lokasyon izni verdiğinizden emin olunuz.'),
+            SizedBox(height: 16),
             ElevatedButton(
               onPressed: WebReload.reload,
-              child: const Text('Tekrar Dene'),
+              child: Text('Tekrar Dene'),
             )
           ],
         ),
