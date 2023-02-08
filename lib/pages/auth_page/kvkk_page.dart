@@ -5,6 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class KVKKPage extends StatefulWidget {
   const KVKKPage({super.key});
+  static Future<void> show(BuildContext context) async {
+    await Navigator.of(context).push<bool>(
+      MaterialPageRoute<bool>(builder: (context) => const KVKKPage()),
+    );
+  }
 
   @override
   State<KVKKPage> createState() => _KVKKPageState();
