@@ -65,11 +65,8 @@ class _AuthPageState extends State<AuthPage> {
     final isLoading = authState.status == AuthStateStatus.sendingSms ||
         authState.status == AuthStateStatus.verifyingCode;
 
-
-    final isButtonEnabled = _kvkkAccepted &&
-        (isFirstStep ||
-            (!isFirstStep && _code.isNotEmpty));
-
+    final isButtonEnabled =
+        _kvkkAccepted && (isFirstStep || (!isFirstStep && _code.isNotEmpty));
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
