@@ -4,7 +4,8 @@
         {
             "name": "debug",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "preLaunchTask": "build_runner main"
         },
 
     ]
