@@ -35,13 +35,11 @@ Bu uygulama, ihtiyaç sahibi depremzedelerin hangi adreste, nelere ihtiyaçları
 Bu uygulama açık kaynak kodlu ve geliştirmeye açık. Eğer katkıda bulunmak isterseniz, lütfen GitHub deposu ziyaret edin ve katkıda bulunun.
 
 ### Yayına alınan adresler:
-Web - Link eklenecek.
+[Web Sitesi](https://afetdestek.org/#/)
 
 ### Genel Bilgilendirme ve Bağlantılar:
 - [Discord](https://discord.gg/itdepremyardim)
 - [Tasarım (Figma)](https://www.figma.com/file/ggMF14osmhGOvKvS0VKuvQ/Yard%C4%B1m-A%C4%9F%C4%B1-App?node-id=0%3A1)
-- [Trello Davet](https://trello.com/invite/b/cU4C34JQ/ATTI21dd8e4c31fe1edf4f7c5b172afef0fb91BF4F44/deprem-yardim-agis)
-- [Trello](https://trello.com/b/cU4C34JQ/deprem-yard%C4%B1m-agis)
 - Github
   - [yardim-agi-flutter](https://github.com/acikkaynak/yardim-agi-flutter)
   - [yardim-agi-firebase](https://github.com/acikkaynak/yardim-agi-firebase)
