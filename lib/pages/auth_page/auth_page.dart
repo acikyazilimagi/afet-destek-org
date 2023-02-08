@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:deprem_destek/data/repository/auth_repository.dart';
+import 'package:deprem_destek/gen/assets.gen.dart';
 import 'package:deprem_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:deprem_destek/pages/auth_page/state/auth_state.dart';
 import 'package:deprem_destek/pages/my_demand_page/my_demand_page.dart';
@@ -87,12 +88,13 @@ class _AuthPageState extends State<AuthPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: SvgPicture.asset('assets/logo.svg'),
-            )
-          ],
+
+          automaticallyImplyLeading: false,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: SvgPicture.asset(Assets.logoSvg),
+          ),
+
           leadingWidth: 52,
         ),
         body: Padding(
@@ -105,6 +107,7 @@ class _AuthPageState extends State<AuthPage> {
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               const SizedBox(height: 28),
+
               IntlPhoneField(
                 initialCountryCode: 'TR',
                 dropdownTextStyle: Theme.of(context).textTheme.titleMedium,
@@ -150,7 +153,7 @@ class _AuthPageState extends State<AuthPage> {
                     suffixStyle: const TextStyle(color: Colors.black),
                   ),
                   onChanged: (code) => setState(() => _code = code),
-                )
+                ),
               ],
               // implement kvkk
 
