@@ -45,7 +45,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
     _MyDemandPageFormFields.geoLocation.name:
         FormControl<GoogleGeocodingResult>(),
     _MyDemandPageFormFields.categories.name: FormControl<List<String>>(
-      validators: [Validators.required, Validators.minLength(1)],
+      validators: [
+        Validators.minLength(1),
+      ],
       value: [],
     ),
 
@@ -54,7 +56,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
     ),
 
     _MyDemandPageFormFields.phoneNumber.name: FormControl<String>(
-      validators: [Validators.required, Validators.minLength(10)],
+      validators: [Validators.required, Validators.minLength(13)],
     ),
     _MyDemandPageFormFields.wpPhoneNumber.name: FormControl<String>(),
   });
@@ -225,15 +227,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         labelText: 'Telefon numarası',
                         formControlName:
                             _MyDemandPageFormFields.phoneNumber.name,
-                        inputFormatters: [LengthLimitingTextInputFormatter(10)],
-                      ),
-                      MyDemandsTextField<String>(
-                        labelText: 'Whatsapp Numarası',
-                        formControlName:
-                            _MyDemandPageFormFields.wpPhoneNumber.name,
                         inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                          FilteringTextInputFormatter.digitsOnly,
+                          LengthLimitingTextInputFormatter(13),
                         ],
                       ),
                       ReactiveFormConsumer(
@@ -272,6 +267,14 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             ),
                           );
                         },
+                      ),
+                      MyDemandsTextField<String>(
+                        labelText: 'Whatsapp Numarası',
+                        formControlName:
+                            _MyDemandPageFormFields.wpPhoneNumber.name,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(13),
+                        ],
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(

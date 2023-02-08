@@ -6,8 +6,11 @@ import 'package:deprem_destek/pages/auth_page/state/auth_state.dart';
 import 'package:deprem_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl_phone_field/country_picker_dialog.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage._();
@@ -57,7 +60,7 @@ class _AuthPageState extends State<AuthPage> {
     final isLoading = authState.status == AuthStateStatus.sendingSms ||
         authState.status == AuthStateStatus.verifyingCode;
 
-    final isButtonEnabled = (isFirstStep && _number.length > 7) ||
+    final isButtonEnabled = (isFirstStep && _number.length == 13) ||
         (!isFirstStep && _code.isNotEmpty);
 
     return BlocListener<AuthCubit, AuthState>(
@@ -84,11 +87,12 @@ class _AuthPageState extends State<AuthPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: SvgPicture.asset('assets/logo.svg'),
-          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 16),
+              child: SvgPicture.asset('assets/logo.svg'),
+            )
+          ],
           leadingWidth: 52,
         ),
         body: Padding(
@@ -101,11 +105,31 @@ class _AuthPageState extends State<AuthPage> {
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               const SizedBox(height: 28),
-              TextFormField(
+              IntlPhoneField(
+                initialCountryCode: 'TR',
+                dropdownTextStyle: Theme.of(context).textTheme.titleMedium,
+                showCountryFlag: false,
+                pickerDialogStyle: PickerDialogStyle(
+                  searchFieldInputDecoration: const InputDecoration(
+                    labelText: 'Ülke ara',
+                  ),
+                ),
+                textAlignVertical: TextAlignVertical.center,
                 decoration: const InputDecoration(
                   hintText: 'Telefon Numarası',
+                  isDense: false,
+                  contentPadding: EdgeInsets.zero,
                 ),
-                onChanged: (number) => setState(() => _number = number),
+                style: Theme.of(context).textTheme.titleMedium,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(10),
+                ],
+                autovalidateMode: AutovalidateMode.disabled,
+                invalidNumberMessage: 'Geçersiz telefon numarası',
+                onChanged: (number) {
+                  setState(() => _number = number.completeNumber);
+                },
               ),
               if (!isFirstStep) ...[
                 const SizedBox(height: 8),
