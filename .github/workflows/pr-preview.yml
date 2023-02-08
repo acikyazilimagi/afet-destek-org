@@ -3,21 +3,8 @@ name: Deploy to Preview Channel
 on:
   pull_request:
     branches: [master, develop]
-  workflow_dispatch:
 
 jobs:
-  test:
-    name: Test Flutter (Web)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: subosito/flutter-action@v1
-        with:
-          flutter-version: "3.7.1"
-      - run: flutter pub get
-      - run: flutter pub run build_runner build --delete-conflicting-outputs
-      - run: flutter analyze
-      - run: dart format . --set-exit-if-changed
   build_web:
     name: Build Flutter (Web)
     needs: test
@@ -26,17 +13,17 @@ jobs:
       - uses: actions/checkout@v1
       - uses: subosito/flutter-action@v1
         with:
-          flutter-version: "3.7.1"
+          flutter-version: "3.3.x"
       - run: flutter pub get
       - run: flutter pub run build_runner build --delete-conflicting-outputs
       - run: flutter build web
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
-          name: web-build
+          name: build
           path: build/web
   deploy_web:
-    name: Deploy Web to Firebase Hosting
+    name: Deploy Web to Firebase Hosting (PR)
     needs: build_web
     runs-on: ubuntu-latest
     steps:
@@ -45,12 +32,12 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: web-build
-          path: web-build
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
+          name: build
+          path: build
+      - name: Deploy to Firebase Hosting (Preview)
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          args: deploy --only target:apply hosting test --public web-build
-        env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-          PROJECT_ID: deprem-destek-org
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          expires: 7d
+          projectId: deprem-destek-org

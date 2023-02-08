@@ -83,8 +83,7 @@ class IntroductionPage extends StatelessWidget {
     return Text(
       '''
       Bu platform lokasyon verinizi kullanarak çalışmaktadır. 
-      Lütfen cihazınızdaki konum servisini 
-      aktif ettiğinizden emin olunuz.
+      Lütfen cihazınızdaki konum servisini aktif ettiğinizden emin olunuz.
       ''',
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.titleSmall,

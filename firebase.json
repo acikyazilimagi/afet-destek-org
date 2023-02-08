@@ -2,7 +2,6 @@
   "hosting": [
     {
       "site": "deprem-destek-org",
-      "target": "prod",
       "public": "build/web/",
       "ignore": [
         "firebase.json",
@@ -17,8 +16,7 @@
       ]
     },
     {
-      "site": "test-depremdestek-org",
-      "target": "test",
+      "site": "test-deprem-destek-org",
       "public": "build/web/",
       "ignore": [
         "firebase.json",
