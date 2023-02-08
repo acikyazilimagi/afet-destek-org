@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:url_strategy/url_strategy.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 void main() async {
   Bloc.observer = AppBlocObserver();
