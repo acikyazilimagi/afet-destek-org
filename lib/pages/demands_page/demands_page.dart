@@ -78,9 +78,11 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
       appBar: AppBar(
         actions: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical:10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: 8)),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+              ),
               onPressed: !widget.isAuthorized
                   ? () => AuthPage.show(context)
                   : () => MyDemandPage.show(context),
