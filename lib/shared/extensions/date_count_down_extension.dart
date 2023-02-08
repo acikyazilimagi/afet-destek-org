@@ -1,6 +1,6 @@
 extension DateCountDown on DateTime {
   String get asElapsedTimeString {
-    final delta = difference(DateTime.now());
+    final delta = DateTime.now().difference(this);
     if (delta.inMinutes < 1) {
       return '${delta.inSeconds} Saniye Önce';
     } else if (delta.inHours < 1) {
