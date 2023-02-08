@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:deprem_destek/data/api/demands_api_client.dart';
 import 'package:deprem_destek/data/models/demand.dart';
 import 'package:deprem_destek/data/models/demand_category.dart';
+import 'package:deprem_destek/shared/extensions/district_address_extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 
@@ -40,7 +41,8 @@ class DemandsRepository {
       'userId': _auth.currentUser!.uid,
       'geo': GeoPoint(geo.geometry!.location.lat, geo.geometry!.location.lng),
       'notes': notes,
-      'addressText': geo.formattedAddress,
+      'addressText': geo.districtAddress,
+      'fullAddressText': geo.formattedAddress,
       'categoryIds': FieldValue.arrayUnion(categoryIds),
       'phoneNumber': phoneNumber,
       'whatsappNumber': whatsappNumber,
@@ -65,7 +67,8 @@ class DemandsRepository {
     await _demandsCollection.doc(demandId).update({
       'geo': GeoPoint(geo.geometry!.location.lat, geo.geometry!.location.lng),
       'notes': notes,
-      'addressText': geo.formattedAddress,
+      'addressText': geo.districtAddress,
+      'fullAddressText': geo.formattedAddress,
       'categoryIds': categoryIds,
       'phoneNumber': phoneNumber,
       'whatsappNumber': whatsappNumber,
