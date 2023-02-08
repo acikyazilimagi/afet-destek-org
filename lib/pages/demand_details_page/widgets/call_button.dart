@@ -19,15 +19,12 @@ class CallButton extends StatelessWidget {
       ),
       onPressed: () async {
         // TODO(resultanyildizi): incoming phone number must be correct
-        final telLaunchUri = Uri(
-            scheme: 'tel',
-            path: phoneNumber
-        );
+        final telLaunchUri = Uri(scheme: 'tel', path: phoneNumber);
 
         await launchUrl(telLaunchUri);
       },
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
