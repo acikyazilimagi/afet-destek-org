@@ -31,11 +31,9 @@ void main() async {
         ..reportPackages = false
         ..debug = false;
     },
-
     appRunner: () => runZonedGuarded(
       () async => runApp(const DepremDestekApp()),
       (error, stackTrace) => AppLoggerImpl.log.e(error.toString(), stackTrace),
     ),
-
   );
 }
