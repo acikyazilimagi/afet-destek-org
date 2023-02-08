@@ -38,6 +38,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: TextFormField(
             decoration: InputDecoration(
+              suffixIcon: const Icon(Icons.arrow_forward_ios_sharp),
               hintText: 'Kategori seçin',
               focusedBorder: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -54,71 +55,68 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
               builder: (context) => StatefulBuilder(
                 builder: (context, setStateForAlert) {
                   return Dialog(
-                    child: ConstrainedBox(
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
                       constraints: BoxConstraints(
-                        maxHeight: MediaQuery.of(context).size.height * .5,
-                        minHeight: MediaQuery.of(context).size.height * .5,
-                        minWidth: MediaQuery.of(context).size.width * .8,
-                        maxWidth: MediaQuery.of(context).size.width * .8,
+                        maxHeight: MediaQuery.of(context).size.height * .6,
+                        minHeight: MediaQuery.of(context).size.height * .6,
+                        minWidth: MediaQuery.of(context).size.width * .9,
+                        maxWidth: MediaQuery.of(context).size.width * .9,
                       ),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: demandCategories.length,
-                              itemBuilder: (context, index) {
-                                final category = demandCategories[index];
-                                final isSelected =
-                                    _selectedCategoryIds.contains(category.id);
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(
-                                      () => isSelected
-                                          ? _selectedCategoryIds
-                                              .remove(category.id)
-                                          : _selectedCategoryIds
-                                              .add(category.id),
-                                    );
-                                    setStateForAlert(() {});
-
-                                    widget.formControl.value =
-                                        _selectedCategoryIds;
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  'İhtiyaç Türü ${_selectedCategoryIds.length}',
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium),
+                              IconButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
                                   },
-                                  child: ListTile(
-                                    selected: isSelected,
-                                    tileColor: AppColors.white,
-                                    selectedTileColor: AppColors.red,
-                                    contentPadding: const EdgeInsets.all(12),
-                                    title: Text(
-                                      category.name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium
-                                          ?.copyWith(
-                                            color: isSelected
-                                                ? AppColors.white
-                                                : AppColors.textColor,
-                                          ),
-                                    ),
-                                    leading: SvgPicture.asset(
-                                      'assets/icons/check.svg',
-                                      colorFilter: ColorFilter.mode(
-                                        isSelected
-                                            ? AppColors.white
-                                            : AppColors.red,
-                                        BlendMode.srcIn,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
+                                  icon: const Icon(Icons.close))
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 12,
-                            ),
+                          const Divider(),
+                          ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            itemCount: demandCategories.length,
+                            itemBuilder: (context, index) {
+                              final category = demandCategories[index];
+                              final isSelected =
+                                  _selectedCategoryIds.contains(category.id);
+                              return CheckboxListTile(
+                                contentPadding: EdgeInsets.zero,
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                title: Text(category.name),
+                                value: isSelected,
+                                onChanged: (value) {
+                                  setState(
+                                    () => isSelected
+                                        ? _selectedCategoryIds
+                                            .remove(category.id)
+                                        : _selectedCategoryIds.add(category.id),
+                                  );
+                                  setStateForAlert(() {});
+
+                                  widget.formControl.value =
+                                      _selectedCategoryIds;
+                                },
+                              );
+                            },
+                          ),
+                          const Divider(),
+                          Text('Birden fazla seçim yapabilirsiniz',
+                              style: Theme.of(context).textTheme.bodySmall),
+                          const SizedBox(height: 6),
+                          SizedBox(
+                            height: 56,
+                            width: double.infinity,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.red,
@@ -127,7 +125,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                               child: Padding(
                                 padding: const EdgeInsets.all(8),
                                 child: Text(
-                                  'Tamam',
+                                  'Kaydet',
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge

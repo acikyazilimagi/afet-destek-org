@@ -306,30 +306,55 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           );
                         },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 20,
-                        ),
-                        child: ReactiveFormConsumer(
-                          builder: (context, formGroup, child) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Expanded(
+                      ReactiveFormConsumer(
+                        builder: (context, formGroup, child) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                height: 56,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red,
+                                  ),
+                                  onPressed:
+                                      formGroup.valid && !deactivateButtons
+                                          ? () => _onSave(
+                                                demandId: state.demand?.id,
+                                              )
+                                          : null,
+                                  child: Text(
+                                    'Talebi Gönder',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                              if (state.demand != null) ...[
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                  ),
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.red,
                                     ),
-                                    onPressed:
-                                        formGroup.valid && !deactivateButtons
-                                            ? () => _onSave(
-                                                  demandId: state.demand?.id,
-                                                )
-                                            : null,
+                                    onPressed: !deactivateButtons
+                                        ? () => _onToggleActivation(
+                                              demand: state.demand!,
+                                            )
+                                        : null,
                                     child: Padding(
                                       padding: const EdgeInsets.all(14),
                                       child: Text(
-                                        'Kaydet',
+                                        state.demand!.isActive
+                                            ? 'Talebi durdur'
+                                            : 'Talebi sürdür',
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge
@@ -341,43 +366,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                     ),
                                   ),
                                 ),
-                                if (state.demand != null) ...[
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 12,
-                                    ),
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.red,
-                                      ),
-                                      onPressed: !deactivateButtons
-                                          ? () => _onToggleActivation(
-                                                demand: state.demand!,
-                                              )
-                                          : null,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(14),
-                                        child: Text(
-                                          state.demand!.isActive
-                                              ? 'Talebi durdur'
-                                              : 'Talebi sürdür',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge
-                                              ?.copyWith(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
                               ],
-                            );
-                          },
-                        ),
+                            ],
+                          );
+                        },
                       ),
+                      SizedBox(height: 12),
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: OutlinedButton(
