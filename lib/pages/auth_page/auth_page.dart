@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/gen/assets.gen.dart';
+import 'package:deprem_destek/pages/auth_page/kvkk_page.dart';
 import 'package:deprem_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:deprem_destek/pages/auth_page/state/auth_state.dart';
 import 'package:deprem_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,8 +61,9 @@ class _AuthPageState extends State<AuthPage> {
     final isLoading = authState.status == AuthStateStatus.sendingSms ||
         authState.status == AuthStateStatus.verifyingCode;
 
-    final isButtonEnabled = (isFirstStep && _number.length > 7) ||
-        (!isFirstStep && _code.isNotEmpty);
+    final isButtonEnabled =
+        (isFirstStep && _number.length > 7 && _kvkkAccepted) ||
+            (!isFirstStep && _code.isNotEmpty && _kvkkAccepted);
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
@@ -140,6 +143,7 @@ class _AuthPageState extends State<AuthPage> {
                 ),
               ],
               // implement kvkk
+              kvkkMethod(),
 
               if (authState.status == AuthStateStatus.smsFailure) ...[
                 const _AuthErrorMessage('SMS gönderme başarısız')
@@ -174,6 +178,58 @@ class _AuthPageState extends State<AuthPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget kvkkMethod() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, right: 8),
+      child: Row(
+        children: [
+          SizedBox(
+            height: 24,
+            width: 24,
+            child: Checkbox(
+              value: _kvkkAccepted,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),),
+              onChanged: (value) {
+                setState(() {
+                  _kvkkAccepted = value ?? false;
+                });
+              },
+            ),
+          ),
+          Text.rich(
+            TextSpan(
+              text: '',
+              style: const TextStyle(fontSize: 12),
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'KVKK Açık Rıza Metni',
+                  style: const TextStyle(
+                      decoration: TextDecoration.underline, fontSize: 14,),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => Navigator.of(context).push<bool>(
+                          MaterialPageRoute<bool>(
+                            builder: (context) {
+                              return const KVKKPage();
+                            },
+                          ),
+                        ),
+                ),
+                const TextSpan(
+                  text: "'ni okudum ve kabul ediyorum.",
+                  style: TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }
