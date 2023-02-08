@@ -39,6 +39,18 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
     Navigator.of(context).pop();
   }
 
+  void _onReset() {
+    widget.demandsCubit.setFilters(
+      categoryIds: null,
+      filterRadiusKm: null,
+    );
+
+    setState(() {
+      _filterRadiusKm = null;
+      _categoryIds = [];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final demandCategories = context.read<AppCubit>().state.whenOrNull(
@@ -92,10 +104,25 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
               ).toList(),
             ),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: _onSave,
-              child: const Text('Filtrele'),
-            )
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: _onReset,
+                    child: const Text('Filtreyi temizle'),
+                  ),
+                ),
+                const SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: _onSave,
+                    child: const Text('Filtrele'),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
