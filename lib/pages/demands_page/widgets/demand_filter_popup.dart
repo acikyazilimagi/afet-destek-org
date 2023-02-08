@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+import 'package:deprem_destek/data/models/demand_category.dart';
 import 'package:deprem_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +26,17 @@ class DemandFilterPopup extends StatefulWidget {
 class _DemandFilterPopupState extends State<DemandFilterPopup> {
   late List<String> _categoryIds;
   double? _filterRadiusKm;
+  late List<DemandCategory> demandCategories;
   @override
   void initState() {
     super.initState();
+    final appState = context.read<AppCubit>().state;
+    demandCategories = appState
+        .whenOrNull(loaded: (_, demandCategories) => demandCategories)!
+        .toList();
     _categoryIds = List.from(widget.demandsCubit.state.categoryIds ?? []);
     _filterRadiusKm = widget.demandsCubit.state.filterRadiusKm;
+    _orderChipList();
   }
 
   void _onClear() {
@@ -47,12 +55,19 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
     Navigator.of(context).pop();
   }
 
+  void _orderChipList() {
+    final selectedList = demandCategories.where(
+      (element) => _categoryIds.contains(element.id),
+    );
+    final unSelectedList = demandCategories.where(
+      (element) => !_categoryIds.contains(element.id),
+    );
+
+    demandCategories = [...selectedList, ...unSelectedList];
+  }
+
   @override
   Widget build(BuildContext context) {
-    final demandCategories = context.read<AppCubit>().state.whenOrNull(
-          loaded: (_, demandCategories) => demandCategories,
-        )!;
-
     return Dialog(
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -144,8 +159,10 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
                         onSelected: (value) => setState(() {
                           if (isSelected) {
                             _categoryIds.remove(category.id);
+                            _orderChipList();
                           } else {
                             _categoryIds.add(category.id);
+                            _orderChipList();
                           }
                         }),
                       ),
