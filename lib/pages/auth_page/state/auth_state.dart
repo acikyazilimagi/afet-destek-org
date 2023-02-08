@@ -6,7 +6,6 @@ part 'auth_state.freezed.dart';
 class AuthState with _$AuthState {
   const factory AuthState({
     required AuthStateStatus status,
-    int? timer,
   }) = _AuthState;
 }
 

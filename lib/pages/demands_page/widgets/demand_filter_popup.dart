@@ -64,9 +64,11 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
               min: 1,
             ),
             const SizedBox(height: 16),
-            Text(_filterRadiusKm == null
-                ? 'Her yer'
-                : '${_filterRadiusKm!.toInt()} KM'),
+            Text(
+              _filterRadiusKm == null
+                  ? 'Her yer'
+                  : '${_filterRadiusKm!.toInt()} KM',
+            ),
             const SizedBox(height: 16),
             Wrap(
               children: demandCategories.map(

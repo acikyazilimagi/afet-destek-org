@@ -10,9 +10,6 @@ class AuthCubit extends Cubit<AuthState> {
         super(const AuthState(status: AuthStateStatus.initial));
   final AuthRepository _authRepository;
 
-  final _Ticker _ticker = _Ticker(ticks: 180);
-  StreamSubscription<int>? _tickerSubscription;
-
   Future<void> sendSms({
     required String number,
   }) async {
@@ -20,11 +17,8 @@ class AuthCubit extends Cubit<AuthState> {
       emit(state.copyWith(status: AuthStateStatus.sendingSms));
       await _authRepository.sendSMS(number: number);
       emit(state.copyWith(status: AuthStateStatus.smsSent));
-      _tickerSubscription = _ticker.tick(ticks: 180).listen((duration) {
-        emit(state.copyWith(status: AuthStateStatus.smsSent, timer: duration));
-      });
     } catch (_) {
-      _tickerSubscription = _ticker.tick(ticks: 180).listen((duration) {});
+      emit(state.copyWith(status: AuthStateStatus.smsFailure));
     }
   }
 
@@ -38,18 +32,5 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (_) {
       emit(state.copyWith(status: AuthStateStatus.codeVerificationFailure));
     }
-  }
-}
-
-class _Ticker {
-  _Ticker({required this.ticks});
-
-  final int ticks;
-
-  Stream<int> tick({required int ticks}) {
-    return Stream.periodic(
-      const Duration(seconds: 1),
-      (x) => ticks - x - 1,
-    ).take(ticks);
   }
 }

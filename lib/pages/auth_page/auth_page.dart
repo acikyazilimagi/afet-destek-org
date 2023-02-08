@@ -16,7 +16,9 @@ class AuthPage extends StatefulWidget {
       MaterialPageRoute<bool>(
         builder: (context) {
           return BlocProvider(
-            create: (context) => AuthCubit(authRepository: context.read<AuthRepository>()),
+            create: (context) => AuthCubit(
+              authRepository: context.read<AuthRepository>(),
+            ),
             child: const AuthPage._(),
           );
         },
@@ -40,6 +42,11 @@ class _AuthPageState extends State<AuthPage> {
   bool _kvkkAccepted = false;
   String _number = '';
   String _code = '';
+
+  Timer? _smsResendTimer;
+
+  int _smsResendCountdown = 180;
+
   @override
   Widget build(BuildContext context) {
     final authState = context.watch<AuthCubit>().state;
@@ -47,15 +54,32 @@ class _AuthPageState extends State<AuthPage> {
         authState.status == AuthStateStatus.smsFailure ||
         authState.status == AuthStateStatus.sendingSms;
 
-    final isLoading =
-        authState.status == AuthStateStatus.sendingSms || authState.status == AuthStateStatus.verifyingCode;
+    final isLoading = authState.status == AuthStateStatus.sendingSms ||
+        authState.status == AuthStateStatus.verifyingCode;
 
-    final isButtonEnabled = (isFirstStep && _number.length > 8) || (!isFirstStep && _code.isNotEmpty);
+    final isButtonEnabled = (isFirstStep && _number.length > 7) ||
+        (!isFirstStep && _code.isNotEmpty);
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state.status == AuthStateStatus.authorized) {
           Navigator.of(context).pop(true);
+        }
+        if (state.status == AuthStateStatus.smsSent) {
+          _smsResendCountdown = 180;
+          _smsResendTimer?.cancel();
+          _smsResendTimer = Timer.periodic(
+            const Duration(seconds: 1),
+            (_) {
+              if (_smsResendCountdown == 0) {
+                _smsResendTimer?.cancel();
+              } else {
+                setState(() {
+                  _smsResendCountdown--;
+                });
+              }
+            },
+          );
         }
       },
       child: Scaffold(
@@ -72,7 +96,10 @@ class _AuthPageState extends State<AuthPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Giriş Yap", style: Theme.of(context).textTheme.displaySmall),
+              Text(
+                'Giriş Yap',
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
               const SizedBox(height: 28),
               TextFormField(
                 decoration: const InputDecoration(
@@ -83,14 +110,17 @@ class _AuthPageState extends State<AuthPage> {
               if (!isFirstStep) ...[
                 const SizedBox(height: 8),
                 TextFormField(
+                  autofocus: true,
                   decoration: InputDecoration(
                     hintText: 'SMS Kodu',
-                    suffix: context.read<AuthCubit>().state.timer! > 0
-                        ? Text(context.read<AuthCubit>().state.timer.toString())
+                    suffix: _smsResendCountdown > 0
+                        ? Text('$_smsResendCountdown')
                         : TextButton(
                             child: const Text('Tekrar Dene'),
                             onPressed: () {
-                              context.read<AuthCubit>().sendSms(number: _number);
+                              context
+                                  .read<AuthCubit>()
+                                  .sendSms(number: _number);
                             },
                           ),
                     isDense: true,
@@ -104,7 +134,8 @@ class _AuthPageState extends State<AuthPage> {
               if (authState.status == AuthStateStatus.smsFailure) ...[
                 const _AuthErrorMessage('SMS gönderme başarısız')
               ],
-              if (authState.status == AuthStateStatus.codeVerificationFailure) ...[
+              if (authState.status ==
+                  AuthStateStatus.codeVerificationFailure) ...[
                 const _AuthErrorMessage('Kod doğrulama başarısız')
               ],
 
@@ -114,7 +145,9 @@ class _AuthPageState extends State<AuthPage> {
                 const Loader(),
               ] else ...[
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(fixedSize: const Size(double.maxFinite - 40, 50)),
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(double.maxFinite - 40, 50),
+                  ),
                   onPressed: isButtonEnabled
                       ? () {
                           final cubit = context.read<AuthCubit>();
