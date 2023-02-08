@@ -6,6 +6,7 @@ import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 
 class DemandsPage extends StatelessWidget {
@@ -22,6 +23,14 @@ class DemandsPage extends StatelessWidget {
         final authorized = snapshot.data != null;
 
         return Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: SvgPicture.asset('assets/logo.svg'),
+            ),
+            leadingWidth: 52,
+          ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
