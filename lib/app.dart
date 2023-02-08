@@ -11,6 +11,7 @@ import 'package:deprem_destek/shared/theme/theme.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 
 class DepremDestekApp extends StatefulWidget {
   const DepremDestekApp({super.key});
@@ -20,6 +21,22 @@ class DepremDestekApp extends StatefulWidget {
 }
 
 class _DepremDestekAppState extends State<DepremDestekApp> {
+  late Mixpanel mixpanel;
+
+  @override
+  void initState() {
+    super.initState();
+    initMixpanel();
+  }
+
+  // basic entegration of Mixpanel
+  Future<void> initMixpanel() async {
+    mixpanel = await Mixpanel.init(
+      '9483a80ee3dd234185cd02c5c9703501',
+      trackAutomaticEvents: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
