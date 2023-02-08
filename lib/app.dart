@@ -37,7 +37,6 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
       ],
       child: MultiBlocProvider(
         providers: [
-
           BlocProvider<AppCubit>(
             create: (context) => AppCubit(
               demandsRepository: context.read<DemandsRepository>(),
@@ -55,6 +54,15 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
                 failed: () => const AppLoadFailurePage(),
                 loading: () => const Scaffold(body: Loader()),
               ),
+              builder: (context, child) {
+                final width = MediaQuery.of(context).size.width;
+                return Center(
+                  child: SizedBox(
+                    width: width.clamp(0, 700),
+                    child: child,
+                  ),
+                );
+              },
             );
           },
         ),

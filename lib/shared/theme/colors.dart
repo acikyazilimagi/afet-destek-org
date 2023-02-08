@@ -16,6 +16,8 @@ class AppColors {
   static const Color scaffoldBackgroundColor =
       Color.fromARGB(255, 247, 247, 247);
   static const Color darkGrey = Color(0xFF444444);
+  static const Color cardBorderColor = Color(0xffF0F0F0);
+  static const Color whatsapp = Color(0xff25D366);
 }
 
 extension ColorsEx on Color {
@@ -48,7 +50,6 @@ extension ColorsEx on Color {
   }
 
   Color darken([double amount = .1]) {
-
     final hsl = HSLColor.fromColor(this);
     final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
 
@@ -56,7 +57,6 @@ extension ColorsEx on Color {
   }
 
   Color lighten([double amount = .1]) {
- 
     final hsl = HSLColor.fromColor(this);
     final hslLight =
         hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
