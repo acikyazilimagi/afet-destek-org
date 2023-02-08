@@ -1,7 +1,6 @@
 //import 'package:deprem_destek/data/models/app_images/app_images.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppLoadFailurePage extends StatelessWidget {
   const AppLoadFailurePage({super.key});
@@ -15,12 +14,15 @@ class AppLoadFailurePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text('Bu sayfa yapım aşamasındadır.'),
             const Text('Lokasyon izni verdiğinizden emin olunuz.'),
             //! Usage of base64 images. Photos can change in the future.
             //Image(image: AppImages.askLocationPage1),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: context.read<AppCubit>().load,
+              onPressed: () {
+                // reload web window when this is pressed
+              },
               child: const Text('Tekrar Dene'),
             )
           ],

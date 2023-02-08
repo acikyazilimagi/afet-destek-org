@@ -9,13 +9,10 @@ class AppCubit extends Cubit<AppState> {
     required DemandsRepository demandsRepository,
   })  : _demandsRepository = demandsRepository,
         _locationRepository = locationRepository,
-        super(const AppState.loading()) {
-    load();
-  }
-
+        super(const AppState.introduction());
   final LocationRepository _locationRepository;
   final DemandsRepository _demandsRepository;
-  Future<void> load() async {
+  Future<void> startApp() async {
     try {
       emit(const AppState.loading());
 
