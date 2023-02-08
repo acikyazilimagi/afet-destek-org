@@ -1,3 +1,4 @@
+// ignore_for_file: require_trailing_commas
 import 'package:deprem_destek/pages/app_load_failure_page/widgets/enable_location_dialog.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';

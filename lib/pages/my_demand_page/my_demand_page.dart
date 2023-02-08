@@ -1,3 +1,4 @@
+// ignore_for_file: require_trailing_commas
 import 'package:deprem_destek/data/models/demand.dart';
 import 'package:deprem_destek/data/repository/auth_repository.dart';
 import 'package:deprem_destek/data/repository/demands_repository.dart';
