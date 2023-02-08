@@ -37,7 +37,6 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
       ],
       child: MultiBlocProvider(
         providers: [
-
           BlocProvider<AppCubit>(
             create: (context) => AppCubit(
               demandsRepository: context.read<DemandsRepository>(),
