@@ -14,7 +14,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -46,7 +45,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
     _MyDemandPageFormFields.geoLocation.name:
         FormControl<GoogleGeocodingResult>(),
     _MyDemandPageFormFields.categories.name: FormControl<List<String>>(
-      validators: [Validators.required, Validators.minLength(1)],
+      validators: [
+        Validators.minLength(1),
+      ],
       value: [],
     ),
     _MyDemandPageFormFields.notes.name: FormControl<String>(
@@ -55,7 +56,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
     _MyDemandPageFormFields.notes.name:
         FormControl<String>(validators: [Validators.required]),
     _MyDemandPageFormFields.phoneNumber.name: FormControl<String>(
-      validators: [Validators.required, Validators.minLength(10)],
+      validators: [Validators.required, Validators.minLength(13)],
     ),
     _MyDemandPageFormFields.wpPhoneNumber.name: FormControl<String>(),
   });
@@ -199,6 +200,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         formControlName:
                             _MyDemandPageFormFields.geoLocation.name,
                         decoration: InputDecoration(
+                          labelText: 'Adres',
                           focusedBorder: const OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(width: 2),
@@ -223,7 +225,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         ) as FormControl<List<String>>,
                       ),
                       MyDemandsTextField<String>(
-                        hintText: 'Neye İhtiyacın Var?',
+                        labelText: 'Neye İhtiyacın Var?',
+                        isLongBody: true,
                         formControlName: _MyDemandPageFormFields.notes.name,
                         validationMessages: {
                           ValidationMessage.required: (_) =>
@@ -231,16 +234,16 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         },
                       ),
                       MyDemandsTextField<String>(
-                        icon: SvgPicture.asset(
-                          'assets/icons/whatsapp.svg',
-                        ),
-                        hintText: '',
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(
+                              '[+0-9]',
+                            ),
+                          ),
+                        ],
+                        labelText: 'Telefon Numarası',
                         formControlName:
                             _MyDemandPageFormFields.phoneNumber.name,
-                        inputFormatters: [
-                          LengthLimitingTextInputFormatter(10),
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
                         validationMessages: {
                           ValidationMessage.required: (_) =>
                               'Whats App numaranız gerekli.',
@@ -249,10 +252,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         },
                       ),
                       MyDemandsTextField<String>(
-                        icon: SvgPicture.asset(
-                          'assets/icons/message.svg',
-                        ),
-                        hintText: '',
+                        labelText: 'WhatsApp',
                         formControlName:
                             _MyDemandPageFormFields.wpPhoneNumber.name,
                         inputFormatters: [
@@ -352,9 +352,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                     child: Padding(
                                       padding: const EdgeInsets.all(14),
                                       child: Text(
-                                        state.demand!.isActive
-                                            ? 'Talebi durdur'
-                                            : 'Talebi sürdür',
+                                        state.demand == null
+                                            ? 'Talep Oluştur'
+                                            : 'Talebi Güncelle',
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge

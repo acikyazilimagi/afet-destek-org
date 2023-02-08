@@ -77,58 +77,81 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          ElevatedButton(
+            onPressed: !widget.isAuthorized
+                ? () => AuthPage.show(context)
+                : () => MyDemandPage.show(context),
+            child: Text(
+              widget.isAuthorized ? 'Destek Taleplerim' : 'Talep Oluştur',
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
           IconButton(
-            icon: const Icon(Icons.filter_list),
+            icon: Stack(
+              children: [
+                const Icon(Icons.filter_list),
+                if (state.hasAnyFilter) ...[
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      width: 8,
+                      height: 8,
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
             onPressed: () => DemandFilterPopup.show(context),
           ),
         ],
       ),
       body: demands.isEmpty
           ? const Center(child: Text('Sonuç bulunamadı'))
-          : Stack(
-              fit: StackFit.expand,
-              children: [
-                ListView.builder(
-                  controller: _scrollController,
-                  itemCount: demands.length,
-                  itemBuilder: (context, index) {
-                    final demand = demands[index];
-                    return Column(
-                      children: [
-                        DemandCard(demand: demand),
-                        if (index == demands.length - 1) ...[
-                          if (state.status.maybeWhen(
-                            loading: () => true,
-                            orElse: () => false,
-                          )) ...[
-                            const SizedBox(height: 16),
-                            const Loader(),
-                          ],
-                          const SizedBox(height: 64)
-                        ]
-                      ],
-                    );
-                  },
-                ),
-                Positioned(
-                  left: 16,
-                  right: 16,
-                  bottom: 16,
-                  child: ElevatedButton(
-                    onPressed: !widget.isAuthorized
-                        ? () => AuthPage.show(context)
-                        : () => MyDemandPage.show(context),
-                    child: const Text(
-                      'Destek Taleplerim',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        fontSize: 16,
+          : ListView.builder(
+              controller: _scrollController,
+              itemCount: demands.length,
+              itemBuilder: (context, index) {
+                final demand = demands[index];
+                return Column(
+                  children: [
+                    if (index == 0)
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Text(
+                              // TODO(adnan): we don't have total count
+                              // currently, only the count of the current page
+                              'Yardım talepleri',
+                              style: Theme.of(context).textTheme.displaySmall,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                )
-              ],
+                    DemandCard(demand: demand),
+                    if (index == demands.length - 1) ...[
+                      if (state.status.maybeWhen(
+                        loading: () => true,
+                        orElse: () => false,
+                      )) ...[
+                        const SizedBox(height: 16),
+                        const Loader(),
+                      ],
+                      const SizedBox(height: 64)
+                    ]
+                  ],
+                );
+              },
             ),
     );
   }

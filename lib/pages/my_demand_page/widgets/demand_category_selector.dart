@@ -37,6 +37,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: TextFormField(
+            readOnly: true,
             decoration: InputDecoration(
               suffixIcon: const Icon(Icons.arrow_forward_ios_sharp),
               hintText: 'Kategori seçin',
