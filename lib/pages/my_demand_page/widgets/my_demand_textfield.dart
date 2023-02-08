@@ -3,24 +3,27 @@ import 'package:flutter/services.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class MyDemandsTextField<T> extends StatelessWidget {
-  const MyDemandsTextField({
+  MyDemandsTextField({
     super.key,
     required this.hintText,
     required this.formControlName,
     this.inputFormatters,
     this.icon,
-    // required this.onChanged,
+    this.validationMessages,
   });
   final String hintText;
   final String formControlName;
   final List<TextInputFormatter>? inputFormatters;
   final Widget? icon;
-
+  Map<String, ValidationMessageFunction>? validationMessages;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 8),
       child: ReactiveTextField<T>(
+        showErrors: (control) =>
+            control.invalid && control.touched && control.dirty,
+        validationMessages: validationMessages,
         // valueAccessor: GeoValueAccessor(),
         inputFormatters: inputFormatters,
         formControlName: formControlName,

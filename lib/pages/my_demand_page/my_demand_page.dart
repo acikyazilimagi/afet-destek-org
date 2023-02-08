@@ -208,6 +208,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           hintStyle: TextStyle(color: Colors.grey.shade500),
                         ),
                         valueAccessor: GeoValueAccessor(),
+                        validationMessages: {
+                          ValidationMessage.required: (_) =>
+                              'Adresiniz bizim için gerekli',
+                          ValidationMessage.any: (_) =>
+                              'Lütfen geçerli bir adres giriniz.',
+                        },
                       ),
                       DemandCategorySelector(
                         formControl: _myDemandPageFormGroup.control(
@@ -217,6 +223,10 @@ class _MyDemandPageState extends State<MyDemandPage> {
                       MyDemandsTextField<String>(
                         hintText: 'Neye İhtiyacın Var?',
                         formControlName: _MyDemandPageFormFields.notes.name,
+                        validationMessages: {
+                          ValidationMessage.required: (_) =>
+                              'Neye ihtiyacınız olduğunu yazar mısınız?.',
+                        },
                       ),
                       MyDemandsTextField<String>(
                         icon: SvgPicture.asset(
@@ -229,6 +239,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           LengthLimitingTextInputFormatter(10),
                           FilteringTextInputFormatter.digitsOnly,
                         ],
+                        validationMessages: {
+                          ValidationMessage.required: (_) =>
+                              'Whats App numaranız gerekli.',
+                          ValidationMessage.number: (_) =>
+                              'Whats App Numaranız geçerli olmalı',
+                        },
                       ),
                       MyDemandsTextField<String>(
                         icon: SvgPicture.asset(
@@ -241,6 +257,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           LengthLimitingTextInputFormatter(10),
                           FilteringTextInputFormatter.digitsOnly,
                         ],
+                        validationMessages: {
+                          ValidationMessage.required: (_) =>
+                              'Numaranız gerekli.',
+                          ValidationMessage.number: (_) =>
+                              'Numaranız geçerli olmalı',
+                        },
                       ),
                       ReactiveFormConsumer(
                         builder: (context, form, _) {
