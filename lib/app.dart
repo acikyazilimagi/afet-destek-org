@@ -4,6 +4,7 @@ import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/data/repository/location_repository.dart';
 import 'package:deprem_destek/pages/app_load_failure_page/app_load_failure_page.dart';
 import 'package:deprem_destek/pages/demands_page/demands_page.dart';
+import 'package:deprem_destek/pages/introduction_page/introduction_page.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
 import 'package:deprem_destek/shared/state/app_state.dart';
 import 'package:deprem_destek/shared/theme/theme.dart';
@@ -50,6 +51,7 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
               theme: AppTheme.theme(context),
               debugShowCheckedModeBanner: false,
               home: state.when(
+                introduction: () => const IntroductionPage(),
                 loaded: (_, __) => const DemandsPage(),
                 failed: () => const AppLoadFailurePage(),
                 loading: () => const Scaffold(body: Loader()),
