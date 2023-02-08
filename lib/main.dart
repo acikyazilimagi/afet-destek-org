@@ -1,10 +1,16 @@
+import 'dart:async';
+
 import 'package:deprem_destek/app.dart';
+import 'package:deprem_destek/utils/logger/app_logger.dart';
+import 'package:deprem_destek/utils/observer/bloc_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() async {
+  Bloc.observer = AppBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
   await Firebase.initializeApp(
@@ -25,6 +31,9 @@ void main() async {
         ..reportPackages = false
         ..debug = false;
     },
-    appRunner: () => runApp(const DepremDestekApp()),
+    appRunner: () => runZonedGuarded(
+      () async => runApp(const DepremDestekApp()),
+      (error, stackTrace) => AppLoggerImpl.log.e(error.toString(), stackTrace),
+    ),
   );
 }

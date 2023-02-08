@@ -14,6 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -53,6 +54,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
     _MyDemandPageFormFields.notes.name: FormControl<String>(
       validators: [Validators.required],
     ),
+    _MyDemandPageFormFields.notes.name:
+        FormControl<String>(validators: [Validators.required]),
     _MyDemandPageFormFields.phoneNumber.name: FormControl<String>(
       validators: [Validators.required, Validators.minLength(13)],
     ),
@@ -72,11 +75,11 @@ class _MyDemandPageState extends State<MyDemandPage> {
 
     _myDemandPageFormGroup
         .control(_MyDemandPageFormFields.phoneNumber.name)
-        .value = FirebaseAuth.instance.currentUser!.phoneNumber;
+        .value = FirebaseAuth.instance.currentUser?.phoneNumber;
 
     _myDemandPageFormGroup
         .control(_MyDemandPageFormFields.wpPhoneNumber.name)
-        .value = FirebaseAuth.instance.currentUser!.phoneNumber;
+        .value = FirebaseAuth.instance.currentUser?.phoneNumber;
   }
 
   void _onToggleActivation({required Demand demand}) {
@@ -210,6 +213,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           hintStyle: TextStyle(color: Colors.grey.shade500),
                         ),
                         valueAccessor: GeoValueAccessor(),
+                        validationMessages: {
+                          ValidationMessage.required: (_) =>
+                              'Adresiniz bizim için gerekli',
+                          ValidationMessage.any: (_) =>
+                              'Lütfen geçerli bir adres giriniz.',
+                        },
                       ),
                       DemandCategorySelector(
                         formControl: _myDemandPageFormGroup.control(
@@ -220,8 +229,13 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         labelText: 'Neye İhtiyacın Var?',
                         isLongBody: true,
                         formControlName: _MyDemandPageFormFields.notes.name,
+                        validationMessages: {
+                          ValidationMessage.required: (_) =>
+                              'Neye ihtiyacınız olduğunu yazar mısınız?.',
+                        },
                       ),
                       MyDemandsTextField<String>(
+
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                             RegExp(
@@ -230,8 +244,19 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           ),
                         ],
                         labelText: 'Telefon Numarası',
+
                         formControlName:
                             _MyDemandPageFormFields.phoneNumber.name,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(10),
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        validationMessages: {
+                          ValidationMessage.required: (_) =>
+                              'Whats App numaranız gerekli.',
+                          ValidationMessage.number: (_) =>
+                              'Whats App Numaranız geçerli olmalı',
+                        },
                       ),
                       MyDemandsTextField<String>(
                         labelText: 'WhatsApp',
@@ -244,6 +269,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             ),
                           ),
                         ],
+                        validationMessages: {
+                          ValidationMessage.required: (_) =>
+                              'Numaranız gerekli.',
+                          ValidationMessage.number: (_) =>
+                              'Numaranız geçerli olmalı',
+                        },
                       ),
                       ReactiveFormConsumer(
                         builder: (context, form, _) {

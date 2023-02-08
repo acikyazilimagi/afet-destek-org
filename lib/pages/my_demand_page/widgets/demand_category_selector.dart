@@ -1,8 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:deprem_destek/shared/state/app_cubit.dart';
+import 'package:deprem_destek/shared/theme/colors.dart';
 import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 class DemandCategorySelector extends StatefulWidget {
@@ -84,26 +86,29 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                     widget.formControl.value =
                                         _selectedCategoryIds;
                                   },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12),
-                                    child: Card(
-                                      color: isSelected
-                                          ? Colors.grey
-                                          : Colors.white,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                category.name,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelMedium,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                  child: ListTile(
+                                    selected: isSelected,
+                                    tileColor: AppColors.white,
+                                    selectedTileColor: AppColors.red,
+                                    contentPadding: const EdgeInsets.all(12),
+                                    title: Text(
+                                      category.name,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium
+                                          ?.copyWith(
+                                            color: isSelected
+                                                ? AppColors.white
+                                                : AppColors.textColor,
+                                          ),
+                                    ),
+                                    leading: SvgPicture.asset(
+                                      'assets/icons/check.svg',
+                                      colorFilter: ColorFilter.mode(
+                                        isSelected
+                                            ? AppColors.white
+                                            : AppColors.red,
+                                        BlendMode.srcIn,
                                       ),
                                     ),
                                   ),

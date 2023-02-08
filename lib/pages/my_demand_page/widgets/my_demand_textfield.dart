@@ -9,18 +9,23 @@ class MyDemandsTextField<T> extends StatelessWidget {
     required this.formControlName,
     this.isLongBody = false,
     this.inputFormatters,
-    // required this.onChanged,
+    this.icon,
+    this.validationMessages,
   });
   final String labelText;
   final String formControlName;
   final List<TextInputFormatter>? inputFormatters;
   final bool isLongBody;
 
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 8, bottom: 8),
       child: ReactiveTextField<T>(
+        showErrors: (control) =>
+            control.invalid && control.touched && control.dirty,
+        validationMessages: validationMessages,
         // valueAccessor: GeoValueAccessor(),
         inputFormatters: inputFormatters,
         formControlName: formControlName,
