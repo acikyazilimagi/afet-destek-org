@@ -7,9 +7,7 @@ class KVKKPage extends StatefulWidget {
   const KVKKPage({super.key});
   static Future<void> show(BuildContext context) async {
     await Navigator.of(context).push<bool>(
-      MaterialPageRoute<bool>(
-        builder: (context) => const KVKKPage(),
-      ),
+      MaterialPageRoute<bool>(builder: (context) => const KVKKPage()),
     );
   }
 
