@@ -1,5 +1,6 @@
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/shared/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -147,7 +148,13 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                             if (isSelected) {
                               _categoryIds.remove(category.id);
                             } else {
-                              _categoryIds.add(category.id);
+                              if (_categoryIds.length == 10) {
+                                const AppSnackbars.failure(
+                                  'En fazla 10 ihtiyaç eklenebilir.',
+                                ).show(context);
+                              } else {
+                                _categoryIds.add(category.id);
+                              }
                             }
                           }),
                         ),
