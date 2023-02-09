@@ -6,7 +6,6 @@ import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:share_plus/share_plus.dart';
 
 // ignore: must_be_immutable
 class DemandCard extends StatelessWidget {
@@ -57,7 +56,7 @@ class DemandCard extends StatelessWidget {
                   Row(
                     children: [
                       // const Icon(Icons.location_on),
-                      const SizedBox(width: 4),
+                      // const SizedBox(width: 4),
                       Text(
                         demand.addressText,
                         maxLines: 1,
@@ -67,15 +66,16 @@ class DemandCard extends StatelessWidget {
                           color: AppColors.textColor,
                         ),
                       ),
-                      const Spacer(),
-                      IconButton(
-                        onPressed: () {
-                          Share.share(
-                            'Yardım talep linki : https://afetdestek.org/talep/${demand.id}',
-                          );
-                        },
-                        icon: const Icon(Icons.share),
-                      )
+                      // Will be added later to sharing func after add routing
+                      // const Spacer(),
+                      // IconButton(
+                      //   onPressed: () {
+                      //     Share.share(
+                      //       'Yardım talep linki : https://afetdestek.org/talep/${demand.id}',
+                      //     );
+                      //   },
+                      //   icon: const Icon(Icons.share),
+                      // )
                     ],
                   ),
                   const SizedBox(height: 8),
