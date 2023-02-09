@@ -21,11 +21,7 @@ class CallButton extends StatelessWidget {
         final smsLaunchUri = Uri(
           scheme: 'sms',
           path: phoneNumber,
-          queryParameters: <String, String>{
-            'body': Uri.encodeComponent('YardimAGI'),
-          },
         );
-
         await launchUrl(smsLaunchUri);
       },
       child: Padding(
