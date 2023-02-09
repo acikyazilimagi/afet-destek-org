@@ -25,7 +25,7 @@
   <meta name="title" content="Afet Destek - Deprem Yardım Ağı">
   <meta name="description"
     content="Bu uygulama, ihtiyaç sahibi depremzedelerin ihtiyaçlarını ve iletişim bilgilerini ekleyebildiği; ihtiyaç taleplerinin listelenerek karşılanabilmesi amacıyla tasarlandı.">
-    <meta itemprop="image" content="https://afetdestek.org/socialmedia.jpeg">
+  <meta itemprop="image" content="https://afetdestek.org/socialmedia.jpeg">
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://afetdestek.org/">
@@ -54,7 +54,7 @@
 
   <title>Afet Destek Ağı</title>
   <link rel="manifest" href="manifest.json">
-
+  <link rel="stylesheet" type="text/css" href="loader/logo.css">
   <!-- Mix Panel Script -->
   <!-- <script src="./assets/packages/mixpanel_flutter/assets/mixpanel.js"></script> -->
 
@@ -62,11 +62,20 @@
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
   </script>
+
+
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
 
 <body>
+  <div class="pulse" id="loading">
+    <img width="150px" src="splash.png" alt="">
+
+  </div>
+  <!-- <div id="loading">
+    <span id="loading" class="loader"></span>
+  </div> -->
 
   <script type="module">
     // Import the functions you need from the SDKs you need
@@ -90,19 +99,36 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
+
+
   </script>
+
   <script>
-    window.addEventListener('load', function (ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        }
-      }).then(function (engineInitializer) {
-        return engineInitializer.initializeEngine();
-      }).then(function (appRunner) {
-        return appRunner.runApp();
-      });
+
+    window.addEventListener("load", function () {
+      var loading = document.querySelector("#loading");
+      _flutter.loader
+        .loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: serviceWorkerVersion,
+          },
+        })
+        .then(function (engineInitializer) {
+          console.log(" renderer requested in the URL");
+          return engineInitializer.initializeEngine();
+        })
+        .then(function (appRunner) {
+          console.log(" renderer requested in the URL1");
+          return appRunner.runApp();
+        })
+        .then(function (app) {
+          console.log(" renderer requested in the URL2");
+          // Wait a few milliseconds so users can see the "zoooom" animation
+          // before getting rid of the "loading" div.
+          window.setTimeout(function () {
+            loading.remove();
+          }, 500);
+        });
     });
   </script>
 </body>
