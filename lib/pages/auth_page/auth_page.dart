@@ -143,6 +143,7 @@ class _AuthPageState extends State<AuthPage> {
                   invalidNumberMessage: 'Geçersiz telefon numarası',
                   onChanged: (number) {
                     setState(() => _number = number.completeNumber);
+                    _formKey.currentState!.validate();
                   },
                 ),
               ),
@@ -170,8 +171,10 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                   onChanged: (code) => setState(() => _code = code),
                 ),
-                if (authState.status == AuthStateStatus.codeVerificationFailure)
+                if (authState.status ==
+                    AuthStateStatus.codeVerificationFailure) ...[
                   const _AuthErrorMessage('Kod doğrulama başarısız'),
+                ]
               ],
               // implement kvkk
               _KVKKCheckBox(_kvkkAccepted, (bool value) {
@@ -190,13 +193,11 @@ class _AuthPageState extends State<AuthPage> {
                   onPressed:
                       (isButtonEnabled && _formKey.currentState!.validate())
                           ? () {
-                              if (_formKey.currentState!.validate()) {
-                                final cubit = context.read<AuthCubit>();
-                                if (isFirstStep) {
-                                  cubit.sendSms(number: _number);
-                                } else {
-                                  cubit.verifySMSCode(code: _code);
-                                }
+                              final cubit = context.read<AuthCubit>();
+                              if (isFirstStep) {
+                                cubit.sendSms(number: _number);
+                              } else {
+                                cubit.verifySMSCode(code: _code);
                               }
                             }
                           : null,
