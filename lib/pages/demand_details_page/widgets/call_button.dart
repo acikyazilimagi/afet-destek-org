@@ -18,9 +18,7 @@ class CallButton extends StatelessWidget {
         ),
       ),
       onPressed: () async {
-        final smsLaunchUri = Uri(
-          scheme: 'sms',    path: phoneNumber
-        );
+        final smsLaunchUri = Uri(scheme: 'sms', path: phoneNumber);
         await launchUrl(smsLaunchUri);
       },
       child: Padding(
