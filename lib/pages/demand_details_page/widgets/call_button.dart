@@ -18,19 +18,24 @@ class CallButton extends StatelessWidget {
         ),
       ),
       onPressed: () async {
-        // TODO(resultanyildizi): incoming phone number must be correct
-        final telLaunchUri = Uri(scheme: 'tel', path: phoneNumber);
+        final smsLaunchUri = Uri(
+          scheme: 'sms',
+          path: phoneNumber,
+          queryParameters: <String, String>{
+            'body': Uri.encodeComponent('YardimAGI'),
+          },
+        );
 
-        await launchUrl(telLaunchUri);
+        await launchUrl(smsLaunchUri);
       },
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(Assets.tel),
+            SvgPicture.asset(Assets.sms),
             const SizedBox(width: 8),
-            Text('Telefonla ulaş ($phoneNumber)'),
+            Text('Sms ile ulaş ($phoneNumber)'),
           ],
         ),
       ),

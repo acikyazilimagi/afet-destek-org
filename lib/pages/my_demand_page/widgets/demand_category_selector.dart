@@ -112,42 +112,47 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                 const SizedBox(height: 4),
                                 const Divider(),
                                 const SizedBox(height: 4),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: demandCategories.length,
-                                  itemBuilder: (context, index) {
-                                    final category = demandCategories[index];
-                                    final isSelected = _selectedCategoryIds
-                                        .contains(category.id);
-                                    return CheckboxListTile(
-                                      contentPadding: EdgeInsets.zero,
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
-                                      value: isSelected,
-                                      onChanged: (value) {
-                                        setState(
-                                          () => isSelected
-                                              ? _selectedCategoryIds
-                                                  .remove(category.id)
-                                              : _selectedCategoryIds
-                                                  .add(category.id),
-                                        );
-                                        setStateForAlert(() {});
+                                Expanded(
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: demandCategories.length,
+                                    itemBuilder: (context, index) {
+                                      final category = demandCategories[index];
+                                      final isSelected = _selectedCategoryIds
+                                          .contains(category.id);
+                                      return CheckboxListTile(
+                                        contentPadding: EdgeInsets.zero,
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                        value: isSelected,
+                                        onChanged: (value) {
+                                          setState(
+                                            () => isSelected
+                                                ? _selectedCategoryIds
+                                                    .remove(category.id)
+                                                : _selectedCategoryIds
+                                                    .add(category.id),
+                                          );
+                                          setStateForAlert(() {});
 
-                                        widget.formControl.value =
-                                            _selectedCategoryIds;
+                                          widget.formControl.value =
+                                              _selectedCategoryIds;
 
-                                        setControllerText();
-                                      },
-                                      title: Text(category.name),
-                                    );
-                                  },
+                                          setControllerText();
+                                        },
+                                        title: Text(category.name),
+                                      );
+                                    },
+                                  ),
                                 ),
                                 const Divider(),
-                                const Spacer(),
-                                Row(
+                                Wrap(
                                   children: [
-                                    Expanded(
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.06,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: Colors.red,
@@ -158,18 +163,16 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                         ),
                                         onPressed: () =>
                                             Navigator.of(context).pop(),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8),
-                                          child: Text(
-                                            'Kaydet',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge
-                                                ?.copyWith(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
+                                        child: Text(
+                                          'Kaydet',
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge
+                                              ?.copyWith(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                         ),
                                       ),
                                     ),
