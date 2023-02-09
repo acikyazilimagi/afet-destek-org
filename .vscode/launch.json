@@ -2,10 +2,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "debug",
-            "request": "launch",
-            "type": "dart"
-        },
+           "name": "Debug (Dev) Web",
+           "type": "dart",
+           "request": "launch",
+           "program": "lib/main_dev.dart",
+           
+       },
+       {
+           "name": "Debug (Prod) Web",
+           "type": "dart",
+           "request": "launch",
+           "program": "lib/main_prod.dart",
+           
+       },
 
     ]
 }
