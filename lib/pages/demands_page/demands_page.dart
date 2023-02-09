@@ -7,6 +7,7 @@ import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_filter_popup.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -150,47 +151,51 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                     : 'Sonuç bulunamadı',
               ),
             )
-          : ListView.builder(
-              controller: _scrollController,
-              itemCount: demands.length,
-              itemBuilder: (context, index) {
-                final demand = demands[index];
-                return Column(
-                  children: [
-                    if (index == 0)
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Text(
-                              // TODO(adnan): we don't have total count
-                              // currently, only the count of the current page
-                              'Yardım talepleri',
-                              style: Theme.of(context).textTheme.displaySmall,
+          : RefreshIndicator(
+              color: AppColors.red,
+              onRefresh: () => context.read<DemandsCubit>().refreshDemands(),
+              child: ListView.builder(
+                controller: _scrollController,
+                itemCount: demands.length,
+                itemBuilder: (context, index) {
+                  final demand = demands[index];
+                  return Column(
+                    children: [
+                      if (index == 0)
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(15),
+                              child: Text(
+                                // TODO(adnan): we don't have total count
+                                // currently, only the count of the current page
+                                'Yardım talepleri',
+                                style: Theme.of(context).textTheme.displaySmall,
+                              ),
                             ),
-                          ),
+                          ],
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
+                        child: DemandCard(demand: demand),
+                      ),
+                      if (index == demands.length - 1) ...[
+                        if (state.status.maybeWhen(
+                          loading: () => true,
+                          orElse: () => false,
+                        )) ...[
+                          const SizedBox(height: 16),
+                          const Loader(),
                         ],
-                      ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      child: DemandCard(demand: demand),
-                    ),
-                    if (index == demands.length - 1) ...[
-                      if (state.status.maybeWhen(
-                        loading: () => true,
-                        orElse: () => false,
-                      )) ...[
-                        const SizedBox(height: 16),
-                        const Loader(),
-                      ],
-                      const SizedBox(height: 64)
-                    ]
-                  ],
-                );
-              },
+                        const SizedBox(height: 64)
+                      ]
+                    ],
+                  );
+                },
+              ),
             ),
       endDrawer: DemandFilterDrawer(
         demandsCubit: context.read<DemandsCubit>(),
