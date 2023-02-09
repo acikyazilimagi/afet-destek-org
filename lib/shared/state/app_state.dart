@@ -6,6 +6,7 @@ part 'app_state.freezed.dart';
 
 @freezed
 class AppState with _$AppState {
+  const factory AppState.initializing() = _initializingAppState;
   const factory AppState.introduction() = _introductionAppState;
   const factory AppState.loading() = _loadingAppState;
   const factory AppState.loaded({

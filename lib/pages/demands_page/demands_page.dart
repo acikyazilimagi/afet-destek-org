@@ -84,8 +84,16 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
               ),
               onPressed: !widget.isAuthorized
-                  ? () => AuthPage.show(context)
-                  : () => MyDemandPage.show(context),
+                  ? () => AuthPage.show(context, () {
+                        context
+                            .read<DemandsCubit>()
+                            .getDemands(shouldClearDemands: true);
+                      })
+                  : () => MyDemandPage.show(context, () {
+                        context
+                            .read<DemandsCubit>()
+                            .getDemands(shouldClearDemands: true);
+                      }),
               child: Text(
                 widget.isAuthorized ? 'Destek Taleplerim' : 'Talep Oluştur',
                 style: const TextStyle(

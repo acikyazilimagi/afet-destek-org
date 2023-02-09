@@ -19,7 +19,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage._();
-  static Future<void> show(BuildContext context) async {
+  static Future<void> show(BuildContext context, VoidCallback onClose) async {
     final result = await Navigator.of(context).push<bool>(
       MaterialPageRoute<bool>(
         builder: (context) {
@@ -35,7 +35,7 @@ class AuthPage extends StatefulWidget {
 
     if (result != null && result) {
       // ignore: use_build_context_synchronously
-      unawaited(MyDemandPage.show(context));
+      unawaited(MyDemandPage.show(context, onClose));
     }
   }
 

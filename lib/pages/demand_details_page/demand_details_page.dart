@@ -95,8 +95,10 @@ class _DemandDetailsPageView extends StatelessWidget {
                       Lütfen dikkatli olunuz.''',
               ),
               const SizedBox(height: 8),
-              WhatsappButton(phoneNumber: demand.phoneNumber),
-              const SizedBox(height: 8),
+              if (demand.whatsappNumber != null) ...[
+                WhatsappButton(phoneNumber: demand.whatsappNumber!),
+                const SizedBox(height: 8),
+              ],
               CallButton(phoneNumber: demand.phoneNumber),
               const SizedBox(height: 32),
               const Text(

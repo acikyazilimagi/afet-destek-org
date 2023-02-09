@@ -33,6 +33,7 @@ dependencies:
   phone_numbers_parser: 7.0.0+1
   reactive_forms: 14.1.0
   sentry_flutter: 6.19.0
+  shared_preferences: 2.0.17
   universal_html: 2.0.8
   url_launcher: 6.1.9
   url_strategy: 0.2.0

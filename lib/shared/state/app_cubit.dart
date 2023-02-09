@@ -4,6 +4,9 @@ import 'package:deprem_destek/data/repository/demands_repository.dart';
 import 'package:deprem_destek/data/repository/location_repository.dart';
 import 'package:deprem_destek/shared/state/app_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+const _welcomePageKey = 'welcomePageKey';
 
 class AppCubit extends Cubit<AppState> {
   AppCubit({
@@ -11,9 +14,28 @@ class AppCubit extends Cubit<AppState> {
     required DemandsRepository demandsRepository,
   })  : _demandsRepository = demandsRepository,
         _locationRepository = locationRepository,
-        super(const AppState.introduction());
+        super(const AppState.initializing()) {
+    init();
+  }
   final LocationRepository _locationRepository;
   final DemandsRepository _demandsRepository;
+
+  Future<void> init() async {
+    try {
+      final sprefs = await SharedPreferences.getInstance();
+
+      final isShown = sprefs.getBool(_welcomePageKey);
+
+      if (isShown == null) {
+        emit(const AppState.introduction());
+        unawaited(sprefs.setBool(_welcomePageKey, true));
+      } else {
+        unawaited(startApp());
+      }
+    } catch (_) {
+      unawaited(startApp());
+    }
+  }
 
   Future<void> startApp() async {
     try {
