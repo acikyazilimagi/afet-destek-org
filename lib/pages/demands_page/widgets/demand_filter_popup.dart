@@ -56,6 +56,7 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 4),
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -83,6 +84,7 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
                   )
                 ],
               ),
+              const SizedBox(height: 8),
               Divider(
                 color: Colors.grey[300],
               ),
