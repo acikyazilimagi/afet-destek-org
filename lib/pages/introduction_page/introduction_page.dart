@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_escaping_inner_quotes
 
-import 'package:deprem_destek/gen/assets.gen.dart';
-import 'package:deprem_destek/pages/kvkk_page/kvkk_page.dart';
-import 'package:deprem_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
+import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';

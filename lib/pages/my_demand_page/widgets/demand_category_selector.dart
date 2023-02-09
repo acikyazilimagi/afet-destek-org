@@ -1,7 +1,7 @@
+import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:collection/collection.dart';
-import 'package:deprem_destek/shared/state/app_cubit.dart';
-import 'package:deprem_destek/shared/theme/colors.dart';
-import 'package:deprem_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reactive_forms/reactive_forms.dart';

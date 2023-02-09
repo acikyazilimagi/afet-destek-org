@@ -1,4 +1,4 @@
-import 'package:deprem_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class Infobox extends StatelessWidget {

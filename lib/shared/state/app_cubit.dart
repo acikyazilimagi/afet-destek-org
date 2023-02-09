@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:deprem_destek/data/repository/demands_repository.dart';
-import 'package:deprem_destek/data/repository/location_repository.dart';
-import 'package:deprem_destek/shared/state/app_state.dart';
+import 'package:afet_destek/data/repository/demands_repository.dart';
+import 'package:afet_destek/data/repository/location_repository.dart';
+import 'package:afet_destek/shared/state/app_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
