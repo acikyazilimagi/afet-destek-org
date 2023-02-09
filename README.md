@@ -42,7 +42,7 @@ Bu uygulama açık kaynak kodlu ve geliştirmeye açık. Eğer katkıda bulunmak
 - [Tasarım (Figma)](https://www.figma.com/file/ggMF14osmhGOvKvS0VKuvQ/Yard%C4%B1m-A%C4%9F%C4%B1-App?node-id=0%3A1)
 - Proje Sorumluları
   - Flutter Architect & Co-Lead: [@easeccy](https://github.com/easeccy) Enes#7446
-  - Co-Lead: @erolkaftanoglu (https://github.com/erolkaftanoglu) Erol#9127
+  - Co-Lead: [@erolkaftanoglu](https://github.com/erolkaftanoglu) Erol#9127
 - Github
   - [yardim-agi-flutter](https://github.com/acikkaynak/yardim-agi-flutter)
   - [yardim-agi-firebase](https://github.com/acikkaynak/yardim-agi-firebase)
