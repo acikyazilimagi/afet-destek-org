@@ -9,7 +9,6 @@ import 'package:afet_destek/pages/auth_page/state/auth_state.dart';
 import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
-import 'package:afet_destek/shared/widgets/snackbar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -170,7 +169,7 @@ class _AuthPageState extends State<AuthPage> {
                 ),
                 if (authState.status == AuthStateStatus.codeVerificationFailure)
                   const _AuthErrorMessage('Kod doğrulama başarısız'),
-                if (authState.status == AuthStateStatus.codeVerificationFailure)
+                if (authState.status == AuthStateStatus.smsFailure)
                   const _AuthErrorMessage('Sms gönderme başarısız'),
               ],
               // implement kvkk
