@@ -1,65 +1,6 @@
 import 'dart:convert';
-
-import 'package:afet_destek/config/base64/base_64_images.dart';
-import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/pages/location_tutorial/base64/base_64_images.dart';
 import 'package:flutter/material.dart';
-
-// class AppImages {
-//   //* Apple Tutorial Images
-//   static final MemoryImage appleImage1 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['appleImage1'] ?? ''),
-//   );
-//   static final MemoryImage appleImage2 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['appleImage2'] ?? ''),
-//   );
-//   static final MemoryImage appleImage3 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['appleImage3'] ?? ''),
-//   );
-//   static final MemoryImage appleImage4 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['appleImage4'] ?? ''),
-//   );
-
-// //* Android Tutorial Images
-//   static final MemoryImage androidImage1 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['androidImage1'] ?? ''),
-//   );
-//   static final MemoryImage androidImage2 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['androidImage2'] ?? ''),
-//   );
-//   static final MemoryImage androidImage3 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['androidImage3'] ?? ''),
-//   );
-//   static final MemoryImage androidImage4 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['androidImage4'] ?? ''),
-//   );
-// //* Chrome Tutorial Images
-//   static final MemoryImage chromeImage1 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['chromeImage1'] ?? ''),
-//   );
-//   static final MemoryImage chromeImage2 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['chromeImage2'] ?? ''),
-//   );
-//   static final MemoryImage chromeImage3 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['chromeImage3'] ?? ''),
-//   );
-//   static final MemoryImage chromeImage4 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['chromeImage4'] ?? ''),
-//   );
-
-// //* Safari Tutorial Images
-//   static final MemoryImage safariImage1 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['safariImage1'] ?? ''),
-//   );
-//   static final MemoryImage safariImage2 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['safariImage2'] ?? ''),
-//   );
-//   static final MemoryImage safariImage3 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['safariImage3'] ?? ''),
-//   );
-//   static final MemoryImage safariImage4 = MemoryImage(
-//     base64Decode(tutorialImagesBase64['safariImage4'] ?? ''),
-//   );
-// }
 
 enum AppleTutorialImages {
   p1,
@@ -196,10 +137,6 @@ enum SafariTutorialImages {
   p2,
   p3,
   p4;
-
-  String get name => 'Safari';
-
-  String get icon => Assets.icons.safariIcon;
 
   MemoryImage get getImage {
     switch (this) {
