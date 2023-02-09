@@ -51,6 +51,7 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
               theme: AppTheme.theme(context),
               debugShowCheckedModeBanner: false,
               home: state.when(
+                initializing: () => const Scaffold(body: Loader()),
                 introduction: () => const IntroductionPage(),
                 loaded: (_, __) => const DemandsPage(),
                 failed: () => const AppLoadFailurePage(),
