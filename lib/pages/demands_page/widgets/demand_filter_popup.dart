@@ -71,10 +71,6 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    final demandCategories = context.read<AppCubit>().state.whenOrNull(
-          loaded: (_, demandCategories) => demandCategories,
-        )!;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Filtreler'),
