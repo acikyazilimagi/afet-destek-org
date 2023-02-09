@@ -1,4 +1,4 @@
-import 'package:deprem_destek/gen/assets.gen.dart';
+import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

@@ -1,14 +1,14 @@
-import 'package:deprem_destek/data/api/demands_api_client.dart';
-import 'package:deprem_destek/data/repository/auth_repository.dart';
-import 'package:deprem_destek/data/repository/demands_repository.dart';
-import 'package:deprem_destek/data/repository/location_repository.dart';
-import 'package:deprem_destek/pages/app_load_failure_page/app_load_failure_page.dart';
-import 'package:deprem_destek/pages/demands_page/demands_page.dart';
-import 'package:deprem_destek/pages/introduction_page/introduction_page.dart';
-import 'package:deprem_destek/shared/state/app_cubit.dart';
-import 'package:deprem_destek/shared/state/app_state.dart';
-import 'package:deprem_destek/shared/theme/theme.dart';
-import 'package:deprem_destek/shared/widgets/loader.dart';
+import 'package:afet_destek/data/api/demands_api_client.dart';
+import 'package:afet_destek/data/repository/auth_repository.dart';
+import 'package:afet_destek/data/repository/demands_repository.dart';
+import 'package:afet_destek/data/repository/location_repository.dart';
+import 'package:afet_destek/pages/app_load_failure_page/app_load_failure_page.dart';
+import 'package:afet_destek/pages/demands_page/demands_page.dart';
+import 'package:afet_destek/pages/introduction_page/introduction_page.dart';
+import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/shared/state/app_state.dart';
+import 'package:afet_destek/shared/theme/theme.dart';
+import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

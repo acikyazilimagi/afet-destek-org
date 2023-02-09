@@ -1,5 +1,5 @@
-import 'package:deprem_destek/gen/assets.gen.dart';
-import 'package:deprem_destek/shared/theme/colors.dart';
+import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,8 +31,8 @@ class WhatsappButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(Assets.whatsapp),
-            const SizedBox(width: 4),
-            const Text('Whatsapp ile ulaş'),
+            const SizedBox(width: 8),
+            const Text('Whatsapp mesajı gönder'),
           ],
         ),
       ),

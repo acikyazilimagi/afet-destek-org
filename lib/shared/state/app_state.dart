@@ -1,4 +1,4 @@
-import 'package:deprem_destek/data/models/demand_category.dart';
+import 'package:afet_destek/data/models/demand_category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 

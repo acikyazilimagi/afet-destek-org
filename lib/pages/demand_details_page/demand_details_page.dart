@@ -1,12 +1,12 @@
-import 'package:deprem_destek/data/models/demand.dart';
-import 'package:deprem_destek/data/repository/auth_repository.dart';
-import 'package:deprem_destek/gen/assets.gen.dart';
-import 'package:deprem_destek/pages/demand_details_page/widgets/call_button.dart';
-import 'package:deprem_destek/pages/demand_details_page/widgets/whatsapp_button.dart';
-import 'package:deprem_destek/pages/demands_page/widgets/demand_card.dart';
-import 'package:deprem_destek/shared/state/app_cubit.dart';
-import 'package:deprem_destek/shared/widgets/infobox.dart';
-import 'package:deprem_destek/shared/widgets/loader.dart';
+import 'package:afet_destek/data/models/demand.dart';
+import 'package:afet_destek/data/repository/auth_repository.dart';
+import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/pages/demand_details_page/widgets/call_button.dart';
+import 'package:afet_destek/pages/demand_details_page/widgets/whatsapp_button.dart';
+import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
+import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/shared/widgets/infobox.dart';
+import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -89,22 +89,26 @@ class _DemandDetailsPageView extends StatelessWidget {
               ),
               DemandCard(demand: demand, isDetailed: true),
               const SizedBox(height: 8),
-              const Infobox(
-                info: '''
-                      Bu kişinin kimliği tarafımızca doğrulanmamıştır.
-                      Lütfen dikkatli olunuz.''',
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4),
+                child: Infobox(
+                  info:
+                      '''Aşağıdaki butonları kullanarak ihtiyaç sahibi kişiyle iletişime geçebilirsiniz. Bu kişinin kimliği tarafımızca doğrulanmamıştır. Lütfen dikkatli olunuz.''',
+                ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               if (demand.whatsappNumber != null) ...[
                 WhatsappButton(phoneNumber: demand.whatsappNumber!),
                 const SizedBox(height: 8),
               ],
               CallButton(phoneNumber: demand.phoneNumber),
               const SizedBox(height: 32),
-              const Text(
-                'GSM operatörlerindeki yoğunluk sebebiyle '
-                'arama yerine SMS kullanmayı tercih ediniz.',
-                textAlign: TextAlign.center,
+              const Center(
+                child: Text(
+                  'GSM operatörlerindeki yoğunluk sebebiyle '
+                  'arama yerine SMS kullanmanızı rica ederiz.',
+                  textAlign: TextAlign.center,
+                ),
               )
             ],
           ),

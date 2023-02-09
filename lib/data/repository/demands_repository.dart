@@ -1,8 +1,8 @@
+import 'package:afet_destek/data/api/demands_api_client.dart';
+import 'package:afet_destek/data/models/demand.dart';
+import 'package:afet_destek/data/models/demand_category.dart';
+import 'package:afet_destek/shared/extensions/district_address_extension.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:deprem_destek/data/api/demands_api_client.dart';
-import 'package:deprem_destek/data/models/demand.dart';
-import 'package:deprem_destek/data/models/demand_category.dart';
-import 'package:deprem_destek/shared/extensions/district_address_extension.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 

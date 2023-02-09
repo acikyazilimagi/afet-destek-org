@@ -5,6 +5,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 class ReactiveIntlPhoneField extends StatelessWidget {
   const ReactiveIntlPhoneField({required this.formControl, super.key});
   final FormControl<String> formControl;
+
   @override
   Widget build(BuildContext context) {
     return ReactiveFormConsumer(

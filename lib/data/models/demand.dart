@@ -1,6 +1,6 @@
+import 'package:afet_destek/data/models/demand_category.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
-import 'package:deprem_destek/data/models/demand_category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'demand.freezed.dart';
