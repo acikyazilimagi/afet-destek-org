@@ -40,6 +40,9 @@ Bu uygulama açık kaynak kodlu ve geliştirmeye açık. Eğer katkıda bulunmak
 ### Genel Bilgilendirme ve Bağlantılar:
 - [Discord](https://discord.gg/itdepremyardim)
 - [Tasarım (Figma)](https://www.figma.com/file/ggMF14osmhGOvKvS0VKuvQ/Yard%C4%B1m-A%C4%9F%C4%B1-App?node-id=0%3A1)
+- Proje Sorumluları
+  - Enes#7446
+  - erol#9127
 - Github
   - [yardim-agi-flutter](https://github.com/acikkaynak/yardim-agi-flutter)
   - [yardim-agi-firebase](https://github.com/acikkaynak/yardim-agi-firebase)
