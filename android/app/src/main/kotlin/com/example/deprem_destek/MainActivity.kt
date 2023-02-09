@@ -1,4 +1,4 @@
-package com.example.afet_destek
+package org.afetdestek.android
 
 import io.flutter.embedding.android.FlutterActivity
 
