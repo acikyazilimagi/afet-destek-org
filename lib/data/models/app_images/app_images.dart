@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:deprem_destek/config/app_config.dart';
+import 'package:afet_destek/config/app_config.dart';
 import 'package:flutter/material.dart';
 
 class AppImages {

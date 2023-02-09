@@ -1,4 +1,4 @@
-import 'package:deprem_destek/config/base64/base_64_images.dart';
+import 'package:afet_destek/config/base64/base_64_images.dart';
 
 class AppConfig {
   static const String appName = 'Yardım Ağı';

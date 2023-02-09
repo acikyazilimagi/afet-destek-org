@@ -1,6 +1,3 @@
-
-import 'package:deprem_destek/shared/state/app_cubit.dart';
-
 import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:afet_destek/shared/util/web_reload/web_reload.dart';
 import 'package:flutter/foundation.dart';
@@ -23,14 +20,14 @@ class AppLoadFailurePage extends StatelessWidget {
           children: [
             const Text('Bu sayfa yapım aşamasındadır.'),
             const Text('Lokasyon izni verdiğinizden emin olunuz.'),
-            
+
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 // reload web window when this is pressed
               },
               child: const Text('Tekrar Dene'),
-            )
+            ),
             SizedBox.square(
               dimension: size.height * .2,
               child: SvgPicture.asset(Assets.logoSvg),
