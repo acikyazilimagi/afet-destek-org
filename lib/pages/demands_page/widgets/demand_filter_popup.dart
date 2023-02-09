@@ -3,25 +3,15 @@ import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DemandFilterPopup extends StatefulWidget {
-  const DemandFilterPopup._({required this.demandsCubit});
+class DemandFilterDrawer extends StatefulWidget {
+  const DemandFilterDrawer({required this.demandsCubit, super.key});
   final DemandsCubit demandsCubit;
-  static void show(BuildContext context) {
-    showDialog<void>(
-      context: context,
-      builder: (ctx) {
-        return DemandFilterPopup._(
-          demandsCubit: context.read<DemandsCubit>(),
-        );
-      },
-    );
-  }
 
   @override
-  State<DemandFilterPopup> createState() => _DemandFilterPopupState();
+  State<DemandFilterDrawer> createState() => _DemandFilterDrawerState();
 }
 
-class _DemandFilterPopupState extends State<DemandFilterPopup> {
+class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
   late List<String> _categoryIds;
   double? _filterRadiusKm;
   @override
