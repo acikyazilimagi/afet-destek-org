@@ -1,4 +1,5 @@
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/pages/location_tutorial/location_tutorial_page.dart';
 import 'package:afet_destek/shared/util/web_reload/web_reload.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class AppLoadFailurePage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Text(
-                'Konum izni verdiğinizden emin olun.',
+                'Lütfen konum izni verdiğinizden emin olun.',
                 textAlign: TextAlign.center,
               ),
             ),
@@ -67,34 +68,36 @@ class AppLoadFailurePage extends StatelessWidget {
                 ),
               ),
             ),
-// SizedBox(
-//   width: size.width,
-//   child: Padding(
-//     padding:
-//         const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
-//     child: OutlinedButton(
-//       style: OutlinedButton.styleFrom(
-//         side: const BorderSide(
-//           width: 2,
-//           color: Colors.red,
-//         ),
-//       ),
-//       onPressed: () {},
-//       child: Padding(
-//         padding: const EdgeInsets.symmetric(
-//           vertical: 6,
-//         ),
-//         child: Text(
-//           'Konumumu nasıl açarım?',
-//           style: Theme.of(context).textTheme.labelLarge?.copyWith(
-//                 fontSize: 16,
-//                 color: Colors.red,
-//               ),
-//         ),
-//       ),
-//     ),
-//   ),
-// ),
+            SizedBox(
+              width: size.width,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4, horizontal: 12),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(
+                      width: 2,
+                      color: Colors.red,
+                    ),
+                  ),
+                  onPressed: () {
+                    LocationTutorialPage.show(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 6,
+                    ),
+                    child: Text(
+                      'Konumumu nasıl açarım?',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            fontSize: 16,
+                            color: Colors.red,
+                          ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
