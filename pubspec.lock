@@ -957,6 +957,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.16"
+  theme_extensions_builder:
+    dependency: "direct dev"
+    description:
+      name: theme_extensions_builder
+      sha256: "548d163e71aad8e027bdddf90cd0236550e8a132357eb4f66ec0b5fc5c96d7c8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
+  theme_extensions_builder_annotation:
+    dependency: "direct main"
+    description:
+      name: theme_extensions_builder_annotation
+      sha256: ede915ba2cf7d3dc351af5bf736ed4ed45085134d8440405ed907e298716e2a8
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   time:
     dependency: transitive
     description:
