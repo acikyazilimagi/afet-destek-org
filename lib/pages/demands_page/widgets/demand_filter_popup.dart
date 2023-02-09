@@ -1,6 +1,6 @@
-import 'package:deprem_destek/data/models/demand_category.dart';
-import 'package:deprem_destek/pages/demands_page/state/demands_cubit.dart';
-import 'package:deprem_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/data/models/demand_category.dart';
+import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
+import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -154,10 +154,10 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                           onSelected: (value) => setState(() {
                             if (isSelected) {
                               _categoryIds.remove(category.id);
-                              _orderChipList()
+                              _orderChipList();
                             } else {
                               _categoryIds.add(category.id);
-                              _orderChipList()
+                              _orderChipList();
                             }
                           }),
                         ),
