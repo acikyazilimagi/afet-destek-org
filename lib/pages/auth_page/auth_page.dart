@@ -9,6 +9,7 @@ import 'package:afet_destek/pages/auth_page/state/auth_state.dart';
 import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
+import 'package:afet_destek/shared/widgets/snackbar.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -57,6 +58,8 @@ class _AuthPageState extends State<AuthPage> {
   Timer? _smsResendTimer;
 
   int _smsResendCountdown = 180;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -113,31 +116,36 @@ class _AuthPageState extends State<AuthPage> {
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               const SizedBox(height: 28),
-
-              IntlPhoneField(
-                initialCountryCode: 'TR',
-                dropdownTextStyle: Theme.of(context).textTheme.titleMedium,
-                showCountryFlag: false,
-                pickerDialogStyle: PickerDialogStyle(
-                  searchFieldInputDecoration: const InputDecoration(
-                    labelText: 'Ülke ara',
+              Form(
+                key: _formKey,
+                child: IntlPhoneField(
+                  initialCountryCode: 'TR',
+                  dropdownTextStyle: Theme.of(context).textTheme.titleMedium,
+                  showCountryFlag: false,
+                  onCountryChanged: (country) {
+                    _formKey.currentState!.validate();
+                  },
+                  pickerDialogStyle: PickerDialogStyle(
+                    searchFieldInputDecoration: const InputDecoration(
+                      labelText: 'Ülke ara',
+                    ),
                   ),
+                  textAlignVertical: TextAlignVertical.center,
+                  decoration: const InputDecoration(
+                    hintText: 'Telefon Numarası',
+                    isDense: false,
+                    contentPadding: EdgeInsets.zero,
+                  ),
+                  style: Theme.of(context).textTheme.titleMedium,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  autovalidateMode: AutovalidateMode.disabled,
+                  invalidNumberMessage: 'Geçersiz telefon numarası',
+                  onChanged: (number) {
+                    setState(() => _number = number.completeNumber);
+                  },
                 ),
-                textAlignVertical: TextAlignVertical.center,
-                decoration: const InputDecoration(
-                  hintText: 'Telefon Numarası',
-                  isDense: false,
-                  contentPadding: EdgeInsets.zero,
-                ),
-                style: Theme.of(context).textTheme.titleMedium,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                autovalidateMode: AutovalidateMode.disabled,
-                invalidNumberMessage: 'Geçersiz telefon numarası',
-                onChanged: (number) {
-                  setState(() => _number = number.completeNumber);
-                },
               ),
               if (!isFirstStep) ...[
                 const SizedBox(height: 8),
@@ -160,6 +168,10 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                   onChanged: (code) => setState(() => _code = code),
                 ),
+                if (authState.status == AuthStateStatus.codeVerificationFailure)
+                  const _AuthErrorMessage('Kod doğrulama başarısız'),
+                if (authState.status == AuthStateStatus.codeVerificationFailure)
+                  const _AuthErrorMessage('Sms gönderme başarısız'),
               ],
               // implement kvkk
               _KVKKCheckBox(_kvkkAccepted, (bool value) {
@@ -167,17 +179,7 @@ class _AuthPageState extends State<AuthPage> {
                   _kvkkAccepted = value;
                 });
               }),
-
-              if (authState.status == AuthStateStatus.smsFailure) ...[
-                const _AuthErrorMessage('SMS gönderme başarısız')
-              ],
-              if (authState.status ==
-                  AuthStateStatus.codeVerificationFailure) ...[
-                const _AuthErrorMessage('Kod doğrulama başarısız')
-              ],
-
               const SizedBox(height: 16),
-
               if (isLoading) ...[
                 const Loader(),
               ] else ...[
@@ -185,16 +187,19 @@ class _AuthPageState extends State<AuthPage> {
                   style: ElevatedButton.styleFrom(
                     fixedSize: const Size(double.maxFinite - 40, 50),
                   ),
-                  onPressed: isButtonEnabled
-                      ? () {
-                          final cubit = context.read<AuthCubit>();
-                          if (isFirstStep) {
-                            cubit.sendSms(number: _number);
-                          } else {
-                            cubit.verifySMSCode(code: _code);
-                          }
-                        }
-                      : null,
+                  onPressed:
+                      (isButtonEnabled && _formKey.currentState!.validate())
+                          ? () {
+                              if (_formKey.currentState!.validate()) {
+                                final cubit = context.read<AuthCubit>();
+                                if (isFirstStep) {
+                                  cubit.sendSms(number: _number);
+                                } else {
+                                  cubit.verifySMSCode(code: _code);
+                                }
+                              }
+                            }
+                          : null,
                   child: const Text('Devam Et'),
                 )
               ]
@@ -268,7 +273,21 @@ class _AuthErrorMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: ColoredBox(color: Colors.red, child: Text(message)),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: Colors.red,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            message,
+            style: DefaultTextStyle.of(context).style.copyWith(
+                  color: Colors.white,
+                ),
+          ),
+        ),
+      ),
     );
   }
 }
