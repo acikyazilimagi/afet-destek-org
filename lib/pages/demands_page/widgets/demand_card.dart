@@ -34,7 +34,8 @@ class DemandCard extends StatelessWidget {
       onTap: !isDetailed
           ? () => DemandDetailsPage.show(context, demand: demand)
           : null,
-      child: Card(
+      child: ColoredBox(
+        color: Colors.white,
         child: Column(
           children: [
             Container(
@@ -51,7 +52,7 @@ class DemandCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.location_on),
+                      // const Icon(Icons.location_on),
                       const SizedBox(width: 4),
                       Text(
                         demand.addressText,
@@ -78,8 +79,7 @@ class DemandCard extends StatelessWidget {
                       const SizedBox(width: 6),
                       const Text(
                         '•',
-                        style:
-                            TextStyle(color: Color(0xFFB0B5BC), fontSize: 18),
+                        style: TextStyle(color: Color(0xFFB0B5BC), fontSize: 18),
                       ),
                       const SizedBox(width: 6),
                       Text(

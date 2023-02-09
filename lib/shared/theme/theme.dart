@@ -8,6 +8,7 @@ class AppTheme {
       colorScheme: ColorScheme.fromSwatch(
         primarySwatch: AppColors.primarySwatch,
       ),
+      scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
       sliderTheme: const SliderThemeData(
         showValueIndicator: ShowValueIndicator.always,
         valueIndicatorTextStyle: TextStyle(
