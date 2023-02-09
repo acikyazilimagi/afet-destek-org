@@ -6,6 +6,7 @@ import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 
 // ignore: must_be_immutable
 class DemandCard extends StatelessWidget {
@@ -31,9 +32,7 @@ class DemandCard extends StatelessWidget {
           loaded: (_, demandCategories) => demandCategories,
         )!;
     return GestureDetector(
-      onTap: !isDetailed
-          ? () => DemandDetailsPage.show(context, demand: demand)
-          : null,
+      onTap: !isDetailed ? () => DemandDetailsPage.show(context, demand: demand) : null,
       child: ColoredBox(
         color: Colors.white,
         child: Column(
@@ -63,6 +62,15 @@ class DemandCard extends StatelessWidget {
                           color: AppColors.textColor,
                         ),
                       ),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          Share.share(
+                            'Yardım talep linki : https://afetdestek.org/talep/${demand.id}',
+                          );
+                        },
+                        icon: const Icon(Icons.share),
+                      )
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -152,8 +160,7 @@ class DemandCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
-                          onPressed: () =>
-                              DemandDetailsPage.show(context, demand: demand),
+                          onPressed: () => DemandDetailsPage.show(context, demand: demand),
                           child: const Text(
                             'Talep Detayını Gör',
                             style: TextStyle(
