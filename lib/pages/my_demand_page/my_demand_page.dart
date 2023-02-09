@@ -20,7 +20,10 @@ import 'package:reactive_forms/reactive_forms.dart';
 class MyDemandPage extends StatefulWidget {
   const MyDemandPage._();
 
-  static Future<void> show(BuildContext context, VoidCallback onClose) async {
+  static Future<void> show(
+    BuildContext context, {
+    required VoidCallback onClose,
+  }) async {
     await Navigator.of(context).push<bool>(
       MaterialPageRoute<bool>(
         builder: (context) {
@@ -233,7 +236,11 @@ class _MyDemandPageState extends State<MyDemandPage> {
           loadingCurrentDemand: () => const Scaffold(body: Loader()),
           orElse: () => Scaffold(
             appBar: AppBar(
-              title: const Text('Talep Ekle/Düzenle'),
+              title: Text(
+                state.demand == null
+                    ? 'Destek Talebi Oluştur'
+                    : 'Destek Talebini Düzenle',
+              ),
             ),
             body: SingleChildScrollView(
               child: ReactiveForm(

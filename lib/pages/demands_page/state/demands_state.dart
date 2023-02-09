@@ -13,7 +13,7 @@ class DemandsState with _$DemandsState {
   }) = _DemandsState;
   const DemandsState._();
 
-  bool get hasAnyFilter => categoryIds != null || filterRadiusKm != null;
+  bool get hasAnyFilters => categoryIds != null || filterRadiusKm != null;
 }
 
 @freezed

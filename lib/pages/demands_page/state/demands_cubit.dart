@@ -27,19 +27,39 @@ class DemandsCubit extends Cubit<DemandsState> {
   int _page = 1;
   bool _isLastPage = false;
 
-  Future<void> getDemands({bool shouldClearDemands = false}) async {
+  Future<void> getDemands() async {
     try {
-      if (shouldClearDemands) {
-        emit(
-          state.copyWith(
-            demands: null,
-            status: const DemandsStateStatus.loading(),
-          ),
-        );
-      } else {
-        emit(state.copyWith(status: const DemandsStateStatus.loading()));
-      }
+      emit(state.copyWith(status: const DemandsStateStatus.loading()));
 
+      final demands = await _demandsRepository.getDemands(
+        page: _page,
+        geo: _currentLocation,
+        categoryIds: state.categoryIds,
+        radius: state.filterRadiusKm,
+      );
+      _isLastPage = demands.isEmpty;
+      emit(
+        state.copyWith(
+          demands: [...state.demands ?? [], ...demands],
+          status: const DemandsStateStatus.loaded(),
+        ),
+      );
+    } catch (_) {
+      emit(state.copyWith(status: const DemandsStateStatus.failure()));
+    }
+  }
+
+  Future<void> refreshDemands() async {
+    try {
+      _page = 1;
+      emit(
+        state.copyWith(
+          categoryIds: null,
+          filterRadiusKm: null,
+          demands: null,
+          status: const DemandsStateStatus.loading(),
+        ),
+      );
       final demands = await _demandsRepository.getDemands(
         page: _page,
         geo: _currentLocation,

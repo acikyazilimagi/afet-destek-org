@@ -99,7 +99,7 @@ class _DemandFilterPopupState extends State<DemandFilterPopup> {
                     const TextSpan(text: 'Her yer')
                   else
                     const TextSpan(
-                      text: 'Mesafe:',
+                      text: 'Mesafe: ',
                       style: TextStyle(color: Color(0xff475467)),
                     ),
                   if (_filterRadiusKm != null)
