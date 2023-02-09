@@ -15,8 +15,7 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <base href="$FLUTTER_BASE_HREF">
-
+  <base href="/">
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="Deprem Yardım Ağı Projesi">
@@ -26,14 +25,15 @@
   <meta name="title" content="Afet Destek - Deprem Yardım Ağı">
   <meta name="description"
     content="Bu uygulama, ihtiyaç sahibi depremzedelerin ihtiyaçlarını ve iletişim bilgilerini ekleyebildiği; ihtiyaç taleplerinin listelenerek karşılanabilmesi amacıyla tasarlandı.">
-
+  <meta itemprop="image" content="https://afetdestek.org/socialmedia.jpeg">
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://afetdestek.org/">
   <meta property="og:title" content="Afet Destek - Deprem Yardım Ağı">
   <meta property="og:description"
     content="Bu uygulama, ihtiyaç sahibi depremzedelerin ihtiyaçlarını ve iletişim bilgilerini ekleyebildiği; ihtiyaç taleplerinin listelenerek karşılanabilmesi amacıyla tasarlandı.">
-  <meta property="og:image" content="">
+  <meta property="og:image" content="https://afetdestek.org/socialmedia.jpeg">
+
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
@@ -41,7 +41,7 @@
   <meta property="twitter:title" content="Afet Destek - Deprem Yardım Ağı">
   <meta property="twitter:description"
     content="Bu uygulama, ihtiyaç sahibi depremzedelerin ihtiyaçlarını ve iletişim bilgilerini ekleyebildiği; ihtiyaç taleplerinin listelenerek karşılanabilmesi amacıyla tasarlandı.">
-  <meta property="twitter:image" content="">
+  <meta name="twitter:image" content="https://afetdestek.org/socialmedia.jpeg">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -52,18 +52,29 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png" />
 
-  <title>deprem_destek</title>
+  <title>Afet Destek Ağı</title>
   <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" type="text/css" href="loader/logo.css">
+  <!-- Mix Panel Script -->
+  <!-- <script src="./assets/packages/mixpanel_flutter/assets/mixpanel.js"></script> -->
 
   <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
   </script>
+
+
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
 
 <body>
+  <div class="pulse" id="loading">
+    <img width="200px" src="./logo.svg" alt="" />
+  </div>
+  <!-- <div id="loading">
+    <span id="loading" class="loader"></span>
+  </div> -->
 
   <script type="module">
     // Import the functions you need from the SDKs you need
@@ -87,19 +98,36 @@
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
+
+
   </script>
+
   <script>
-    window.addEventListener('load', function (ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        }
-      }).then(function (engineInitializer) {
-        return engineInitializer.initializeEngine();
-      }).then(function (appRunner) {
-        return appRunner.runApp();
-      });
+
+    window.addEventListener("load", function () {
+      var loading = document.querySelector("#loading");
+      _flutter.loader
+        .loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: serviceWorkerVersion,
+          },
+        })
+        .then(function (engineInitializer) {
+          console.log(" renderer requested in the URL");
+          return engineInitializer.initializeEngine();
+        })
+        .then(function (appRunner) {
+          console.log(" renderer requested in the URL1");
+          return appRunner.runApp();
+        })
+        .then(function (app) {
+          console.log(" renderer requested in the URL2");
+          // Wait a few milliseconds so users can see the "zoooom" animation
+          // before getting rid of the "loading" div.
+          window.setTimeout(function () {
+            loading.remove();
+          }, 500);
+        });
     });
   </script>
 </body>

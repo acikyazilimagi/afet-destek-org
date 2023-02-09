@@ -1,4 +1,4 @@
-import 'package:deprem_destek/data/models/demand.dart';
+import 'package:afet_destek/data/models/demand.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'demands_state.freezed.dart';
@@ -11,6 +11,9 @@ class DemandsState with _$DemandsState {
     required List<String>? categoryIds,
     required double? filterRadiusKm,
   }) = _DemandsState;
+  const DemandsState._();
+
+  bool get hasAnyFilters => categoryIds != null || filterRadiusKm != null;
 }
 
 @freezed

@@ -5,11 +5,11 @@ Bu uygulama, ihtiyaç sahibi depremzedelerin hangi adreste, nelere ihtiyaçları
 
 ### Nasıl Çalışır?
 
-- Depremzedeler veya Yardımseverler; 
+- Depremzedeler veya Yardımseverler;
   - Telefon numarası ile sisteme kayıt olabilir.
-  - Sistem tarafından girilen telefon numarasına sms gönderilir ve kullanıcıdan gelen sms’te yer alan kodu girmesi beklenir. 
-  - KVKK metni onaylaması beklenir. 
-- Depremzedeler, 
+  - Sistem tarafından girilen telefon numarasına sms gönderilir ve kullanıcıdan gelen sms’te yer alan kodu girmesi beklenir.
+  - KVKK metni onaylaması beklenir.
+- Depremzedeler,
   - İhtiyaç talebi oluşturabilir.
     - adres bilgi girişi
     - ihtiyaç bilgi girişi
@@ -17,7 +17,7 @@ Bu uygulama, ihtiyaç sahibi depremzedelerin hangi adreste, nelere ihtiyaçları
     - iletişim yöntemi sadece sms veya hem sms hem whatsapp bilgi girişi
   - Oluşturdukları ihtiyaç taleplerini listeleyebilir.
   - Oluşturdukları ihtiyaç talebinin detayını görüntüleyebilir.
-- Yardımseverler, 
+- Yardımseverler,
   - Depremzedelerin girdikleri talepleri listeleyebilir.
   - Depremzedelerin girdikleri talebin detayını görüntüleyebilir.
     - Sms veya Whatsapp ile iletişime geçebilir.
@@ -40,6 +40,9 @@ Bu uygulama açık kaynak kodlu ve geliştirmeye açık. Eğer katkıda bulunmak
 ### Genel Bilgilendirme ve Bağlantılar:
 - [Discord](https://discord.gg/itdepremyardim)
 - [Tasarım (Figma)](https://www.figma.com/file/ggMF14osmhGOvKvS0VKuvQ/Yard%C4%B1m-A%C4%9F%C4%B1-App?node-id=0%3A1)
+- Proje Sorumluları
+  - Enes#7446
+  - erol#9127
 - Github
   - [yardim-agi-flutter](https://github.com/acikkaynak/yardim-agi-flutter)
   - [yardim-agi-firebase](https://github.com/acikkaynak/yardim-agi-firebase)

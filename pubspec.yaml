@@ -1,9 +1,9 @@
-name: deprem_destek
+name: afet_destek
 description: A new Flutter project.
 
 publish_to: "none"
 
-version: 1.0.0+1
+version: 1.0.2
 
 environment:
   sdk: 2.19.1
@@ -25,10 +25,19 @@ dependencies:
   geolocator: 9.0.2
   google_geocoding_api: 1.2.0
   http: 0.13.5
+  intl_phone_field: 3.1.0
   json_annotation: 4.8.0
+  logger: 1.1.0
+  # mixpanel_flutter: 2.0.0
+  motion_toast: 2.6.4
+  phone_numbers_parser: 7.0.0+1
   reactive_forms: 14.1.0
   sentry_flutter: 6.19.0
+  shared_preferences: 2.0.17
+  universal_html: 2.0.8
   url_launcher: 6.1.9
+  url_strategy: 0.2.0
+
 
 dev_dependencies:
   build_runner: 2.3.3
@@ -37,9 +46,11 @@ dev_dependencies:
     sdk: flutter
   freezed: 2.3.2
   json_serializable: 6.6.1
+
   very_good_analysis: 3.1.0
 
 flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/icons/

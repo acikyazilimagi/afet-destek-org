@@ -1,3 +1,4 @@
+import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class DemandCategoryChip extends StatelessWidget {
@@ -8,14 +9,23 @@ class DemandCategoryChip extends StatelessWidget {
   final String label;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 4, bottom: 4),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+    return DecoratedBox(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: const Color(0xffD0D5DD)),
+        borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(label),
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Text(
+          label,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+            color: AppColors.textColor,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
     );
   }
 }

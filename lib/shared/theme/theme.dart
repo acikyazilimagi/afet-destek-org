@@ -1,4 +1,4 @@
-import 'package:deprem_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
@@ -8,6 +8,7 @@ class AppTheme {
       colorScheme: ColorScheme.fromSwatch(
         primarySwatch: AppColors.primarySwatch,
       ),
+      scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
       sliderTheme: const SliderThemeData(
         showValueIndicator: ShowValueIndicator.always,
         valueIndicatorTextStyle: TextStyle(
