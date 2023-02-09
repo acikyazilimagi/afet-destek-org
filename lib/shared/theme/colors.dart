@@ -14,7 +14,7 @@ class AppColors {
   static const Color textColor = Color(0xFF101828);
   static const Color descriptionColor = Color(0xFF344054);
   static const Color scaffoldBackgroundColor =
-      Color.fromARGB(255, 247, 247, 247);
+      Color.fromARGB(255, 239, 239, 239);
   static const Color darkGrey = Color(0xFF444444);
   static const Color cardBorderColor = Color(0xffF0F0F0);
   static const Color whatsapp = Color(0xff25D366);
