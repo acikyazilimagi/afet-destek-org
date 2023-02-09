@@ -8,6 +8,21 @@ class DemandFilterDrawer extends StatefulWidget {
   const DemandFilterDrawer({required this.demandsCubit, super.key});
   final DemandsCubit demandsCubit;
 
+  static Future<void> show(
+    BuildContext context, {
+    required DemandsCubit demandsCubit,
+  }) async {
+    await Navigator.of(context).push<bool>(
+      MaterialPageRoute<bool>(
+        builder: (context) {
+          return DemandFilterDrawer(
+            demandsCubit: demandsCubit,
+          );
+        },
+      ),
+    );
+  }
+
   @override
   State<DemandFilterDrawer> createState() => _DemandFilterDrawerState();
 }
@@ -56,42 +71,37 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+    final demandCategories = context.read<AppCubit>().state.whenOrNull(
+          loaded: (_, demandCategories) => demandCategories,
+        )!;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Filtreler'),
+        actions: [
+          if (_categoryIds.isNotEmpty || _filterRadiusKm != null) ...[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+              child: OutlinedButton.icon(
+                icon: const Icon(Icons.delete),
+                label: const Text('Temizle'),
+                onPressed: _onClear,
+              ),
+            ),
+            const SizedBox(width: 4),
+          ],
+          IconButton(
+            onPressed: _onSave,
+            icon: const Icon(Icons.check_rounded),
+          )
+        ],
       ),
-      insetPadding: const EdgeInsets.symmetric(horizontal: 4),
-      child: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                children: [
-                  const Text(
-                    'Filtreler',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  const Spacer(),
-                  if (_categoryIds.isNotEmpty || _filterRadiusKm != null) ...[
-                    OutlinedButton.icon(
-                      icon: const Icon(Icons.delete),
-                      label: const Text('Temizle'),
-                      onPressed: _onClear,
-                    ),
-                    const SizedBox(width: 4),
-                  ],
-                  IconButton(
-                    onPressed: _onSave,
-                    icon: const Icon(Icons.check_rounded),
-                  )
-                ],
-              ),
-              const SizedBox(height: 8),
-              Divider(
-                color: Colors.grey[300],
-              ),
               const SizedBox(height: 8),
               Text.rich(
                 TextSpan(
@@ -166,53 +176,6 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                   ).toList(),
                 ),
               ),
-// const SizedBox(height: 8),
-// Divider(
-//   color: Colors.grey[300],
-// ),
-// const SizedBox(height: 8),
-// Row(
-//   children: [
-//     Expanded(
-//       child: OutlinedButton(
-//         onPressed: _onClear,
-//         child: const SizedBox(
-//           height: 40,
-//           child: Center(
-//             child: Text(
-//               'Filtreyi temizle',
-//             ),
-//           ),
-//         ),
-//       ),
-//     ),
-//     const SizedBox(
-//       width: 16,
-//     ),
-//     Expanded(
-//       child: ElevatedButton(
-//         onPressed: _onSave,
-//         style: ButtonStyle(
-//           shape:
-//               MaterialStateProperty.all<RoundedRectangleBorder>(
-//             RoundedRectangleBorder(
-//               borderRadius: BorderRadius.circular(10),
-//             ),
-//           ),
-//         ),
-//         child: const SizedBox(
-//           height: 40,
-//           child: Center(
-//             child: Text(
-//               'Filtrele',
-//               style: TextStyle(color: Colors.white),
-//             ),
-//           ),
-//         ),
-//       ),
-//     ),
-//   ],
-// )
             ],
           ),
         ),
