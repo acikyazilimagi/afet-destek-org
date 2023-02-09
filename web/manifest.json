@@ -1,6 +1,6 @@
 {
-    "name": "deprem_destek",
-    "short_name": "deprem_destek",
+    "name": "Afet Destek",
+    "short_name": "afet_destek",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#DC2626",
