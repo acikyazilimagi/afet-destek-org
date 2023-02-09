@@ -146,6 +146,9 @@ class _AuthPageState extends State<AuthPage> {
                   },
                 ),
               ),
+              if (authState.status == AuthStateStatus.smsFailure) ...[
+                const _AuthErrorMessage('Sms gönderme başarısız'),
+              ],
               if (!isFirstStep) ...[
                 const SizedBox(height: 8),
                 TextFormField(
@@ -169,8 +172,6 @@ class _AuthPageState extends State<AuthPage> {
                 ),
                 if (authState.status == AuthStateStatus.codeVerificationFailure)
                   const _AuthErrorMessage('Kod doğrulama başarısız'),
-                if (authState.status == AuthStateStatus.smsFailure)
-                  const _AuthErrorMessage('Sms gönderme başarısız'),
               ],
               // implement kvkk
               _KVKKCheckBox(_kvkkAccepted, (bool value) {
