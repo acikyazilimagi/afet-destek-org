@@ -3,8 +3,10 @@ import 'package:afet_destek/data/repository/demands_repository.dart';
 import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:afet_destek/pages/auth_page/auth_page.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
-import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_filter_popup.dart';
+import 'package:afet_destek/pages/demands_page/widgets/generic_grid_list.dart';
+import 'package:afet_destek/pages/demands_page/widgets/list_view_responsive.dart';
+import 'package:afet_destek/pages/demands_page/widgets/mobile_list_view.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/colors.dart';
@@ -69,7 +71,6 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<DemandsCubit>().state;
-
     final demands = state.demands;
 
     if (demands == null) {
@@ -151,50 +152,40 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                     : 'Sonuç bulunamadı',
               ),
             )
-          : RefreshIndicator(
-              color: AppColors.red,
-              onRefresh: () => context.read<DemandsCubit>().refreshDemands(),
-              child: ListView.builder(
-                controller: _scrollController,
-                itemCount: demands.length,
-                itemBuilder: (context, index) {
-                  final demand = demands[index];
-                  return Column(
-                    children: [
-                      if (index == 0)
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Text(
-                                // TODO(adnan): we don't have total count
-                                // currently, only the count of the current page
-                                'Yardım talepleri',
-                                style: Theme.of(context).textTheme.displaySmall,
-                              ),
-                            ),
-                          ],
-                        ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        child: DemandCard(demand: demand),
-                      ),
-                      if (index == demands.length - 1) ...[
-                        if (state.status.maybeWhen(
-                          loading: () => true,
-                          orElse: () => false,
-                        )) ...[
-                          const SizedBox(height: 16),
-                          const Loader(),
-                        ],
-                        const SizedBox(height: 64)
-                      ]
-                    ],
-                  );
-                },
+          : Center(
+              child: RefreshIndicator(
+                color: AppColors.red,
+                onRefresh: () => context.read<DemandsCubit>().refreshDemands(),
+                child: ListViewResponsive(
+                  desktop: GenericListView(
+                    scrollController: _scrollController,
+                    demands: demands,
+                    state: state,
+                    minWidth: 1400,
+                    maxWidth: 1450,
+                    crossAxisCount: 3,
+                  ),
+                  mobile: MobileList(
+                      scrollController: _scrollController,
+                      demands: demands,
+                      state: state),
+                  tablet: GenericListView(
+                    scrollController: _scrollController,
+                    demands: demands,
+                    state: state,
+                    minWidth: 600,
+                    maxWidth: 1000,
+                    crossAxisCount: 2,
+                  ),
+                  largeDesktop: GenericListView(
+                    scrollController: _scrollController,
+                    demands: demands,
+                    state: state,
+                    minWidth: 2000,
+                    maxWidth: 2200,
+                    crossAxisCount: 4,
+                  ),
+                ),
               ),
             ),
       endDrawer: DemandFilterDrawer(
@@ -203,3 +194,6 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
     );
   }
 }
+
+//width.clamp(600, 1000)
+

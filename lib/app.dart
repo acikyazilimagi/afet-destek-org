@@ -61,7 +61,7 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
                 final width = MediaQuery.of(context).size.width;
                 return Center(
                   child: SizedBox(
-                    width: width.clamp(0, 700),
+                    width: width.clamp(0, 2500),
                     child: ScrollConfiguration(
                       behavior: ScrollConfiguration.of(context)
                           .copyWith(physics: const ClampingScrollPhysics()),
