@@ -32,7 +32,12 @@ class DemandCard extends StatelessWidget {
           loaded: (_, demandCategories) => demandCategories,
         )!;
     return GestureDetector(
-      onTap: !isDetailed ? () => DemandDetailsPage.show(context, demand: demand) : null,
+      onTap: !isDetailed
+          ? () => DemandDetailsPage.show(
+                context,
+                demand: demand,
+              )
+          : null,
       child: ColoredBox(
         color: Colors.white,
         child: Column(
@@ -65,9 +70,7 @@ class DemandCard extends StatelessWidget {
                       const Spacer(),
                       IconButton(
                         onPressed: () {
-                          Share.share(
-                            'Yardım talep linki : https://afetdestek.org/talep/${demand.id}',
-                          );
+                          Share.share('Yardım talep linki : https://afetdestek.org/talep/${demand.id}');
                         },
                         icon: const Icon(Icons.share),
                       )
@@ -160,7 +163,10 @@ class DemandCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
-                          onPressed: () => DemandDetailsPage.show(context, demand: demand),
+                          onPressed: () => DemandDetailsPage.show(
+                            context,
+                            demand: demand,
+                          ),
                           child: const Text(
                             'Talep Detayını Gör',
                             style: TextStyle(
