@@ -89,22 +89,26 @@ class _DemandDetailsPageView extends StatelessWidget {
               ),
               DemandCard(demand: demand, isDetailed: true),
               const SizedBox(height: 8),
-              const Infobox(
-                info: '''
-                      Bu kişinin kimliği tarafımızca doğrulanmamıştır.
-                      Lütfen dikkatli olunuz.''',
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4),
+                child: Infobox(
+                  info:
+                      '''Aşağıdaki butonları kullanarak ihtiyaç sahibi kişiyle iletişime geçebilirsiniz. Bu kişinin kimliği tarafımızca doğrulanmamıştır. Lütfen dikkatli olunuz.''',
+                ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               if (demand.whatsappNumber != null) ...[
                 WhatsappButton(phoneNumber: demand.whatsappNumber!),
                 const SizedBox(height: 8),
               ],
               CallButton(phoneNumber: demand.phoneNumber),
               const SizedBox(height: 32),
-              const Text(
-                'GSM operatörlerindeki yoğunluk sebebiyle '
-                'arama yerine SMS kullanmayı tercih ediniz.',
-                textAlign: TextAlign.center,
+              const Center(
+                child: Text(
+                  'GSM operatörlerindeki yoğunluk sebebiyle '
+                  'arama yerine SMS kullanmanızı rica ederiz.',
+                  textAlign: TextAlign.center,
+                ),
               )
             ],
           ),

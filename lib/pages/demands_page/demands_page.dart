@@ -108,7 +108,7 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
               ),
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 12),
           IconButton(
             icon: Stack(
               children: [
@@ -131,6 +131,7 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
             ),
             onPressed: () => DemandFilterPopup.show(context),
           ),
+          const SizedBox(width: 8),
         ],
         leading: Padding(
           padding: const EdgeInsets.only(left: 16),

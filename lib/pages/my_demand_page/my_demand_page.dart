@@ -47,7 +47,9 @@ class MyDemandPage extends StatefulWidget {
 class _MyDemandPageState extends State<MyDemandPage> {
   final FormGroup _myDemandPageFormGroup = FormGroup({
     _MyDemandPageFormFields.geoLocation.name:
-        FormControl<GoogleGeocodingResult>(),
+        FormControl<GoogleGeocodingResult>(
+      disabled: true,
+    ),
     _MyDemandPageFormFields.categories.name: FormControl<List<String>>(
       validators: [
         Validators.minLength(1),
@@ -255,13 +257,6 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         formControlName:
                             _MyDemandPageFormFields.geoLocation.name,
                         readOnly: true,
-                        decoration: InputDecoration(
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(width: 2),
-                          ),
-                          hintStyle: TextStyle(color: Colors.grey.shade500),
-                        ),
                         valueAccessor: GeoValueAccessor(),
                         validationMessages: {
                           ValidationMessage.required: (_) =>
@@ -270,13 +265,14 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               'Lütfen geçerli bir adres giriniz.',
                         },
                       ),
+                      const SizedBox(height: 16),
                       DemandCategorySelector(
                         formControl: _myDemandPageFormGroup.control(
                           _MyDemandPageFormFields.categories.name,
                         ) as FormControl<List<String>>,
                       ),
+                      const SizedBox(height: 16),
                       const AppFormFieldTitle(title: 'Diğer İhtiyaçlar'),
-                      const SizedBox(height: 4),
                       ReactiveTextField<String>(
                         formControlName: _MyDemandPageFormFields.notes.name,
                         minLines: 3,
@@ -301,6 +297,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CheckboxListTile(
+                                contentPadding: EdgeInsets.zero,
                                 controlAffinity:
                                     ListTileControlAffinity.leading,
                                 value: _isWpActive,
@@ -332,70 +329,64 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           );
                         },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 20,
-                        ),
-                        child: ReactiveFormConsumer(
-                          builder: (context, formGroup, child) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Expanded(
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red,
-                                    ),
-                                    onPressed:
-                                        formGroup.valid && !deactivateButtons
-                                            ? () => _onSave(
-                                                  demandId: state.demand?.id,
-                                                )
-                                            : null,
-                                    child: Text(
-                                      state.demand == null
-                                          ? 'Talep Oluştur'
-                                          : 'Talebi Güncelle',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge
-                                          ?.copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
+                      const SizedBox(height: 16),
+                      ReactiveFormConsumer(
+                        builder: (context, formGroup, child) {
+                          return Row(
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.red,
+                                ),
+                                onPressed: formGroup.valid && !deactivateButtons
+                                    ? () => _onSave(
+                                          demandId: state.demand?.id,
+                                        )
+                                    : null,
+                                child: Text(
+                                  state.demand == null
+                                      ? 'Talep Oluştur'
+                                      : 'Talebi Güncelle',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                              ),
+                              const Spacer(),
+                              if (state.demand != null) ...[
+                                const SizedBox(width: 16),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red,
+                                  ),
+                                  onPressed: !deactivateButtons
+                                      ? () => _onToggleActivation(
+                                            demand: state.demand!,
+                                          )
+                                      : null,
+                                  child: Text(
+                                    state.demand!.isActive
+                                        ? 'Talebi durdur'
+                                        : 'Talebi sürdür',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                   ),
                                 ),
-                                if (state.demand != null) ...[
-                                  const SizedBox(width: 16),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red,
-                                    ),
-                                    onPressed: !deactivateButtons
-                                        ? () => _onToggleActivation(
-                                              demand: state.demand!,
-                                            )
-                                        : null,
-                                    child: Text(
-                                      state.demand!.isActive
-                                          ? 'Talebi durdur'
-                                          : 'Talebi sürdür',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleLarge
-                                          ?.copyWith(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                  ),
-                                ],
                               ],
-                            );
-                          },
-                        ),
+                            ],
+                          );
+                        },
                       ),
+                      const SizedBox(height: 32),
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: OutlinedButton(

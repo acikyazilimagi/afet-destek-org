@@ -10,27 +10,19 @@ class Infobox extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: Container(
-        height: 100,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.cardBorderColor,
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
         width: MediaQuery.of(context).size.width,
-        child: Row(
-          children: [
-            Container(
-              width: 10,
-              margin: const EdgeInsets.only(right: 8),
-              height: MediaQuery.of(context).size.height,
-              color: AppColors.red,
-            ),
-            Text(
-              info,
-              style: const TextStyle(height: 1.5),
-            )
-          ],
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            left: BorderSide(width: 8, color: AppColors.primarySwatch),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 16, 24, 16),
+          child: Text(
+            info,
+            style: const TextStyle(height: 1.5),
+          ),
         ),
       ),
     );

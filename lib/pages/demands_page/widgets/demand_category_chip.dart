@@ -9,21 +9,22 @@ class DemandCategoryChip extends StatelessWidget {
   final String label;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(right: 8, bottom: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+    return DecoratedBox(
       decoration: BoxDecoration(
         border: Border.all(color: const Color(0xffD0D5DD)),
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(8),
       ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 14,
-          color: AppColors.textColor,
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Text(
+          label,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 14,
+            color: AppColors.textColor,
+          ),
+          textAlign: TextAlign.center,
         ),
-        textAlign: TextAlign.center,
       ),
     );
   }

@@ -29,8 +29,8 @@ class CallButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(Assets.tel),
-            const SizedBox(width: 4),
-            const Text('Cep telefonuyla ulaş'),
+            const SizedBox(width: 8),
+            Text('Telefonla ulaş ($phoneNumber)'),
           ],
         ),
       ),
