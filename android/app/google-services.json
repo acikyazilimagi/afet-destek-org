@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "529071733784",
+    "project_id": "deprem-destek-org",
+    "storage_bucket": "deprem-destek-org.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529071733784:android:a30cb0fe7f65bff84c976d",
+        "android_client_info": {
+          "package_name": "org.afetdestek.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529071733784-ogud3emeqsno2cpdjmlavheg0kn5152o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM09veubycO6yzJ4omp9ReIfwkMniJzIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529071733784-ogud3emeqsno2cpdjmlavheg0kn5152o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
