@@ -155,6 +155,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                               0.06,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
+                                          padding: EdgeInsets.zero,
                                           backgroundColor: Colors.red,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
