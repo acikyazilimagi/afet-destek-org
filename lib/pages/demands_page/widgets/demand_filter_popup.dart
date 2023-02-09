@@ -1,3 +1,4 @@
+import 'package:afet_destek/data/models/demand_category.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/widgets/snackbar.dart';
@@ -30,11 +31,17 @@ class DemandFilterDrawer extends StatefulWidget {
 class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
   late List<String> _categoryIds;
   double? _filterRadiusKm;
+  late List<DemandCategory> demandCategories;
   @override
   void initState() {
     super.initState();
+    final appState = context.read<AppCubit>().state;
+    demandCategories = appState
+        .whenOrNull(loaded: (_, demandCategories) => demandCategories)!
+        .toList();
     _categoryIds = List.from(widget.demandsCubit.state.categoryIds ?? []);
     _filterRadiusKm = widget.demandsCubit.state.filterRadiusKm;
+    _orderChipList();
   }
 
   void _onClear() {
@@ -52,12 +59,19 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
     Navigator.of(context).pop();
   }
 
+  void _orderChipList() {
+    final selectedList = demandCategories.where(
+      (element) => _categoryIds.contains(element.id),
+    );
+    final unSelectedList = demandCategories.where(
+      (element) => !_categoryIds.contains(element.id),
+    );
+
+    demandCategories = [...selectedList, ...unSelectedList];
+  }
+
   @override
   Widget build(BuildContext context) {
-    final demandCategories = context.read<AppCubit>().state.whenOrNull(
-          loaded: (_, demandCategories) => demandCategories,
-        )!;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Filtreler'),
@@ -147,6 +161,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                           onSelected: (value) => setState(() {
                             if (isSelected) {
                               _categoryIds.remove(category.id);
+                              _orderChipList();
                             } else {
                               if (_categoryIds.length == 10) {
                                 const AppSnackbars.failure(
@@ -154,6 +169,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                                 ).show(context);
                               } else {
                                 _categoryIds.add(category.id);
+                                _orderChipList();
                               }
                             }
                           }),
