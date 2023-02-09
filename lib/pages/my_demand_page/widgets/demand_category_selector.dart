@@ -81,88 +81,94 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
             builder: (context) => StatefulBuilder(
               builder: (context, setStateForAlert) {
                 return Dialog(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'İhtiyaç Türü '
-                                '(${_selectedCategoryIds.length})',
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: Navigator.of(context).pop,
-                              icon: const Icon(Icons.close),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        const Divider(),
-                        const SizedBox(height: 4),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: demandCategories.length,
-                          itemBuilder: (context, index) {
-                            final category = demandCategories[index];
-                            final isSelected =
-                                _selectedCategoryIds.contains(category.id);
-                            return CheckboxListTile(
-                              contentPadding: EdgeInsets.zero,
-                              controlAffinity: ListTileControlAffinity.leading,
-                              value: isSelected,
-                              onChanged: (value) {
-                                setState(
-                                  () => isSelected
-                                      ? _selectedCategoryIds.remove(category.id)
-                                      : _selectedCategoryIds.add(category.id),
-                                );
-                                setStateForAlert(() {});
-
-                                widget.formControl.value = _selectedCategoryIds;
-
-                                setControllerText();
-                              },
-                              title: Text(category.name),
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 8),
-                        const Divider(),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.red,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                ),
-                                onPressed: () => Navigator.of(context).pop(),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Text(
-                                    'Kaydet',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge
-                                        ?.copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                  ),
+                  insetPadding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'İhtiyaç Türü '
+                                  '(${_selectedCategoryIds.length})',
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                              IconButton(
+                                onPressed: Navigator.of(context).pop,
+                                icon: const Icon(Icons.close),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          const Divider(),
+                          const SizedBox(height: 4),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: demandCategories.length,
+                            itemBuilder: (context, index) {
+                              final category = demandCategories[index];
+                              final isSelected =
+                                  _selectedCategoryIds.contains(category.id);
+                              return CheckboxListTile(
+                                contentPadding: EdgeInsets.zero,
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                value: isSelected,
+                                onChanged: (value) {
+                                  setState(
+                                    () => isSelected
+                                        ? _selectedCategoryIds
+                                            .remove(category.id)
+                                        : _selectedCategoryIds.add(category.id),
+                                  );
+                                  setStateForAlert(() {});
+
+                                  widget.formControl.value =
+                                      _selectedCategoryIds;
+
+                                  setControllerText();
+                                },
+                                title: Text(category.name),
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 8),
+                          const Divider(),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: Text(
+                                      'Kaydet',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
