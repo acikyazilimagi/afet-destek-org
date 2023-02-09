@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_escaping_inner_quotes
 
-import 'package:deprem_destek/gen/assets.gen.dart';
-import 'package:deprem_destek/pages/auth_page/kvkk_page.dart';
-import 'package:deprem_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
+import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -50,11 +50,7 @@ class IntroductionPage extends StatelessWidget {
   //DO NOT USE FUNCTION FOR WIDGET
   TextButton buildKvkkTextButton(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        Navigator.of(context).push(
-          MaterialPageRoute<bool>(builder: (_) => const KVKKPage()),
-        );
-      },
+      onPressed: () => KVKKPage.show(context),
       style: TextButton.styleFrom(
         foregroundColor: Theme.of(context).textTheme.titleSmall?.color,
       ),
@@ -86,7 +82,7 @@ class IntroductionPage extends StatelessWidget {
   Text buildContent(BuildContext context) {
     return Text(
       '''
-      Bu platform lokasyon verinizi kullanarak çalışmaktadır. 
+      Bu platform lokasyon verinizi kullanarak çalışmaktadır.
       Lütfen cihazınızdaki konum servisini aktif ettiğinizden emin olunuz.
       ''',
       textAlign: TextAlign.center,

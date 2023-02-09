@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:deprem_destek/app.dart';
-import 'package:deprem_destek/utils/logger/app_logger.dart';
-import 'package:deprem_destek/utils/observer/bloc_observer.dart';
+import 'package:afet_destek/app.dart';
+import 'package:afet_destek/utils/logger/app_logger.dart';
+import 'package:afet_destek/utils/observer/bloc_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +25,7 @@ void main() async {
     appRunner: () => runZonedGuarded(
       () async {
         Bloc.observer = AppBlocObserver();
+        // await MixPanelAnalytics.initMixPanelAnalytics();
         await Firebase.initializeApp(
           options: const FirebaseOptions(
             apiKey: 'AIzaSyASFP7KxEb8f1JbiDkXDzsj1-e7bPRoaw0',

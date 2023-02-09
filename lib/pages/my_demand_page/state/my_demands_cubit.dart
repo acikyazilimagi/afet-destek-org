@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:deprem_destek/data/repository/demands_repository.dart';
-import 'package:deprem_destek/pages/my_demand_page/state/my_demands_state.dart';
+import 'package:afet_destek/data/repository/demands_repository.dart';
+import 'package:afet_destek/pages/my_demand_page/state/my_demands_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 
