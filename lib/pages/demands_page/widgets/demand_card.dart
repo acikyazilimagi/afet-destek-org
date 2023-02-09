@@ -70,7 +70,9 @@ class DemandCard extends StatelessWidget {
                       const Spacer(),
                       IconButton(
                         onPressed: () {
-                          Share.share('Yardım talep linki : https://afetdestek.org/talep/${demand.id}');
+                          Share.share(
+                            'Yardım talep linki : https://afetdestek.org/talep/${demand.id}',
+                          );
                         },
                         icon: const Icon(Icons.share),
                       )
