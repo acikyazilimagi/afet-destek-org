@@ -34,140 +34,137 @@ class DemandCard extends StatelessWidget {
       onTap: !isDetailed
           ? () => DemandDetailsPage.show(context, demand: demand)
           : null,
-      child: Card(
-        child: Column(
-          children: [
-            Container(
-              height: 6,
-              decoration: const BoxDecoration(
-                color: Color(0xffDC2626),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(9)),
-              ),
+      child: Column(
+        children: [
+          Container(
+            height: 6,
+            decoration: const BoxDecoration(
+              color: Color(0xffDC2626),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(9)),
             ),
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    // const Icon(Icons.location_on),
+                    const SizedBox(width: 4),
+                    Text(
+                      demand.addressText,
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: AppColors.textColor,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Text(
+                      demand.modifiedTimeUtc.asElapsedTimeString,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Color(0xff475467),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    const Text(
+                      '•',
+                      style: TextStyle(color: Color(0xFFB0B5BC), fontSize: 18),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      _distanceString,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xff475467),
+                      ),
+                    ),
+                  ],
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Divider(color: Color(0xffE7EEF5), height: 1),
+                ),
+                const Text(
+                  'İhtiyaçlar',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xff475467),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Wrap(
+                  children: demand
+                      .categoryNames(
+                        demandCategories: demandCategories,
+                      )
+                      .map(
+                        (category) => Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 4,
+                            vertical: 4,
+                          ),
+                          child: DemandCategoryChip(label: category),
+                        ),
+                      )
+                      .toList(),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Divider(color: Color(0xffE7EEF5), height: 1),
+                ),
+                const Text(
+                  'Detaylar',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Color(
+                      0xff475467,
+                    ),
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  demand.notes,
+                  maxLines: isDetailed ? 10000 : 5,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Color(0xff475467)),
+                ),
+                const SizedBox(height: 8),
+                if (!isDetailed) ...[
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const Icon(Icons.location_on),
-                      const SizedBox(width: 4),
-                      Text(
-                        demand.addressText,
-                        maxLines: 1,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                          color: AppColors.textColor,
+                      TextButton(
+                        onPressed: () =>
+                            DemandDetailsPage.show(context, demand: demand),
+                        child: const Text(
+                          'Talep Detayını Gör',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: AppColors.red,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Text(
-                        demand.modifiedTimeUtc.asElapsedTimeString,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-                          color: Color(0xff475467),
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      const Text(
-                        '•',
-                        style:
-                            TextStyle(color: Color(0xFFB0B5BC), fontSize: 18),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        _distanceString,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff475467),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Divider(color: Color(0xffE7EEF5), height: 1),
-                  ),
-                  const Text(
-                    'İhtiyaçlar',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xff475467),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    children: demand
-                        .categoryNames(
-                          demandCategories: demandCategories,
-                        )
-                        .map(
-                          (category) => Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 4,
-                              vertical: 4,
-                            ),
-                            child: DemandCategoryChip(label: category),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Divider(color: Color(0xffE7EEF5), height: 1),
-                  ),
-                  const Text(
-                    'Detaylar',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Color(
-                        0xff475467,
-                      ),
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    demand.notes,
-                    maxLines: isDetailed ? 10000 : 5,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(color: Color(0xff475467)),
-                  ),
-                  const SizedBox(height: 8),
-                  if (!isDetailed) ...[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () =>
-                              DemandDetailsPage.show(context, demand: demand),
-                          child: const Text(
-                            'Talep Detayını Gör',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: AppColors.red,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ]
-                ],
-              ),
+                  )
+                ]
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
