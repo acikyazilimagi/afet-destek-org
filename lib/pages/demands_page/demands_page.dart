@@ -166,9 +166,10 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                     crossAxisCount: 3,
                   ),
                   mobile: MobileList(
-                      scrollController: _scrollController,
-                      demands: demands,
-                      state: state),
+                    scrollController: _scrollController,
+                    demands: demands,
+                    state: state,
+                  ),
                   tablet: GenericListView(
                     scrollController: _scrollController,
                     demands: demands,
@@ -196,4 +197,3 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
 }
 
 //width.clamp(600, 1000)
-
