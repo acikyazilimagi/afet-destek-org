@@ -62,7 +62,11 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
                 return Center(
                   child: SizedBox(
                     width: width.clamp(0, 700),
-                    child: child,
+                    child: ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(physics: const ClampingScrollPhysics()),
+                      child: child!,
+                    ),
                   ),
                 );
               },
