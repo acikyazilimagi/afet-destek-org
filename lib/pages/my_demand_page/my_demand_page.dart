@@ -274,6 +274,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         formControlName: _MyDemandPageFormFields.notes.name,
                         minLines: 3,
                         maxLines: 10,
+                        maxLength: 1000,
                         validationMessages: {
                           ValidationMessage.required: (_) =>
                               'Neye ihtiyacınız olduğunu yazar mısınız?.',
