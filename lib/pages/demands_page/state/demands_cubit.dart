@@ -27,9 +27,18 @@ class DemandsCubit extends Cubit<DemandsState> {
   int _page = 1;
   bool _isLastPage = false;
 
-  Future<void> getDemands() async {
+  Future<void> getDemands({bool shouldClearDemands = false}) async {
     try {
-      emit(state.copyWith(status: const DemandsStateStatus.loading()));
+      if (shouldClearDemands) {
+        emit(
+          state.copyWith(
+            demands: null,
+            status: const DemandsStateStatus.loading(),
+          ),
+        );
+      } else {
+        emit(state.copyWith(status: const DemandsStateStatus.loading()));
+      }
 
       final demands = await _demandsRepository.getDemands(
         page: _page,

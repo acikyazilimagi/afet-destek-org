@@ -20,7 +20,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 class MyDemandPage extends StatefulWidget {
   const MyDemandPage._();
 
-  static Future<void> show(BuildContext context) async {
+  static Future<void> show(BuildContext context, VoidCallback onClose) async {
     await Navigator.of(context).push<bool>(
       MaterialPageRoute<bool>(
         builder: (context) {
@@ -33,6 +33,8 @@ class MyDemandPage extends StatefulWidget {
         },
       ),
     );
+
+    onClose();
   }
 
   @override
