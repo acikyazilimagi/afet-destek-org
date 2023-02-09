@@ -41,7 +41,7 @@ Bu uygulama açık kaynak kodlu ve geliştirmeye açık. Eğer katkıda bulunmak
 - [Discord](https://discord.gg/itdepremyardim)
 - [Tasarım (Figma)](https://www.figma.com/file/ggMF14osmhGOvKvS0VKuvQ/Yard%C4%B1m-A%C4%9F%C4%B1-App?node-id=0%3A1)
 - Proje Sorumluları
-  - PM: @impinar (https://github.com/easeccy) impinar#4969
+  - PM: [@impinar](https://github.com/easeccy) impinar#4969
   - Flutter Architect & Co-Lead: [@easeccy](https://github.com/easeccy) Enes#7446
   - Co-Lead: [@erolkaftanoglu](https://github.com/erolkaftanoglu) Erol#9127
 - Github
