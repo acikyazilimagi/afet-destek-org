@@ -1,11 +1,8 @@
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/data/repository/auth_repository.dart';
 import 'package:afet_destek/gen/assets.gen.dart';
-import 'package:afet_destek/pages/demand_details_page/widgets/call_button.dart';
-import 'package:afet_destek/pages/demand_details_page/widgets/whatsapp_button.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
-import 'package:afet_destek/shared/widgets/infobox.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +59,6 @@ class _DemandDetailsPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -82,9 +78,9 @@ class _DemandDetailsPageView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 16),
                   const Text(
-                    'Talep Detayı',
+                    'Yardım Talebi',
                     maxLines: 1,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -92,44 +88,8 @@ class _DemandDetailsPageView extends StatelessWidget {
                       color: Color(0xff101828),
                     ),
                   ),
-                  const SizedBox(height: 40),
-                  DemandCard(demand: demand, isDetailed: true),
-                  const SizedBox(height: 8),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4),
-                    child: Infobox(
-                      info:
-                          '''Aşağıdaki butonları kullanarak ihtiyaç sahibi kişiyle iletişime geçebilirsiniz. Bu kişinin kimliği tarafımızca doğrulanmamıştır. Lütfen dikkatli olunuz.''',
-                    ),
-                  ),
                   const SizedBox(height: 16),
-                  if (width < 600)
-                    Column(
-                      children: [
-                        if (demand.whatsappNumber != null) ...[
-                          WhatsappButton(phoneNumber: demand.whatsappNumber!),
-                          const SizedBox(height: 8),
-                        ],
-                        CallButton(phoneNumber: demand.phoneNumber)
-                      ],
-                    )
-                  else
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        if (demand.whatsappNumber != null) ...[
-                          Expanded(
-                            child: WhatsappButton(
-                              phoneNumber: demand.whatsappNumber!,
-                            ),
-                          ),
-                          const SizedBox(width: 20),
-                        ],
-                        Expanded(
-                          child: CallButton(phoneNumber: demand.phoneNumber),
-                        )
-                      ],
-                    ),
+                  DemandCard(demand: demand, isDetailed: true),
                   const SizedBox(height: 32),
                   const Center(
                     child: Text(
