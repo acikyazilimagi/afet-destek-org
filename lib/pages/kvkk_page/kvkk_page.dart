@@ -1,4 +1,5 @@
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -25,20 +26,14 @@ class TermsPage extends StatefulWidget {
 class _TermsPageState extends State<TermsPage> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
+      appBar: ResponsiveAppBar(
+        mobileTile: Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16),
+          child: SvgPicture.asset(Assets.logoSvg),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: SvgPicture.asset(Assets.logoSvg),
-          ),
-        ],
-        leadingWidth: 52,
       ),
       body: Center(
         child: SizedBox(
@@ -49,12 +44,21 @@ class _TermsPageState extends State<TermsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.title,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 24,
+                  Row(
+                    children: [
+                      if (size.width >= 1000)
+                        IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.arrow_back),
                         ),
+                      Text(
+                        widget.title,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 24,
+                            ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 16,
