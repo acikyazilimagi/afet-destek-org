@@ -148,7 +148,11 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
               child: Text(
                 state.hasAnyFilters
                     ? 'Sonuç bulunamadı, filtreleri temizlemeyi  deneyin'
-                    : 'Sonuç bulunamadı',
+                    : '''
+Şu anda yardım talebi bulunmamaktadır. 
+Eğer yardım talebiniz varsa, destek talebim menüsünden talep oluşturabilirsiniz.
+                    ''',
+                textAlign: TextAlign.center,
               ),
             )
           : RefreshIndicator(
