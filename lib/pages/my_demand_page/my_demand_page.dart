@@ -1,4 +1,5 @@
 import 'package:afet_destek/data/models/demand.dart';
+import 'package:afet_destek/data/repository/auth_repository.dart';
 import 'package:afet_destek/data/repository/demands_repository.dart';
 import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:afet_destek/pages/my_demand_page/state/my_demands_cubit.dart';
@@ -514,6 +515,26 @@ class _MyDemandPageState extends State<MyDemandPage> {
                           ),
                         ),
                       ],
+                      const SizedBox(height: 32),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: OutlinedButton(
+                            onPressed: () {
+                              context.read<AuthRepository>().logout();
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              'Çıkış yap',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge
+                                  ?.copyWith(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          ),
+                        )
                     ],
                   ),
                 ),
