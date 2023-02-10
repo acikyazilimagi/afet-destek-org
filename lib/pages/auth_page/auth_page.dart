@@ -150,7 +150,7 @@ class _AuthPageState extends State<AuthPage> {
                         _formKey.currentState!.validate();
                       },
                       pickerDialogStyle: PickerDialogStyle(
-                        width: MediaQuery.of(context).size.width.clamp(0, 500),
+                        width: MediaQuery.of(context).size.width.clamp(0, 700),
                         searchFieldInputDecoration: const InputDecoration(
                           labelText: 'Ülke ara',
                         ),
