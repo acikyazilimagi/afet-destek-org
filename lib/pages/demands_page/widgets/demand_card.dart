@@ -4,7 +4,6 @@ import 'package:afet_destek/pages/demands_page/widgets/demand_category_chip.dart
 import 'package:afet_destek/shared/extensions/date_count_down_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

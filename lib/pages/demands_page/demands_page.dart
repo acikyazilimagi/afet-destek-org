@@ -8,7 +8,6 @@ import 'package:afet_destek/pages/demands_page/widgets/demand_filter_popup.dart'
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

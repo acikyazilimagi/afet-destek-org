@@ -1,6 +1,5 @@
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';

@@ -73,7 +73,8 @@ class AppTheme {
   }
 
   static BottomNavigationBarThemeData bottomNavigationBarTheme(
-          AppColorsExtension colorsExtension) =>
+    AppColorsExtension colorsExtension,
+  ) =>
       BottomNavigationBarThemeData(
         elevation: 4,
         type: BottomNavigationBarType.fixed,
