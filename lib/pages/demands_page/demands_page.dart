@@ -3,10 +3,13 @@ import 'package:afet_destek/data/repository/demands_repository.dart';
 import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:afet_destek/pages/auth_page/auth_page.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
-import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_filter_popup.dart';
+import 'package:afet_destek/pages/demands_page/widgets/generic_grid_list.dart';
+import 'package:afet_destek/pages/demands_page/widgets/list_view_responsive.dart';
+import 'package:afet_destek/pages/demands_page/widgets/mobile_list_view.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +71,6 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<DemandsCubit>().state;
-
     final demands = state.demands;
 
     if (demands == null) {
@@ -86,55 +88,60 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
               ),
               onPressed: !widget.isAuthorized
-                  ? () => AuthPage.show(
+                  ? () {
+                      AuthPage.show(
                         context,
                         onClose: () {
                           context.read<DemandsCubit>().refreshDemands();
                         },
-                      )
-                  : () => MyDemandPage.show(
+                      );
+                    }
+                  : () {
+                      MyDemandPage.show(
                         context,
                         onClose: () {
                           context.read<DemandsCubit>().refreshDemands();
                         },
-                      ),
+                      );
+                    },
               child: Text(
                 widget.isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: context.appColors.white,
                   fontSize: 16,
                 ),
               ),
             ),
           ),
           const SizedBox(width: 12),
-          Builder(
-            builder: (ctx) {
-              return IconButton(
-                icon: Stack(
-                  children: [
-                    const Icon(Icons.filter_list),
-                    if (state.hasAnyFilters) ...[
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            shape: BoxShape.circle,
+          if (MediaQuery.of(context).size.width < 1000)
+            Builder(
+              builder: (ctx) {
+                return IconButton(
+                  icon: Stack(
+                    children: [
+                      const Icon(Icons.filter_list),
+                      if (state.hasAnyFilters) ...[
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: context.appColors.mainRed,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ],
-                  ],
-                ),
-                onPressed: () => Scaffold.of(ctx).openEndDrawer(),
-              );
-            },
-          ),
+                  ),
+                  onPressed: () => Scaffold.of(ctx).openEndDrawer(),
+                );
+              },
+            ),
           const SizedBox(width: 8),
         ],
         leading: Padding(
@@ -147,50 +154,46 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
               child: Text(
                 state.hasAnyFilters
                     ? 'Sonuç bulunamadı, filtreleri temizlemeyi  deneyin'
-                    : 'Sonuç bulunamadı',
+                    : '''
+Şu anda yardım talebi bulunmamaktadır.
+Eğer yardım talebiniz varsa, destek talebim menüsünden talep oluşturabilirsiniz.
+                    ''',
+                textAlign: TextAlign.center,
               ),
             )
-          : ListView.builder(
-              controller: _scrollController,
-              itemCount: demands.length,
-              itemBuilder: (context, index) {
-                final demand = demands[index];
-                return Column(
-                  children: [
-                    if (index == 0)
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(15),
-                            child: Text(
-                              // TODO(adnan): we don't have total count
-                              // currently, only the count of the current page
-                              'Yardım talepleri',
-                              style: Theme.of(context).textTheme.displaySmall,
-                            ),
-                          ),
-                        ],
-                      ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      child: DemandCard(demand: demand),
-                    ),
-                    if (index == demands.length - 1) ...[
-                      if (state.status.maybeWhen(
-                        loading: () => true,
-                        orElse: () => false,
-                      )) ...[
-                        const SizedBox(height: 16),
-                        const Loader(),
-                      ],
-                      const SizedBox(height: 64)
-                    ]
-                  ],
-                );
-              },
+          : Center(
+              child: RefreshIndicator(
+                color: context.appColors.mainRed,
+                onRefresh: () => context.read<DemandsCubit>().refreshDemands(),
+                child: ListViewResponsive(
+                  desktop: GenericListView(
+                    scrollController: _scrollController,
+                    demands: demands,
+                    state: state,
+                    maxWidth: 1450,
+                    crossAxisCount: 3,
+                  ),
+                  mobile: MobileList(
+                    scrollController: _scrollController,
+                    demands: demands,
+                    state: state,
+                  ),
+                  tablet: GenericListView(
+                    scrollController: _scrollController,
+                    demands: demands,
+                    state: state,
+                    maxWidth: 1000,
+                    crossAxisCount: 2,
+                  ),
+                  largeDesktop: GenericListView(
+                    scrollController: _scrollController,
+                    demands: demands,
+                    state: state,
+                    maxWidth: 2200,
+                    crossAxisCount: 4,
+                  ),
+                ),
+              ),
             ),
       endDrawer: DemandFilterDrawer(
         demandsCubit: context.read<DemandsCubit>(),

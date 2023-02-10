@@ -28,6 +28,14 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 flutter_ios_podfile_setup
 
 target 'Runner' do
+  # https://firebase.google.com/docs/firestore/quickstart: 
+  # Optional: Improve iOS & macOS build times by including the pre-compiled framework.
+  # Currently, the Firestore SDK for iOS depends on code that can take upwards of 5 
+  # minutes to build in Xcode. To reduce build times significantly, you can use a 
+  # pre-compiled version by adding this line to the target 'Runner' do block in your 
+  # Podfile:
+  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => '10.3.0'
+  
   use_frameworks!
   use_modular_headers!
 

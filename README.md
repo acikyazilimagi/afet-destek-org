@@ -40,9 +40,13 @@ Bu uygulama açık kaynak kodlu ve geliştirmeye açık. Eğer katkıda bulunmak
 ### Genel Bilgilendirme ve Bağlantılar:
 - [Discord](https://discord.gg/itdepremyardim)
 - [Tasarım (Figma)](https://www.figma.com/file/ggMF14osmhGOvKvS0VKuvQ/Yard%C4%B1m-A%C4%9F%C4%B1-App?node-id=0%3A1)
+- Proje Sorumluları
+  - PM: [@impinar](https://github.com/easeccy) impinar#4969
+  - Flutter Architect & Co-Lead: [@easeccy](https://github.com/easeccy) Enes#7446
+  - Co-Lead: [@erolkaftanoglu](https://github.com/erolkaftanoglu) Erol#9127
 - Github
   - [yardim-agi-flutter](https://github.com/acikkaynak/yardim-agi-flutter)
   - [yardim-agi-firebase](https://github.com/acikkaynak/yardim-agi-firebase)
 
 ### Kullanılan Teknoloji ve Sistemler
-[![My Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?title=&borderRadius=0&fontSize=15&showBorder=false&lineCount=1&theme=github_dark&hideBg=true&hideTitle=true&line1=Flutter,Flutter,02569B;Firebase,Firebase,FFCA28;AWS%20Lambda,AWS%20Lambda,FF9900;Firestore,Firestore,ffffff;)](https://github-readme-tech-stack.vercel.app/api/cards?title=&borderRadius=0&fontSize=15&showBorder=false&lineCount=1&theme=github_dark&hideBg=true&hideTitle=true&line1=Flutter,Flutter,02569B;Firebase,Firebase,FFCA28;AWS%20Lambda,AWS%20Lambda,FF9900;Firestore,Firestore,ffffff;)
+[![My Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?title=&borderRadius=0&fontSize=15&showBorder=false&lineCount=1&theme=github_dark&hideBg=true&hideTitle=true&line1=Flutter,Flutter,02569B;Firebase,Firebase,FFCA28;Firestore,Firestore,ffffff;)](https://github-readme-tech-stack.vercel.app/api/cards?title=&borderRadius=0&fontSize=15&showBorder=false&lineCount=1&theme=github_dark&hideBg=true&hideTitle=true&line1=Flutter,Flutter,02569B;Firebase,Firebase,FFCA28;Firestore,Firestore,ffffff;)

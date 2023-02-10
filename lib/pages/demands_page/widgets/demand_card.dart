@@ -3,7 +3,7 @@ import 'package:afet_destek/pages/demand_details_page/demand_details_page.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_category_chip.dart';
 import 'package:afet_destek/shared/extensions/date_count_down_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -34,7 +34,8 @@ class DemandCard extends StatelessWidget {
       onTap: !isDetailed
           ? () => DemandDetailsPage.show(context, demand: demand)
           : null,
-      child: Card(
+      child: ColoredBox(
+        color: context.appColors.white,
         child: Column(
           children: [
             Container(
@@ -51,17 +52,27 @@ class DemandCard extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      const Icon(Icons.location_on),
-                      const SizedBox(width: 4),
+                      // const Icon(Icons.location_on),
+                      // const SizedBox(width: 4),
                       Text(
                         demand.addressText,
                         maxLines: 1,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
-                          color: AppColors.textColor,
+                          color: context.appColors.titles,
                         ),
                       ),
+                      // Will be added later to sharing func after add routing
+                      // const Spacer(),
+                      // IconButton(
+                      //   onPressed: () {
+                      //     Share.share(
+                      //       'Yardım talep linki : https://afetdestek.org/talep/${demand.id}',
+                      //     );
+                      //   },
+                      //   icon: const Icon(Icons.share),
+                      // )
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -78,8 +89,10 @@ class DemandCard extends StatelessWidget {
                       const SizedBox(width: 6),
                       const Text(
                         '•',
-                        style:
-                            TextStyle(color: Color(0xFFB0B5BC), fontSize: 18),
+                        style: TextStyle(
+                          color: Color(0xFFB0B5BC),
+                          fontSize: 18,
+                        ),
                       ),
                       const SizedBox(width: 6),
                       Text(
@@ -149,13 +162,15 @@ class DemandCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
-                          onPressed: () =>
-                              DemandDetailsPage.show(context, demand: demand),
-                          child: const Text(
+                          onPressed: () => DemandDetailsPage.show(
+                            context,
+                            demand: demand,
+                          ),
+                          child: Text(
                             'Talep Detayını Gör',
                             style: TextStyle(
                               fontSize: 16,
-                              color: AppColors.red,
+                              color: context.appColors.mainRed,
                               fontWeight: FontWeight.w600,
                             ),
                           ),

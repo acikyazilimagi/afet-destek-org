@@ -54,7 +54,7 @@ class DemandsRepository {
 
   Future<void> updateDemand({
     required String demandId,
-    required GoogleGeocodingResult geo,
+    GoogleGeocodingResult? geo,
     required List<String> categoryIds,
     required String notes,
     required String phoneNumber,
@@ -65,14 +65,16 @@ class DemandsRepository {
     }
 
     await _demandsCollection.doc(demandId).update({
-      'geo': GeoPoint(geo.geometry!.location.lat, geo.geometry!.location.lng),
       'notes': notes,
-      'addressText': geo.districtAddress,
-      'fullAddressText': geo.formattedAddress,
       'categoryIds': categoryIds,
       'phoneNumber': phoneNumber,
       'whatsappNumber': whatsappNumber,
-      'updatedTime': FieldValue.serverTimestamp()
+      'updatedTime': FieldValue.serverTimestamp(),
+      if (geo != null) ...{
+        'geo': GeoPoint(geo.geometry!.location.lat, geo.geometry!.location.lng),
+        'addressText': geo.districtAddress,
+        'fullAddressText': geo.formattedAddress,
+      }
     }).timeout(const Duration(seconds: 3));
   }
 

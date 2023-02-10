@@ -1,5 +1,5 @@
 import 'package:afet_destek/gen/assets.gen.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,25 +12,23 @@ class CallButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.red,
+        backgroundColor: context.appColors.mainRed,
         textStyle: const TextStyle(
           fontWeight: FontWeight.w400,
         ),
       ),
       onPressed: () async {
-        // TODO(resultanyildizi): incoming phone number must be correct
-        final telLaunchUri = Uri(scheme: 'tel', path: phoneNumber);
-
-        await launchUrl(telLaunchUri);
+        final smsLaunchUri = Uri(scheme: 'sms', path: phoneNumber);
+        await launchUrl(smsLaunchUri);
       },
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(Assets.tel),
+            SvgPicture.asset(Assets.sms),
             const SizedBox(width: 8),
-            Text('Telefonla ulaş ($phoneNumber)'),
+            Text('Sms ile ulaş ($phoneNumber)'),
           ],
         ),
       ),

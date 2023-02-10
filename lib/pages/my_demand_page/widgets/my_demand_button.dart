@@ -1,3 +1,4 @@
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 
 class MyDemandButton extends StatelessWidget {
@@ -15,8 +16,8 @@ class MyDemandButton extends StatelessWidget {
       onTap: onTap,
       child: Text(
         text,
-        style: const TextStyle(
-          color: Colors.black,
+        style: TextStyle(
+          color: context.appColors.black,
           fontWeight: FontWeight.bold,
         ),
       ),

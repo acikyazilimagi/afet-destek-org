@@ -48,7 +48,9 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
         child: BlocBuilder<AppCubit, AppState>(
           builder: (context, state) {
             return MaterialApp(
-              theme: AppTheme.theme(context),
+              theme: AppTheme.light(context),
+              darkTheme: AppTheme.dark(context),
+              themeMode: ThemeMode.light,
               debugShowCheckedModeBanner: false,
               home: state.when(
                 initializing: () => const Scaffold(body: Loader()),
@@ -58,16 +60,10 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
                 loading: () => const Scaffold(body: Loader()),
               ),
               builder: (context, child) {
-                final width = MediaQuery.of(context).size.width;
-                return Center(
-                  child: SizedBox(
-                    width: width.clamp(0, 700),
-                    child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context)
-                          .copyWith(physics: const ClampingScrollPhysics()),
-                      child: child!,
-                    ),
-                  ),
+                return ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context)
+                      .copyWith(physics: const ClampingScrollPhysics()),
+                  child: child!,
                 );
               },
             );

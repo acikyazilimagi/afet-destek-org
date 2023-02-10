@@ -1,27 +1,5 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
-  static MaterialColor primarySwatch = const Color(0xFFDC2626).toMaterial();
-  static const Color appBarColor = Color(0xFFFDF0E5);
-  static const Color white = Color(0xFFFFFFFF);
-  static const Color black = Color(0xFF000000);
-  static const Color red = Color(0xFFDC2626);
-  static const Color green = Color(0xFF13c316);
-  static const Color blue = Color(0xFF2196F3);
-  static const Color purple = Color(0xFF8C63FF);
-  static const Color pink = Color(0xFFfaa1f5);
-  static const Color turkuaz = Color(0xFF0dfaf1);
-  static const Color textColor = Color(0xFF101828);
-  static const Color descriptionColor = Color(0xFF344054);
-  static const Color scaffoldBackgroundColor =
-      Color.fromARGB(255, 247, 247, 247);
-  static const Color darkGrey = Color(0xFF444444);
-  static const Color cardBorderColor = Color(0xffF0F0F0);
-  static const Color whatsapp = Color(0xff25D366);
-  static const Color formFieldTitle = Color(0xFF475467);
-  static const Color backgroundDemands = Color(0xffF7F7F7);
-}
-
 extension ColorsEx on Color {
   MaterialColor toMaterial() {
     return MaterialColor(value, _getSwatch(this));

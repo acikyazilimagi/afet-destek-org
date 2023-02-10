@@ -1,5 +1,5 @@
 import 'package:afet_destek/shared/state/app_cubit.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -65,15 +65,17 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
           controller: controller,
           decoration: InputDecoration(
             hintText: 'İhtiyaç Türü Seçiniz',
-            focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(width: 2, color: Colors.red),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderSide:
+                  BorderSide(width: 2, color: context.appColors.mainRed),
             ),
             border: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(width: 2, color: Colors.grey.shade200),
+              borderSide: BorderSide(width: 2, color: context.appColors.stroke),
             ),
-            hintStyle: TextStyle(color: Colors.grey.shade500),
+            hintStyle:
+                TextStyle(color: context.appColors.notificationTermTexts),
             suffixIcon: const Icon(Icons.arrow_forward_ios),
           ),
           onTap: () => showDialog<void>(
@@ -112,45 +114,52 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                 const SizedBox(height: 4),
                                 const Divider(),
                                 const SizedBox(height: 4),
-                                ListView.builder(
-                                  shrinkWrap: true,
-                                  itemCount: demandCategories.length,
-                                  itemBuilder: (context, index) {
-                                    final category = demandCategories[index];
-                                    final isSelected = _selectedCategoryIds
-                                        .contains(category.id);
-                                    return CheckboxListTile(
-                                      contentPadding: EdgeInsets.zero,
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
-                                      value: isSelected,
-                                      onChanged: (value) {
-                                        setState(
-                                          () => isSelected
-                                              ? _selectedCategoryIds
-                                                  .remove(category.id)
-                                              : _selectedCategoryIds
-                                                  .add(category.id),
-                                        );
-                                        setStateForAlert(() {});
+                                Expanded(
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: demandCategories.length,
+                                    itemBuilder: (context, index) {
+                                      final category = demandCategories[index];
+                                      final isSelected = _selectedCategoryIds
+                                          .contains(category.id);
+                                      return CheckboxListTile(
+                                        contentPadding: EdgeInsets.zero,
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                        value: isSelected,
+                                        onChanged: (value) {
+                                          setState(
+                                            () => isSelected
+                                                ? _selectedCategoryIds
+                                                    .remove(category.id)
+                                                : _selectedCategoryIds
+                                                    .add(category.id),
+                                          );
+                                          setStateForAlert(() {});
 
-                                        widget.formControl.value =
-                                            _selectedCategoryIds;
+                                          widget.formControl.value =
+                                              _selectedCategoryIds;
 
-                                        setControllerText();
-                                      },
-                                      title: Text(category.name),
-                                    );
-                                  },
+                                          setControllerText();
+                                        },
+                                        title: Text(category.name),
+                                      );
+                                    },
+                                  ),
                                 ),
                                 const Divider(),
-                                const Spacer(),
-                                Row(
+                                Wrap(
                                   children: [
-                                    Expanded(
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.06,
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.red,
+                                          padding: EdgeInsets.zero,
+                                          backgroundColor:
+                                              context.appColors.mainRed,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -158,18 +167,16 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                         ),
                                         onPressed: () =>
                                             Navigator.of(context).pop(),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8),
-                                          child: Text(
-                                            'Kaydet',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge
-                                                ?.copyWith(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w600,
-                                                ),
-                                          ),
+                                        child: Text(
+                                          'Kaydet',
+                                          textAlign: TextAlign.center,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleLarge
+                                              ?.copyWith(
+                                                color: context.appColors.white,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                         ),
                                       ),
                                     ),
@@ -207,7 +214,7 @@ class AppFormFieldTitle extends StatelessWidget {
         Text(
           title,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.formFieldTitle,
+                color: context.appColors.subtitles,
               ),
         ),
         const SizedBox(height: 8),
