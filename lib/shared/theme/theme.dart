@@ -1,6 +1,7 @@
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   static ThemeData light(BuildContext context) {
@@ -46,7 +47,7 @@ class AppTheme {
       ),
       elevatedButtonTheme: elevatedButtonTheme,
       chipTheme: chipThemeData(colorExtensions),
-      textTheme: TextTheme(
+      textTheme: GoogleFonts.interTextTheme().copyWith(
         headlineSmall: TextStyle(
           color: colorExtensions.titles,
           fontWeight: FontWeight.w600,
