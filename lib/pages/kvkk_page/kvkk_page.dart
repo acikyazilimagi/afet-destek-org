@@ -1,5 +1,4 @@
 import 'package:afet_destek/gen/assets.gen.dart';
-import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -39,7 +38,7 @@ class _KVKKPageState extends State<KVKKPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'KVKK Açık Rıza Metni',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w600,

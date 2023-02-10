@@ -1,4 +1,4 @@
-import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 
 class NewDemandInformationPopup extends StatelessWidget {
@@ -33,7 +33,7 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
                   'Bilgilendirme',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontSize: 16,
-                        color: AppColors.textColor,
+                        color: context.appColors.titles,
                       ),
                 ),
               ],
@@ -57,7 +57,7 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
       onPressed: stillCreate ? onContinue : onClose,
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll<Color>(
-          stillCreate ? AppColors.red : AppColors.white,
+          stillCreate ? context.appColors.mainRed : context.appColors.white,
         ),
         shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
           RoundedRectangleBorder(
@@ -70,7 +70,9 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
         stillCreate ? 'Yine de oluştur' : 'Vazgeç',
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontSize: 16,
-              color: stillCreate ? AppColors.white : AppColors.darkGrey,
+              color: stillCreate
+                  ? context.appColors.white
+                  : context.appColors.notificationTermTexts,
             ),
       ),
     );
