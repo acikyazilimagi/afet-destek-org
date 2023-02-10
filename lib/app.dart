@@ -48,7 +48,9 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
         child: BlocBuilder<AppCubit, AppState>(
           builder: (context, state) {
             return MaterialApp(
-              theme: AppTheme.theme(context),
+              theme: AppTheme.light(context),
+              darkTheme: AppTheme.dark(context),
+              themeMode: ThemeMode.light,
               debugShowCheckedModeBanner: false,
               home: state.when(
                 initializing: () => const Scaffold(body: Loader()),

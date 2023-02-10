@@ -1,4 +1,4 @@
-import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 
 class Infobox extends StatelessWidget {
@@ -12,9 +12,9 @@ class Infobox extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: context.appColors.white,
           border: Border(
-            left: BorderSide(width: 8, color: AppColors.primarySwatch),
+            left: BorderSide(width: 8, color: context.appColors.mainRed),
           ),
         ),
         child: Padding(

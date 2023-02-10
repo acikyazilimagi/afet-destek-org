@@ -1,5 +1,5 @@
 import 'package:afet_destek/gen/assets.gen.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,7 +12,7 @@ class WhatsappButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.whatsapp,
+        backgroundColor: context.appColors.whatsApp,
         textStyle: const TextStyle(
           fontWeight: FontWeight.w400,
         ),

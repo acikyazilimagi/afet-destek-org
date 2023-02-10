@@ -10,6 +10,7 @@ import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/pages/demands_page/widgets/new_demand_information_popup.dart';
 import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -191,7 +192,7 @@ class _AuthPageState extends State<AuthPage> {
                                 },
                               ),
                         isDense: true,
-                        suffixStyle: const TextStyle(color: Colors.black),
+                        suffixStyle: TextStyle(color: context.appColors.black),
                       ),
                       onChanged: (code) => setState(() => _code = code),
                     ),
@@ -303,14 +304,14 @@ class _AuthErrorMessage extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
-          color: Colors.red,
+          color: context.appColors.mainRed,
         ),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Text(
             message,
             style: DefaultTextStyle.of(context).style.copyWith(
-                  color: Colors.white,
+                  color: context.appColors.white,
                 ),
           ),
         ),
