@@ -74,6 +74,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
     ),
   });
 
+  // ignore: use_setters_to_change_properties
   void _updateAddressToCurrent({required GoogleGeocodingResult currentGeo}) {
     _myDemandPageFormGroup
         .control(_MyDemandPageFormFields.geoLocation.name)
