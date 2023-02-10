@@ -5,6 +5,7 @@ import 'package:afet_destek/app.dart';
 import 'package:afet_destek/utils/logger/app_logger.dart';
 import 'package:afet_destek/utils/observer/bloc_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -55,13 +56,19 @@ class AppFunc {
     // TODO(adnanjpg): ios throws `Flutter - Unhandled Exception:
     // [core/duplicate-app]` error when passing options
     // https://github.com/acikkaynak/yardim-agi-flutter/issues/161
-    if (Platform.isIOS) {
-      await Firebase.initializeApp();
-    } else {
+    if (kIsWeb) {
       await Firebase.initializeApp(
-        name: firebaseAppName,
         options: options,
       );
+    } else {
+      if (Platform.isIOS) {
+        await Firebase.initializeApp();
+      } else {
+        await Firebase.initializeApp(
+          name: firebaseAppName,
+          options: options,
+        );
+      }
     }
 
     await SentryFlutter.init(
