@@ -63,6 +63,7 @@ class _DemandDetailsPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    print(width);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -118,15 +119,13 @@ class _DemandDetailsPageView extends StatelessWidget {
                       children: [
                         if (demand.whatsappNumber != null) ...[
                           Expanded(
-                            child: WhatsappButton(
-                              phoneNumber: demand.whatsappNumber!,
-                            ),
-                          ),
+                              child: WhatsappButton(
+                                  phoneNumber: demand.whatsappNumber!)),
                           const SizedBox(width: 20),
                         ],
+                        
                         Expanded(
-                          child: CallButton(phoneNumber: demand.phoneNumber),
-                        )
+                            child: CallButton(phoneNumber: demand.phoneNumber))
                       ],
                     ),
                   const SizedBox(height: 32),
