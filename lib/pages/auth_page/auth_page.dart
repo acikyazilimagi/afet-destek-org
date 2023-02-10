@@ -29,7 +29,7 @@ class AuthPage extends StatefulWidget {
     final result = await Navigator.of(context).push<bool>(
       MaterialPageRoute<bool>(
         builder: (context) {
-          final width = MediaQuery.of(context).size.width.clamp(0, 700);
+          final width = MediaQuery.of(context).size.width.clamp(0, 500);
           return BlocProvider(
             create: (context) => AuthCubit(
               authRepository: context.read<AuthRepository>(),
