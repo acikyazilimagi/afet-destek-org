@@ -147,7 +147,9 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                       child: Wrap(
                         children: demandCategories.map(
                           (category) {
-                            final isSelected = _categoryIds.contains(category.id);
+                            final isSelected = _categoryIds.contains(
+                              category.id,
+                            );
                             return Padding(
                               padding: const EdgeInsets.symmetric(
                                 vertical: 4,
