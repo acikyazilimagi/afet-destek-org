@@ -54,6 +54,9 @@ class _DemandsPageView extends StatefulWidget {
 class _DemandsPageViewState extends State<_DemandsPageView> {
   final ScrollController _scrollController = ScrollController();
 
+  final String newDemandInformationText = '''
+Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadır. Yardıma ihtiyacı olanlara hızlı erişebilmemiz için, lütfen afet bölgesinde değilseniz talep oluşturmayınız.''';
+
   @override
   void initState() {
     super.initState();
@@ -93,12 +96,7 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                           context.read<DemandsCubit>().refreshDemands();
                         },
                       )
-                  : () => MyDemandPage.show(
-                        context,
-                        onClose: () {
-                          context.read<DemandsCubit>().refreshDemands();
-                        },
-                      ),
+                  : openInformationDialog,
               child: Text(
                 widget.isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
                 style: const TextStyle(
@@ -203,6 +201,107 @@ Eğer yardım talebiniz varsa, destek talebim menüsünden talep oluşturabilirs
             ),
       endDrawer: DemandFilterDrawer(
         demandsCubit: context.read<DemandsCubit>(),
+      ),
+    );
+  }
+
+  Future<void> openInformationDialog() async {
+    await showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Column(
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.info_outline),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  'Bilgilendirme',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontSize: 16,
+                        color: AppColors.textColor,
+                      ),
+                ),
+              ],
+            ),
+            const Divider(),
+          ],
+        ),
+        content: SizedBox(
+          height: MediaQuery.of(context).size.height / 4,
+          child: Column(
+            children: [
+              Expanded(
+                child: Text(
+                  newDemandInformationText,
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: SizedBox(
+                      height: 56,
+                      child: getElevatedButton(
+                        stillCreate: false,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: SizedBox(
+                      height: 56,
+                      child: getElevatedButton(
+                        stillCreate: true,
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  ElevatedButton getElevatedButton({required bool stillCreate}) {
+    return ElevatedButton(
+      onPressed: stillCreate
+          ? () {
+              Navigator.of(context).pop();
+              MyDemandPage.show(
+                context,
+                onClose: () {
+                  context.read<DemandsCubit>().refreshDemands();
+                },
+              );
+            }
+          : () {
+              Navigator.of(context).pop();
+            },
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll<Color>(
+          stillCreate ? AppColors.red : AppColors.white,
+        ),
+        shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: stillCreate ? BorderSide.none : const BorderSide(),
+          ),
+        ),
+      ),
+      child: Text(
+        stillCreate ? 'Yine de oluştur' : 'Vazgeç',
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontSize: 16,
+              color: stillCreate ? AppColors.white : AppColors.darkGrey,
+            ),
       ),
     );
   }
