@@ -116,9 +116,9 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                     style: TextStyle(color: Color(0xff475467)),
                   ),
                   TextSpan(
-                    text: _filterRadiusKm == null 
-                    ? 'Her yer'
-                    : '${_filterRadiusKm!.toInt()}km',
+                    text: _filterRadiusKm == null
+                        ? 'Her yer'
+                        : '${_filterRadiusKm!.toInt()}km',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.red,
