@@ -196,5 +196,3 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
     );
   }
 }
-
-//width.clamp(600, 1000)

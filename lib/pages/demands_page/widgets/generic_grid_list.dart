@@ -2,6 +2,7 @@ import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_state.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_title.dart';
+import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,26 @@ class GenericListView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const DemandTitle(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const DemandTitle(),
+              TextButton.icon(
+                style: TextButton.styleFrom(
+                  foregroundColor: AppColors.formFieldTitle,
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .headlineMedium
+                      ?.copyWith(color: AppColors.formFieldTitle),
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+                icon: const Icon(Icons.menu),
+                label: const Text('Filtrele'),
+              )
+            ],
+          ),
           Expanded(
             child: GridView.builder(
               controller: _scrollController,
