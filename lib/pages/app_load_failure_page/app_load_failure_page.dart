@@ -60,7 +60,7 @@ class AppLoadFailurePage extends StatelessWidget {
                         'Sayfayı Yenile',
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
                               fontSize: 16,
-                            color: context.appColors.white,
+                              color: context.appColors.white,
                             ),
                       ),
                     ),

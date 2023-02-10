@@ -192,7 +192,7 @@ class _AuthPageState extends State<AuthPage> {
                                 },
                               ),
                         isDense: true,
-                    suffixStyle: TextStyle(color: context.appColors.black),
+                        suffixStyle: TextStyle(color: context.appColors.black),
                       ),
                       onChanged: (code) => setState(() => _code = code),
                     ),

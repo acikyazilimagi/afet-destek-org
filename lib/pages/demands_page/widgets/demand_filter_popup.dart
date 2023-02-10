@@ -122,9 +122,9 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                         text: _filterRadiusKm == null
                             ? 'Her yer'
                             : '${_filterRadiusKm!.toInt()}km',
-                    style: TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
-                      color: context.appColors.mainRed,
+                          color: context.appColors.mainRed,
                         ),
                       )
                     ],
@@ -132,7 +132,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                 ),
                 const SizedBox(height: 8),
                 Divider(
-              color: context.appColors.stroke,
+                  color: context.appColors.stroke,
                 ),
                 const SizedBox(height: 8),
                 Align(
@@ -159,7 +159,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(6),
                                 ),
-                            selectedColor: context.appColors.tags,
+                                selectedColor: context.appColors.tags,
                                 selected: isSelected,
                                 label: Text(category.name),
                                 onSelected: (value) => setState(() {
