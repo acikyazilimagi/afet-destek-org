@@ -28,6 +28,13 @@ jobs:
       - run: flutter pub get
       - run: flutter pub run build_runner build --delete-conflicting-outputs
       - run: flutter build web -t lib/main_dev.dart 
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting:test-deprem-destek-org 
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          PROJECT_ID: deprem-destek-org
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
@@ -45,10 +52,3 @@ jobs:
         with:
           name: web-build
           path: web-build
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting:test-deprem-destek-org --public web-build
-        env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-          PROJECT_ID: deprem-destek-org
