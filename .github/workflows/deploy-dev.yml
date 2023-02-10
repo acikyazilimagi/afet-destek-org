@@ -48,7 +48,7 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting:test-deprem-destek-org
+          args: deploy --only hosting:test-deprem-destek-org --public web-build
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           PROJECT_ID: deprem-destek-org
