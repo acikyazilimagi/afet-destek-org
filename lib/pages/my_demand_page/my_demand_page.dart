@@ -106,21 +106,25 @@ class _MyDemandPageState extends State<MyDemandPage> {
               Divider(),
             ],
           ),
-          content:SizedBox(
+          content: SizedBox(
             height: MediaQuery.of(context).size.height / 5,
             child: Column(
               children: [
                 const Text('Talebi sonlandırmak istediğinize emin misiniz?'),
                 const Spacer(),
-                Column(children: [
-                  getButton(stillDeactivate: false, demandId: demand.id),
-                  const SizedBox(height: 10,),
-                  getButton(stillDeactivate: true, demandId: demand.id)
-                ],
-                  ),
+                Column(
+                  children: [
+                    getButton(stillDeactivate: false, demandId: demand.id),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    getButton(stillDeactivate: true, demandId: demand.id)
+                  ],
+                ),
               ],
             ),
-          ),),
+          ),
+        ),
       );
     } else {
       context.read<MyDemandsCubit>().activateDemand(
@@ -323,12 +327,11 @@ class _MyDemandPageState extends State<MyDemandPage> {
                     children: [
                       Text(
                         'Talep Formu',
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(
-                                color: AppColors.descriptionColor,
-                                fontSize: 24,),
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  color: AppColors.descriptionColor,
+                                  fontSize: 24,
+                                ),
                       ),
                       const SizedBox(
                         height: 16,
@@ -367,8 +370,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         maxLines: 10,
                         maxLength: 1000,
                         validationMessages: {
-                          ValidationMessage.required: (_) =>
-                              'Zorunlu alan',
+                          ValidationMessage.required: (_) => 'Zorunlu alan',
                           ValidationMessage.maxLength: (_) =>
                               'En fazla 1000 karakter girebilirsiniz.',
                         },
@@ -400,14 +402,14 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                 title: Row(
                                   children: [
                                     Text(
-                                      'Whatsapp ile ulaşılsın',
+                                      'WhatsApp ile ulaşılsın',
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall
                                           ?.copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              color:
-                                                  AppColors.descriptionColor,),
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.descriptionColor,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -417,13 +419,14 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   height: 10,
                                 ),
                                 const AppFormFieldTitle(
-                                  title: 'Whatsapp Numarası',
+                                  title: 'WhatsApp Numarası',
                                 ),
                                 ReactiveIntlPhoneField(
                                   invalidNumberMessage:
                                       'Geçersiz telefon numarası',
                                   formControl: _myDemandPageFormGroup.control(
-                                    _MyDemandPageFormFields.wpPhoneNumber.name,
+                                    _MyDemandPageFormFields
+                                        .wpPhoneNumber.name,
                                   ) as FormControl<String>,
                                 ),
                               ]
@@ -442,9 +445,11 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: AppColors.red,
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),),
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
                                 ),
-                                onPressed: formGroup.valid && !deactivateButtons
+                                onPressed: formGroup.valid &&
+                                        !deactivateButtons
                                     ? () {
                                         final currentPhoneFormValidate =
                                             _formKey.currentState!.validate();
@@ -484,7 +489,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   ? Colors.transparent
                                   : AppColors.red,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
                             onPressed: !deactivateButtons
                                 ? () => _onToggleActivation(

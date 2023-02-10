@@ -32,10 +32,7 @@ class DemandCard extends StatelessWidget {
         )!;
     return GestureDetector(
       onTap: !isDetailed
-          ? () => DemandDetailsPage.show(
-                context,
-                demand: demand,
-              )
+          ? () => DemandDetailsPage.show(context, demand: demand)
           : null,
       child: ColoredBox(
         color: Colors.white,
