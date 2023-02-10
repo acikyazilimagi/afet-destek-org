@@ -5,10 +5,10 @@ class NewDemandInformationPopup extends StatelessWidget {
   const NewDemandInformationPopup({
     super.key,
     this.onClose,
-    this.onStillCreate,
+    this.onContinue,
   });
   final void Function()? onClose;
-  final void Function()? onStillCreate;
+  final void Function()? onContinue;
 
   static const String _newDemandInformationText = '''
 Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadır. Yardıma ihtiyacı olanlara hızlı erişebilmemiz için, lütfen afet bölgesinde değilseniz talep oluşturmayınız.''';
@@ -16,7 +16,7 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
   Future<void> show({
     required BuildContext context,
     required void Function() onClose,
-    required void Function() onStillCreate,
+    required void Function() onContinue,
   }) {
     return showDialog(
       context: context,
@@ -43,7 +43,7 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
         ),
         content: NewDemandInformationPopup(
           onClose: onClose,
-          onStillCreate: onStillCreate,
+          onContinue: onContinue,
         ),
       ),
     );
@@ -54,7 +54,7 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
     required bool stillCreate,
   }) {
     return ElevatedButton(
-      onPressed: stillCreate ? onStillCreate : onClose,
+      onPressed: stillCreate ? onContinue : onClose,
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll<Color>(
           stillCreate ? AppColors.red : AppColors.white,

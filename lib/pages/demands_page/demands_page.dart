@@ -102,7 +102,7 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                         onClose: () {
                           Navigator.of(context).pop();
                         },
-                        onStillCreate: () {
+                        onContinue: () {
                           Navigator.of(context).pop();
                           MyDemandPage.show(
                             context,
