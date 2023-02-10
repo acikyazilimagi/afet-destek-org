@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -16,6 +17,12 @@ class ReactiveIntlPhoneField extends StatelessWidget {
     return ReactiveFormConsumer(
       builder: (context, form, _) {
         return IntlPhoneField(
+          pickerDialogStyle: PickerDialogStyle(
+            width: MediaQuery.of(context).size.width.clamp(0, 500),
+            searchFieldInputDecoration: const InputDecoration(
+              labelText: 'Ülke ara',
+            ),
+          ),
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
           ],
