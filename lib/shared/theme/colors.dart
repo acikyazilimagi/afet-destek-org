@@ -20,6 +20,7 @@ class AppColors {
   static const Color whatsapp = Color(0xff25D366);
   static const Color formFieldTitle = Color(0xFF475467);
   static const Color backgroundDemands = Color(0xffF7F7F7);
+  static const Color disabledGrey = Color(0xffD0D5DD);
 }
 
 extension ColorsEx on Color {

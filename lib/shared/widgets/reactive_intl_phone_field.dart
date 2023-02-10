@@ -15,6 +15,11 @@ class ReactiveIntlPhoneField extends StatelessWidget {
     return ReactiveFormConsumer(
       builder: (context, form, _) {
         return IntlPhoneField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
           invalidNumberMessage: invalidNumberMessage,
           initialValue: formControl.value,
           onChanged: (value) => formControl.value = value.completeNumber,

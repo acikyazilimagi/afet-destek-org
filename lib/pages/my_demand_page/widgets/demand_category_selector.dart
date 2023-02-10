@@ -70,7 +70,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
               borderSide: BorderSide(width: 2, color: Colors.red),
             ),
             border: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
               borderSide: BorderSide(width: 2, color: Colors.grey.shade200),
             ),
             hintStyle: TextStyle(color: Colors.grey.shade500),
