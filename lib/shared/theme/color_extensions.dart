@@ -26,7 +26,17 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension>
   });
 
   factory AppColorsExtension.dark() {
-    return const AppColorsExtension();
+    return const AppColorsExtension(
+      secondaryBackground: Color(0xFF252525),
+      subtitles: Color(0xFFD3D3D3),
+      titles: Color(0xFFFFFFFF),
+      paragraph: Color(0xFFB7B7B7),
+      tags: Color(0xFFFFFFFF),
+      disabledButton: Color(0xFF686868),
+      stroke: Color(0xFF343434),
+      mainBackground: Color(0xFF1D1D1D),
+      notificationTermTexts: Color(0xFFB7B7B7),
+    );
   }
   final Color black;
   final Color mainRed;

@@ -138,7 +138,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                 min: 1,
               ),
               Divider(
-                color: Colors.grey[300],
+                color: context.appColors.stroke,
               ),
               const SizedBox(height: 8),
               Align(

@@ -3,13 +3,26 @@ import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static ThemeData theme(BuildContext context) {
-    return Theme.of(context).copyWith(
-      primaryColor: AppColors.primarySwatch,
+  static ThemeData light(BuildContext context) {
+    const colorExtensions = AppColorsExtension();
+    return buildThemeData(ThemeData.light(), colorExtensions);
+  }
+
+  static ThemeData dark(BuildContext context) {
+    final colorExtensions = AppColorsExtension.dark();
+    return buildThemeData(ThemeData.dark(), colorExtensions);
+  }
+
+  static ThemeData buildThemeData(
+    ThemeData base,
+    AppColorsExtension colorExtensions,
+  ) {
+    return base.copyWith(
+      primaryColor: colorExtensions.mainRed,
       colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: AppColors.primarySwatch,
+        primarySwatch: colorExtensions.mainRed.toMaterial(),
       ),
-      scaffoldBackgroundColor: AppColors.scaffoldBackgroundColor,
+      scaffoldBackgroundColor: colorExtensions.secondaryBackground,
       sliderTheme: const SliderThemeData(
         showValueIndicator: ShowValueIndicator.always,
         valueIndicatorTextStyle: TextStyle(
@@ -17,11 +30,11 @@ class AppTheme {
           fontWeight: FontWeight.bold,
         ),
       ),
-      indicatorColor: AppColors.primarySwatch,
-      appBarTheme: const AppBarTheme(
+      indicatorColor: colorExtensions.mainRed,
+      appBarTheme: AppBarTheme(
         centerTitle: true,
-        backgroundColor: AppColors.white,
-        foregroundColor: AppColors.black,
+        backgroundColor: colorExtensions.white,
+        foregroundColor: colorExtensions.black,
         elevation: 0,
       ),
       buttonTheme: buttonTheme,
@@ -32,19 +45,19 @@ class AppTheme {
         ),
       ),
       elevatedButtonTheme: elevatedButtonTheme,
-      chipTheme: chipThemeData(context),
-      textTheme: const TextTheme(
+      chipTheme: chipThemeData(colorExtensions),
+      textTheme: TextTheme(
         headlineSmall: TextStyle(
-          color: AppColors.textColor,
+          color: colorExtensions.titles,
           fontWeight: FontWeight.w600,
         ),
         titleSmall: TextStyle(
-          color: AppColors.descriptionColor,
+          color: colorExtensions.tags,
           fontWeight: FontWeight.w400,
         ),
       ),
       textButtonTheme: textButtonTheme,
-      outlinedButtonTheme: outlinedButtonThemeData,
+      outlinedButtonTheme: outlinedButtonThemeData(colorExtensions),
       inputDecorationTheme: InputDecorationTheme(
         errorMaxLines: 2,
         isDense: true,
@@ -52,22 +65,23 @@ class AppTheme {
           borderRadius: BorderRadius.circular(8),
         ),
       ),
-      bottomNavigationBarTheme: bottomNavigationBarTheme,
+      bottomNavigationBarTheme: bottomNavigationBarTheme(colorExtensions),
       extensions: [
-        const AppColorsExtension(),
+        colorExtensions,
       ],
     );
   }
 
-  static BottomNavigationBarThemeData bottomNavigationBarTheme =
+  static BottomNavigationBarThemeData bottomNavigationBarTheme(
+          AppColorsExtension colorsExtension) =>
       BottomNavigationBarThemeData(
-    elevation: 4,
-    type: BottomNavigationBarType.fixed,
-    selectedItemColor: AppColors.primarySwatch,
-    unselectedItemColor: AppColors.darkGrey,
-    showSelectedLabels: true,
-    showUnselectedLabels: true,
-  );
+        elevation: 4,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: colorsExtension.mainRed,
+        unselectedItemColor: colorsExtension.disabledButton,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
+      );
 
   static ButtonThemeData buttonTheme = const ButtonThemeData(
     padding: EdgeInsets.all(16),
@@ -85,32 +99,27 @@ class AppTheme {
     ),
   );
 
-  static OutlinedButtonThemeData outlinedButtonThemeData =
+  static OutlinedButtonThemeData outlinedButtonThemeData(
+    AppColorsExtension colorsExtension,
+  ) =>
       OutlinedButtonThemeData(
-    style: OutlinedButton.styleFrom(
-      side: BorderSide(color: AppColors.primarySwatch),
-      padding: const EdgeInsets.all(16),
-    ),
-  );
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(color: colorsExtension.mainRed),
+          padding: const EdgeInsets.all(16),
+        ),
+      );
 
-  static ChipThemeData chipThemeData(BuildContext context) {
-    return ChipThemeData(
-      selectedColor: const Color(0xff1F2937),
-      backgroundColor: context.appColors.white,
-      secondaryLabelStyle: const TextStyle(color: AppColors.white),
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(9),
-        side: const BorderSide(color: Color(0xffD0D5DD)),
-      ),
-    );
-  }
-
-  static ButtonStyle redButton() {
-    return ButtonStyle(
-      backgroundColor: MaterialStatePropertyAll(
-        AppColors.primarySwatch.shade500,
-      ),
-    );
-  }
+  static ChipThemeData chipThemeData(
+    AppColorsExtension colorsExtension,
+  ) =>
+      ChipThemeData(
+        selectedColor: const Color(0xff1F2937),
+        backgroundColor: colorsExtension.white,
+        secondaryLabelStyle: TextStyle(color: colorsExtension.white),
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(9),
+          side: BorderSide(color: colorsExtension.stroke),
+        ),
+      );
 }
