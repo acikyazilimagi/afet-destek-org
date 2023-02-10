@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 extension ColorsEx on Color {
   MaterialColor toMaterial() {
     return MaterialColor(value, _getSwatch(this));
