@@ -14,13 +14,11 @@ class GenericListView extends StatelessWidget {
     required this.demands,
     required this.state,
     required this.maxWidth,
-    required this.minWidth,
     required this.crossAxisCount,
   }) : _scrollController = scrollController;
   final ScrollController _scrollController;
   final List<Demand> demands;
   final DemandsState state;
-  final int minWidth;
   final int maxWidth;
   final int crossAxisCount;
 
@@ -28,7 +26,7 @@ class GenericListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return SizedBox(
-      width: width.clamp(minWidth, maxWidth).toDouble(),
+      width: width.clamp(0, maxWidth).toDouble(),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
