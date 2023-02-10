@@ -7,7 +7,6 @@ import 'package:afet_destek/pages/demands_page/widgets/demand_filter_popup.dart'
 import 'package:afet_destek/pages/demands_page/widgets/generic_grid_list.dart';
 import 'package:afet_destek/pages/demands_page/widgets/list_view_responsive.dart';
 import 'package:afet_destek/pages/demands_page/widgets/mobile_list_view.dart';
-import 'package:afet_destek/pages/demands_page/widgets/new_demand_information_popup.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/colors.dart';
@@ -98,19 +97,10 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                       );
                     }
                   : () {
-                      const NewDemandInformationPopup().show(
-                        context: context,
+                      MyDemandPage.show(
+                        context,
                         onClose: () {
-                          Navigator.of(context).pop();
-                        },
-                        onContinue: () {
-                          Navigator.of(context).pop();
-                          MyDemandPage.show(
-                            context,
-                            onClose: () {
-                              context.read<DemandsCubit>().refreshDemands();
-                            },
-                          );
+                          context.read<DemandsCubit>().refreshDemands();
                         },
                       );
                     },
@@ -165,7 +155,7 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                 state.hasAnyFilters
                     ? 'Sonuç bulunamadı, filtreleri temizlemeyi  deneyin'
                     : '''
-Şu anda yardım talebi bulunmamaktadır. 
+Şu anda yardım talebi bulunmamaktadır.
 Eğer yardım talebiniz varsa, destek talebim menüsünden talep oluşturabilirsiniz.
                     ''',
                 textAlign: TextAlign.center,

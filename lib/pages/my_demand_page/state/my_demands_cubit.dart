@@ -68,7 +68,7 @@ class MyDemandsCubit extends Cubit<MyDemandState> {
 
   Future<void> updateDemand({
     required String demandId,
-    required GoogleGeocodingResult geo,
+    GoogleGeocodingResult? geo,
     required List<String> categoryIds,
     required String notes,
     required String phoneNumber,

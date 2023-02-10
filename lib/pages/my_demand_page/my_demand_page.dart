@@ -5,6 +5,7 @@ import 'package:afet_destek/pages/my_demand_page/state/my_demands_cubit.dart';
 import 'package:afet_destek/pages/my_demand_page/state/my_demands_state.dart';
 import 'package:afet_destek/pages/my_demand_page/widgets/demand_category_selector.dart';
 import 'package:afet_destek/pages/my_demand_page/widgets/geo_value_accessor.dart';
+import 'package:afet_destek/shared/extensions/district_address_extension.dart';
 import 'package:afet_destek/shared/extensions/reactive_forms_extensions.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
@@ -73,24 +74,10 @@ class _MyDemandPageState extends State<MyDemandPage> {
     ),
   });
 
-  @override
-  void initState() {
-    super.initState();
-    final location = context.read<AppCubit>().state.whenOrNull(
-          loaded: (currentLocation, demandCategories) => currentLocation,
-        );
-
+  void _updateAddressToCurrent({required GoogleGeocodingResult currentGeo}) {
     _myDemandPageFormGroup
         .control(_MyDemandPageFormFields.geoLocation.name)
-        .value = location;
-
-    _myDemandPageFormGroup
-        .control(_MyDemandPageFormFields.phoneNumber.name)
-        .value = FirebaseAuth.instance.currentUser?.phoneNumber;
-
-    _myDemandPageFormGroup
-        .control(_MyDemandPageFormFields.wpPhoneNumber.name)
-        .value = FirebaseAuth.instance.currentUser?.phoneNumber;
+        .value = currentGeo;
   }
 
   void _onToggleActivation({required Demand demand}) {
@@ -139,7 +126,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
       context.read<MyDemandsCubit>().updateDemand(
             demandId: demandId,
             categoryIds: categories,
-            geo: geo,
+            geo: geo.placeId == '-1' ? null : geo,
             notes: notes,
             phoneNumber: phoneNumber,
             whatsappNumber: whatsappNumber,
@@ -155,6 +142,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
 
   void _populateWithExistingData({required Demand? existingDemand}) {
     if (existingDemand != null) {
+      // Update demand case
       _myDemandPageFormGroup
           .control(_MyDemandPageFormFields.categories.name)
           .value = existingDemand.categoryIds;
@@ -169,11 +157,32 @@ class _MyDemandPageState extends State<MyDemandPage> {
           .control(_MyDemandPageFormFields.wpPhoneNumber.name)
           .value = existingDemand.whatsappNumber;
 
+      _myDemandPageFormGroup
+          .control(_MyDemandPageFormFields.geoLocation.name)
+          .value = _fakeGeoWithAddress(addressText: existingDemand.addressText);
+
       if (existingDemand.whatsappNumber != null) {
         _myDemandPageFormGroup
             .control(_MyDemandPageFormFields.wpPhoneNumber.name)
             .markAsEnabled();
       }
+    } else {
+      // Create demand case
+      _myDemandPageFormGroup
+          .control(_MyDemandPageFormFields.phoneNumber.name)
+          .value = FirebaseAuth.instance.currentUser?.phoneNumber;
+
+      _myDemandPageFormGroup
+          .control(_MyDemandPageFormFields.wpPhoneNumber.name)
+          .value = FirebaseAuth.instance.currentUser?.phoneNumber;
+
+      final currentLocation = context.read<AppCubit>().state.whenOrNull(
+            loaded: (currentLocation, demandCategories) => currentLocation,
+          );
+
+      _myDemandPageFormGroup
+          .control(_MyDemandPageFormFields.geoLocation.name)
+          .value = currentLocation;
     }
   }
 
@@ -222,11 +231,14 @@ class _MyDemandPageState extends State<MyDemandPage> {
 
   @override
   Widget build(BuildContext context) {
+    final currentLocation = context.read<AppCubit>().state.whenOrNull(
+          loaded: (currentLocation, demandCategories) => currentLocation,
+        );
     final appState = context.read<AppCubit>().state.mapOrNull(
           loaded: (loadedAppState) => loadedAppState,
         );
 
-    if (appState == null) {
+    if (appState == null || currentLocation == null) {
       return const Scaffold(body: Loader());
     }
 
@@ -267,13 +279,44 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   _MyDemandPageFormFields.geoLocation.name,
                               readOnly: true,
                               valueAccessor: GeoValueAccessor(),
-                              validationMessages: {
-                                ValidationMessage.required: (_) =>
-                                    'Adresiniz bizim için gerekli',
-                                ValidationMessage.any: (_) =>
-                                    'Lütfen geçerli bir adres giriniz.',
-                              },
                             ),
+                            const SizedBox(height: 8),
+                            if (state.demand != null) ...[
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text('Mevcut Adres'),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          currentLocation.districtAddress,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  TextButton(
+                                    child: const Text(
+                                      'Güncelle',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    onPressed: () => _updateAddressToCurrent(
+                                      currentGeo: currentLocation,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                             const SizedBox(height: 16),
                             DemandCategorySelector(
                               formControl: _myDemandPageFormGroup.control(
@@ -452,3 +495,21 @@ enum _MyDemandPageFormFields {
   phoneNumber,
   wpPhoneNumber,
 }
+
+// To not break the existing code, we need to supply
+// GoogleGeocodingResult object to the reactive form field.
+// Form field only uses the address name so other
+// fields can be ignored here. Also, this is just
+// for populating the UI, this data won't make it
+// to the BE. (place id is used as an indicator between
+// fake and real geo object)
+GoogleGeocodingResult _fakeGeoWithAddress({required String addressText}) =>
+    GoogleGeocodingResult.fromJson({
+      'place_id': '-1',
+      'address_components': [
+        {
+          'long_name': addressText,
+          'types': ['administrative_area_level_4']
+        }
+      ]
+    });
