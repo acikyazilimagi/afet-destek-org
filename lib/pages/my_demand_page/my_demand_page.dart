@@ -7,6 +7,7 @@ import 'package:afet_destek/pages/my_demand_page/widgets/demand_category_selecto
 import 'package:afet_destek/pages/my_demand_page/widgets/geo_value_accessor.dart';
 import 'package:afet_destek/shared/extensions/reactive_forms_extensions.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:afet_destek/shared/widgets/reactive_intl_phone_field.dart';
 import 'package:afet_destek/shared/widgets/snackbar.dart';
@@ -310,14 +311,14 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   value: _isWpActive,
                                   onChanged: _onWpActivateToggle,
                                   title: Row(
-                                    children: const [
-                                      Text('WhatsApp ile ulaşılsın'),
-                                      SizedBox(
+                                    children: [
+                                      const Text('WhatsApp ile ulaşılsın'),
+                                      const SizedBox(
                                         width: 8,
                                       ),
                                       Icon(
                                         FontAwesomeIcons.whatsapp,
-                                        color: Colors.green,
+                                        color: context.appColors.whatsApp,
                                       ),
                                     ],
                                   ),
@@ -346,7 +347,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               children: [
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.red,
+                                    backgroundColor: context.appColors.mainRed,
                                   ),
                                   onPressed: formGroup.valid &&
                                           !deactivateButtons
@@ -369,7 +370,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                         .textTheme
                                         .titleLarge
                                         ?.copyWith(
-                                          color: Colors.white,
+                                          color: context.appColors.white,
                                           fontWeight: FontWeight.w600,
                                         ),
                                   ),
@@ -379,7 +380,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   const SizedBox(width: 16),
                                   ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.red,
+                                      backgroundColor:
+                                          context.appColors.mainRed,
                                     ),
                                     onPressed: !deactivateButtons
                                         ? () => _onToggleActivation(
@@ -394,7 +396,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                           .textTheme
                                           .titleLarge
                                           ?.copyWith(
-                                            color: Colors.white,
+                                            color: context.appColors.white,
                                             fontWeight: FontWeight.w600,
                                           ),
                                     ),
@@ -418,7 +420,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   .textTheme
                                   .titleLarge
                                   ?.copyWith(
-                                    color: Colors.red,
+                                    color: context.appColors.mainRed,
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),

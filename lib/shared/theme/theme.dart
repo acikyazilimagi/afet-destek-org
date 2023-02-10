@@ -1,3 +1,4 @@
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,7 @@ class AppTheme {
         ),
       ),
       elevatedButtonTheme: elevatedButtonTheme,
-      chipTheme: chipThemeData,
+      chipTheme: chipThemeData(context),
       textTheme: const TextTheme(
         headlineSmall: TextStyle(
           color: AppColors.textColor,
@@ -52,6 +53,9 @@ class AppTheme {
         ),
       ),
       bottomNavigationBarTheme: bottomNavigationBarTheme,
+      extensions: [
+        const AppColorsExtension(),
+      ],
     );
   }
 
@@ -89,16 +93,18 @@ class AppTheme {
     ),
   );
 
-  static ChipThemeData chipThemeData = ChipThemeData(
-    selectedColor: const Color(0xff1F2937),
-    backgroundColor: Colors.white,
-    secondaryLabelStyle: const TextStyle(color: AppColors.white),
-    padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(9),
-      side: const BorderSide(color: Color(0xffD0D5DD)),
-    ),
-  );
+  static ChipThemeData chipThemeData(BuildContext context) {
+    return ChipThemeData(
+      selectedColor: const Color(0xff1F2937),
+      backgroundColor: context.appColors.white,
+      secondaryLabelStyle: const TextStyle(color: AppColors.white),
+      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(9),
+        side: const BorderSide(color: Color(0xffD0D5DD)),
+      ),
+    );
+  }
 
   static ButtonStyle redButton() {
     return ButtonStyle(

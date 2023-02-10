@@ -1,5 +1,6 @@
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -114,9 +115,9 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                       text: _filterRadiusKm == null
                           ? 'Her Yer'
                           : '${_filterRadiusKm!.toInt()}km',
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.red,
+                        color: context.appColors.mainRed,
                       ),
                     )
                   ],
@@ -158,7 +159,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                         ),
                         child: ChoiceChip(
                           padding: const EdgeInsets.all(4),
-                          selectedColor: Colors.red,
+                          selectedColor: context.appColors.mainRed,
                           selected: isSelected,
                           label: Text(category.name),
                           onSelected: (value) => setState(() {

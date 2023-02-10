@@ -8,9 +8,9 @@ part of 'color_extensions.dart';
 // ThemeExtensionsGenerator
 // **************************************************************************
 
-mixin _$ThemeExtensionMixin on ThemeExtension<AppColorThemeExtension> {
+mixin _$ThemeExtensionMixin on ThemeExtension<AppColorsExtension> {
   @override
-  ThemeExtension<AppColorThemeExtension> copyWith({
+  ThemeExtension<AppColorsExtension> copyWith({
     Color? black,
     Color? mainRed,
     Color? secondaryBackground,
@@ -24,10 +24,13 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorThemeExtension> {
     Color? disabledStroke,
     Color? stroke,
     Color? errorStroke,
+    Color? mainBackground,
+    Color? notificationTermTexts,
+    Color? tagsTermsInputTexts,
   }) {
-    final object = this as AppColorThemeExtension;
+    final object = this as AppColorsExtension;
 
-    return AppColorThemeExtension(
+    return AppColorsExtension(
       black: black ?? object.black,
       mainRed: mainRed ?? object.mainRed,
       secondaryBackground: secondaryBackground ?? object.secondaryBackground,
@@ -41,23 +44,27 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorThemeExtension> {
       disabledStroke: disabledStroke ?? object.disabledStroke,
       stroke: stroke ?? object.stroke,
       errorStroke: errorStroke ?? object.errorStroke,
+      mainBackground: mainBackground ?? object.mainBackground,
+      notificationTermTexts:
+          notificationTermTexts ?? object.notificationTermTexts,
+      tagsTermsInputTexts: tagsTermsInputTexts ?? object.tagsTermsInputTexts,
     );
   }
 
   @override
-  ThemeExtension<AppColorThemeExtension> lerp(
-    ThemeExtension<AppColorThemeExtension>? other,
+  ThemeExtension<AppColorsExtension> lerp(
+    ThemeExtension<AppColorsExtension>? other,
     double t,
   ) {
     final otherValue = other;
 
-    if (otherValue is! AppColorThemeExtension) {
+    if (otherValue is! AppColorsExtension) {
       return this;
     }
 
-    final value = this as AppColorThemeExtension;
+    final value = this as AppColorsExtension;
 
-    return AppColorThemeExtension(
+    return AppColorsExtension(
       black: Color.lerp(
         value.black,
         otherValue.black,
@@ -123,16 +130,31 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorThemeExtension> {
         otherValue.errorStroke,
         t,
       )!,
+      mainBackground: Color.lerp(
+        value.mainBackground,
+        otherValue.mainBackground,
+        t,
+      )!,
+      notificationTermTexts: Color.lerp(
+        value.notificationTermTexts,
+        otherValue.notificationTermTexts,
+        t,
+      )!,
+      tagsTermsInputTexts: Color.lerp(
+        value.tagsTermsInputTexts,
+        otherValue.tagsTermsInputTexts,
+        t,
+      )!,
     );
   }
 
   @override
   bool operator ==(Object other) {
-    final value = this as AppColorThemeExtension;
+    final value = this as AppColorsExtension;
 
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is AppColorThemeExtension &&
+            other is AppColorsExtension &&
             identical(value.black, other.black) &&
             identical(value.mainRed, other.mainRed) &&
             identical(value.secondaryBackground, other.secondaryBackground) &&
@@ -145,12 +167,16 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorThemeExtension> {
             identical(value.disabledButton, other.disabledButton) &&
             identical(value.disabledStroke, other.disabledStroke) &&
             identical(value.stroke, other.stroke) &&
-            identical(value.errorStroke, other.errorStroke));
+            identical(value.errorStroke, other.errorStroke) &&
+            identical(value.mainBackground, other.mainBackground) &&
+            identical(
+                value.notificationTermTexts, other.notificationTermTexts) &&
+            identical(value.tagsTermsInputTexts, other.tagsTermsInputTexts));
   }
 
   @override
   int get hashCode {
-    final value = this as AppColorThemeExtension;
+    final value = this as AppColorsExtension;
 
     return Object.hash(
       runtimeType,
@@ -167,11 +193,14 @@ mixin _$ThemeExtensionMixin on ThemeExtension<AppColorThemeExtension> {
       value.disabledStroke,
       value.stroke,
       value.errorStroke,
+      value.mainBackground,
+      value.notificationTermTexts,
+      value.tagsTermsInputTexts,
     );
   }
 }
 
-extension AppColorThemeExtensionBuildContext on BuildContext {
-  AppColorThemeExtension get appColorTheme =>
-      Theme.of(this).extension<AppColorThemeExtension>()!;
+extension AppColorsExtensionBuildContext on BuildContext {
+  AppColorsExtension get appColors =>
+      Theme.of(this).extension<AppColorsExtension>()!;
 }

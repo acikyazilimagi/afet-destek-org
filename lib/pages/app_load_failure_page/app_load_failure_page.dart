@@ -1,4 +1,5 @@
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/util/web_reload/web_reload.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class AppLoadFailurePage extends StatelessWidget {
                       'Sayfayı Yenile',
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
                             fontSize: 16,
-                            color: Colors.white,
+                            color: context.appColors.white,
                           ),
                     ),
                   ),

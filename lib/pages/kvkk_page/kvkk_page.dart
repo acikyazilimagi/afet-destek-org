@@ -1,4 +1,5 @@
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -37,12 +38,12 @@ class _KVKKPageState extends State<KVKKPage> {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 'KVKK Açık Rıza Metni',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Text(
@@ -50,10 +51,10 @@ class _KVKKPageState extends State<KVKKPage> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: Colors.black54,
+                  color: context.appColors.notificationTermTexts,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               Text(
@@ -61,7 +62,7 @@ class _KVKKPageState extends State<KVKKPage> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
-                  color: Colors.black54,
+                  color: context.appColors.notificationTermTexts,
                 ),
               )
             ],

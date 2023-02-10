@@ -4,9 +4,9 @@ import 'package:theme_extensions_builder_annotation/theme_extensions_builder_ann
 part 'color_extensions.g.theme.dart';
 
 @themeExtensions
-class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension>
+class AppColorsExtension extends ThemeExtension<AppColorsExtension>
     with _$ThemeExtensionMixin {
-  const AppColorThemeExtension({
+  const AppColorsExtension({
     this.black = const Color(0xFF000000),
     this.mainRed = const Color(0xFFDC2626),
     this.secondaryBackground = const Color(0xFFF7F7F7),
@@ -20,12 +20,14 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension>
     this.disabledStroke = const Color(0xFFD9E1E7),
     this.stroke = const Color(0xFFD0D5DD),
     this.errorStroke = const Color(0xFFB71C1C),
+    this.mainBackground = const Color(0xFFFFFFFF),
+    this.notificationTermTexts = const Color(0xFF667085),
+    this.tagsTermsInputTexts = const Color(0xFF686868),
   });
 
-  factory AppColorThemeExtension.dark() {
-    return const AppColorThemeExtension();
+  factory AppColorsExtension.dark() {
+    return const AppColorsExtension();
   }
-
   final Color black;
   final Color mainRed;
   final Color secondaryBackground;
@@ -39,4 +41,7 @@ class AppColorThemeExtension extends ThemeExtension<AppColorThemeExtension>
   final Color disabledStroke;
   final Color stroke;
   final Color errorStroke;
+  final Color mainBackground;
+  final Color notificationTermTexts;
+  final Color tagsTermsInputTexts;
 }
