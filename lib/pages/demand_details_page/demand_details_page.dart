@@ -1,16 +1,15 @@
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/data/repository/auth_repository.dart';
-import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:afet_destek/pages/demand_details_page/widgets/call_button.dart';
 import 'package:afet_destek/pages/demand_details_page/widgets/whatsapp_button.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/widgets/infobox.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
+import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 
 class DemandDetailsPage extends StatelessWidget {
   const DemandDetailsPage._({required this.demand});
@@ -62,16 +61,9 @@ class _DemandDetailsPageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: SvgPicture.asset(Assets.logoSvg),
-          )
-        ],
-      ),
+      appBar: const ResponsiveAppBar(),
       body: Align(
         alignment: Alignment.topCenter,
         child: SizedBox(
@@ -83,14 +75,23 @@ class _DemandDetailsPageView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 30),
-                  const Text(
-                    'Talep Detayı',
-                    maxLines: 1,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 24,
-                      color: Color(0xff101828),
-                    ),
+                  Row(
+                    children: [
+                      if (size.width >= 1000)
+                        IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.arrow_back),
+                        ),
+                      const Text(
+                        'Talep Detayı',
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 24,
+                          color: Color(0xff101828),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 40),
                   DemandCard(demand: demand, isDetailed: true),
@@ -103,7 +104,7 @@ class _DemandDetailsPageView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  if (width < 600)
+                  if (size.width < 600)
                     Column(
                       children: [
                         if (demand.whatsappNumber != null) ...[
