@@ -315,14 +315,14 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       value: _isWpActive,
                                       onChanged: _onWpActivateToggle,
                                       title: Row(
-                                        children: const [
-                                          Text('WhatsApp ile ulaşılsın'),
-                                          SizedBox(
+                                        children: [
+                                          const Text('WhatsApp ile ulaşılsın'),
+                                          const SizedBox(
                                             width: 8,
                                           ),
                                           Icon(
                                             FontAwesomeIcons.whatsapp,
-                                        color: context.appColors.whatsApp,
+                                            color: context.appColors.whatsApp,
                                           ),
                                         ],
                                       ),
@@ -352,7 +352,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   children: [
                                     ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                    backgroundColor: context.appColors.mainRed,
+                                        backgroundColor:
+                                            context.appColors.mainRed,
                                       ),
                                       onPressed: formGroup.valid &&
                                               !deactivateButtons
@@ -376,7 +377,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                             .textTheme
                                             .titleLarge
                                             ?.copyWith(
-                                          color: context.appColors.white,
+                                              color: context.appColors.white,
                                               fontWeight: FontWeight.w600,
                                             ),
                                       ),
@@ -386,8 +387,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       const SizedBox(width: 16),
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                      backgroundColor:
-                                          context.appColors.mainRed,
+                                          backgroundColor:
+                                              context.appColors.mainRed,
                                         ),
                                         onPressed: !deactivateButtons
                                             ? () => _onToggleActivation(
@@ -402,7 +403,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                               .textTheme
                                               .titleLarge
                                               ?.copyWith(
-                                            color: context.appColors.white,
+                                                color: context.appColors.white,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
@@ -426,7 +427,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       .textTheme
                                       .titleLarge
                                       ?.copyWith(
-                                    color: context.appColors.mainRed,
+                                        color: context.appColors.mainRed,
                                         fontWeight: FontWeight.w600,
                                       ),
                                 ),

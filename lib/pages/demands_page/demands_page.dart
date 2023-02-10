@@ -139,8 +139,8 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                           child: Container(
                             width: 8,
                             height: 8,
-                          decoration: BoxDecoration(
-                            color: context.appColors.mainRed,
+                            decoration: BoxDecoration(
+                              color: context.appColors.mainRed,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -173,7 +173,7 @@ Eğer yardım talebiniz varsa, destek talebim menüsünden talep oluşturabilirs
             )
           : Center(
               child: RefreshIndicator(
-                color: AppColors.red,
+                color: context.appColors.mainRed,
                 onRefresh: () => context.read<DemandsCubit>().refreshDemands(),
                 child: ListViewResponsive(
                   desktop: GenericListView(
