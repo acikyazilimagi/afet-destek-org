@@ -115,33 +115,32 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
             ),
           ),
           const SizedBox(width: 12),
-          if (MediaQuery.of(context).size.width < 1000)
-            Builder(
-              builder: (ctx) {
-                return IconButton(
-                  icon: Stack(
-                    children: [
-                      const Icon(Icons.filter_list),
-                      if (state.hasAnyFilters) ...[
-                        Positioned(
-                          top: 0,
-                          right: 0,
-                          child: Container(
-                            width: 8,
-                            height: 8,
-                            decoration: BoxDecoration(
-                              color: context.appColors.mainRed,
-                              shape: BoxShape.circle,
-                            ),
+          Builder(
+            builder: (ctx) {
+              return IconButton(
+                icon: Stack(
+                  children: [
+                    const Icon(Icons.filter_list),
+                    if (state.hasAnyFilters) ...[
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Container(
+                          width: 8,
+                          height: 8,
+                          decoration: BoxDecoration(
+                            color: context.appColors.mainRed,
+                            shape: BoxShape.circle,
                           ),
                         ),
-                      ],
+                      ),
                     ],
-                  ),
-                  onPressed: () => Scaffold.of(ctx).openEndDrawer(),
-                );
-              },
-            ),
+                  ],
+                ),
+                onPressed: () => Scaffold.of(ctx).openEndDrawer(),
+              );
+            },
+          ),
           const SizedBox(width: 8),
         ],
         leading: Padding(
