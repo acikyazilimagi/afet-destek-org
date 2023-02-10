@@ -89,118 +89,125 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
               ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Slider(
-              inactiveColor: Colors.grey[200],
-              onChanged: (value) => setState(() {
-                if (value == 500) {
-                  _filterRadiusKm = null;
-                } else {
-                  _filterRadiusKm = value;
-                }
-              }),
-              value: _filterRadiusKm ?? 500,
-              max: 500,
-              min: 1,
-            ),
-            const SizedBox(height: 8),
-            Text.rich(
-              TextSpan(
-                children: [
-                  const TextSpan(
-                    text: 'Mesafe: ',
-                    style: TextStyle(color: Color(0xff475467)),
-                  ),
-                  TextSpan(
-                    text: _filterRadiusKm == null
-                        ? 'Her yer'
-                        : '${_filterRadiusKm!.toInt()}km',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-            Divider(
-              color: Colors.grey[300],
-            ),
-            const SizedBox(height: 8),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text('İhtiyaç türü (${_categoryIds.length})'),
-            ),
-            const SizedBox(height: 8),
-            Expanded(
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: SingleChildScrollView(
-                  child: Wrap(
-                    children: demandCategories.map(
-                      (category) {
-                        final isSelected = _categoryIds.contains(category.id);
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 4,
-                          ),
-                          child: ChoiceChip(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            selectedColor: AppColors.descriptionColor,
-                            selected: isSelected,
-                            label: Text(category.name),
-                            onSelected: (value) => setState(() {
-                              if (isSelected) {
-                                _categoryIds.remove(category.id);
-                              } else {
-                                if (_categoryIds.length == 10) {
-                                  const AppSnackbars.failure(
-                                    'En fazla 10 ihtiyaç eklenebilir.',
-                                  ).show(context);
-                                } else {
-                                  _categoryIds.add(category.id);
-                                }
-                              }
-                            }),
-                          ),
-                        );
-                      },
-                    ).toList(),
-                  ),
-                ),
-              ),
-            ),
-            const Spacer(),
-            Row(
+      body: Center(
+        child: SizedBox(
+          width: 700,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  flex: 2,
-                  child: SizedBox(
-                    height: 56,
-                    child: getElevatedButton(isFilterButton: false),
+                Slider(
+                  inactiveColor: Colors.grey[200],
+                  onChanged: (value) => setState(() {
+                    if (value == 500) {
+                      _filterRadiusKm = null;
+                    } else {
+                      _filterRadiusKm = value;
+                    }
+                  }),
+                  value: _filterRadiusKm ?? 500,
+                  max: 500,
+                  min: 1,
+                ),
+                const SizedBox(height: 8),
+                Text.rich(
+                  TextSpan(
+                    children: [
+                      const TextSpan(
+                        text: 'Mesafe: ',
+                        style: TextStyle(color: Color(0xff475467)),
+                      ),
+                      TextSpan(
+                        text: _filterRadiusKm == null
+                            ? 'Her yer'
+                            : '${_filterRadiusKm!.toInt()}km',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      )
+                    ],
                   ),
                 ),
-                const SizedBox(
-                  width: 20,
+                const SizedBox(height: 8),
+                Divider(
+                  color: Colors.grey[300],
                 ),
+                const SizedBox(height: 8),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text('İhtiyaç türü (${_categoryIds.length})'),
+                ),
+                const SizedBox(height: 8),
                 Expanded(
-                  flex: 5,
-                  child: SizedBox(
-                    height: 56,
-                    child: getElevatedButton(isFilterButton: true),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: SingleChildScrollView(
+                      child: Wrap(
+                        children: demandCategories.map(
+                          (category) {
+                            final isSelected = _categoryIds.contains(
+                              category.id,
+                            );
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 4,
+                                horizontal: 4,
+                              ),
+                              child: ChoiceChip(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                selectedColor: AppColors.descriptionColor,
+                                selected: isSelected,
+                                label: Text(category.name),
+                                onSelected: (value) => setState(() {
+                                  if (isSelected) {
+                                    _categoryIds.remove(category.id);
+                                  } else {
+                                    if (_categoryIds.length == 10) {
+                                      const AppSnackbars.failure(
+                                        'En fazla 10 ihtiyaç eklenebilir.',
+                                      ).show(context);
+                                    } else {
+                                      _categoryIds.add(category.id);
+                                    }
+                                  }
+                                }),
+                              ),
+                            );
+                          },
+                        ).toList(),
+                      ),
+                    ),
                   ),
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 2,
+                      child: SizedBox(
+                        height: 56,
+                        child: getElevatedButton(isFilterButton: false),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: SizedBox(
+                        height: 56,
+                        child: getElevatedButton(isFilterButton: true),
+                      ),
+                    )
+                  ],
                 )
               ],
-            )
-          ],
+            ),
+          ),
         ),
       ),
     );
