@@ -335,7 +335,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   const AppFormFieldTitle(
-                                      title: 'Mevcut Adres',),
+                                    title: 'Mevcut Adres',
+                                  ),
                                   Text(
                                     currentLocation.districtAddress,
                                     style: const TextStyle(
