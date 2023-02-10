@@ -1,5 +1,5 @@
 import 'package:afet_destek/shared/state/app_cubit.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -65,15 +65,17 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
           controller: controller,
           decoration: InputDecoration(
             hintText: 'İhtiyaç Türü Seçiniz',
-            focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(width: 2, color: Colors.red),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderSide:
+                  BorderSide(width: 2, color: context.appColors.mainRed),
             ),
             border: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(width: 2, color: Colors.grey.shade200),
+              borderSide: BorderSide(width: 2, color: context.appColors.stroke),
             ),
-            hintStyle: TextStyle(color: Colors.grey.shade500),
+            hintStyle:
+                TextStyle(color: context.appColors.notificationTermTexts),
             suffixIcon: const Icon(Icons.arrow_forward_ios),
           ),
           onTap: () => showDialog<void>(
@@ -156,7 +158,8 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           padding: EdgeInsets.zero,
-                                          backgroundColor: Colors.red,
+                                          backgroundColor:
+                                              context.appColors.mainRed,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
@@ -171,7 +174,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                               .textTheme
                                               .titleLarge
                                               ?.copyWith(
-                                                color: Colors.white,
+                                                color: context.appColors.white,
                                                 fontWeight: FontWeight.w600,
                                               ),
                                         ),
@@ -211,7 +214,7 @@ class AppFormFieldTitle extends StatelessWidget {
         Text(
           title,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.formFieldTitle,
+                color: context.appColors.subtitles,
               ),
         ),
         const SizedBox(height: 8),

@@ -72,7 +72,8 @@ class _DemandDetailsPageView extends StatelessWidget {
           )
         ],
       ),
-      body: Center(
+      body: Align(
+        alignment: Alignment.topCenter,
         child: SizedBox(
           width: 800,
           child: SingleChildScrollView(

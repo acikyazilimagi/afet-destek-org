@@ -3,7 +3,7 @@ import 'package:afet_destek/pages/demand_details_page/demand_details_page.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_category_chip.dart';
 import 'package:afet_destek/shared/extensions/date_count_down_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,7 +35,7 @@ class DemandCard extends StatelessWidget {
           ? () => DemandDetailsPage.show(context, demand: demand)
           : null,
       child: ColoredBox(
-        color: Colors.white,
+        color: context.appColors.white,
         child: Column(
           children: [
             Container(
@@ -57,10 +57,10 @@ class DemandCard extends StatelessWidget {
                       Text(
                         demand.addressText,
                         maxLines: 1,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 20,
-                          color: AppColors.textColor,
+                          color: context.appColors.titles,
                         ),
                       ),
                       // Will be added later to sharing func after add routing
@@ -166,11 +166,11 @@ class DemandCard extends StatelessWidget {
                             context,
                             demand: demand,
                           ),
-                          child: const Text(
+                          child: Text(
                             'Talep Detayını Gör',
                             style: TextStyle(
                               fontSize: 16,
-                              color: AppColors.red,
+                              color: context.appColors.mainRed,
                               fontWeight: FontWeight.w600,
                             ),
                           ),

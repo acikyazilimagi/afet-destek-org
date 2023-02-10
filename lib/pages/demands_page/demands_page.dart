@@ -7,10 +7,9 @@ import 'package:afet_destek/pages/demands_page/widgets/demand_filter_popup.dart'
 import 'package:afet_destek/pages/demands_page/widgets/generic_grid_list.dart';
 import 'package:afet_destek/pages/demands_page/widgets/list_view_responsive.dart';
 import 'package:afet_destek/pages/demands_page/widgets/mobile_list_view.dart';
-import 'package:afet_destek/pages/demands_page/widgets/new_demand_information_popup.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -98,27 +97,18 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                       );
                     }
                   : () {
-                      const NewDemandInformationPopup().show(
-                        context: context,
+                      MyDemandPage.show(
+                        context,
                         onClose: () {
-                          Navigator.of(context).pop();
-                        },
-                        onContinue: () {
-                          Navigator.of(context).pop();
-                          MyDemandPage.show(
-                            context,
-                            onClose: () {
-                              context.read<DemandsCubit>().refreshDemands();
-                            },
-                          );
+                          context.read<DemandsCubit>().refreshDemands();
                         },
                       );
                     },
               child: Text(
                 widget.isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
-                style: const TextStyle(
+                style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: context.appColors.white,
                   fontSize: 16,
                 ),
               ),
@@ -139,8 +129,8 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                           child: Container(
                             width: 8,
                             height: 8,
-                            decoration: const BoxDecoration(
-                              color: Colors.red,
+                            decoration: BoxDecoration(
+                              color: context.appColors.mainRed,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -165,7 +155,7 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                 state.hasAnyFilters
                     ? 'Sonuç bulunamadı, filtreleri temizlemeyi  deneyin'
                     : '''
-Şu anda yardım talebi bulunmamaktadır. 
+Şu anda yardım talebi bulunmamaktadır.
 Eğer yardım talebiniz varsa, destek talebim menüsünden talep oluşturabilirsiniz.
                     ''',
                 textAlign: TextAlign.center,
@@ -173,7 +163,7 @@ Eğer yardım talebiniz varsa, destek talebim menüsünden talep oluşturabilirs
             )
           : Center(
               child: RefreshIndicator(
-                color: AppColors.red,
+                color: context.appColors.mainRed,
                 onRefresh: () => context.read<DemandsCubit>().refreshDemands(),
                 child: ListViewResponsive(
                   desktop: GenericListView(

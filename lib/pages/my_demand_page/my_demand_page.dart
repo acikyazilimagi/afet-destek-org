@@ -7,7 +7,7 @@ import 'package:afet_destek/pages/my_demand_page/widgets/demand_category_selecto
 import 'package:afet_destek/pages/my_demand_page/widgets/geo_value_accessor.dart';
 import 'package:afet_destek/shared/extensions/reactive_forms_extensions.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:afet_destek/shared/widgets/reactive_intl_phone_field.dart';
 import 'package:afet_destek/shared/widgets/snackbar.dart';
@@ -153,7 +153,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
               },
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll<Color>(
-            stillDeactivate ? AppColors.white : AppColors.red,
+            stillDeactivate ?  context.appColors.white :  context.appColors.mainRed,
           ),
           shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
             RoundedRectangleBorder(
@@ -165,7 +165,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
           stillDeactivate ? 'Evet Sonlandır' : 'Hayır',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontSize: 16,
-                color: !stillDeactivate ? AppColors.white : AppColors.darkGrey,
+                color: !stillDeactivate ? context.appColors.white : context.appColors.tags,
               ),
         ),
       ),
@@ -329,7 +329,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         'Talep Formu',
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  color: AppColors.descriptionColor,
+                                  color: context.appColors.paragraph,
                                   fontSize: 24,
                                 ),
                       ),
@@ -349,7 +349,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               'Lütfen geçerli bir adres giriniz.',
                         },
                         decoration: InputDecoration(
-                          fillColor: AppColors.disabledGrey,
+                          fillColor: context.appColors.disabledButton,
                           filled: true,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -408,7 +408,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                           .titleSmall
                                           ?.copyWith(
                                             fontWeight: FontWeight.w500,
-                                            color: AppColors.descriptionColor,
+                                            color: context.appColors.paragraph,
                                           ),
                                     ),
                                   ],
@@ -443,7 +443,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               height: 56,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.red,
+                                  backgroundColor:  context.appColors.mainRed,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
@@ -487,7 +487,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: state.demand!.isActive
                                   ? Colors.transparent
-                                  : AppColors.red,
+                                  :  context.appColors.paragraph,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -506,8 +506,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   .titleMedium
                                   ?.copyWith(
                                     color: state.demand!.isActive
-                                        ? AppColors.descriptionColor
-                                        : AppColors.white,
+                                        ?  context.appColors.paragraph
+                                        :  context.appColors.white,
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),

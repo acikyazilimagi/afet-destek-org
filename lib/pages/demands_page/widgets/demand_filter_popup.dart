@@ -1,6 +1,6 @@
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
-import 'package:afet_destek/shared/theme/colors.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,7 +84,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
           'Filtrele',
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
                 fontSize: 24,
-                color: AppColors.formFieldTitle,
+                color: context.appColors.subtitles,
                 fontWeight: FontWeight.bold,
               ),
         ),
@@ -122,9 +122,9 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                         text: _filterRadiusKm == null
                             ? 'Her yer'
                             : '${_filterRadiusKm!.toInt()}km',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.red,
+                          color: context.appColors.mainRed,
                         ),
                       )
                     ],
@@ -132,7 +132,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                 ),
                 const SizedBox(height: 8),
                 Divider(
-                  color: Colors.grey[300],
+                  color: context.appColors.stroke,
                 ),
                 const SizedBox(height: 8),
                 Align(
@@ -159,7 +159,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(6),
                                 ),
-                                selectedColor: AppColors.descriptionColor,
+                                selectedColor: context.appColors.tags,
                                 selected: isSelected,
                                 label: Text(category.name),
                                 onSelected: (value) => setState(() {
@@ -218,7 +218,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
       onPressed: isFilterButton ? _onSave : _onClear,
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll<Color>(
-          isFilterButton ? AppColors.red : AppColors.white,
+          isFilterButton ? context.appColors.mainRed : context.appColors.white,
         ),
         shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
           RoundedRectangleBorder(
@@ -230,7 +230,9 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
         isFilterButton ? 'Filtrele' : 'Temizle',
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontSize: 16,
-              color: isFilterButton ? AppColors.white : AppColors.darkGrey,
+              color: isFilterButton
+                  ? context.appColors.white
+                  : context.appColors.notificationTermTexts,
             ),
       ),
     );
