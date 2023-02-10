@@ -32,7 +32,10 @@ class DemandCard extends StatelessWidget {
         )!;
     return GestureDetector(
       onTap: !isDetailed
-          ? () => DemandDetailsPage.show(context, demand: demand)
+          ? () => DemandDetailsPage.show(
+                context,
+                demand: demand,
+              )
           : null,
       child: ColoredBox(
         color: Colors.white,
@@ -53,7 +56,7 @@ class DemandCard extends StatelessWidget {
                   Row(
                     children: [
                       // const Icon(Icons.location_on),
-                      const SizedBox(width: 4),
+                      // const SizedBox(width: 4),
                       Text(
                         demand.addressText,
                         maxLines: 1,
@@ -63,6 +66,16 @@ class DemandCard extends StatelessWidget {
                           color: AppColors.textColor,
                         ),
                       ),
+                      // Will be added later to sharing func after add routing
+                      // const Spacer(),
+                      // IconButton(
+                      //   onPressed: () {
+                      //     Share.share(
+                      //       'Yardım talep linki : https://afetdestek.org/talep/${demand.id}',
+                      //     );
+                      //   },
+                      //   icon: const Icon(Icons.share),
+                      // )
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -152,8 +165,10 @@ class DemandCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
-                          onPressed: () =>
-                              DemandDetailsPage.show(context, demand: demand),
+                          onPressed: () => DemandDetailsPage.show(
+                            context,
+                            demand: demand,
+                          ),
                           child: const Text(
                             'Talep Detayını Gör',
                             style: TextStyle(

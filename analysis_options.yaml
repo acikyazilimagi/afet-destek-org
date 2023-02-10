@@ -3,11 +3,12 @@ include: package:very_good_analysis/analysis_options.yaml
 analyzer:
   exclude:
     - '**.g.dart'
-    - "**.gr.dart"
-    - "**.freezed.dart"
-    - "**.graphql.dart"
-    - "lib/generated_plugin_registrant.dart"
-    - ".test_coverage.dart"
+    - '**.gr.dart'
+    - '**.freezed.dart'
+    - '**.graphql.dart'
+    - 'lib/generated_plugin_registrant.dart'
+    - '.test_coverage.dart'
+    - 'lib/firebase_options.dart'
   errors:
     todo: ignore
     invalid_annotation_target: ignore
