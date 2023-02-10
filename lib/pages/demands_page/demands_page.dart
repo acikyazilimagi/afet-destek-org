@@ -111,32 +111,33 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
             ),
           ),
           const SizedBox(width: 12),
-          Builder(
-            builder: (ctx) {
-              return IconButton(
-                icon: Stack(
-                  children: [
-                    const Icon(Icons.filter_list),
-                    if (state.hasAnyFilters) ...[
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            shape: BoxShape.circle,
+          if (MediaQuery.of(context).size.width < 1000)
+            Builder(
+              builder: (ctx) {
+                return IconButton(
+                  icon: Stack(
+                    children: [
+                      const Icon(Icons.filter_list),
+                      if (state.hasAnyFilters) ...[
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: Container(
+                            width: 8,
+                            height: 8,
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ],
-                  ],
-                ),
-                onPressed: () => Scaffold.of(ctx).openEndDrawer(),
-              );
-            },
-          ),
+                  ),
+                  onPressed: () => Scaffold.of(ctx).openEndDrawer(),
+                );
+              },
+            ),
           const SizedBox(width: 8),
         ],
         leading: Padding(
