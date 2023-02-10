@@ -74,7 +74,7 @@ class _DemandDetailsPageView extends StatelessWidget {
       ),
       body: Center(
         child: SizedBox(
-          width: width.clamp(0, 800),
+          width: 800,
           child: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(16),

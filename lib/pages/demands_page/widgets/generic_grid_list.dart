@@ -5,6 +5,7 @@ import 'package:afet_destek/pages/demands_page/widgets/demand_title.dart';
 import 'package:afet_destek/shared/theme/colors.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class GenericListView extends StatelessWidget {
   const GenericListView({
@@ -28,65 +29,114 @@ class GenericListView extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return SizedBox(
       width: width.clamp(minWidth, maxWidth).toDouble(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const DemandTitle(),
-              TextButton.icon(
-                style: TextButton.styleFrom(
-                  foregroundColor: AppColors.formFieldTitle,
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .headlineMedium
-                      ?.copyWith(color: AppColors.formFieldTitle),
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const DemandTitle(),
+                TextButton.icon(
+                  style: TextButton.styleFrom(
+                    foregroundColor: AppColors.formFieldTitle,
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(color: AppColors.formFieldTitle),
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                  icon: const Icon(Icons.menu),
+                  label: const Text('Filtrele'),
+                )
+              ],
+            ),
+            Expanded(
+              child: MasonryGridView.builder(
+                //    crossAxisCount: crossAxisCount,
+                mainAxisSpacing: 24,
+                crossAxisSpacing: 24,
+                controller: _scrollController,
+                itemCount: demands.length,
+                itemBuilder: (context, index) {
+                  final demand = demands[index];
+                  return Column(
+                    children: [
+                      DemandCard(demand: demand),
+                      if (index == demands.length - 1) ...[
+                        if (state.status.maybeWhen(
+                          loading: () => true,
+                          orElse: () => false,
+                        )) ...[
+                          const SizedBox(height: 16),
+                          const Loader(),
+                        ],
+                      ]
+                    ],
+                  );
                 },
-                icon: const Icon(Icons.menu),
-                label: const Text('Filtrele'),
-              )
-            ],
-          ),
-          Expanded(
-            child: GridView.builder(
-              controller: _scrollController,
-              itemCount: demands.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                final demand = demands[index];
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      child: DemandCard(demand: demand),
-                    ),
-                    if (index == demands.length - 1) ...[
-                      if (state.status.maybeWhen(
-                        loading: () => true,
-                        orElse: () => false,
-                      )) ...[
-                        const SizedBox(height: 16),
-                        const Loader(),
-                      ],
-                    ]
-                  ],
-                );
-              },
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount,
-                childAspectRatio: 1.3,
+                gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisCount,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
+/*
+class gridview extends StatelessWidget {
+  const gridview({
+    super.key,
+    required ScrollController scrollController,
+    required this.demands,
+    required this.state,
+    required this.crossAxisCount,
+  }) : _scrollController = scrollController;
+
+  final ScrollController _scrollController;
+  final List<Demand> demands;
+  final DemandsState state;
+  final int crossAxisCount;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      controller: _scrollController,
+      itemCount: demands.length,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        final demand = demands[index];
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
+              ),
+              child: DemandCard(demand: demand),
+            ),
+            if (index == demands.length - 1) ...[
+              if (state.status.maybeWhen(
+                loading: () => true,
+                orElse: () => false,
+              )) ...[
+                const SizedBox(height: 16),
+                const Loader(),
+              ],
+            ]
+          ],
+        );
+      },
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        childAspectRatio: 1.3,
+      ),
+    );
+  }
+}*/

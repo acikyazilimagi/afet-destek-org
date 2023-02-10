@@ -32,39 +32,44 @@ class _KVKKPageState extends State<KVKKPage> {
         ],
         leadingWidth: 52,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
-                'KVKK Açık Rıza Metni',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+      body: Center(
+        child: SizedBox(
+          width: 700,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    'KVKK Açık Rıza Metni',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    kvkkPageString1,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    kvkkPageString2,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black54,
+                    ),
+                  )
+                ],
               ),
-              SizedBox(
-                height: 16,
-              ),
-              Text(
-                kvkkPageString1,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black54,
-                ),
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              Text(
-                kvkkPageString2,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black54,
-                ),
-              )
-            ],
+            ),
           ),
         ),
       ),

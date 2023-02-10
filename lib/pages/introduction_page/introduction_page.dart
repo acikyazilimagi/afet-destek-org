@@ -16,32 +16,37 @@ class IntroductionPage extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            SizedBox(height: height * 0.2),
-            buildLogo(height),
-            SizedBox(height: height * 0.05),
-            buildTitle(context),
-            SizedBox(height: height * 0.05),
-            buildContent(context),
-            SizedBox(height: height * 0.05),
-            SizedBox(
-              width: width * .8,
-              child: buildRequestButton(context, width, height),
-            ),
-            SizedBox(height: height * 0.05),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: buildKvkkTextButton(context),
+      body: Center(
+        child: SizedBox(
+          width: 700,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                SizedBox(height: height * 0.2),
+                buildLogo(height),
+                SizedBox(height: height * 0.05),
+                buildTitle(context),
+                SizedBox(height: height * 0.05),
+                buildContent(context),
+                SizedBox(height: height * 0.05),
+                SizedBox(
+                  width: width * .8,
+                  child: buildRequestButton(context, width, height),
                 ),
-              ),
+                SizedBox(height: height * 0.05),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: buildKvkkTextButton(context),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

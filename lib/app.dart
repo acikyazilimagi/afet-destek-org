@@ -58,10 +58,9 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
                 loading: () => const Scaffold(body: Loader()),
               ),
               builder: (context, child) {
-                final width = MediaQuery.of(context).size.width;
                 return Center(
                   child: SizedBox(
-                    width: width.clamp(0, 2500),
+                    //   width: width.clamp(minWidth, maxWith).toDouble(),
                     child: ScrollConfiguration(
                       behavior: ScrollConfiguration.of(context)
                           .copyWith(physics: const ClampingScrollPhysics()),
@@ -77,3 +76,34 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
     );
   }
 }
+/**
+ * LayoutBuilder(
+                  builder: (context, constraints) {
+                    if (constraints.maxWidth >= 2000) {
+                      minWidth = 2000;
+                      maxWith = 2200;
+                    } else if (constraints.maxWidth < 2000 &&
+                        constraints.maxWidth > 1400) {
+                      minWidth = 1400;
+                      maxWith = 1450;
+                    } else if (constraints.maxWidth <= 1400 &&
+                        constraints.maxWidth >= 1000) {
+                      minWidth = 600;
+                      maxWith = 1000;
+                    } else {
+                      minWidth = 0;
+                      maxWith = 700;
+                    }
+                    return Center(
+                      child: SizedBox(
+                        width: width.clamp(minWidth, maxWith).toDouble(),
+                        child: ScrollConfiguration(
+                          behavior: ScrollConfiguration.of(context)
+                              .copyWith(physics: const ClampingScrollPhysics()),
+                          child: child!,
+                        ),
+                      ),
+                    );
+                  },
+                );
+ */

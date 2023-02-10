@@ -26,11 +26,15 @@ class AuthPage extends StatefulWidget {
     final result = await Navigator.of(context).push<bool>(
       MaterialPageRoute<bool>(
         builder: (context) {
+          final width = MediaQuery.of(context).size.width.clamp(0, 700);
           return BlocProvider(
             create: (context) => AuthCubit(
               authRepository: context.read<AuthRepository>(),
             ),
-            child: const AuthPage._(),
+            child: SizedBox(
+              width: width.toDouble(),
+              child: const AuthPage._(),
+            ),
           );
         },
       ),
@@ -105,106 +109,112 @@ class _AuthPageState extends State<AuthPage> {
           ],
           leadingWidth: 52,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Giriş Yap',
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-              const SizedBox(height: 28),
-              Form(
-                key: _formKey,
-                child: IntlPhoneField(
-                  initialCountryCode: 'TR',
-                  dropdownTextStyle: Theme.of(context).textTheme.titleMedium,
-                  showCountryFlag: false,
-                  onCountryChanged: (country) {
-                    _formKey.currentState!.validate();
-                  },
-                  pickerDialogStyle: PickerDialogStyle(
-                    searchFieldInputDecoration: const InputDecoration(
-                      labelText: 'Ülke ara',
+        body: Center(
+          child: SizedBox(
+            width: 700,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Giriş Yap',
+                    style: Theme.of(context).textTheme.displaySmall,
+                  ),
+                  const SizedBox(height: 28),
+                  Form(
+                    key: _formKey,
+                    child: IntlPhoneField(
+                      initialCountryCode: 'TR',
+                      dropdownTextStyle:
+                          Theme.of(context).textTheme.titleMedium,
+                      showCountryFlag: false,
+                      onCountryChanged: (country) {
+                        _formKey.currentState!.validate();
+                      },
+                      pickerDialogStyle: PickerDialogStyle(
+                        searchFieldInputDecoration: const InputDecoration(
+                          labelText: 'Ülke ara',
+                        ),
+                      ),
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: const InputDecoration(
+                        hintText: 'Telefon Numarası',
+                        isDense: false,
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                      autovalidateMode: AutovalidateMode.disabled,
+                      invalidNumberMessage: 'Geçersiz telefon numarası',
+                      onChanged: (number) {
+                        setState(() => _number = number.completeNumber);
+                        _formKey.currentState!.validate();
+                      },
                     ),
                   ),
-                  textAlignVertical: TextAlignVertical.center,
-                  decoration: const InputDecoration(
-                    hintText: 'Telefon Numarası',
-                    isDense: false,
-                    contentPadding: EdgeInsets.zero,
-                  ),
-                  style: Theme.of(context).textTheme.titleMedium,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
+                  if (authState.status == AuthStateStatus.smsFailure) ...[
+                    const _AuthErrorMessage('Sms gönderme başarısız'),
                   ],
-                  autovalidateMode: AutovalidateMode.disabled,
-                  invalidNumberMessage: 'Geçersiz telefon numarası',
-                  onChanged: (number) {
-                    setState(() => _number = number.completeNumber);
-                    _formKey.currentState!.validate();
-                  },
-                ),
+                  if (!isFirstStep) ...[
+                    const SizedBox(height: 8),
+                    TextFormField(
+                      autofocus: true,
+                      decoration: InputDecoration(
+                        hintText: 'SMS Kodu',
+                        suffix: _smsResendCountdown > 0
+                            ? Text('$_smsResendCountdown')
+                            : TextButton(
+                                child: const Text('Tekrar Dene'),
+                                onPressed: () {
+                                  context
+                                      .read<AuthCubit>()
+                                      .sendSms(number: _number);
+                                },
+                              ),
+                        isDense: true,
+                        suffixStyle: const TextStyle(color: Colors.black),
+                      ),
+                      onChanged: (code) => setState(() => _code = code),
+                    ),
+                    if (authState.status ==
+                        AuthStateStatus.codeVerificationFailure) ...[
+                      const _AuthErrorMessage('Kod doğrulama başarısız'),
+                    ]
+                  ],
+                  // implement kvkk
+                  _KVKKCheckBox(_kvkkAccepted, (bool value) {
+                    setState(() {
+                      _kvkkAccepted = value;
+                    });
+                  }),
+                  const SizedBox(height: 16),
+                  if (isLoading) ...[
+                    const Loader(),
+                  ] else ...[
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(double.maxFinite - 40, 50),
+                      ),
+                      onPressed:
+                          (isButtonEnabled && _formKey.currentState!.validate())
+                              ? () {
+                                  final cubit = context.read<AuthCubit>();
+                                  if (isFirstStep) {
+                                    cubit.sendSms(number: _number);
+                                  } else {
+                                    cubit.verifySMSCode(code: _code);
+                                  }
+                                }
+                              : null,
+                      child: const Text('Devam Et'),
+                    )
+                  ]
+                ],
               ),
-              if (authState.status == AuthStateStatus.smsFailure) ...[
-                const _AuthErrorMessage('Sms gönderme başarısız'),
-              ],
-              if (!isFirstStep) ...[
-                const SizedBox(height: 8),
-                TextFormField(
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    hintText: 'SMS Kodu',
-                    suffix: _smsResendCountdown > 0
-                        ? Text('$_smsResendCountdown')
-                        : TextButton(
-                            child: const Text('Tekrar Dene'),
-                            onPressed: () {
-                              context
-                                  .read<AuthCubit>()
-                                  .sendSms(number: _number);
-                            },
-                          ),
-                    isDense: true,
-                    suffixStyle: const TextStyle(color: Colors.black),
-                  ),
-                  onChanged: (code) => setState(() => _code = code),
-                ),
-                if (authState.status ==
-                    AuthStateStatus.codeVerificationFailure) ...[
-                  const _AuthErrorMessage('Kod doğrulama başarısız'),
-                ]
-              ],
-              // implement kvkk
-              _KVKKCheckBox(_kvkkAccepted, (bool value) {
-                setState(() {
-                  _kvkkAccepted = value;
-                });
-              }),
-              const SizedBox(height: 16),
-              if (isLoading) ...[
-                const Loader(),
-              ] else ...[
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: const Size(double.maxFinite - 40, 50),
-                  ),
-                  onPressed:
-                      (isButtonEnabled && _formKey.currentState!.validate())
-                          ? () {
-                              final cubit = context.read<AuthCubit>();
-                              if (isFirstStep) {
-                                cubit.sendSms(number: _number);
-                              } else {
-                                cubit.verifySMSCode(code: _code);
-                              }
-                            }
-                          : null,
-                  child: const Text('Devam Et'),
-                )
-              ]
-            ],
+            ),
           ),
         ),
       ),
