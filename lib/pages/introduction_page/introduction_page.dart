@@ -3,13 +3,20 @@
 import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class IntroductionPage extends StatelessWidget {
+class IntroductionPage extends StatefulWidget {
   const IntroductionPage({super.key});
 
+  @override
+  State<IntroductionPage> createState() => _IntroductionPageState();
+}
+
+class _IntroductionPageState extends State<IntroductionPage> {
+  bool _isKVKKAccepted = false;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -30,18 +37,30 @@ class IntroductionPage extends StatelessWidget {
                 SizedBox(height: height * 0.05),
                 buildContent(context),
                 SizedBox(height: height * 0.05),
+                SizedBox(height: height * 0.01),
                 SizedBox(
                   width: width * .8,
-                  child: buildRequestButton(context, width, height),
+                  child: _KVKKCheckBox(
+                    isAccepted: _isKVKKAccepted,
+                    onAccepted: (value) {
+                      setState(() {
+                        _isKVKKAccepted = value;
+                      });
+                    },
+                  ),
                 ),
-                SizedBox(height: height * 0.05),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8),
-                      child: buildKvkkTextButton(context),
+                SizedBox(height: height * 0.01),
+                SizedBox(
+                  width: width * .8,
+                  child: ElevatedButton(
+                    onPressed: _isKVKKAccepted
+                        ? () => context.read<AppCubit>().startApp()
+                        : null,
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(width * .8, 50),
+                      maximumSize: Size(width * .8, 70),
                     ),
+                    child: const Text('Konum izni ver'),
                   ),
                 ),
               ],
@@ -49,38 +68,6 @@ class IntroductionPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  //DO NOT USE FUNCTION FOR WIDGET
-  TextButton buildKvkkTextButton(BuildContext context) {
-    return TextButton(
-      onPressed: () => KVKKPage.show(context),
-      style: TextButton.styleFrom(
-        foregroundColor: Theme.of(context).textTheme.titleSmall?.color,
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: const [
-          Text('KVKK Açık Rıza Metni\'ni oku '),
-          Icon(Icons.arrow_forward),
-        ],
-      ),
-    );
-  }
-
-  ElevatedButton buildRequestButton(
-    BuildContext context,
-    double width,
-    double height,
-  ) {
-    return ElevatedButton(
-      onPressed: () => context.read<AppCubit>().startApp(),
-      style: ElevatedButton.styleFrom(
-        minimumSize: Size(width * .8, 50),
-        maximumSize: Size(width * .8, 70),
-      ),
-      child: const Text('Konum izni ver'),
     );
   }
 
@@ -110,3 +97,74 @@ class IntroductionPage extends StatelessWidget {
     );
   }
 }
+
+class _KVKKCheckBox extends StatelessWidget {
+  const _KVKKCheckBox({required this.isAccepted, required this.onAccepted});
+  final bool isAccepted;
+  final void Function(bool value) onAccepted;
+
+  static bool _isOpenedOnce = false;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, right: 8),
+      child: Row(
+        children: [
+          SizedBox(
+            height: 24,
+            width: 24,
+            child: Checkbox(
+              value: isAccepted,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4),
+              ),
+              onChanged: (value) {
+                onAccepted(value ?? false);
+                if (!_isOpenedOnce) {
+                  TermsPage.show(context, body: kvkkBody, title: kvkkTitle);
+                  _isOpenedOnce = true;
+                }
+              },
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text.rich(
+                textAlign: TextAlign.left,
+                maxLines: 1000,
+                TextSpan(
+                  text: 'KVKK Açık Rıza Metni',
+                  style: const TextStyle(
+                    decoration: TextDecoration.underline,
+                    fontSize: 14,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () => TermsPage.show(
+                          context,
+                          body: kvkkBody,
+                          title: kvkkTitle,
+                        ),
+                  children: const [
+                    TextSpan(
+                      text: "'ni okudum ve kabul ediyorum.",
+                      style: TextStyle(
+                        decoration: TextDecoration.none,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+const String kvkkTitle = 'KVKK Açık Rıza Metni';
+const String kvkkBody =
+    '''Bu uygulama, 6 Şubat 2023 tarihinde Türkiye’de meydana gelen büyük deprem felaketinde, arama kurtarma çalışmaları ile yardım ve destek taleplerini ortak bir veri tabanında toplayarak yetkili kurum ve kuruluşlara aktarmak amacı ile bilişim teknolojileri alanında çalışan gönüllüler tarafından oluşturulmuştur. Yardım ya da desteğe ihtiyacı olduğunu belirttiğiniz kişilerin kişisel verileri ‘’Fiili imkânsızlık nedeniyle rızasını açıklayamayacak durumda bulunan veya rızasına hukuki geçerlilik tanınmayan kişinin kendisinin ya da bir başkasının hayatı veya beden bütünlüğünün korunması için zorunlu olması’’ hukuki sebebine dayanarak, otomatik yollarla işlenecektir. Tarafınıza ait kişisel veriler, ‘’Bir hakkın tesisi, kullanılması veya korunması için veri işlemenin zorunlu olması’’ hukuki sebebine dayanarak işlenecektir. Paylaşacağınız yardım, destek taleplerinde yer alan isim, soyisim, telefon ve adres gibi kişisel veriler, tarafımızca oluşturulan ve sunucuları yurtiçi ve yurtdışında bulunan veri tabanında toplanarak, Afad, Akut, Kızılay gibi yetkili arama kurtarma kuruluşlarının yanı sıra destek ve yardım taleplerini karşılayabilecek sivil toplum kuruluşları ile kişisel veri işleme amacı ile sınırlı olarak paylaşılacaktır.\n\nEnkaz, yıkım, yardım ve destek ihtiyaçları konusunda verdiğim bilgilerin doğru ve teyit edilmiş olduğunu, bilgi kirliliği ve yanlış uygulamalara yol açmamak için gerekli tüm önlem ve tedbirleri aldığımı, vermiş olduğum bilgilerde meydana gelen değişiklik ve güncellemeleri bildireceğimi kabul ve beyan ederim.''';

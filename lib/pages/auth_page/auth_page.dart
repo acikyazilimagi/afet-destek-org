@@ -8,11 +8,9 @@ import 'package:afet_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:afet_destek/pages/auth_page/state/auth_state.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/pages/demands_page/widgets/new_demand_information_popup.dart';
-import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,13 +27,14 @@ class AuthPage extends StatefulWidget {
     final result = await Navigator.of(context).push<bool>(
       MaterialPageRoute<bool>(
         builder: (context) {
-          final width = MediaQuery.of(context).size.width.clamp(0, 700);
+          final width =
+              MediaQuery.of(context).size.width.clamp(0, 700).toDouble();
           return BlocProvider(
             create: (context) => AuthCubit(
               authRepository: context.read<AuthRepository>(),
             ),
             child: SizedBox(
-              width: width.toDouble(),
+              width: width,
               child: const AuthPage._(),
             ),
           );
@@ -70,8 +69,6 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   // TODO(enes): refactor to use reactive_forms
 
-  // ignore: unused_field, prefer_final_fields
-  bool _kvkkAccepted = false;
   String _number = '';
   String _code = '';
 
@@ -91,8 +88,7 @@ class _AuthPageState extends State<AuthPage> {
     final isLoading = authState.status == AuthStateStatus.sendingSms ||
         authState.status == AuthStateStatus.verifyingCode;
 
-    final isButtonEnabled =
-        _kvkkAccepted && (isFirstStep || (!isFirstStep && _code.isNotEmpty));
+    final isButtonEnabled = isFirstStep || (!isFirstStep && _code.isNotEmpty);
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
@@ -202,12 +198,6 @@ class _AuthPageState extends State<AuthPage> {
                       const _AuthErrorMessage('Kod doğrulama başarısız'),
                     ]
                   ],
-                  // implement kvkk
-                  _KVKKCheckBox(_kvkkAccepted, (bool value) {
-                    setState(() {
-                      _kvkkAccepted = value;
-                    });
-                  }),
                   const SizedBox(height: 16),
                   if (isLoading) ...[
                     const Loader(),
@@ -216,17 +206,18 @@ class _AuthPageState extends State<AuthPage> {
                       style: ElevatedButton.styleFrom(
                         fixedSize: const Size(double.maxFinite - 40, 50),
                       ),
-                      onPressed:
-                          (isButtonEnabled && _formKey.currentState!.validate())
-                              ? () {
-                                  final cubit = context.read<AuthCubit>();
-                                  if (isFirstStep) {
-                                    cubit.sendSms(number: _number);
-                                  } else {
-                                    cubit.verifySMSCode(code: _code);
-                                  }
-                                }
-                              : null,
+                      onPressed: (isButtonEnabled &&
+                              _formKey.currentState != null &&
+                              _formKey.currentState!.validate())
+                          ? () {
+                              final cubit = context.read<AuthCubit>();
+                              if (isFirstStep) {
+                                cubit.sendSms(number: _number);
+                              } else {
+                                cubit.verifySMSCode(code: _code);
+                              }
+                            }
+                          : null,
                       child: const Text('Devam Et'),
                     )
                   ]
@@ -235,60 +226,6 @@ class _AuthPageState extends State<AuthPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _KVKKCheckBox extends StatelessWidget {
-  const _KVKKCheckBox(this.kvkkAccepted, this.setKvkkAccepted);
-  final bool kvkkAccepted;
-  final Function setKvkkAccepted;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8, right: 8),
-      child: Row(
-        children: [
-          SizedBox(
-            height: 24,
-            width: 24,
-            child: Checkbox(
-              value: kvkkAccepted,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-              onChanged: (value) {
-                setKvkkAccepted(value ?? false);
-              },
-            ),
-          ),
-          Text.rich(
-            TextSpan(
-              text: '',
-              style: const TextStyle(fontSize: 12),
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'KVKK Açık Rıza Metni',
-                  style: const TextStyle(
-                    decoration: TextDecoration.underline,
-                    fontSize: 14,
-                  ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () => KVKKPage.show(context),
-                ),
-                const TextSpan(
-                  text: "'ni okudum ve kabul ediyorum.",
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
       ),
     );
   }
