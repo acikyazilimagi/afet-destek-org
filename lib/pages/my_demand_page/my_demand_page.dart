@@ -154,7 +154,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
               },
         style: ButtonStyle(
           backgroundColor: MaterialStatePropertyAll<Color>(
-            stillDeactivate ?  context.appColors.white :  context.appColors.mainRed,
+            stillDeactivate
+                ? context.appColors.white
+                : context.appColors.mainRed,
           ),
           shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
             RoundedRectangleBorder(
@@ -166,7 +168,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
           stillDeactivate ? 'Evet Sonlandır' : 'Hayır',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontSize: 16,
-                color: !stillDeactivate ? context.appColors.white : context.appColors.tags,
+                color: !stillDeactivate
+                    ? context.appColors.white
+                    : context.appColors.tags,
               ),
         ),
       ),
@@ -426,8 +430,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   invalidNumberMessage:
                                       'Geçersiz telefon numarası',
                                   formControl: _myDemandPageFormGroup.control(
-                                    _MyDemandPageFormFields
-                                        .wpPhoneNumber.name,
+                                    _MyDemandPageFormFields.wpPhoneNumber.name,
                                   ) as FormControl<String>,
                                 ),
                               ]
@@ -444,13 +447,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               height: 56,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor:  context.appColors.mainRed,
+                                  backgroundColor: context.appColors.mainRed,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
-                                onPressed: formGroup.valid &&
-                                        !deactivateButtons
+                                onPressed: formGroup.valid && !deactivateButtons
                                     ? () {
                                         final currentPhoneFormValidate =
                                             _formKey.currentState!.validate();
@@ -488,7 +490,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: state.demand!.isActive
                                   ? Colors.transparent
-                                  :  context.appColors.paragraph,
+                                  : context.appColors.paragraph,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -507,8 +509,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   .titleMedium
                                   ?.copyWith(
                                     color: state.demand!.isActive
-                                        ?  context.appColors.paragraph
-                                        :  context.appColors.white,
+                                        ? context.appColors.paragraph
+                                        : context.appColors.white,
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),
@@ -516,25 +518,25 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         ),
                       ],
                       const SizedBox(height: 32),
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: OutlinedButton(
-                            onPressed: () {
-                              context.read<AuthRepository>().logout();
-                              Navigator.of(context).pop();
-                            },
-                            child: Text(
-                              'Çıkış yap',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: OutlinedButton(
+                          onPressed: () {
+                            context.read<AuthRepository>().logout();
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'Çıkış yap',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.w600,
+                                ),
                           ),
-                        )
+                        ),
+                      )
                     ],
                   ),
                 ),
