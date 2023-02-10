@@ -300,7 +300,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       Text(
+                      Text(
                         'Talep Formu',
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -328,15 +328,14 @@ class _MyDemandPageState extends State<MyDemandPage> {
                       const SizedBox(height: 8),
                       if (state.demand != null) ...[
                         Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
                               child: Column(
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const AppFormFieldTitle(title: 'Mevcut Adres'),
+                                  const AppFormFieldTitle(
+                                      title: 'Mevcut Adres',),
                                   Text(
                                     currentLocation.districtAddress,
                                     style: const TextStyle(
@@ -370,12 +369,11 @@ class _MyDemandPageState extends State<MyDemandPage> {
                       const SizedBox(height: 16),
                       const AppFormFieldTitle(title: 'Diğer İhtiyaçlar'),
                       ReactiveTextField<String>(
-                        formControlName:
-                            _MyDemandPageFormFields.notes.name,
+                        formControlName: _MyDemandPageFormFields.notes.name,
                         minLines: 3,
                         maxLines: 10,
                         maxLength: 1000,
-                       validationMessages: {
+                        validationMessages: {
                           ValidationMessage.required: (_) => 'Zorunlu alan',
                           ValidationMessage.maxLength: (_) =>
                               'En fazla 1000 karakter girebilirsiniz.',
@@ -405,29 +403,29 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                     ListTileControlAffinity.leading,
                                 value: _isWpActive,
                                 onChanged: _onWpActivateToggle,
-                                title:   Text(
-                                      'WhatsApp ile ulaşılsın',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall
-                                          ?.copyWith(
-                                            fontWeight: FontWeight.w500,
-                                            color: context.appColors.paragraph,
-                                          ),
-                                    ),
+                                title: Text(
+                                  'WhatsApp ile ulaşılsın',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.w500,
+                                        color: context.appColors.paragraph,
+                                      ),
+                                ),
                               ),
                               if (_isWpActive) ...[
-                                const SizedBox(height: 8,),
+                                const SizedBox(
+                                  height: 8,
+                                ),
                                 const AppFormFieldTitle(
                                   title: 'WhatsApp Numarası',
                                 ),
                                 ReactiveIntlPhoneField(
                                   invalidNumberMessage:
                                       'Geçersiz telefon numarası',
-                                  formControl:
-                                      _myDemandPageFormGroup.control(
-                                    _MyDemandPageFormFields
-                                        .wpPhoneNumber.name,
+                                  formControl: _myDemandPageFormGroup.control(
+                                    _MyDemandPageFormFields.wpPhoneNumber.name,
                                   ) as FormControl<String>,
                                 ),
                               ]
