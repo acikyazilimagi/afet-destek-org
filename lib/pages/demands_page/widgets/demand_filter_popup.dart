@@ -137,41 +137,45 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
               child: Text('İhtiyaç türü (${_categoryIds.length})'),
             ),
             const SizedBox(height: 8),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Wrap(
-                children: demandCategories.map(
-                  (category) {
-                    final isSelected = _categoryIds.contains(category.id);
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 4,
-                        horizontal: 4,
-                      ),
-                      child: ChoiceChip(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        selectedColor: AppColors.descriptionColor,
-                        selected: isSelected,
-                        label: Text(category.name),
-                        onSelected: (value) => setState(() {
-                          if (isSelected) {
-                            _categoryIds.remove(category.id);
-                          } else {
-                            if (_categoryIds.length == 10) {
-                              const AppSnackbars.failure(
-                                'En fazla 10 ihtiyaç eklenebilir.',
-                              ).show(context);
-                            } else {
-                              _categoryIds.add(category.id);
-                            }
-                          }
-                        }),
-                      ),
-                    );
-                  },
-                ).toList(),
+            Expanded(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: SingleChildScrollView(
+                  child: Wrap(
+                    children: demandCategories.map(
+                      (category) {
+                        final isSelected = _categoryIds.contains(category.id);
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 4,
+                            horizontal: 4,
+                          ),
+                          child: ChoiceChip(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            selectedColor: AppColors.descriptionColor,
+                            selected: isSelected,
+                            label: Text(category.name),
+                            onSelected: (value) => setState(() {
+                              if (isSelected) {
+                                _categoryIds.remove(category.id);
+                              } else {
+                                if (_categoryIds.length == 10) {
+                                  const AppSnackbars.failure(
+                                    'En fazla 10 ihtiyaç eklenebilir.',
+                                  ).show(context);
+                                } else {
+                                  _categoryIds.add(category.id);
+                                }
+                              }
+                            }),
+                          ),
+                        );
+                      },
+                    ).toList(),
+                  ),
+                ),
               ),
             ),
             const Spacer(),
