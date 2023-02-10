@@ -7,6 +7,7 @@ import 'package:afet_destek/pages/demands_page/widgets/demand_filter_popup.dart'
 import 'package:afet_destek/pages/demands_page/widgets/generic_grid_list.dart';
 import 'package:afet_destek/pages/demands_page/widgets/list_view_responsive.dart';
 import 'package:afet_destek/pages/demands_page/widgets/mobile_list_view.dart';
+import 'package:afet_destek/pages/demands_page/widgets/new_demand_information_popup.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/colors.dart';
@@ -88,18 +89,31 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
               ),
               onPressed: !widget.isAuthorized
-                  ? () => AuthPage.show(
+                  ? () {
+                      AuthPage.show(
                         context,
                         onClose: () {
                           context.read<DemandsCubit>().refreshDemands();
                         },
-                      )
-                  : () => MyDemandPage.show(
-                        context,
+                      );
+                    }
+                  : () {
+                      const NewDemandInformationPopup().show(
+                        context: context,
                         onClose: () {
-                          context.read<DemandsCubit>().refreshDemands();
+                          Navigator.of(context).pop();
                         },
-                      ),
+                        onContinue: () {
+                          Navigator.of(context).pop();
+                          MyDemandPage.show(
+                            context,
+                            onClose: () {
+                              context.read<DemandsCubit>().refreshDemands();
+                            },
+                          );
+                        },
+                      );
+                    },
               child: Text(
                 widget.isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
                 style: const TextStyle(
@@ -150,7 +164,11 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
               child: Text(
                 state.hasAnyFilters
                     ? 'Sonuç bulunamadı, filtreleri temizlemeyi  deneyin'
-                    : 'Sonuç bulunamadı',
+                    : '''
+Şu anda yardım talebi bulunmamaktadır. 
+Eğer yardım talebiniz varsa, destek talebim menüsünden talep oluşturabilirsiniz.
+                    ''',
+                textAlign: TextAlign.center,
               ),
             )
           : Center(
