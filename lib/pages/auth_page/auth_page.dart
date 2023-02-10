@@ -6,6 +6,8 @@ import 'package:afet_destek/data/repository/auth_repository.dart';
 import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:afet_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:afet_destek/pages/auth_page/state/auth_state.dart';
+import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
+import 'package:afet_destek/pages/demands_page/widgets/new_demand_information_popup.dart';
 import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
@@ -39,7 +41,21 @@ class AuthPage extends StatefulWidget {
 
     if (result != null && result) {
       // ignore: use_build_context_synchronously
-      unawaited(MyDemandPage.show(context, onClose: onClose));
+      await const NewDemandInformationPopup().show(
+        context: context,
+        onClose: () {
+          Navigator.of(context).pop();
+        },
+        onContinue: () {
+          Navigator.of(context).pop();
+          MyDemandPage.show(
+            context,
+            onClose: () {
+              context.read<DemandsCubit>().refreshDemands();
+            },
+          );
+        },
+      );
     }
   }
 
