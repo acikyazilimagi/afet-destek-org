@@ -43,7 +43,7 @@ class LocationTutorialPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Text(
-              '''Telefonunuzdaki konum bilgisinden izin vermek için aşağıdaki yönergeleri izleyebilirsiniz.''',
+              '''Cihazınızda konum servislerine erişime izin verdiğinizden emin olun. İzin vermek için aşağıdaki yönergeleri izleyebilirsiniz.''',
               style: Theme.of(context)
                   .textTheme
                   .displaySmall
@@ -87,7 +87,7 @@ class LocationTutorialPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Text(
-                    '''Telefonunuzdaki tarayıcınızdan ilerlemek için aşağıya bakabilirsiniz.''',
+                    '''Eğer cihazınızda konum servisi açık ise tarayıcınızda konum servislerine erişime izin verdiğinizden emin olun. İzin vermek için aşağıdaki yönergeleri izleyebilirsiniz.''',
                     style: Theme.of(context)
                         .textTheme
                         .displaySmall
