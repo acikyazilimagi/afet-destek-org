@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -18,6 +19,9 @@ class ReactiveIntlPhoneField extends StatelessWidget {
           invalidNumberMessage: invalidNumberMessage,
           initialValue: formControl.value,
           onChanged: (value) => formControl.value = value.completeNumber,
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+          ],
         );
       },
     );
