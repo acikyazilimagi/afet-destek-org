@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TermsPage extends StatefulWidget {
   const TermsPage._({required this.title, required this.body});
@@ -11,11 +14,12 @@ class TermsPage extends StatefulWidget {
     required String title,
     required String body,
   }) async {
-    await Navigator.of(context).push<bool>(
-      MaterialPageRoute<bool>(
-        builder: (context) => TermsPage._(body: body, title: title),
-      ),
-    );
+    unawaited(launchUrl(Uri.parse('https://afetdestekkvvk.web.app/')));
+    // await Navigator.of(context).push<bool>(
+    //   MaterialPageRoute<bool>(
+    //     builder: (context) => TermsPage._(body: body, title: title),
+    //   ),
+    // );
   }
 
   @override
