@@ -156,12 +156,19 @@ class DemandCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    demand.notes,
-                    maxLines: isDetailed ? 10000 : 5,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(color: Color(0xff475467)),
-                  ),
+                  if (isDetailed) ...[
+                    SelectableText(
+                      demand.notes,
+                      style: const TextStyle(color: Color(0xff475467)),
+                    ),
+                  ] else ...[
+                    Text(
+                      demand.notes,
+                      maxLines: 5,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(color: Color(0xff475467)),
+                    ),
+                  ],
                   const SizedBox(height: 8),
                   if (!isDetailed) ...[
                     Row(
