@@ -1,6 +1,5 @@
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/data/repository/auth_repository.dart';
-import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
@@ -73,7 +72,6 @@ class _DemandDetailsPageView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 16),
-                  const SizedBox(height: 30),
                   Row(
                     children: [
                       if (size.width >= 1000)
@@ -81,17 +79,22 @@ class _DemandDetailsPageView extends StatelessWidget {
                           onPressed: () => Navigator.pop(context),
                           icon: const Icon(Icons.arrow_back),
                         ),
-                    const Text(
-                    'Yardım Talebi',
-                    maxLines: 1,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 24,
-                      color: Color(0xff101828),
-                    ),
+                      const Text(
+                        'Yardım Talebi',
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 24,
+                          color: Color(0xff101828),
+                        ),
+                      )
                     ],
                   ),
                   const SizedBox(height: 16),
+                  DemandCard(
+                    demand: demand,
+                    isDetailed: true,
+                  ),
                   const SizedBox(height: 32),
                   const Center(
                     child: Text(
