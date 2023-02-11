@@ -233,7 +233,7 @@ _flutter.loader = null;
      */
     async loadEntrypoint(options) {
       const {
-        entrypointUrl = "main.dart.js?version=1.0.6",
+        entrypointUrl = "main.dart.js?version=1.0.7",
         onEntrypointLoaded,
       } = options || {};
 

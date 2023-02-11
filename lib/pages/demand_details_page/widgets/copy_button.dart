@@ -18,21 +18,19 @@ class CopyButton extends StatelessWidget {
         textStyle: const TextStyle(
           fontWeight: FontWeight.w400,
         ),
+        padding: EdgeInsets.zero,
       ),
       onPressed: () async {
         await Clipboard.setData(ClipboardData(text: phoneNumber));
       },
       child: SizedBox(
         height: 40,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 37.42),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              FittedBox(child: Icon(Icons.content_copy_rounded)),
-              Text('Kopyala'),
-            ],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            FittedBox(child: Icon(Icons.content_copy_rounded)),
+            Text('Kopyala'),
+          ],
         ),
       ),
     );
