@@ -424,49 +424,46 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             );
                           },
                         ),
-                        if (state.demand!.isActive) ...[
-                          ReactiveFormConsumer(
-                            builder: (context, formGroup, child) {
-                              return SizedBox(
-                                width: double.infinity,
-                                height: 56,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: context.appColors.mainRed,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                  ),
-                                  onPressed: formGroup.valid &&
-                                          !deactivateButtons
-                                      ? () {
-                                          final currentPhoneFormValidate =
-                                              _formKey.currentState!.validate();
-
-                                          if (currentPhoneFormValidate) {
-                                            _onSave(
-                                              demandId: state.demand?.id,
-                                            );
-                                          }
-                                        }
-                                      : null,
-                                  child: Text(
-                                    state.demand == null
-                                        ? 'Talep Oluştur'
-                                        : 'Güncelle',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium
-                                        ?.copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                        ReactiveFormConsumer(
+                          builder: (context, formGroup, child) {
+                            return SizedBox(
+                              width: double.infinity,
+                              height: 56,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: context.appColors.mainRed,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                 ),
-                              );
-                            },
-                          ),
-                        ],
+                                onPressed: formGroup.valid && !deactivateButtons
+                                    ? () {
+                                        final currentPhoneFormValidate =
+                                            _formKey.currentState!.validate();
+
+                                        if (currentPhoneFormValidate) {
+                                          _onSave(
+                                            demandId: state.demand?.id,
+                                          );
+                                        }
+                                      }
+                                    : null,
+                                child: Text(
+                                  state.demand == null
+                                      ? 'Talep Oluştur'
+                                      : 'Güncelle',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                         if (state.demand != null) ...[
                           const SizedBox(height: 10),
                           SizedBox(

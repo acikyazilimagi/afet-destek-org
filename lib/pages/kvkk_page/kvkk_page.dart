@@ -21,7 +21,6 @@ class TermsPage extends StatefulWidget {
       key: 'browser_page',
       id: 'browser_url',
     );
-    // unawaited(launchUrl(Uri.parse('https://afetdestekkvvk.web.app/')));
     await Navigator.of(context).push<bool>(
       MaterialPageRoute<bool>(
         builder: (context) => TermsPage._(body: body, title: title),
