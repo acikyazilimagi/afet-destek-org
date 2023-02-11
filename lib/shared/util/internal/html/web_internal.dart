@@ -1,5 +1,6 @@
 // ignore: avoid_web_libraries_in_flutter
 // ignore_for_file: inference_failure_on_function_return_type, avoid_dynamic_calls, lines_longer_than_80_chars
+//ignore_for_file: undefined_prefixed_name
 
 import 'dart:convert';
 // ignore: avoid_web_libraries_in_flutter
