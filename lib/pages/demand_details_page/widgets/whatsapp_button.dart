@@ -1,7 +1,5 @@
-import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WhatsappButton extends StatelessWidget {
@@ -13,6 +11,9 @@ class WhatsappButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: context.appColors.whatsApp,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
         textStyle: const TextStyle(
           fontWeight: FontWeight.w400,
         ),
@@ -25,15 +26,19 @@ class WhatsappButton extends StatelessWidget {
         final uri = Uri.parse(whatsapplink);
         await launchUrl(uri);
       },
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(Assets.whatsapp),
-            const SizedBox(width: 8),
-            const Text('Whatsapp mesajı gönder'),
-          ],
+      child: const SizedBox(
+        height: 40,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 37.42),
+          child: Center(
+            child: Text(
+              'Whatsapp',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
         ),
       ),
     );

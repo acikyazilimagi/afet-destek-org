@@ -1,5 +1,6 @@
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/pages/demand_details_page/demand_details_page.dart';
+import 'package:afet_destek/pages/demand_details_page/widgets/contacts_group_widget.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_category_chip.dart';
 import 'package:afet_destek/shared/extensions/date_count_down_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
@@ -34,15 +35,20 @@ class DemandCard extends StatelessWidget {
       onTap: !isDetailed
           ? () => DemandDetailsPage.show(context, demand: demand)
           : null,
-      child: ColoredBox(
-        color: context.appColors.white,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: context.appColors.white,
+          borderRadius: BorderRadius.circular(9),
+        ),
         child: Column(
           children: [
             Container(
               height: 6,
               decoration: const BoxDecoration(
                 color: Color(0xffDC2626),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(9)),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(9),
+                ),
               ),
             ),
             Padding(
@@ -177,6 +183,8 @@ class DemandCard extends StatelessWidget {
                         ),
                       ],
                     )
+                  ] else ...[
+                    ContactsGroupWidget(demand: demand),
                   ]
                 ],
               ),
