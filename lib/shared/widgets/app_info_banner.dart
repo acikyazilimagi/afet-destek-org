@@ -108,9 +108,9 @@ enum _AppInfoLang {
   ar,
 }
 
-final _infoTr =
-    'Bu uygulama, ihtiyaç sahibi depremzedelerin ihtiyaçlarını ve iletişim bilgilerini ekleyebildiği; ihtiyaç taleplerinin listelenerek karşılanabilmesi amacıyla tasarlandı.';
-final _infoEn =
-    'This application is designed to allow earthquake survivors to add their needs and contact information for volunteers to see and reach out.';
-final _infoAr =
-    'تم تصميم هذا التطبيق للسماح للناجين من الزلزال بإضافة احتياجاتهم ومعلومات اتصالهم لتمكين المتطوعين من رؤيتها والتواصل معهم';
+const _infoTr =
+    '''Bu uygulama, ihtiyaç sahibi depremzedelerin ihtiyaçlarını ve iletişim bilgilerini ekleyebildiği; ihtiyaç taleplerinin listelenerek karşılanabilmesi amacıyla tasarlandı.''';
+const _infoEn =
+    '''This application is designed to allow earthquake survivors to add their needs and contact information for volunteers to see and reach out.''';
+const _infoAr =
+    '''تم تصميم هذا التطبيق للسماح للناجين من الزلزال بإضافة احتياجاتهم ومعلومات اتصالهم لتمكين المتطوعين من رؤيتها والتواصل معهم''';
