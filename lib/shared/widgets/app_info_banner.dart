@@ -26,7 +26,7 @@ class _AppInfoBannerState extends State<AppInfoBanner> {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.all(16),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Container(
@@ -82,14 +82,14 @@ class _AppInfoBannerState extends State<AppInfoBanner> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 10),
                 Text(
                   info,
                   textDirection: _lang == _AppInfoLang.ar
                       ? TextDirection.rtl
                       : TextDirection.ltr,
                   style: const TextStyle(
-                    height: 1.5,
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

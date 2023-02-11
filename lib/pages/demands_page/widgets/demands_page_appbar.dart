@@ -23,8 +23,8 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: ElevatedButton(
-              onPressed: !isAuthorized
+            child: GestureDetector(
+              onTap: !isAuthorized
                   ? () {
                       AuthPage.show(
                         context,
@@ -41,8 +41,19 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                         },
                       );
                     },
-              child: Text(
-                isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
+              child: ColoredBox(
+                color: context.appColors.mainRed,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
+                      style: TextStyle(
+                        color: context.appColors.secondaryBackground,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -80,8 +91,8 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: ElevatedButton(
-              onPressed: !isAuthorized
+            child: GestureDetector(
+              onTap: !isAuthorized
                   ? () {
                       AuthPage.show(
                         context,
@@ -98,8 +109,19 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                         },
                       );
                     },
-              child: Text(
-                isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
+              child: ColoredBox(
+                color: context.appColors.mainRed,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
+                      style: TextStyle(
+                        color: context.appColors.secondaryBackground,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
