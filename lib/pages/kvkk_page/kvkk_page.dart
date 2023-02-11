@@ -1,36 +1,43 @@
+import 'dart:async';
+
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class KVKKPage extends StatefulWidget {
-  const KVKKPage._();
-  static Future<void> show(BuildContext context) async {
-    await Navigator.of(context).push<bool>(
-      MaterialPageRoute<bool>(builder: (context) => const KVKKPage._()),
-    );
+class TermsPage extends StatefulWidget {
+  const TermsPage._({required this.title, required this.body});
+  final String title;
+  final String body;
+  static Future<void> show(
+    BuildContext context, {
+    required String title,
+    required String body,
+  }) async {
+    unawaited(launchUrl(Uri.parse('https://afetdestekkvvk.web.app/')));
+    // await Navigator.of(context).push<bool>(
+    //   MaterialPageRoute<bool>(
+    //     builder: (context) => TermsPage._(body: body, title: title),
+    //   ),
+    // );
   }
 
   @override
-  State<KVKKPage> createState() => _KVKKPageState();
+  State<TermsPage> createState() => _TermsPageState();
 }
 
-class _KVKKPageState extends State<KVKKPage> {
+class _TermsPageState extends State<TermsPage> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
+      appBar: ResponsiveAppBar(
+        mobileTile: Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16),
+          child: SvgPicture.asset(Assets.logoSvg),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: SvgPicture.asset(Assets.logoSvg),
-          ),
-        ],
-        leadingWidth: 52,
       ),
       body: Center(
         child: SizedBox(
@@ -41,33 +48,32 @@ class _KVKKPageState extends State<KVKKPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'KVKK Açık Rıza Metni',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 24,
+                  Row(
+                    children: [
+                      if (size.width >= 1000)
+                        IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.arrow_back),
                         ),
+                      Text(
+                        widget.title,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 24,
+                            ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 16,
                   ),
                   Text(
-                    kvkkPageString1,
+                    widget.body,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w300,
                           fontSize: 16,
                         ),
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Text(
-                    kvkkPageString2,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w300,
-                          fontSize: 16,
-                        ),
-                  )
                 ],
               ),
             ),
@@ -77,9 +83,3 @@ class _KVKKPageState extends State<KVKKPage> {
     );
   }
 }
-
-const String kvkkPageTitle = 'KVKK Açık Rıza Metni';
-const String kvkkPageString1 =
-    '''Bu uygulama, 6 Şubat 2023 tarihinde Türkiye’de meydana gelen büyük deprem felaketinde, arama kurtarma çalışmaları ile yardım ve destek taleplerini ortak bir veri tabanında toplayarak yetkili kurum ve kuruluşlara aktarmak amacı ile bilişim teknolojileri alanında çalışan gönüllüler tarafından oluşturulmuştur. Yardım ya da desteğe ihtiyacı olduğunu belirttiğiniz kişilerin kişisel verileri ‘’Fiili imkânsızlık nedeniyle rızasını açıklayamayacak durumda bulunan veya rızasına hukuki geçerlilik tanınmayan kişinin kendisinin ya da bir başkasının hayatı veya beden bütünlüğünün korunması için zorunlu olması’’ hukuki sebebine dayanarak, otomatik yollarla işlenecektir. Tarafınıza ait kişisel veriler, ‘’Bir hakkın tesisi, kullanılması veya korunması için veri işlemenin zorunlu olması’’ hukuki sebebine dayanarak işlenecektir. Paylaşacağınız yardım, destek taleplerinde yer alan isim, soyisim, telefon ve adres gibi kişisel veriler, tarafımızca oluşturulan ve sunucuları yurtiçi ve yurtdışında bulunan veri tabanında toplanarak, Afad, Akut, Kızılay gibi yetkili arama kurtarma kuruluşlarının yanı sıra destek ve yardım taleplerini karşılayabilecek sivil toplum kuruluşları ile kişisel veri işleme amacı ile sınırlı olarak paylaşılacaktır.''';
-const String kvkkPageString2 =
-    '''Enkaz, yıkım, yardım ve destek ihtiyaçları konusunda verdiğim bilgilerin doğru ve teyit edilmiş olduğunu, bilgi kirliliği ve yanlış uygulamalara yol açmamak için gerekli tüm önlem ve tedbirleri aldığımı, vermiş olduğum bilgilerde meydana gelen değişiklik ve güncellemeleri bildireceğimi kabul ve beyan ederim.''';

@@ -28,7 +28,6 @@ class AppCubit extends Cubit<AppState> {
 
       if (isShown == null) {
         emit(const AppState.introduction());
-        unawaited(sprefs.setBool(_welcomePageKey, true));
       } else {
         unawaited(startApp());
       }
@@ -39,6 +38,10 @@ class AppCubit extends Cubit<AppState> {
 
   Future<void> startApp() async {
     try {
+      final sprefs = await SharedPreferences.getInstance();
+
+      unawaited(sprefs.setBool(_welcomePageKey, true));
+
       emit(const AppState.loading());
 
       final geoLocation = await _locationRepository

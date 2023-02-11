@@ -1,6 +1,7 @@
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
+import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:afet_destek/shared/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,6 +57,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final appState = context.read<AppCubit>().state;
     final demandCategories = appState
         .whenOrNull(
@@ -79,16 +81,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
       ..addAll([...selectedList, ...unSelectedList]);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Filtrele',
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontSize: 24,
-                color: context.appColors.subtitles,
-                fontWeight: FontWeight.bold,
-              ),
-        ),
-      ),
+      appBar: const ResponsiveAppBar(title: 'Filtrele'),
       body: Center(
         child: SizedBox(
           width: 700,
@@ -97,6 +90,20 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                if (size.width >= 1000)
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () => Navigator.pop(context),
+                            icon: const Icon(Icons.arrow_back),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: size.height * 0.1),
+                    ],
+                  ),
                 Slider(
                   inactiveColor: Colors.grey[200],
                   onChanged: (value) => setState(() {
