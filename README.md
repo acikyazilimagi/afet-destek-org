@@ -1,3 +1,11 @@
+# Duyuru
+
+Senior Flutter Developer ihtiyacımız var. İlgilenenler onboarding için Discord üzerinden HR ile iletişime geçebilir. HR listesi:
+- Tuba Habalı#0725
+- arzuozkan#0452
+- mugeekilic#7288
+- Buse Yalçın#2338
+
 # Yardım Ağı Projesi
 
 Bu uygulama, ihtiyaç sahibi depremzedelerin hangi adreste, nelere ihtiyaçları olduğu ve iletişim alma yöntemi bilgilerini ekleyebildiği; aynı zamanda girilen ihtiyaç taleplerinin listelenerek yardımseverlerin bu ihtiyaçları karşılayabilmesi amacıyla tasarlandı.
@@ -20,7 +28,7 @@ Bu uygulama, ihtiyaç sahibi depremzedelerin hangi adreste, nelere ihtiyaçları
 - Yardımseverler,
   - Depremzedelerin girdikleri talepleri listeleyebilir.
   - Depremzedelerin girdikleri talebin detayını görüntüleyebilir.
-    - Sms veya Whatsapp ile iletişime geçebilir.
+    - SMS veya Whatsapp ile iletişime geçebilir.
 
 ### Kullanım
 
