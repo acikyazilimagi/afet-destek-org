@@ -248,6 +248,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final currentLocation = context.read<AppCubit>().state.whenOrNull(
           loaded: (currentLocation, demandCategories) => currentLocation,
         );
@@ -387,6 +388,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CheckboxListTile(
+                                  activeColor: context.appColors.paragraph,
                                   contentPadding: EdgeInsets.zero,
                                   controlAffinity:
                                       ListTileControlAffinity.leading,
