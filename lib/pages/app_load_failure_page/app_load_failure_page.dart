@@ -29,7 +29,7 @@ class AppLoadFailurePage extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
                   child: Text(
-                    'Lütfen konum izni verdiğinizden emin olun.',
+                    'Sayfa yüklenirken bir hata oluştu.',
                     textAlign: TextAlign.center,
                   ),
                 ),

@@ -6,6 +6,8 @@ import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import '../../../shared/widgets/app_info_banner.dart';
+
 class GenericListView extends StatelessWidget {
   const GenericListView({
     super.key,
@@ -31,6 +33,7 @@ class GenericListView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const AppInfoBanner(),
             const DemandTitle(),
             Expanded(
               child: MasonryGridView.builder(

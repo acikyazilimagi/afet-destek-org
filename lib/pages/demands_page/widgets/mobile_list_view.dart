@@ -4,6 +4,7 @@ import 'package:afet_destek/pages/demands_page/state/demands_state.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_title.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
+import 'package:afet_destek/shared/widgets/app_info_banner.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,7 @@ class MobileList extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (index == 0) const DemandTitle(),
+                if (index == 0) ...[const AppInfoBanner(), const DemandTitle()],
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
