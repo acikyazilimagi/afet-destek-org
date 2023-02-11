@@ -15,6 +15,7 @@ jobs:
         with:
           flutter-version: "3.3.x"
       - run: flutter pub get
+      - run: flutter pub run easy_localization:generate -S assets/l10n -f keys -O lib/l10n -o locale_keys.g.dart
       - run: flutter pub run build_runner build --delete-conflicting-outputs
       - run: flutter build web
       - name: Archive Production Artifact
@@ -38,6 +39,6 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}""
           expires: 7d
           projectId: deprem-destek-org
