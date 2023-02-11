@@ -45,7 +45,7 @@ class AuthPage extends StatefulWidget {
 
     if (result != null && result) {
       // ignore: use_build_context_synchronously
-      await const NewDemandInformationPopup().show(
+      await NewDemandInformationPopup.show(
         context: context,
         onClose: () {
           Navigator.of(context).pop();

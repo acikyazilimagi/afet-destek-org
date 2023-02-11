@@ -44,34 +44,42 @@ class _AppInfoBannerState extends State<AppInfoBanner> {
               children: [
                 Row(
                   children: [
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: _lang == _AppInfoLang.tr
-                            ? context.appColors.disabledButton
-                            : null,
+                    Expanded(
+                      child: Wrap(
+                        children: [
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: _lang == _AppInfoLang.tr
+                                  ? context.appColors.disabledButton
+                                  : null,
+                            ),
+                            onPressed: () =>
+                                setState(() => _lang = _AppInfoLang.tr),
+                            child: const Text('TR'),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: _lang == _AppInfoLang.en
+                                  ? context.appColors.disabledButton
+                                  : null,
+                            ),
+                            onPressed: () =>
+                                setState(() => _lang = _AppInfoLang.en),
+                            child: const Text('EN'),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: _lang == _AppInfoLang.ar
+                                  ? context.appColors.disabledButton
+                                  : null,
+                            ),
+                            onPressed: () =>
+                                setState(() => _lang = _AppInfoLang.ar),
+                            child: const Text('AR'),
+                          ),
+                        ],
                       ),
-                      onPressed: () => setState(() => _lang = _AppInfoLang.tr),
-                      child: const Text('TR'),
                     ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: _lang == _AppInfoLang.en
-                            ? context.appColors.disabledButton
-                            : null,
-                      ),
-                      onPressed: () => setState(() => _lang = _AppInfoLang.en),
-                      child: const Text('EN'),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: _lang == _AppInfoLang.ar
-                            ? context.appColors.disabledButton
-                            : null,
-                      ),
-                      onPressed: () => setState(() => _lang = _AppInfoLang.ar),
-                      child: const Text('AR'),
-                    ),
-                    const Spacer(),
                     IconButton(
                       icon: const Icon(Icons.close),
                       onPressed: () {

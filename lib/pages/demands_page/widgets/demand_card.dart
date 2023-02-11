@@ -60,13 +60,15 @@ class DemandCard extends StatelessWidget {
                     children: [
                       // const Icon(Icons.location_on),
                       // const SizedBox(width: 4),
-                      Text(
-                        demand.addressText,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                          color: context.appColors.titles,
+                      Expanded(
+                        child: Text(
+                          demand.addressText,
+                          maxLines: 4,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20,
+                            color: context.appColors.titles,
+                          ),
                         ),
                       ),
                       // Will be added later to sharing func after add routing
@@ -82,7 +84,7 @@ class DemandCard extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  Row(
+                  Wrap(
                     children: [
                       Text(
                         demand.modifiedTimeUtc.asElapsedTimeString,
