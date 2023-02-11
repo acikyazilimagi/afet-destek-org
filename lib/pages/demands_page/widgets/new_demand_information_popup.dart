@@ -32,25 +32,26 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
   }) {
     return ElevatedButton(
       onPressed: stillCreate ? onContinue : onClose,
-      style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll<Color>(
-          stillCreate ? context.appColors.mainRed : context.appColors.white,
+      style: ElevatedButton.styleFrom(
+        backgroundColor:
+            stillCreate ? context.appColors.mainRed : context.appColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: stillCreate ? BorderSide.none : const BorderSide(),
         ),
-        shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-            side: stillCreate ? BorderSide.none : const BorderSide(),
+        padding: EdgeInsets.zero,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Text(
+          stillCreate ? 'Yine de oluştur' : 'Vazgeç',
+          style: TextStyle(
+            fontSize: 16,
+            color: stillCreate
+                ? context.appColors.white
+                : context.appColors.notificationTermTexts,
           ),
         ),
-      ),
-      child: Text(
-        stillCreate ? 'Yine de oluştur' : 'Vazgeç',
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontSize: 16,
-              color: stillCreate
-                  ? context.appColors.white
-                  : context.appColors.notificationTermTexts,
-            ),
       ),
     );
   }

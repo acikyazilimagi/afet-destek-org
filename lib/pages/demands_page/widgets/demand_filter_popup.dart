@@ -190,7 +190,6 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                     ),
                   ),
                 ),
-                const Spacer(),
                 Row(
                   children: [
                     Expanded(
