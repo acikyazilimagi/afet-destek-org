@@ -69,9 +69,22 @@ Bu uygulama açık kaynak kodlu ve geliştirmeye açık. Eğer katkıda bulunmak
 
 ### İlk Çalıştırma
 
+- get dependencies:
+  
+  ```bash
+    # !/bin/bash
+    flutter pub get
+  ```
+- generate files:
+  
+  ```bash
+    # !/bin/bash
+    flutter pub run build_runner build --delete-conflicting-outputs
+  ```
+
 - intl generator:
 
   ```bash
   # !/bin/bash
-  flutter pub run easy_localization:generate -S assets/l10n -f keys -O lib/l10n -o locale_keys.g.dart
+  flutter pub run easy_localization:generate -S assets/translations -f keys -O lib/gen/translations -o locale_keys.g.dart
   ```
