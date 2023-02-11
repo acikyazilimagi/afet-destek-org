@@ -1,3 +1,4 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class SMSButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10),
           child: Center(
             child: Text(
-              'reach_with_sms'.getStr(),
+              LocaleKeys.reach_with_sms.getStr(),
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,

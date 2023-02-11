@@ -1,6 +1,7 @@
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/data/repository/auth_repository.dart';
 import 'package:afet_destek/data/repository/demands_repository.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/my_demand_page/state/my_demands_cubit.dart';
 import 'package:afet_destek/pages/my_demand_page/state/my_demands_state.dart';
 import 'package:afet_destek/pages/my_demand_page/widgets/demand_category_selector.dart';
@@ -97,10 +98,10 @@ class _MyDemandPageState extends State<MyDemandPage> {
         onSecondaryButton: () {
           Navigator.of(context).pop();
         },
-        title: 'ended_demand_dialog_title'.getStr(),
-        subtitle: 'ended_demand_dialog_subtitle'.getStr(),
-        primaryButtonText: 'approve'.getStr(),
-        secondaryButtonText: 'give_up'.getStr(),
+        title: LocaleKeys.ended_demand_dialog_title.getStr(),
+        subtitle: LocaleKeys.ended_demand_dialog_subtitle.getStr(),
+        primaryButtonText: LocaleKeys.approve.getStr(),
+        secondaryButtonText: LocaleKeys.give_up.getStr(),
       );
     } else {
       context.read<MyDemandsCubit>().activateDemand(
@@ -209,14 +210,14 @@ class _MyDemandPageState extends State<MyDemandPage> {
         _populateWithExistingData(existingDemand: state.demand);
       },
       loadFailed: () {
-        AppSnackbars.failure('error_ocured_when_page_loading'.getStr())
+        AppSnackbars.failure(LocaleKeys.error_ocured_when_page_loading.getStr())
             .show(context);
       },
       saveFail: () {
-        AppSnackbars.failure('save_failed'.getStr()).show(context);
+        AppSnackbars.failure(LocaleKeys.save_failed.getStr()).show(context);
       },
       saveSuccess: () {
-        AppSnackbars.success('save_successed'.getStr()).show(context);
+        AppSnackbars.success(LocaleKeys.save_successed.getStr()).show(context);
       },
     );
   }
@@ -273,8 +274,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
           orElse: () => Scaffold(
             appBar: ResponsiveAppBar(
               title: state.demand == null
-                  ? 'create_support_demand'.getStr()
-                  : 'edit_support_demand'.getStr(),
+                  ? LocaleKeys.create_support_demand.getStr()
+                  : LocaleKeys.edit_support_demand.getStr(),
             ),
             body: Center(
               child: SizedBox(
@@ -300,8 +301,10 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       ),
                                       Text(
                                         state.demand == null
-                                            ? 'create_support_demand'.getStr()
-                                            : 'edit_support_demand'.getStr(),
+                                            ? LocaleKeys.create_support_demand
+                                                .getStr()
+                                            : LocaleKeys.edit_support_demand
+                                                .getStr(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge
@@ -315,7 +318,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   const SizedBox(height: 20),
                                 ],
                               ),
-                            AppFormFieldTitle(title: 'address'.getStr()),
+                            AppFormFieldTitle(
+                              title: LocaleKeys.address.getStr(),
+                            ),
                             ReactiveTextField<GoogleGeocodingResult>(
                               formControlName:
                                   _MyDemandPageFormFields.geoLocation.name,
@@ -341,7 +346,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         AppFormFieldTitle(
-                                          title: 'current_address'.getStr(),
+                                          title: LocaleKeys.current_address
+                                              .getStr(),
                                         ),
                                         Text(
                                           currentLocation.districtAddress,
@@ -355,7 +361,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   const SizedBox(width: 8),
                                   TextButton(
                                     child: Text(
-                                      'update'.getStr(),
+                                      LocaleKeys.update.getStr(),
                                       style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -374,7 +380,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               ) as FormControl<List<String>>,
                             ),
                             const SizedBox(height: 16),
-                            AppFormFieldTitle(title: 'other_needs'.getStr()),
+                            AppFormFieldTitle(
+                              title: LocaleKeys.other_needs.getStr(),
+                            ),
                             ReactiveTextField<String>(
                               formControlName:
                                   _MyDemandPageFormFields.notes.name,
@@ -383,22 +391,25 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               maxLength: 1000,
                               validationMessages: {
                                 ValidationMessage.required: (_) =>
-                                    'required_field'.getStr(),
+                                    LocaleKeys.required_field.getStr(),
                                 ValidationMessage.maxLength: (_) =>
                                     'you_can_write_up_to_1000_characters'
                                         .getStr(),
                               },
                               decoration: InputDecoration(
-                                hintText: 'enter_your_other_needs'.getStr(),
+                                hintText:
+                                    LocaleKeys.enter_your_other_needs.getStr(),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
                             ),
-                            AppFormFieldTitle(title: 'phone_number'.getStr()),
+                            AppFormFieldTitle(
+                              title: LocaleKeys.phone_number.getStr(),
+                            ),
                             ReactiveIntlPhoneField(
                               invalidNumberMessage:
-                                  'invalid_phone_number'.getStr(),
+                                  LocaleKeys.invalid_phone_number.getStr(),
                               formControl: _myDemandPageFormGroup.control(
                                 _MyDemandPageFormFields.phoneNumber.name,
                               ) as FormControl<String>,
@@ -416,7 +427,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       value: _isWpActive,
                                       onChanged: _onWpActivateToggle,
                                       title: Text(
-                                        'contact_via_whatsapp'.getStr(),
+                                        LocaleKeys.contact_via_whatsapp
+                                            .getStr(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleSmall
@@ -432,11 +444,13 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                         height: 8,
                                       ),
                                       AppFormFieldTitle(
-                                        title: 'whatsapp_phone_number'.getStr(),
+                                        title: LocaleKeys.whatsapp_phone_number
+                                            .getStr(),
                                       ),
                                       ReactiveIntlPhoneField(
-                                        invalidNumberMessage:
-                                            'invalid_phone_number'.getStr(),
+                                        invalidNumberMessage: LocaleKeys
+                                            .invalid_phone_number
+                                            .getStr(),
                                         formControl:
                                             _myDemandPageFormGroup.control(
                                           _MyDemandPageFormFields
@@ -477,8 +491,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                             : null,
                                     child: Text(
                                       state.demand == null
-                                          ? 'create_demand'.getStr()
-                                          : 'update'.getStr(),
+                                          ? LocaleKeys.create_demand.getStr()
+                                          : LocaleKeys.update.getStr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium
@@ -512,8 +526,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       : null,
                                   child: Text(
                                     state.demand!.isActive
-                                        ? 'ended_demand'.getStr()
-                                        : 'recreate_demand'.getStr(),
+                                        ? LocaleKeys.ended_demand.getStr()
+                                        : LocaleKeys.recreate_demand.getStr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
@@ -536,7 +550,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   Navigator.of(context).pop();
                                 },
                                 child: Text(
-                                  'logout'.getStr(),
+                                  LocaleKeys.logout.getStr(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge
@@ -592,7 +606,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
           ),
         ),
         child: Text(
-          stillDeactivate ? 'approve'.getStr() : 'no'.getStr(),
+          stillDeactivate
+              ? LocaleKeys.approve.getStr()
+              : LocaleKeys.no.getStr(),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontSize: 16,
                 color: !stillDeactivate

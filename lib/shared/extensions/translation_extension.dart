@@ -1,15 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 
-extension TranslationExtension on String? {
+extension TranslationExtension on String {
   String getStr() {
     try {
-      if (this == null) {
-        assert(false, 'getStr: _inp is null');
-        return '';
-      }
-
-      final trans = this!.tr();
-      final hasTrans = this!.isNotEmpty == true;
+      final trans = this.tr();
+      final hasTrans = isNotEmpty == true;
       assert(hasTrans, 'getStr: $this is not translated');
       return hasTrans ? trans : '';
     } catch (e) {
@@ -24,13 +19,8 @@ extension TranslationExtension on String? {
     required List<String> args,
   }) {
     try {
-      if (this == null) {
-        assert(false, 'getStr: _inp is null');
-        return '';
-      }
-
-      final trans = this!.tr(args: args);
-      final hasTrans = this!.isNotEmpty == true;
+      final trans = this.tr(args: args);
+      final hasTrans = isNotEmpty == true;
       assert(hasTrans, 'getStr: $this has no translation');
       return hasTrans ? trans : '';
     } catch (e) {
@@ -49,13 +39,8 @@ extension TranslationExtension on String? {
     NumberFormat? format,
   }) {
     try {
-      if (this == null) {
-        assert(false, 'getStr: _inp is null');
-        return '';
-      }
-
       final trans = plural(
-        this!,
+        this,
         value,
         args: args,
         namedArgs: namedArgs,
@@ -63,7 +48,7 @@ extension TranslationExtension on String? {
         format: format,
       );
 
-      final hasTrans = this!.isNotEmpty == true;
+      final hasTrans = isNotEmpty == true;
       assert(hasTrans, 'getStrPlural: hasTrans is false');
       return hasTrans ? trans : '';
     } catch (e) {

@@ -1,4 +1,5 @@
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/location_tutorial/location_tutorial_page.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
@@ -30,7 +31,7 @@ class AppLoadFailurePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Text(
-                    'error_ocured_when_page_loading'.getStr(),
+                    LocaleKeys.error_ocured_when_page_loading.getStr(),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -62,7 +63,7 @@ class AppLoadFailurePage extends StatelessWidget {
                           vertical: 6,
                         ),
                         child: Text(
-                          'refresh_page'.getStr(),
+                          LocaleKeys.refresh_page.getStr(),
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
                                     fontSize: 16,
@@ -93,7 +94,7 @@ class AppLoadFailurePage extends StatelessWidget {
                           vertical: 6,
                         ),
                         child: Text(
-                          'how_can_give_access_your_location'.getStr(),
+                          LocaleKeys.how_can_give_access_your_location.getStr(),
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
                                     fontSize: 16,

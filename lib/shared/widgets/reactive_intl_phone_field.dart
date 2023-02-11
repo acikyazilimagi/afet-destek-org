@@ -1,3 +1,4 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,7 +22,7 @@ class ReactiveIntlPhoneField extends StatelessWidget {
           pickerDialogStyle: PickerDialogStyle(
             width: MediaQuery.of(context).size.width.clamp(0, 500),
             searchFieldInputDecoration: InputDecoration(
-              labelText: 'search_country'.getStr(),
+              labelText: LocaleKeys.search_country.getStr(),
             ),
           ),
           inputFormatters: [

@@ -1,5 +1,6 @@
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/data/repository/auth_repository.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
@@ -81,7 +82,7 @@ class _DemandDetailsPageView extends StatelessWidget {
                           icon: const Icon(Icons.arrow_back),
                         ),
                       Text(
-                        'help_demands'.getStr(),
+                        LocaleKeys.help_demands.getStr(),
                         maxLines: 1,
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
@@ -99,7 +100,7 @@ class _DemandDetailsPageView extends StatelessWidget {
                   const SizedBox(height: 32),
                   Center(
                     child: Text(
-                      'please_prefer_sms_or_whatsapp'.getStr(),
+                      LocaleKeys.please_prefer_sms_or_whatsapp.getStr(),
                       textAlign: TextAlign.center,
                     ),
                   )

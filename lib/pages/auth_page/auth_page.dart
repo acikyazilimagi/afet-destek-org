@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:afet_destek/data/repository/auth_repository.dart';
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:afet_destek/pages/auth_page/state/auth_state.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
@@ -150,7 +151,7 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     const SizedBox(height: 28),
                     Text(
-                      'login'.getStr(),
+                      LocaleKeys.login.getStr(),
                       style: Theme.of(context).textTheme.displaySmall,
                     ),
                     const SizedBox(height: 28),
@@ -168,12 +169,12 @@ class _AuthPageState extends State<AuthPage> {
                           width:
                               MediaQuery.of(context).size.width.clamp(0, 500),
                           searchFieldInputDecoration: InputDecoration(
-                            labelText: 'search_country'.getStr(),
+                            labelText: LocaleKeys.search_country.getStr(),
                           ),
                         ),
                         textAlignVertical: TextAlignVertical.center,
                         decoration: InputDecoration(
-                          hintText: 'phone_number'.getStr(),
+                          hintText: LocaleKeys.phone_number.getStr(),
                           isDense: false,
                           contentPadding: EdgeInsets.zero,
                         ),
@@ -182,7 +183,8 @@ class _AuthPageState extends State<AuthPage> {
                           FilteringTextInputFormatter.digitsOnly,
                         ],
                         autovalidateMode: AutovalidateMode.disabled,
-                        invalidNumberMessage: 'invalid_phone_number'.getStr(),
+                        invalidNumberMessage:
+                            LocaleKeys.invalid_phone_number.getStr(),
                         onChanged: (number) {
                           setState(() => _number = number.completeNumber);
                           _formKey.currentState!.validate();
@@ -190,18 +192,18 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     ),
                     if (authState.status == AuthStateStatus.smsFailure) ...[
-                      _AuthErrorMessage('sms_sending_failed'.getStr()),
+                      _AuthErrorMessage(LocaleKeys.sms_sending_failed.getStr()),
                     ],
                     if (!isFirstStep) ...[
                       const SizedBox(height: 8),
                       TextFormField(
                         autofocus: true,
                         decoration: InputDecoration(
-                          hintText: 'sms_code'.getStr(),
+                          hintText: LocaleKeys.sms_code.getStr(),
                           suffix: _smsResendCountdown > 0
                               ? Text('$_smsResendCountdown')
                               : TextButton(
-                                  child: Text('try_again'.getStr()),
+                                  child: Text(LocaleKeys.try_again.getStr()),
                                   onPressed: () {
                                     context
                                         .read<AuthCubit>()
@@ -216,7 +218,9 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                       if (authState.status ==
                           AuthStateStatus.codeVerificationFailure) ...[
-                        _AuthErrorMessage('code_validation_failed'.getStr()),
+                        _AuthErrorMessage(
+                          LocaleKeys.code_validation_failed.getStr(),
+                        ),
                       ]
                     ],
                     const SizedBox(height: 16),
@@ -239,7 +243,7 @@ class _AuthPageState extends State<AuthPage> {
                                 }
                               }
                             : null,
-                        child: Text('continue'.getStr()),
+                        child: Text(LocaleKeys.continue_text.getStr()),
                       )
                     ]
                   ],
