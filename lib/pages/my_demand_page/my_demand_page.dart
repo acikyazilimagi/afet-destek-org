@@ -1,6 +1,7 @@
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/data/repository/auth_repository.dart';
 import 'package:afet_destek/data/repository/demands_repository.dart';
+import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:afet_destek/pages/my_demand_page/state/my_demands_cubit.dart';
 import 'package:afet_destek/pages/my_demand_page/state/my_demands_state.dart';
 import 'package:afet_destek/pages/my_demand_page/widgets/demand_category_selector.dart';
@@ -9,14 +10,14 @@ import 'package:afet_destek/shared/extensions/district_address_extension.dart';
 import 'package:afet_destek/shared/extensions/reactive_forms_extensions.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
+import 'package:afet_destek/shared/widgets/core_confirmation_dialog.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:afet_destek/shared/widgets/reactive_intl_phone_field.dart';
-import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:afet_destek/shared/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
@@ -85,9 +86,22 @@ class _MyDemandPageState extends State<MyDemandPage> {
 
   void _onToggleActivation({required Demand demand}) {
     if (demand.isActive) {
-      context.read<MyDemandsCubit>().deactivateDemand(
-            demandId: demand.id,
-          );
+      const CoreConfirmationDialog().show(
+        context: context,
+        onPrimaryButton: () {
+          Navigator.of(context).pop();
+          context.read<MyDemandsCubit>().deactivateDemand(
+                demandId: demand.id,
+              );
+        },
+        onSecondaryButton: () {
+          Navigator.of(context).pop();
+        },
+        title: 'Talebi Sonlandır?',
+        subtitle: 'Talebi sonlandırmak istediğinize emin misiniz?',
+        primaryButtonText: 'Evet Sonlandır',
+        secondaryButtonText: 'Vazgeç',
+      );
     } else {
       context.read<MyDemandsCubit>().activateDemand(
             demandId: demand.id,
@@ -234,7 +248,6 @@ class _MyDemandPageState extends State<MyDemandPage> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     final currentLocation = context.read<AppCubit>().state.whenOrNull(
           loaded: (currentLocation, demandCategories) => currentLocation,
         );
@@ -257,255 +270,260 @@ class _MyDemandPageState extends State<MyDemandPage> {
         return state.status.maybeWhen(
           loadingCurrentDemand: () => const Scaffold(body: Loader()),
           orElse: () => Scaffold(
-            appBar: ResponsiveAppBar(
-              title: state.demand == null
-                  ? 'Destek Talebi Oluştur'
-                  : 'Destek Talebini Düzenle',
+            appBar: AppBar(
+              actions: [
+                SvgPicture.asset(Assets.logoSvg),
+                const SizedBox(
+                  width: 10,
+                )
+              ],
             ),
-            body: Center(
-              child: SizedBox(
-                width: 700,
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: _formKey,
-                    child: ReactiveForm(
-                      formGroup: _myDemandPageFormGroup,
-                      child: Container(
-                        padding: const EdgeInsets.all(20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (size.width >= 1000)
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () => Navigator.pop(context),
-                                        icon: const Icon(Icons.arrow_back),
-                                      ),
-                                      Text(
-                                        state.demand == null
-                                            ? 'Destek Talebi Oluştur'
-                                            : 'Destek Talebini Düzenle',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge
-                                            ?.copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 24,
-                                            ),
-                                      ),
-                                    ],
+            body: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: ReactiveForm(
+                  formGroup: _myDemandPageFormGroup,
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Talep Formu',
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    color: context.appColors.paragraph,
+                                    fontSize: 24,
                                   ),
-                                  const SizedBox(height: 20),
-                                ],
-                              ),
-                            const AppFormFieldTitle(title: 'Adres'),
-                            ReactiveTextField<GoogleGeocodingResult>(
-                              formControlName:
-                                  _MyDemandPageFormFields.geoLocation.name,
-                              readOnly: true,
-                              valueAccessor: GeoValueAccessor(),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        const AppFormFieldTitle(title: 'Adres'),
+                        ReactiveTextField<GoogleGeocodingResult>(
+                          formControlName:
+                              _MyDemandPageFormFields.geoLocation.name,
+                          readOnly: true,
+                          valueAccessor: GeoValueAccessor(),
+                          decoration: InputDecoration(
+                            fillColor: context.appColors.disabledButton,
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            const SizedBox(height: 8),
-                            if (state.demand != null) ...[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text('Mevcut Adres'),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          currentLocation.districtAddress,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ],
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        if (state.demand != null) ...[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const AppFormFieldTitle(
+                                      title: 'Mevcut Adres',
                                     ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  TextButton(
-                                    child: const Text(
-                                      'Güncelle',
-                                      style: TextStyle(
+                                    Text(
+                                      currentLocation.districtAddress,
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
-                                    onPressed: () => _updateAddressToCurrent(
-                                      currentGeo: currentLocation,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                            const SizedBox(height: 16),
-                            DemandCategorySelector(
-                              formControl: _myDemandPageFormGroup.control(
-                                _MyDemandPageFormFields.categories.name,
-                              ) as FormControl<List<String>>,
-                            ),
-                            const SizedBox(height: 16),
-                            const AppFormFieldTitle(title: 'Diğer İhtiyaçlar'),
-                            ReactiveTextField<String>(
-                              formControlName:
-                                  _MyDemandPageFormFields.notes.name,
-                              minLines: 3,
-                              maxLines: 10,
-                              maxLength: 1000,
-                              validationMessages: {
-                                ValidationMessage.required: (_) =>
-                                    'Neye ihtiyacınız olduğunu yazar mısınız?.',
-                                ValidationMessage.maxLength: (_) =>
-                                    'En fazla 1000 karakter girebilirsiniz.',
-                              },
-                            ),
-                            const AppFormFieldTitle(title: 'Telefon Numarası'),
-                            ReactiveIntlPhoneField(
-                              invalidNumberMessage: 'Geçersiz telefon numarası',
-                              formControl: _myDemandPageFormGroup.control(
-                                _MyDemandPageFormFields.phoneNumber.name,
-                              ) as FormControl<String>,
-                            ),
-                            ReactiveFormConsumer(
-                              builder: (context, form, _) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CheckboxListTile(
-                                      contentPadding: EdgeInsets.zero,
-                                      controlAffinity:
-                                          ListTileControlAffinity.leading,
-                                      value: _isWpActive,
-                                      onChanged: _onWpActivateToggle,
-                                      title: Row(
-                                        children: [
-                                          const Text('WhatsApp ile ulaşılsın'),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Icon(
-                                            FontAwesomeIcons.whatsapp,
-                                            color: context.appColors.whatsApp,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    if (_isWpActive) ...[
-                                      const AppFormFieldTitle(
-                                        title: 'WhatsApp Numarası',
-                                      ),
-                                      ReactiveIntlPhoneField(
-                                        invalidNumberMessage:
-                                            'Geçersiz telefon numarası',
-                                        formControl:
-                                            _myDemandPageFormGroup.control(
-                                          _MyDemandPageFormFields
-                                              .wpPhoneNumber.name,
-                                        ) as FormControl<String>,
-                                      ),
-                                    ]
                                   ],
-                                );
-                              },
-                            ),
-                            const SizedBox(height: 16),
-                            ReactiveFormConsumer(
-                              builder: (context, formGroup, child) {
-                                return Row(
-                                  children: [
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            context.appColors.mainRed,
-                                      ),
-                                      onPressed: formGroup.valid &&
-                                              !deactivateButtons
-                                          ? () {
-                                              final currentPhoneFormValidate =
-                                                  _formKey.currentState!
-                                                      .validate();
-
-                                              if (currentPhoneFormValidate) {
-                                                _onSave(
-                                                  demandId: state.demand?.id,
-                                                );
-                                              }
-                                            }
-                                          : null,
-                                      child: Text(
-                                        state.demand == null
-                                            ? 'Talep Oluştur'
-                                            : 'Talebi Güncelle',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge
-                                            ?.copyWith(
-                                              color: context.appColors.white,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    if (state.demand != null) ...[
-                                      const SizedBox(width: 16),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor:
-                                              context.appColors.mainRed,
-                                        ),
-                                        onPressed: !deactivateButtons
-                                            ? () => _onToggleActivation(
-                                                  demand: state.demand!,
-                                                )
-                                            : null,
-                                        child: Text(
-                                          state.demand!.isActive
-                                              ? 'Talebi durdur'
-                                              : 'Talebi sürdür',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge
-                                              ?.copyWith(
-                                                color: context.appColors.white,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ],
-                                );
-                              },
-                            ),
-                            const SizedBox(height: 32),
-                            Align(
-                              alignment: Alignment.bottomLeft,
-                              child: OutlinedButton(
-                                onPressed: () {
-                                  context.read<AuthRepository>().logout();
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text(
-                                  'Çıkış yap',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                        color: context.appColors.mainRed,
-                                        fontWeight: FontWeight.w600,
-                                      ),
                                 ),
                               ),
-                            )
-                          ],
+                              const SizedBox(width: 8),
+                              TextButton(
+                                child: const Text(
+                                  'Güncelle',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                onPressed: () => _updateAddressToCurrent(
+                                  currentGeo: currentLocation,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                        const SizedBox(height: 16),
+                        DemandCategorySelector(
+                          formControl: _myDemandPageFormGroup.control(
+                            _MyDemandPageFormFields.categories.name,
+                          ) as FormControl<List<String>>,
                         ),
-                      ),
+                        const SizedBox(height: 16),
+                        const AppFormFieldTitle(title: 'Diğer İhtiyaçlar'),
+                        ReactiveTextField<String>(
+                          formControlName: _MyDemandPageFormFields.notes.name,
+                          minLines: 3,
+                          maxLines: 10,
+                          maxLength: 1000,
+                          validationMessages: {
+                            ValidationMessage.required: (_) => 'Zorunlu alan',
+                            ValidationMessage.maxLength: (_) =>
+                                'En fazla 1000 karakter girebilirsiniz.',
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Diğer İhtiyaçlarınızı giriniz',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                        ),
+                        const AppFormFieldTitle(title: 'Telefon Numarası'),
+                        ReactiveIntlPhoneField(
+                          invalidNumberMessage: 'Geçersiz telefon numarası',
+                          formControl: _myDemandPageFormGroup.control(
+                            _MyDemandPageFormFields.phoneNumber.name,
+                          ) as FormControl<String>,
+                        ),
+                        ReactiveFormConsumer(
+                          builder: (context, form, _) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CheckboxListTile(
+                                  activeColor: context.appColors.paragraph,
+                                  contentPadding: EdgeInsets.zero,
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  value: _isWpActive,
+                                  onChanged: _onWpActivateToggle,
+                                  title: Text(
+                                    'WhatsApp ile ulaşılsın',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          color: context.appColors.paragraph,
+                                        ),
+                                  ),
+                                ),
+                                if (_isWpActive) ...[
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  const AppFormFieldTitle(
+                                    title: 'WhatsApp Numarası',
+                                  ),
+                                  ReactiveIntlPhoneField(
+                                    invalidNumberMessage:
+                                        'Geçersiz telefon numarası',
+                                    formControl: _myDemandPageFormGroup.control(
+                                      _MyDemandPageFormFields
+                                          .wpPhoneNumber.name,
+                                    ) as FormControl<String>,
+                                  ),
+                                ]
+                              ],
+                            );
+                          },
+                        ),
+                        if (state.demand!.isActive) ...[
+                          ReactiveFormConsumer(
+                            builder: (context, formGroup, child) {
+                              return SizedBox(
+                                width: double.infinity,
+                                height: 56,
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: context.appColors.mainRed,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                  onPressed: formGroup.valid &&
+                                          !deactivateButtons
+                                      ? () {
+                                          final currentPhoneFormValidate =
+                                              _formKey.currentState!.validate();
+
+                                          if (currentPhoneFormValidate) {
+                                            _onSave(
+                                              demandId: state.demand?.id,
+                                            );
+                                          }
+                                        }
+                                      : null,
+                                  child: Text(
+                                    state.demand == null
+                                        ? 'Talep Oluştur'
+                                        : 'Güncelle',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                        if (state.demand != null) ...[
+                          const SizedBox(height: 10),
+                          SizedBox(
+                            height: 56,
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: state.demand!.isActive
+                                    ? Colors.transparent
+                                    : context.appColors.mainRed,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              onPressed: !deactivateButtons
+                                  ? () => _onToggleActivation(
+                                        demand: state.demand!,
+                                      )
+                                  : null,
+                              child: Text(
+                                state.demand!.isActive
+                                    ? 'Talebi Sonlandır'
+                                    : 'Talebi Yeniden Oluştur',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      color: state.demand!.isActive
+                                          ? context.appColors.paragraph
+                                          : context.appColors.white,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ],
+                        const SizedBox(height: 32),
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: OutlinedButton(
+                            onPressed: () {
+                              context.read<AuthRepository>().logout();
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              'Çıkış yap',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge
+                                  ?.copyWith(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),
@@ -514,6 +532,49 @@ class _MyDemandPageState extends State<MyDemandPage> {
           ),
         );
       },
+    );
+  }
+
+  Widget getButton({
+    required bool stillDeactivate,
+    required String demandId,
+  }) {
+    return SizedBox(
+      height: 56,
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: stillDeactivate
+            ? () {
+                Navigator.of(context).pop();
+                context.read<MyDemandsCubit>().deactivateDemand(
+                      demandId: demandId,
+                    );
+              }
+            : () {
+                Navigator.of(context).pop();
+              },
+        style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll<Color>(
+            stillDeactivate
+                ? context.appColors.white
+                : context.appColors.mainRed,
+          ),
+          shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+        child: Text(
+          stillDeactivate ? 'Evet Sonlandır' : 'Hayır',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontSize: 16,
+                color: !stillDeactivate
+                    ? context.appColors.white
+                    : context.appColors.tags,
+              ),
+        ),
+      ),
     );
   }
 }

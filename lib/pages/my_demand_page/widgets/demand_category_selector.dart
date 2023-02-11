@@ -66,12 +66,12 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
           decoration: InputDecoration(
             hintText: 'İhtiyaç Türü Seçiniz',
             focusedBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
               borderSide:
                   BorderSide(width: 2, color: context.appColors.mainRed),
             ),
             border: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
               borderSide: BorderSide(width: 2, color: context.appColors.stroke),
             ),
             hintStyle:
