@@ -1,5 +1,6 @@
 import 'package:afet_destek/gen/assets.gen.dart';
 import 'package:afet_destek/pages/location_tutorial/location_tutorial_page.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/util/web_reload/web_reload.dart';
 import 'package:flutter/foundation.dart';
@@ -26,17 +27,18 @@ class AppLoadFailurePage extends StatelessWidget {
                   dimension: size.height * .2,
                   child: SvgPicture.asset(Assets.logoSvg),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Text(
-                    'Sayfa yüklenirken bir hata oluştu.',
+                    'error_ocured_when_page_loading'.getStr(),
                     textAlign: TextAlign.center,
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Text(
-                    'Konum izni verdiğinizden emin olun.',
+                    'please_make_sure_give_your_localization_permissions'
+                        .getStr(),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -60,7 +62,7 @@ class AppLoadFailurePage extends StatelessWidget {
                           vertical: 6,
                         ),
                         child: Text(
-                          'Sayfayı Yenile',
+                          'refresh_page'.getStr(),
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
                                     fontSize: 16,
@@ -91,7 +93,7 @@ class AppLoadFailurePage extends StatelessWidget {
                           vertical: 6,
                         ),
                         child: Text(
-                          'Konumumu nasıl açarım?',
+                          'how_can_give_access_your_location'.getStr(),
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
                                     fontSize: 16,

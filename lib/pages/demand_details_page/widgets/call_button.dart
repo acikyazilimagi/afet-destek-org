@@ -1,3 +1,4 @@
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,14 +24,14 @@ class SMSButton extends StatelessWidget {
         final smsLaunchUri = Uri(scheme: 'sms', path: phoneNumber);
         await launchUrl(smsLaunchUri);
       },
-      child: const SizedBox(
+      child: SizedBox(
         height: 40,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.symmetric(vertical: 10),
           child: Center(
             child: Text(
-              'SMS ile ulaş',
-              style: TextStyle(
+              'reach_with_sms'.getStr(),
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),

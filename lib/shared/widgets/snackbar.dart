@@ -1,20 +1,21 @@
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
 
 enum SnackBarStatus { info, failure, success }
 
 class AppSnackbars {
-  const AppSnackbars.info(this.message)
+  AppSnackbars.info(this.message)
       : status = SnackBarStatus.info,
-        title = 'Bilgi';
+        title = 'info'.getStr();
 
-  const AppSnackbars.failure(this.message)
+  AppSnackbars.failure(this.message)
       : status = SnackBarStatus.failure,
-        title = 'Hata';
+        title = 'error'.getStr();
 
-  const AppSnackbars.success(this.message)
+  AppSnackbars.success(this.message)
       : status = SnackBarStatus.success,
-        title = 'Başarılı';
+        title = 'success'.getStr();
 
   final SnackBarStatus status;
   final String title;
