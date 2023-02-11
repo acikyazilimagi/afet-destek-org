@@ -43,11 +43,6 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                     },
               child: Text(
                 isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: context.appColors.white,
-                  fontSize: 16,
-                ),
               ),
             ),
           ),
@@ -105,11 +100,6 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                     },
               child: Text(
                 isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: context.appColors.white,
-                  fontSize: 16,
-                ),
               ),
             ),
           ),
