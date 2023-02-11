@@ -1,6 +1,5 @@
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive_flutter/adapters.dart';
 
 part 'demands_state.g.dart';
 part 'demands_state.freezed.dart';
@@ -21,11 +20,10 @@ class DemandsState with _$DemandsState {
 }
 
 @freezed
-@HiveType(typeId: 0)
-class DemandsStateFilter extends HiveObject with _$DemandsStateFilter {
+class DemandsStateFilter with _$DemandsStateFilter {
   factory DemandsStateFilter({
-    @HiveField(0) required List<String>? categoryIds,
-    @HiveField(1) required double? filterRadiusKm,
+    required List<String>? categoryIds,
+    required double? filterRadiusKm,
   }) = _DemandsStateFilter;
   DemandsStateFilter._();
 
@@ -33,6 +31,9 @@ class DemandsStateFilter extends HiveObject with _$DemandsStateFilter {
         categoryIds: null,
         filterRadiusKm: null,
       );
+
+  factory DemandsStateFilter.fromJson(Map<String, dynamic> json) =>
+      _$DemandsStateFilterFromJson(json);
 }
 
 @freezed

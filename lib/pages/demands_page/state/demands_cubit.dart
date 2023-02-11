@@ -1,11 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:afet_destek/data/repository/demands_repository.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_state.dart';
-import 'package:afet_destek/shared/extensions/hive_extensions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DemandsCubit extends Cubit<DemandsState> {
   DemandsCubit({
@@ -28,21 +28,23 @@ class DemandsCubit extends Cubit<DemandsState> {
   int _page = 1;
   bool _isLastPage = false;
 
-  Box<DemandsStateFilter>? _box;
-
-  Future<void> _openBox() async {
-    DemandsStateFilterAdapter().register();
-
-    _box ??= await Hive.openBox<DemandsStateFilter>('demands_filter');
-  }
+  Future<SharedPreferences> get _prefs => SharedPreferences.getInstance();
+  static const String _filterKey = 'demands_filter';
 
   Future<void> initFilterState() async {
     emit(state.copyWith(status: const DemandsStateStatus.loading()));
 
-    await _openBox();
+    final savedFilterStr = (await _prefs).getString(_filterKey);
 
-    final savedFilter =
-        _box!.isEmpty ? DemandsStateFilter.empty() : _box!.getAt(0);
+    if (savedFilterStr == null) {
+      emit(state.copyWith(status: const DemandsStateStatus.loaded()));
+      return;
+    }
+
+    final savedFilterJson = json.decode(savedFilterStr);
+    final savedFilter = DemandsStateFilter.fromJson(
+      savedFilterJson as Map<String, dynamic>,
+    );
 
     emit(
       state.copyWith(
@@ -108,7 +110,6 @@ class DemandsCubit extends Cubit<DemandsState> {
   }) async {
     _page = 1;
 
-    await _openBox();
     emit(
       state.copyWith(
         filter: DemandsStateFilter(
@@ -120,7 +121,12 @@ class DemandsCubit extends Cubit<DemandsState> {
     );
 
     unawaited(
-      _box!.isEmpty ? _box!.add(state.filter!) : _box!.putAt(0, state.filter!),
+      (await _prefs).setString(
+        _filterKey,
+        json.encode(
+          state.filter!.toJson(),
+        ),
+      ),
     );
 
     unawaited(getDemands());
