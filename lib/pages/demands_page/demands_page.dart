@@ -7,7 +7,6 @@ import 'package:afet_destek/pages/demands_page/widgets/generic_grid_list.dart';
 import 'package:afet_destek/pages/demands_page/widgets/list_view_responsive.dart';
 import 'package:afet_destek/pages/demands_page/widgets/mobile_list_view.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
-import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -93,36 +92,32 @@ Eğer yardım talebiniz varsa, destek talebim menüsünden talep oluşturabilirs
               ),
             )
           : Center(
-              child: RefreshIndicator(
-                color: context.appColors.mainRed,
-                onRefresh: () => context.read<DemandsCubit>().refreshDemands(),
-                child: ListViewResponsive(
-                  desktop: GenericListView(
-                    scrollController: _scrollController,
-                    demands: demands,
-                    state: state,
-                    maxWidth: 1450,
-                    crossAxisCount: 3,
-                  ),
-                  mobile: MobileList(
-                    scrollController: _scrollController,
-                    demands: demands,
-                    state: state,
-                  ),
-                  tablet: GenericListView(
-                    scrollController: _scrollController,
-                    demands: demands,
-                    state: state,
-                    maxWidth: 1000,
-                    crossAxisCount: 2,
-                  ),
-                  largeDesktop: GenericListView(
-                    scrollController: _scrollController,
-                    demands: demands,
-                    state: state,
-                    maxWidth: 2200,
-                    crossAxisCount: 4,
-                  ),
+              child: ListViewResponsive(
+                desktop: GenericListView(
+                  scrollController: _scrollController,
+                  demands: demands,
+                  state: state,
+                  maxWidth: 1450,
+                  crossAxisCount: 3,
+                ),
+                mobile: MobileList(
+                  scrollController: _scrollController,
+                  demands: demands,
+                  state: state,
+                ),
+                tablet: GenericListView(
+                  scrollController: _scrollController,
+                  demands: demands,
+                  state: state,
+                  maxWidth: 1000,
+                  crossAxisCount: 2,
+                ),
+                largeDesktop: GenericListView(
+                  scrollController: _scrollController,
+                  demands: demands,
+                  state: state,
+                  maxWidth: 2200,
+                  crossAxisCount: 4,
                 ),
               ),
             ),

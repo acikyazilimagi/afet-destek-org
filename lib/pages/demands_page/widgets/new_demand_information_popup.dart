@@ -2,8 +2,7 @@ import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 
 class NewDemandInformationPopup extends StatelessWidget {
-  const NewDemandInformationPopup({
-    super.key,
+  const NewDemandInformationPopup._({
     this.onClose,
     this.onContinue,
   });
@@ -13,38 +12,16 @@ class NewDemandInformationPopup extends StatelessWidget {
   static const String _newDemandInformationText = '''
 Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadır. Yardıma ihtiyacı olanlara hızlı erişebilmemiz için, lütfen afet bölgesinde değilseniz talep oluşturmayınız.''';
 
-  Future<void> show({
+  static Future<void> show({
     required BuildContext context,
     required void Function() onClose,
     required void Function() onContinue,
   }) {
     return showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Column(
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.info_outline),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Bilgilendirme',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontSize: 16,
-                        color: context.appColors.titles,
-                      ),
-                ),
-              ],
-            ),
-            const Divider(),
-          ],
-        ),
-        content: NewDemandInformationPopup(
-          onClose: onClose,
-          onContinue: onContinue,
-        ),
+      builder: (context) => NewDemandInformationPopup._(
+        onClose: onClose,
+        onContinue: onContinue,
       ),
     );
   }
@@ -55,68 +32,90 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
   }) {
     return ElevatedButton(
       onPressed: stillCreate ? onContinue : onClose,
-      style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll<Color>(
-          stillCreate ? context.appColors.mainRed : context.appColors.white,
+      style: ElevatedButton.styleFrom(
+        backgroundColor:
+            stillCreate ? context.appColors.mainRed : context.appColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: stillCreate ? BorderSide.none : const BorderSide(),
         ),
-        shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-            side: stillCreate ? BorderSide.none : const BorderSide(),
+        padding: EdgeInsets.zero,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: Text(
+          stillCreate ? 'Yine de oluştur' : 'Vazgeç',
+          style: TextStyle(
+            fontSize: 16,
+            color: stillCreate
+                ? context.appColors.white
+                : context.appColors.notificationTermTexts,
           ),
         ),
-      ),
-      child: Text(
-        stillCreate ? 'Yine de oluştur' : 'Vazgeç',
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontSize: 16,
-              color: stillCreate
-                  ? context.appColors.white
-                  : context.appColors.notificationTermTexts,
-            ),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * .35,
-      child: Column(
-        children: [
-          const Expanded(
-            child: Text(
-              _newDemandInformationText,
-            ),
-          ),
-          Row(
+    return Dialog(
+      insetPadding: EdgeInsets.zero,
+      child: SizedBox(
+        height: (MediaQuery.of(context).size.height * .35).clamp(0, 400),
+        width: (MediaQuery.of(context).size.width * .95).clamp(0, 500),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                flex: 3,
-                child: SizedBox(
-                  height: 56,
-                  child: getElevatedButton(
-                    stillCreate: false,
-                    context: context,
+              Row(
+                children: [
+                  const Icon(Icons.info_outline),
+                  const SizedBox(
+                    width: 10,
                   ),
+                  Expanded(
+                    child: Text(
+                      'Bilgilendirme',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontSize: 16,
+                            color: context.appColors.titles,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+              const Divider(),
+              const Expanded(
+                child: Text(
+                  _newDemandInformationText,
                 ),
               ),
-              const SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                flex: 5,
-                child: SizedBox(
-                  height: 56,
-                  child: getElevatedButton(
-                    stillCreate: true,
-                    context: context,
+              Wrap(
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  SizedBox(
+                    height: (MediaQuery.of(context).size.height * 0.06)
+                        .clamp(0, 54),
+                    child: getElevatedButton(
+                      stillCreate: false,
+                      context: context,
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: (MediaQuery.of(context).size.height * 0.06)
+                        .clamp(0, 54),
+                    child: getElevatedButton(
+                      stillCreate: true,
+                      context: context,
+                    ),
+                  )
+                ],
               )
             ],
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

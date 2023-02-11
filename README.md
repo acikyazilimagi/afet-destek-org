@@ -44,6 +44,11 @@ Bu uygulama açık kaynak kodlu ve geliştirmeye açık. Eğer katkıda bulunmak
   - PM: [@impinar](https://github.com/easeccy) impinar#4969
   - Flutter Architect & Co-Lead: [@easeccy](https://github.com/easeccy) Enes#7446
   - Co-Lead: [@erolkaftanoglu](https://github.com/erolkaftanoglu) Erol#9127
+  - Maintainer: [@ndalyanlar](https://github.com/ndalyanlar) 
+  - Maintainer: [@adnanjpg](https://github.com/adnanjpg)
+  - Maintainer: [@hberkayozdemir](https://github.com/hberkayozdemir)
+  - Maintainer: [@bugragoksu](https://github.com/bugragoksu)
+  - Maintainer: [@SeniorTurkmen](https://github.com/SeniorTurkmen)
 - Github
   - [yardim-agi-flutter](https://github.com/acikkaynak/yardim-agi-flutter)
   - [yardim-agi-firebase](https://github.com/acikkaynak/yardim-agi-firebase)
