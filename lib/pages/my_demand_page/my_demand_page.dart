@@ -7,6 +7,7 @@ import 'package:afet_destek/pages/my_demand_page/widgets/demand_category_selecto
 import 'package:afet_destek/pages/my_demand_page/widgets/geo_value_accessor.dart';
 import 'package:afet_destek/shared/extensions/district_address_extension.dart';
 import 'package:afet_destek/shared/extensions/reactive_forms_extensions.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/core_confirmation_dialog.dart';
@@ -96,10 +97,10 @@ class _MyDemandPageState extends State<MyDemandPage> {
         onSecondaryButton: () {
           Navigator.of(context).pop();
         },
-        title: 'Talebi Sonlandır?',
-        subtitle: 'Talebi sonlandırmak istediğinize emin misiniz?',
-        primaryButtonText: 'Evet Sonlandır',
-        secondaryButtonText: 'Vazgeç',
+        title: 'ended_demand_dialog_title'.getStr(),
+        subtitle: 'ended_demand_dialog_subtitle'.getStr(),
+        primaryButtonText: 'approve'.getStr(),
+        secondaryButtonText: 'give_up'.getStr(),
       );
     } else {
       context.read<MyDemandsCubit>().activateDemand(
@@ -208,13 +209,14 @@ class _MyDemandPageState extends State<MyDemandPage> {
         _populateWithExistingData(existingDemand: state.demand);
       },
       loadFailed: () {
-        const AppSnackbars.failure('Sayfa yüklemesi başarısız.').show(context);
+        AppSnackbars.failure('error_ocured_when_page_loading'.getStr())
+            .show(context);
       },
       saveFail: () {
-        const AppSnackbars.failure('Kaydetme başarısız.').show(context);
+        AppSnackbars.failure('save_failed'.getStr()).show(context);
       },
       saveSuccess: () {
-        const AppSnackbars.success('Değişiklikler kaydedildi.').show(context);
+        AppSnackbars.success('save_successed'.getStr()).show(context);
       },
     );
   }
@@ -271,8 +273,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
           orElse: () => Scaffold(
             appBar: ResponsiveAppBar(
               title: state.demand == null
-                  ? 'Destek Talebi Oluştur'
-                  : 'Destek Talebini Düzenle',
+                  ? 'create_support_demand'.getStr()
+                  : 'edit_support_demand'.getStr(),
             ),
             body: Center(
               child: SizedBox(
@@ -298,8 +300,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       ),
                                       Text(
                                         state.demand == null
-                                            ? 'Destek Talebi Oluştur'
-                                            : 'Destek Talebini Düzenle',
+                                            ? 'create_support_demand'.getStr()
+                                            : 'edit_support_demand'.getStr(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge
@@ -313,7 +315,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   const SizedBox(height: 20),
                                 ],
                               ),
-                            const AppFormFieldTitle(title: 'Adres'),
+                            AppFormFieldTitle(title: 'address'.getStr()),
                             ReactiveTextField<GoogleGeocodingResult>(
                               formControlName:
                                   _MyDemandPageFormFields.geoLocation.name,
@@ -338,8 +340,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const AppFormFieldTitle(
-                                          title: 'Mevcut Adres',
+                                        AppFormFieldTitle(
+                                          title: 'current_address'.getStr(),
                                         ),
                                         Text(
                                           currentLocation.districtAddress,
@@ -352,9 +354,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   ),
                                   const SizedBox(width: 8),
                                   TextButton(
-                                    child: const Text(
-                                      'Güncelle',
-                                      style: TextStyle(
+                                    child: Text(
+                                      'update'.getStr(),
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                       ),
                                     ),
@@ -372,7 +374,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               ) as FormControl<List<String>>,
                             ),
                             const SizedBox(height: 16),
-                            const AppFormFieldTitle(title: 'Diğer İhtiyaçlar'),
+                            AppFormFieldTitle(title: 'other_needs'.getStr()),
                             ReactiveTextField<String>(
                               formControlName:
                                   _MyDemandPageFormFields.notes.name,
@@ -381,20 +383,22 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               maxLength: 1000,
                               validationMessages: {
                                 ValidationMessage.required: (_) =>
-                                    'Zorunlu alan',
+                                    'required_field'.getStr(),
                                 ValidationMessage.maxLength: (_) =>
-                                    'En fazla 1000 karakter girebilirsiniz.',
+                                    'you_can_write_up_to_1000_characters'
+                                        .getStr(),
                               },
                               decoration: InputDecoration(
-                                hintText: 'Diğer İhtiyaçlarınızı giriniz',
+                                hintText: 'enter_your_other_needs'.getStr(),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
                             ),
-                            const AppFormFieldTitle(title: 'Telefon Numarası'),
+                            AppFormFieldTitle(title: 'phone_number'.getStr()),
                             ReactiveIntlPhoneField(
-                              invalidNumberMessage: 'Geçersiz telefon numarası',
+                              invalidNumberMessage:
+                                  'invalid_phone_number'.getStr(),
                               formControl: _myDemandPageFormGroup.control(
                                 _MyDemandPageFormFields.phoneNumber.name,
                               ) as FormControl<String>,
@@ -412,7 +416,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       value: _isWpActive,
                                       onChanged: _onWpActivateToggle,
                                       title: Text(
-                                        'WhatsApp ile ulaşılsın',
+                                        'contact_via_whatsapp'.getStr(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleSmall
@@ -427,12 +431,12 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       const SizedBox(
                                         height: 8,
                                       ),
-                                      const AppFormFieldTitle(
-                                        title: 'WhatsApp Numarası',
+                                      AppFormFieldTitle(
+                                        title: 'whatsapp_phone_number'.getStr(),
                                       ),
                                       ReactiveIntlPhoneField(
                                         invalidNumberMessage:
-                                            'Geçersiz telefon numarası',
+                                            'invalid_phone_number'.getStr(),
                                         formControl:
                                             _myDemandPageFormGroup.control(
                                           _MyDemandPageFormFields
@@ -473,8 +477,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                             : null,
                                     child: Text(
                                       state.demand == null
-                                          ? 'Talep Oluştur'
-                                          : 'Güncelle',
+                                          ? 'create_demand'.getStr()
+                                          : 'update'.getStr(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium
@@ -508,8 +512,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                       : null,
                                   child: Text(
                                     state.demand!.isActive
-                                        ? 'Talebi Sonlandır'
-                                        : 'Talebi Yeniden Oluştur',
+                                        ? 'ended_demand'.getStr()
+                                        : 'recreate_demand'.getStr(),
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium
@@ -532,7 +536,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                   Navigator.of(context).pop();
                                 },
                                 child: Text(
-                                  'Çıkış yap',
+                                  'logout'.getStr(),
                                   style: Theme.of(context)
                                       .textTheme
                                       .titleLarge
@@ -588,7 +592,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
           ),
         ),
         child: Text(
-          stillDeactivate ? 'Evet Sonlandır' : 'Hayır',
+          stillDeactivate ? 'approve'.getStr() : 'no'.getStr(),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontSize: 16,
                 color: !stillDeactivate

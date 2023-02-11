@@ -6,6 +6,7 @@ import 'package:afet_destek/pages/demands_page/widgets/demands_page_appbar.dart'
 import 'package:afet_destek/pages/demands_page/widgets/generic_grid_list.dart';
 import 'package:afet_destek/pages/demands_page/widgets/list_view_responsive.dart';
 import 'package:afet_destek/pages/demands_page/widgets/mobile_list_view.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -83,11 +84,8 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
           ? Center(
               child: Text(
                 state.hasAnyFilters
-                    ? 'Sonuç bulunamadı, filtreleri temizlemeyi  deneyin'
-                    : '''
-Şu anda yardım talebi bulunmamaktadır.
-Eğer yardım talebiniz varsa, destek talebim menüsünden talep oluşturabilirsiniz.
-                    ''',
+                    ? 'can_not_find_result_try_clearing_filters'.getStr()
+                    : 'no_demand_yet'.getStr(),
                 textAlign: TextAlign.center,
               ),
             )

@@ -1,6 +1,7 @@
 import 'package:afet_destek/pages/auth_page/auth_page.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,9 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
+                      isAuthorized
+                          ? 'my_support_demand'.getStr()
+                          : 'create_demand'.getStr(),
                       style: TextStyle(
                         color: context.appColors.secondaryBackground,
                       ),
@@ -115,7 +118,9 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: Text(
-                      isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
+                      isAuthorized
+                          ? 'my_support_demand'.getStr()
+                          : 'create_demand'.getStr(),
                       style: TextStyle(
                         color: context.appColors.secondaryBackground,
                       ),
