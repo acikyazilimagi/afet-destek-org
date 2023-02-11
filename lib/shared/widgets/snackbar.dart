@@ -1,3 +1,4 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:motion_toast/motion_toast.dart';
@@ -7,15 +8,15 @@ enum SnackBarStatus { info, failure, success }
 class AppSnackbars {
   AppSnackbars.info(this.message)
       : status = SnackBarStatus.info,
-        title = 'info'.getStr();
+        title = LocaleKeys.info.getStr();
 
   AppSnackbars.failure(this.message)
       : status = SnackBarStatus.failure,
-        title = 'error'.getStr();
+        title = LocaleKeys.error.getStr();
 
   AppSnackbars.success(this.message)
       : status = SnackBarStatus.success,
-        title = 'success'.getStr();
+        title = LocaleKeys.success.getStr();
 
   final SnackBarStatus status;
   final String title;

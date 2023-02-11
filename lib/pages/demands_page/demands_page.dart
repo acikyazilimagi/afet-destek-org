@@ -1,5 +1,6 @@
 import 'package:afet_destek/data/repository/auth_repository.dart';
 import 'package:afet_destek/data/repository/demands_repository.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_filter_popup.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demands_page_appbar.dart';
@@ -84,8 +85,9 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
           ? Center(
               child: Text(
                 state.hasAnyFilters
-                    ? 'can_not_find_result_try_clearing_filters'.getStr()
-                    : 'no_demand_yet'.getStr(),
+                    ? LocaleKeys.can_not_find_result_try_clearing_filters
+                        .getStr()
+                    : LocaleKeys.no_demand_yet.getStr(),
                 textAlign: TextAlign.center,
               ),
             )

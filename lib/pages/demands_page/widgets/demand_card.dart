@@ -1,4 +1,5 @@
 import 'package:afet_destek/data/models/demand.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/demand_details_page/demand_details_page.dart';
 import 'package:afet_destek/pages/demand_details_page/widgets/contacts_group_widget.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_category_chip.dart';
@@ -21,9 +22,10 @@ class DemandCard extends StatelessWidget {
   String get _distanceString {
     final distanceKm = demand.distanceMeter ~/ 1000;
     if (distanceKm < 1) {
-      return '1km_less_away'.getStr();
+      return LocaleKeys.one_km_less_away.getStr();
     }
-    return 'distance_km_away'.getStrArgs(args: [distanceKm.toString()]);
+    return LocaleKeys.distance_km_away
+        .getStrArgs(args: [distanceKm.toString()]);
   }
 
   @override
@@ -76,7 +78,7 @@ class DemandCard extends StatelessWidget {
                       // IconButton(
                       //   onPressed: () {
                       //     Share.share(
-                      //       'share_demand'.getStrArgs(args:['https://afetdestek.org/talep/'+demand.id.toString()]),
+                      //       LocaleKeys.share_demand.getStrArgs(args:['https://afetdestek.org/talep/'+demand.id.toString()]),
                       //     );
                       //   },
                       //   icon: const Icon(Icons.share),
@@ -118,7 +120,7 @@ class DemandCard extends StatelessWidget {
                     child: Divider(color: Color(0xffE7EEF5), height: 1),
                   ),
                   Text(
-                    'needs'.getStr(),
+                    LocaleKeys.needs.getStr(),
                     textAlign: TextAlign.left,
                     style: const TextStyle(
                       fontSize: 16,
@@ -148,7 +150,7 @@ class DemandCard extends StatelessWidget {
                     child: Divider(color: Color(0xffE7EEF5), height: 1),
                   ),
                   Text(
-                    'details'.getStr(),
+                    LocaleKeys.details.getStr(),
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Color(
@@ -175,7 +177,7 @@ class DemandCard extends StatelessWidget {
                             demand: demand,
                           ),
                           child: Text(
-                            'show_demand_details'.getStr(),
+                            LocaleKeys.show_demand_details.getStr(),
                             style: TextStyle(
                               fontSize: 16,
                               color: context.appColors.mainRed,

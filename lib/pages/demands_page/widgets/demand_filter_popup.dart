@@ -1,3 +1,4 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
@@ -82,7 +83,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
       ..addAll([...selectedList, ...unSelectedList]);
 
     return Scaffold(
-      appBar: ResponsiveAppBar(title: 'filter'.getStr()),
+      appBar: ResponsiveAppBar(title: LocaleKeys.filter.getStr()),
       body: Center(
         child: SizedBox(
           width: 700,
@@ -123,13 +124,13 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: 'distance'.getStr(),
+                        text: LocaleKeys.distance.getStr(),
                         style: const TextStyle(color: Color(0xff475467)),
                       ),
                       TextSpan(
                         text: _filterRadiusKm == null
-                            ? 'everywhere'.getStr()
-                            : 'distance_km'.getStrArgs(
+                            ? LocaleKeys.everywhere.getStr()
+                            : LocaleKeys.distance_km.getStrArgs(
                                 args: ['${_filterRadiusKm!.toInt()}'],
                               ),
                         style: TextStyle(
@@ -148,7 +149,8 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'demands_type'.getStrArgs(args: ['${_categoryIds.length}']),
+                    LocaleKeys.demands_type
+                        .getStrArgs(args: ['${_categoryIds.length}']),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -239,7 +241,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
         ),
       ),
       child: Text(
-        isFilterButton ? 'filter'.getStr() : 'clear'.getStr(),
+        isFilterButton ? LocaleKeys.filter.getStr() : LocaleKeys.clear.getStr(),
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontSize: 16,
               color: isFilterButton

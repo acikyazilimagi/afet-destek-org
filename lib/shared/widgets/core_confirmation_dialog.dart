@@ -1,3 +1,4 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
@@ -82,8 +83,8 @@ class CoreConfirmationDialog extends StatelessWidget {
       ),
       child: Text(
         isPrimary
-            ? primaryButtonText ?? 'approve_single'.getStr()
-            : secondaryButtonText ?? 'give_up'.getStr(),
+            ? primaryButtonText ?? LocaleKeys.approve_single.getStr()
+            : secondaryButtonText ?? LocaleKeys.give_up.getStr(),
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontSize: 16,
               color: isPrimary

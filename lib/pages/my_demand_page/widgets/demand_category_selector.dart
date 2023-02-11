@@ -1,3 +1,4 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
@@ -60,12 +61,12 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        AppFormFieldTitle(title: 'need_type'.getStr()),
+        AppFormFieldTitle(title: LocaleKeys.need_type.getStr()),
         TextFormField(
           readOnly: true,
           controller: controller,
           decoration: InputDecoration(
-            hintText: 'please_select_need_type'.getStr(),
+            hintText: LocaleKeys.please_select_need_type.getStr(),
             focusedBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               borderSide:
@@ -102,7 +103,8 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'need_type_with_arg'.getStrArgs(
+                                        LocaleKeys.need_type_with_arg
+                                            .getStrArgs(
                                           args: [
                                             '${_selectedCategoryIds.length}'
                                           ],
@@ -172,7 +174,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                     onPressed: () =>
                                         Navigator.of(context).pop(),
                                     child: Text(
-                                      'save'.getStr(),
+                                      LocaleKeys.save.getStr(),
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme

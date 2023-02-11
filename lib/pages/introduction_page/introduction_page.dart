@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_escaping_inner_quotes
 
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
@@ -61,7 +62,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                       minimumSize: Size(width * .8, 50),
                       maximumSize: Size(width * .8, 70),
                     ),
-                    child: Text('give_access_your_location'.getStr()),
+                    child: Text(LocaleKeys.give_access_your_location.getStr()),
                   ),
                 ),
               ],
@@ -74,7 +75,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
 
   Text buildContent(BuildContext context) {
     return Text(
-      'make_sure_you_are_permisson_granted'.getStr(),
+      LocaleKeys.make_sure_you_are_permisson_granted.getStr(),
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.titleSmall,
     );
@@ -82,7 +83,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
 
   Text buildTitle(BuildContext context) {
     return Text(
-      'app_name'.getStr(),
+      LocaleKeys.app_name.getStr(),
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.headlineSmall,
     );
@@ -132,7 +133,7 @@ class _KVKKCheckBox extends StatelessWidget {
               child: StyledText(
                 textAlign: TextAlign.left,
                 maxLines: 1000,
-                text: 'kvkk_info'.getStr(),
+                text: LocaleKeys.kvkk_info.getStr(),
                 style: const TextStyle(
                   decoration: TextDecoration.none,
                   fontSize: 14,
@@ -161,5 +162,5 @@ class _KVKKCheckBox extends StatelessWidget {
   }
 }
 
-String kvkkTitle = 'kvkk_title'.getStr();
-String kvkkBody = 'kvkk_text'.getStr();
+String kvkkTitle = LocaleKeys.kvkk_title.getStr();
+String kvkkBody = LocaleKeys.kvkk_text.getStr();

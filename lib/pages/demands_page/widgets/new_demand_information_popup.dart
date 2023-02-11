@@ -1,3 +1,4 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,9 @@ class NewDemandInformationPopup extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4),
         child: Text(
-          stillCreate ? 'create_anyway'.getStr() : 'give_up'.getStr(),
+          stillCreate
+              ? LocaleKeys.create_anyway.getStr()
+              : LocaleKeys.give_up.getStr(),
           style: TextStyle(
             fontSize: 16,
             color: stillCreate
@@ -74,7 +77,7 @@ class NewDemandInformationPopup extends StatelessWidget {
                   ),
                   Expanded(
                     child: Text(
-                      'new_demand_info_title'.getStr(),
+                      LocaleKeys.new_demand_info_title.getStr(),
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontSize: 16,
                             color: context.appColors.titles,
@@ -86,7 +89,7 @@ class NewDemandInformationPopup extends StatelessWidget {
               const Divider(),
               Expanded(
                 child: Text(
-                  'new_demand_information'.getStr(),
+                  LocaleKeys.new_demand_information.getStr(),
                 ),
               ),
               Wrap(
