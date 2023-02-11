@@ -38,7 +38,8 @@ class AppLoadFailurePage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: Text(
-                    'please_make_sure_give_your_localization_permissions'
+                    LocaleKeys
+                        .please_make_sure_give_your_localization_permissions
                         .getStr(),
                     textAlign: TextAlign.center,
                   ),
