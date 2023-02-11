@@ -11,6 +11,7 @@ import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:afet_destek/shared/widgets/reactive_intl_phone_field.dart';
+import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:afet_destek/shared/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -233,6 +234,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final currentLocation = context.read<AppCubit>().state.whenOrNull(
           loaded: (currentLocation, demandCategories) => currentLocation,
         );
@@ -255,12 +257,10 @@ class _MyDemandPageState extends State<MyDemandPage> {
         return state.status.maybeWhen(
           loadingCurrentDemand: () => const Scaffold(body: Loader()),
           orElse: () => Scaffold(
-            appBar: AppBar(
-              title: Text(
-                state.demand == null
-                    ? 'Destek Talebi Oluştur'
-                    : 'Destek Talebini Düzenle',
-              ),
+            appBar: ResponsiveAppBar(
+              title: state.demand == null
+                  ? 'Destek Talebi Oluştur'
+                  : 'Destek Talebini Düzenle',
             ),
             body: Center(
               child: SizedBox(
@@ -275,6 +275,32 @@ class _MyDemandPageState extends State<MyDemandPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            if (size.width >= 1000)
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        icon: const Icon(Icons.arrow_back),
+                                      ),
+                                      Text(
+                                        state.demand == null
+                                            ? 'Destek Talebi Oluştur'
+                                            : 'Destek Talebini Düzenle',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleLarge
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 24,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                ],
+                              ),
                             const AppFormFieldTitle(title: 'Adres'),
                             ReactiveTextField<GoogleGeocodingResult>(
                               formControlName:

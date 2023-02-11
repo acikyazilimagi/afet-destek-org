@@ -28,7 +28,7 @@ class CallButton extends StatelessWidget {
           children: [
             SvgPicture.asset(Assets.sms),
             const SizedBox(width: 8),
-            Text('Sms ile ulaş ($phoneNumber)'),
+            Text('SMS ile ulaş ($phoneNumber)'),
           ],
         ),
       ),

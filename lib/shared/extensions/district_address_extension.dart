@@ -7,17 +7,18 @@ extension DistrictAddresX on GoogleGeocodingResult {
       'administrative_area_level_3',
       'administrative_area_level_2',
       'administrative_area_level_1',
-      'country',
     ];
-
+    final result = <String>[];
     for (final addressComponentType in addressComponentTypesInOrder) {
       for (final addressComponent in addressComponents) {
         if (addressComponent.types.contains(addressComponentType)) {
-          return addressComponent.longName;
+          result.add(addressComponent.longName);
         }
       }
     }
 
-    return addressComponents.first.longName;
+    return result.isNotEmpty
+        ? result.join(', ')
+        : addressComponents.first.longName;
   }
 }

@@ -2,10 +2,11 @@ import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_state.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_title.dart';
-import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+import '../../../shared/widgets/app_info_banner.dart';
 
 class GenericListView extends StatelessWidget {
   const GenericListView({
@@ -32,26 +33,8 @@ class GenericListView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const DemandTitle(),
-                TextButton.icon(
-                  style: TextButton.styleFrom(
-                    foregroundColor: context.appColors.subtitles,
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .headlineMedium
-                        ?.copyWith(color: context.appColors.subtitles),
-                  ),
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
-                  icon: const Icon(Icons.menu),
-                  label: const Text('Filtrele'),
-                )
-              ],
-            ),
+            const AppInfoBanner(),
+            const DemandTitle(),
             Expanded(
               child: MasonryGridView.builder(
                 //    crossAxisCount: crossAxisCount,

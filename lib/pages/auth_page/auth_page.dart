@@ -8,11 +8,10 @@ import 'package:afet_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:afet_destek/pages/auth_page/state/auth_state.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/pages/demands_page/widgets/new_demand_information_popup.dart';
-import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
-import 'package:flutter/gestures.dart';
+import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,13 +28,14 @@ class AuthPage extends StatefulWidget {
     final result = await Navigator.of(context).push<bool>(
       MaterialPageRoute<bool>(
         builder: (context) {
-          final width = MediaQuery.of(context).size.width.clamp(0, 700);
+          final width =
+              MediaQuery.of(context).size.width.clamp(0, 700).toDouble();
           return BlocProvider(
             create: (context) => AuthCubit(
               authRepository: context.read<AuthRepository>(),
             ),
             child: SizedBox(
-              width: width.toDouble(),
+              width: width,
               child: const AuthPage._(),
             ),
           );
@@ -70,8 +70,6 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   // TODO(enes): refactor to use reactive_forms
 
-  // ignore: unused_field, prefer_final_fields
-  bool _kvkkAccepted = false;
   String _number = '';
   String _code = '';
 
@@ -83,6 +81,8 @@ class _AuthPageState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     final authState = context.watch<AuthCubit>().state;
     final isFirstStep = authState.status == AuthStateStatus.initial ||
         authState.status == AuthStateStatus.smsFailure ||
@@ -91,8 +91,7 @@ class _AuthPageState extends State<AuthPage> {
     final isLoading = authState.status == AuthStateStatus.sendingSms ||
         authState.status == AuthStateStatus.verifyingCode;
 
-    final isButtonEnabled =
-        _kvkkAccepted && (isFirstStep || (!isFirstStep && _code.isNotEmpty));
+    final isButtonEnabled = isFirstStep || (!isFirstStep && _code.isNotEmpty);
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
@@ -117,178 +116,137 @@ class _AuthPageState extends State<AuthPage> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 16),
-              child: SvgPicture.asset(Assets.logoSvg),
-            )
-          ],
-          leadingWidth: 52,
+        appBar: ResponsiveAppBar(
+          mobileTile: Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: SvgPicture.asset(Assets.logoSvg),
+          ),
         ),
         body: Center(
           child: SizedBox(
             width: 700,
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Giriş Yap',
-                    style: Theme.of(context).textTheme.displaySmall,
-                  ),
-                  const SizedBox(height: 28),
-                  Form(
-                    key: _formKey,
-                    child: IntlPhoneField(
-                      initialCountryCode: 'TR',
-                      dropdownTextStyle:
-                          Theme.of(context).textTheme.titleMedium,
-                      showCountryFlag: false,
-                      onCountryChanged: (country) {
-                        _formKey.currentState!.validate();
-                      },
-                      pickerDialogStyle: PickerDialogStyle(
-                        width: MediaQuery.of(context).size.width.clamp(0, 500),
-                        searchFieldInputDecoration: const InputDecoration(
-                          labelText: 'Ülke ara',
-                        ),
-                      ),
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: const InputDecoration(
-                        hintText: 'Telefon Numarası',
-                        isDense: false,
-                        contentPadding: EdgeInsets.zero,
-                      ),
-                      style: Theme.of(context).textTheme.titleMedium,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
-                      autovalidateMode: AutovalidateMode.disabled,
-                      invalidNumberMessage: 'Geçersiz telefon numarası',
-                      onChanged: (number) {
-                        setState(() => _number = number.completeNumber);
-                        _formKey.currentState!.validate();
-                      },
-                    ),
-                  ),
-                  if (authState.status == AuthStateStatus.smsFailure) ...[
-                    const _AuthErrorMessage('Sms gönderme başarısız'),
-                  ],
-                  if (!isFirstStep) ...[
-                    const SizedBox(height: 8),
-                    TextFormField(
-                      autofocus: true,
-                      decoration: InputDecoration(
-                        hintText: 'SMS Kodu',
-                        suffix: _smsResendCountdown > 0
-                            ? Text('$_smsResendCountdown')
-                            : TextButton(
-                                child: const Text('Tekrar Dene'),
-                                onPressed: () {
-                                  context
-                                      .read<AuthCubit>()
-                                      .sendSms(number: _number);
-                                },
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (size.width >= 1000)
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () => Navigator.pop(context),
+                                icon: const Icon(Icons.arrow_back),
                               ),
-                        isDense: true,
-                        suffixStyle: TextStyle(color: context.appColors.black),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.1),
+                          SvgPicture.asset(Assets.logoSvg, height: 150),
+                          SizedBox(height: size.height * 0.03),
+                        ],
                       ),
-                      onChanged: (code) => setState(() => _code = code),
+                    const SizedBox(height: 28),
+                    Text(
+                      'Giriş Yap',
+                      style: Theme.of(context).textTheme.displaySmall,
                     ),
-                    if (authState.status ==
-                        AuthStateStatus.codeVerificationFailure) ...[
-                      const _AuthErrorMessage('Kod doğrulama başarısız'),
+                    const SizedBox(height: 28),
+                    Form(
+                      key: _formKey,
+                      child: IntlPhoneField(
+                        initialCountryCode: 'TR',
+                        dropdownTextStyle:
+                            Theme.of(context).textTheme.titleMedium,
+                        showCountryFlag: false,
+                        onCountryChanged: (country) {
+                          _formKey.currentState!.validate();
+                        },
+                        pickerDialogStyle: PickerDialogStyle(
+                          width:
+                              MediaQuery.of(context).size.width.clamp(0, 500),
+                          searchFieldInputDecoration: const InputDecoration(
+                            labelText: 'Ülke ara',
+                          ),
+                        ),
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: const InputDecoration(
+                          hintText: 'Telefon Numarası',
+                          isDense: false,
+                          contentPadding: EdgeInsets.zero,
+                        ),
+                        style: Theme.of(context).textTheme.titleMedium,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        autovalidateMode: AutovalidateMode.disabled,
+                        invalidNumberMessage: 'Geçersiz telefon numarası',
+                        onChanged: (number) {
+                          setState(() => _number = number.completeNumber);
+                          _formKey.currentState!.validate();
+                        },
+                      ),
+                    ),
+                    if (authState.status == AuthStateStatus.smsFailure) ...[
+                      const _AuthErrorMessage('Sms gönderme başarısız'),
+                    ],
+                    if (!isFirstStep) ...[
+                      const SizedBox(height: 8),
+                      TextFormField(
+                        autofocus: true,
+                        decoration: InputDecoration(
+                          hintText: 'SMS Kodu',
+                          suffix: _smsResendCountdown > 0
+                              ? Text('$_smsResendCountdown')
+                              : TextButton(
+                                  child: const Text('Tekrar Dene'),
+                                  onPressed: () {
+                                    context
+                                        .read<AuthCubit>()
+                                        .sendSms(number: _number);
+                                  },
+                                ),
+                          isDense: true,
+                          suffixStyle:
+                              TextStyle(color: context.appColors.black),
+                        ),
+                        onChanged: (code) => setState(() => _code = code),
+                      ),
+                      if (authState.status ==
+                          AuthStateStatus.codeVerificationFailure) ...[
+                        const _AuthErrorMessage('Kod doğrulama başarısız'),
+                      ]
+                    ],
+                    const SizedBox(height: 16),
+                    if (isLoading) ...[
+                      const Loader(),
+                    ] else ...[
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(double.maxFinite - 40, 50),
+                        ),
+                        onPressed: (isButtonEnabled &&
+                                _formKey.currentState != null &&
+                                _formKey.currentState!.validate())
+                            ? () {
+                                final cubit = context.read<AuthCubit>();
+                                if (isFirstStep) {
+                                  cubit.sendSms(number: _number);
+                                } else {
+                                  cubit.verifySMSCode(code: _code);
+                                }
+                              }
+                            : null,
+                        child: const Text('Devam Et'),
+                      )
                     ]
                   ],
-                  // implement kvkk
-                  _KVKKCheckBox(_kvkkAccepted, (bool value) {
-                    setState(() {
-                      _kvkkAccepted = value;
-                    });
-                  }),
-                  const SizedBox(height: 16),
-                  if (isLoading) ...[
-                    const Loader(),
-                  ] else ...[
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(double.maxFinite - 40, 50),
-                      ),
-                      onPressed:
-                          (isButtonEnabled && _formKey.currentState!.validate())
-                              ? () {
-                                  final cubit = context.read<AuthCubit>();
-                                  if (isFirstStep) {
-                                    cubit.sendSms(number: _number);
-                                  } else {
-                                    cubit.verifySMSCode(code: _code);
-                                  }
-                                }
-                              : null,
-                      child: const Text('Devam Et'),
-                    )
-                  ]
-                ],
+                ),
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _KVKKCheckBox extends StatelessWidget {
-  const _KVKKCheckBox(this.kvkkAccepted, this.setKvkkAccepted);
-  final bool kvkkAccepted;
-  final Function setKvkkAccepted;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8, right: 8),
-      child: Row(
-        children: [
-          SizedBox(
-            height: 24,
-            width: 24,
-            child: Checkbox(
-              value: kvkkAccepted,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
-              ),
-              onChanged: (value) {
-                setKvkkAccepted(value ?? false);
-              },
-            ),
-          ),
-          Text.rich(
-            TextSpan(
-              text: '',
-              style: const TextStyle(fontSize: 12),
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'KVKK Açık Rıza Metni',
-                  style: const TextStyle(
-                    decoration: TextDecoration.underline,
-                    fontSize: 14,
-                  ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () => KVKKPage.show(context),
-                ),
-                const TextSpan(
-                  text: "'ni okudum ve kabul ediyorum.",
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
       ),
     );
   }
