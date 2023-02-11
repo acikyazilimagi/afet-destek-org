@@ -17,6 +17,7 @@ class WhatsappButton extends StatelessWidget {
         textStyle: const TextStyle(
           fontWeight: FontWeight.w400,
         ),
+        padding: EdgeInsets.zero,
       ),
       onPressed: () async {
         // TODO(resultanyildizi): incoming phone number should start with 0
@@ -28,15 +29,12 @@ class WhatsappButton extends StatelessWidget {
       },
       child: const SizedBox(
         height: 40,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 37.42),
-          child: Center(
-            child: Text(
-              'Whatsapp',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
+        child: Center(
+          child: Text(
+            'Whatsapp',
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),

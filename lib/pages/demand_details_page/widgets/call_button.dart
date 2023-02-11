@@ -17,6 +17,7 @@ class SMSButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
+        padding: EdgeInsets.zero,
       ),
       onPressed: () async {
         final smsLaunchUri = Uri(scheme: 'sms', path: phoneNumber);
@@ -25,7 +26,7 @@ class SMSButton extends StatelessWidget {
       child: const SizedBox(
         height: 40,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 37.42),
+          padding: EdgeInsets.symmetric(vertical: 10),
           child: Center(
             child: Text(
               'SMS ile ulaş',

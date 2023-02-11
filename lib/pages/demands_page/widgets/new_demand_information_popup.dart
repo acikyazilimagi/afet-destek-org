@@ -81,7 +81,7 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height / 4,
+      height: MediaQuery.of(context).size.height * .35,
       child: Column(
         children: [
           const Expanded(
