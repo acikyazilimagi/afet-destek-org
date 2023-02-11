@@ -182,7 +182,8 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                                   } else {
                                     if (_categoryIds.length == 10) {
                                       AppSnackbars.failure(
-                                        'you_can_only_select_10_categories'
+                                        LocaleKeys
+                                            .you_can_only_select_10_categories
                                             .getStr(),
                                       ).show(context);
                                     } else {

@@ -392,9 +392,9 @@ class _MyDemandPageState extends State<MyDemandPage> {
                               validationMessages: {
                                 ValidationMessage.required: (_) =>
                                     LocaleKeys.required_field.getStr(),
-                                ValidationMessage.maxLength: (_) =>
-                                    'you_can_write_up_to_1000_characters'
-                                        .getStr(),
+                                ValidationMessage.maxLength: (_) => LocaleKeys
+                                    .you_can_write_up_to_1000_characters
+                                    .getStr(),
                               },
                               decoration: InputDecoration(
                                 hintText:
