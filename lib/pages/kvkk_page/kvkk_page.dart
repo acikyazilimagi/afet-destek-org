@@ -71,15 +71,21 @@ class _TermsPageState extends State<TermsPage> {
                 const SizedBox(
                   height: 16,
                 ),
-                if (kIsWeb)
+                if (kIsWeb) ...[
                   Expanded(
-                    child: htmlElementView(
-                      viewType: 'browser_page',
-                      onPlatformViewCreated: (data) {
-                        _onFWWebViewCreated();
-                      },
+                    child: DecoratedBox(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: htmlElementView(
+                        viewType: 'browser_page',
+                        onPlatformViewCreated: (data) {
+                          _onFWWebViewCreated();
+                        },
+                      ),
                     ),
                   )
+                ]
               ],
             ),
           ),
