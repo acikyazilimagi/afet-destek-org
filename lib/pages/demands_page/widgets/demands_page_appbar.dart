@@ -132,33 +132,6 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           const SizedBox(width: 12),
-          Builder(
-            builder: (ctx) {
-              return IconButton(
-                icon: Stack(
-                  children: [
-                    const Icon(Icons.filter_list),
-                    if (hasAnyFilters) ...[
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Container(
-                          width: 8,
-                          height: 8,
-                          decoration: BoxDecoration(
-                            color: context.appColors.mainRed,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-                onPressed: () => Scaffold.of(ctx).openEndDrawer(),
-              );
-            },
-          ),
-          const SizedBox(width: 8),
         ],
       ),
     );
