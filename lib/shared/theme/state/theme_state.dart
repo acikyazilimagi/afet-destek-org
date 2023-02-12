@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
-@freezed
 class ThemeState {
   const ThemeState({
     this.themeMode = ThemeMode.light,
