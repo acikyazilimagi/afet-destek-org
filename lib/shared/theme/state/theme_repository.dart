@@ -36,14 +36,13 @@ class ThemeRepository implements ThemePersistence {
 
   Future<void> _init() async {
     final themeString = await _getValue(_kThemePersistenceKey);
-    if (themeString != null) {
-      if (themeString == CustomTheme.light.name) {
-        _controller.add(CustomTheme.light);
-      } else {
-        _controller.add(CustomTheme.dark);
-      }
-    } else {
+
+    if (themeString == null) _controller.add(CustomTheme.light);
+
+    if (themeString == CustomTheme.light.name) {
       _controller.add(CustomTheme.light);
+    } else {
+      _controller.add(CustomTheme.dark);
     }
   }
 
