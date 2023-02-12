@@ -22,7 +22,7 @@ class LocationTutorialPage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsetsDirectional.only(end: 16),
             child: SvgPicture.asset(Assets.logoSvg),
           )
         ],

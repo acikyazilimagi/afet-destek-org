@@ -19,7 +19,7 @@ class MobileAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: title != null ? Text(title!) : null,
       leading: hasMobileLeading
           ? Padding(
-              padding: const EdgeInsets.only(left: 16),
+              padding: const EdgeInsetsDirectional.only(start: 16),
               child: SvgPicture.asset(Assets.logoSvg),
             )
           : null,

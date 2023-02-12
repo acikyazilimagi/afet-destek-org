@@ -67,6 +67,7 @@ Bu uygulama açık kaynak kodlu ve geliştirmeye açık. Eğer katkıda bulunmak
 
 [![My Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?title=&borderRadius=0&fontSize=15&showBorder=false&lineCount=1&theme=github_dark&hideBg=true&hideTitle=true&line1=Flutter,Flutter,02569B;Firebase,Firebase,FFCA28;Firestore,Firestore,ffffff;)](https://github-readme-tech-stack.vercel.app/api/cards?title=&borderRadius=0&fontSize=15&showBorder=false&lineCount=1&theme=github_dark&hideBg=true&hideTitle=true&line1=Flutter,Flutter,02569B;Firebase,Firebase,FFCA28;Firestore,Firestore,ffffff;)
 
+# Dev Guide
 ### İlk Çalıştırma
 
 - get dependencies:
@@ -88,3 +89,56 @@ Bu uygulama açık kaynak kodlu ve geliştirmeye açık. Eğer katkıda bulunmak
   # !/bin/bash
   flutter pub run easy_localization:generate -S assets/translations -f keys -O lib/gen/translations -o locale_keys.g.dart
   ```
+### Style Guide
+Uygulamamız `rtl` ve `ltr` dilleri destekledği için, kod içinde `left` veya `right` gibi özellikler kullanılmamalıdır. Bunun yerine `start` ve `end` kullanılmalıdır. `Flutter`'de `right` ve `left` özelliklerini içeren her `x` style biriminin `xDirectional` diye bir karşılığı vardır. 
+
+#### Örnekler
+
+##### EdgeInsets
+
+önce:
+```dart
+EdgeInsets.only(left: 10)
+```
+sonra
+```dart
+EdgeInsetsDirectional.only(start: 10)
+```
+
+##### Alignment
+
+önce:
+```dart
+Alignment.centerLeft
+```
+
+sonra:
+```dart
+AlignmentDirectional.centerStart
+```
+
+##### Border
+
+önce:
+```dart
+Border(left: BorderSide(color: Colors.red))
+```
+
+sonra:
+```dart
+BorderDirectional(start: BorderSide(color: Colors.red))
+```
+
+##### Positioned
+
+önce:
+```dart
+Positioned(left: 10, child: Container())
+```
+
+sonra:
+```dart
+PositionedDirectional(start: 10, child: Container())
+```
+
+

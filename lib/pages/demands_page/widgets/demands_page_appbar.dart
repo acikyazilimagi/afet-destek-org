@@ -72,9 +72,9 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     const Icon(Icons.filter_list),
                     if (hasAnyFilters) ...[
-                      Positioned(
+                      PositionedDirectional(
                         top: 0,
-                        right: 0,
+                        end: 0,
                         child: Container(
                           width: 8,
                           height: 8,
@@ -144,9 +144,9 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                   children: [
                     const Icon(Icons.filter_list),
                     if (hasAnyFilters) ...[
-                      Positioned(
+                      PositionedDirectional(
                         top: 0,
-                        right: 0,
+                        end: 0,
                         child: Container(
                           width: 8,
                           height: 8,

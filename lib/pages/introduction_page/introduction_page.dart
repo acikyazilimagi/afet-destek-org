@@ -108,7 +108,7 @@ class _KVKKCheckBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 8, right: 8),
+      padding: const EdgeInsetsDirectional.only(top: 8, end: 8),
       child: Row(
         children: [
           SizedBox(

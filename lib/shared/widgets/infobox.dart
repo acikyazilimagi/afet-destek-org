@@ -13,8 +13,8 @@ class Infobox extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: context.appColors.white,
-          border: Border(
-            left: BorderSide(width: 8, color: context.appColors.mainRed),
+          border: BorderDirectional(
+            start: BorderSide(width: 8, color: context.appColors.mainRed),
           ),
         ),
         child: Padding(
