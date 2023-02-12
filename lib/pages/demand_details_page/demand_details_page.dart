@@ -1,6 +1,8 @@
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/data/repository/auth_repository.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
@@ -79,10 +81,10 @@ class _DemandDetailsPageView extends StatelessWidget {
                           onPressed: () => Navigator.pop(context),
                           icon: const Icon(Icons.arrow_back),
                         ),
-                      const Text(
-                        'Yardım Talebi',
+                      Text(
+                        LocaleKeys.help_demands.getStr(),
                         maxLines: 1,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 24,
                           color: Color(0xff101828),
@@ -96,10 +98,9 @@ class _DemandDetailsPageView extends StatelessWidget {
                     isDetailed: true,
                   ),
                   const SizedBox(height: 32),
-                  const Center(
+                  Center(
                     child: Text(
-                      'GSM operatörlerindeki yoğunluk sebebiyle '
-                      'arama yerine SMS kullanmanızı rica ederiz.',
+                      LocaleKeys.please_prefer_sms_or_whatsapp.getStr(),
                       textAlign: TextAlign.center,
                     ),
                   )

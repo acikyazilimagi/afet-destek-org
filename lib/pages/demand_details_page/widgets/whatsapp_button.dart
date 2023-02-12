@@ -1,3 +1,5 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,12 +29,12 @@ class WhatsappButton extends StatelessWidget {
         final uri = Uri.parse(whatsapplink);
         await launchUrl(uri);
       },
-      child: const SizedBox(
+      child: SizedBox(
         height: 40,
         child: Center(
           child: Text(
-            'Whatsapp',
-            style: TextStyle(
+            LocaleKeys.whatsapp.getStr(),
+            style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),

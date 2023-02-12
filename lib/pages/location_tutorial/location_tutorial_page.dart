@@ -1,6 +1,7 @@
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/location_tutorial/enum/tutorial_images_enum.dart';
-
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -33,7 +34,7 @@ class LocationTutorialPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Text(
-              'Konumumu nasıl açarım?',
+              LocaleKeys.how_can_give_access_your_location.getStr(),
               style: Theme.of(context)
                   .textTheme
                   .displaySmall
@@ -43,7 +44,8 @@ class LocationTutorialPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Text(
-              '''Cihazınızda konum servislerine erişime izin verdiğinizden emin olun. İzin vermek için aşağıdaki yönergeleri izleyebilirsiniz.''',
+              LocaleKeys.make_sure_permission_granted_with_instructions
+                  .getStr(),
               style: Theme.of(context)
                   .textTheme
                   .displaySmall
@@ -87,7 +89,7 @@ class LocationTutorialPage extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Text(
-                    '''Eğer cihazınızda konum servisi açık ise tarayıcınızda konum servislerine erişime izin verdiğinizden emin olun. İzin vermek için aşağıdaki yönergeleri izleyebilirsiniz.''',
+                    LocaleKeys.make_sure_permission_granted_on_browser.getStr(),
                     style: Theme.of(context)
                         .textTheme
                         .displaySmall

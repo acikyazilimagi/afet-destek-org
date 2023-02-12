@@ -14,7 +14,8 @@ jobs:
         with:
           flutter-version: "3.7.1"
       - run: flutter pub get
+      - run: flutter pub run easy_localization:generate -S assets/translations -f keys -O lib/gen/translations -o locale_keys.g.dart
       - run: flutter pub run build_runner build --delete-conflicting-outputs
       - run: flutter analyze
-      - run: dart format . --set-exit-if-changed
+      - run: dart format $(find lib -name "*.dart" -not \( -name "*.*g.dart"  \) ) --set-exit-if-changed
       - run: sh caret_check.sh

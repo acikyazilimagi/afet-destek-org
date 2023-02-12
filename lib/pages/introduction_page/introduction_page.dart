@@ -1,12 +1,14 @@
 // ignore_for_file: avoid_escaping_inner_quotes
 
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:styled_text/styled_text.dart';
 
 class IntroductionPage extends StatefulWidget {
   const IntroductionPage({super.key});
@@ -60,7 +62,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                       minimumSize: Size(width * .8, 50),
                       maximumSize: Size(width * .8, 70),
                     ),
-                    child: const Text('Konum izni ver'),
+                    child: Text(LocaleKeys.give_access_your_location.getStr()),
                   ),
                 ),
               ],
@@ -73,10 +75,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
 
   Text buildContent(BuildContext context) {
     return Text(
-      '''
-      Bu platform lokasyon verinizi kullanarak çalışmaktadır.
-      Lütfen cihazınızdaki konum servisini aktif ettiğinizden emin olunuz.
-      ''',
+      LocaleKeys.make_sure_you_are_permisson_granted.getStr(),
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.titleSmall,
     );
@@ -84,7 +83,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
 
   Text buildTitle(BuildContext context) {
     return Text(
-      'Afet Destek Platformu',
+      LocaleKeys.app_name.getStr(),
       textAlign: TextAlign.center,
       style: Theme.of(context).textTheme.headlineSmall,
     );
@@ -131,31 +130,29 @@ class _KVKKCheckBox extends StatelessWidget {
           Expanded(
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text.rich(
+              child: StyledText(
                 textAlign: TextAlign.left,
                 maxLines: 1000,
-                TextSpan(
-                  text: 'KVKK Açık Rıza Metni',
-                  style: const TextStyle(
-                    decoration: TextDecoration.underline,
-                    fontSize: 14,
-                  ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () => TermsPage.show(
-                          context,
-                          body: kvkkBody,
-                          title: kvkkTitle,
-                        ),
-                  children: const [
-                    TextSpan(
-                      text: "'ni okudum ve kabul ediyorum.",
-                      style: TextStyle(
-                        decoration: TextDecoration.none,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
+                text: LocaleKeys.kvkk_info.getStr(),
+                style: const TextStyle(
+                  decoration: TextDecoration.none,
+                  fontSize: 14,
                 ),
+                tags: {
+                  'link': StyledTextActionTag(
+                    (String? text, Map<String?, String?> attrs) {
+                      TermsPage.show(
+                        context,
+                        body: kvkkBody,
+                        title: kvkkTitle,
+                      );
+                    },
+                    style: const TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontSize: 14,
+                    ),
+                  ),
+                },
               ),
             ),
           ),
@@ -165,6 +162,5 @@ class _KVKKCheckBox extends StatelessWidget {
   }
 }
 
-const String kvkkTitle = 'KVKK Açık Rıza Metni';
-const String kvkkBody =
-    '''Bu uygulama, 6 Şubat 2023 tarihinde Türkiye’de meydana gelen büyük deprem felaketinde, arama kurtarma çalışmaları ile yardım ve destek taleplerini ortak bir veri tabanında toplayarak yetkili kurum ve kuruluşlara aktarmak amacı ile bilişim teknolojileri alanında çalışan gönüllüler tarafından oluşturulmuştur. Yardım ya da desteğe ihtiyacı olduğunu belirttiğiniz kişilerin kişisel verileri ‘’Fiili imkânsızlık nedeniyle rızasını açıklayamayacak durumda bulunan veya rızasına hukuki geçerlilik tanınmayan kişinin kendisinin ya da bir başkasının hayatı veya beden bütünlüğünün korunması için zorunlu olması’’ hukuki sebebine dayanarak, otomatik yollarla işlenecektir. Tarafınıza ait kişisel veriler, ‘’Bir hakkın tesisi, kullanılması veya korunması için veri işlemenin zorunlu olması’’ hukuki sebebine dayanarak işlenecektir. Paylaşacağınız yardım, destek taleplerinde yer alan isim, soyisim, telefon ve adres gibi kişisel veriler, tarafımızca oluşturulan ve sunucuları yurtiçi ve yurtdışında bulunan veri tabanında toplanarak, Afad, Akut, Kızılay gibi yetkili arama kurtarma kuruluşlarının yanı sıra destek ve yardım taleplerini karşılayabilecek sivil toplum kuruluşları ile kişisel veri işleme amacı ile sınırlı olarak paylaşılacaktır.\n\nEnkaz, yıkım, yardım ve destek ihtiyaçları konusunda verdiğim bilgilerin doğru ve teyit edilmiş olduğunu, bilgi kirliliği ve yanlış uygulamalara yol açmamak için gerekli tüm önlem ve tedbirleri aldığımı, vermiş olduğum bilgilerde meydana gelen değişiklik ve güncellemeleri bildireceğimi kabul ve beyan ederim.''';
+String kvkkTitle = LocaleKeys.kvkk_title.getStr();
+String kvkkBody = LocaleKeys.kvkk_text.getStr();

@@ -1,3 +1,5 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -8,9 +10,6 @@ class NewDemandInformationPopup extends StatelessWidget {
   });
   final void Function()? onClose;
   final void Function()? onContinue;
-
-  static const String _newDemandInformationText = '''
-Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadır. Yardıma ihtiyacı olanlara hızlı erişebilmemiz için, lütfen afet bölgesinde değilseniz talep oluşturmayınız.''';
 
   static Future<void> show({
     required BuildContext context,
@@ -44,7 +43,9 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4),
         child: Text(
-          stillCreate ? 'Yine de oluştur' : 'Vazgeç',
+          stillCreate
+              ? LocaleKeys.create_anyway.getStr()
+              : LocaleKeys.give_up.getStr(),
           style: TextStyle(
             fontSize: 16,
             color: stillCreate
@@ -76,7 +77,7 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
                   ),
                   Expanded(
                     child: Text(
-                      'Bilgilendirme',
+                      LocaleKeys.new_demand_info_title.getStr(),
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontSize: 16,
                             color: context.appColors.titles,
@@ -86,9 +87,9 @@ Oluşturulacak yardım talebi sadece bulunduğunuz konuma talep oluşturmaktadı
                 ],
               ),
               const Divider(),
-              const Expanded(
+              Expanded(
                 child: Text(
-                  _newDemandInformationText,
+                  LocaleKeys.new_demand_information.getStr(),
                 ),
               ),
               Wrap(

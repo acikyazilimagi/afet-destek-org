@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:afet_destek/app.dart';
 import 'package:afet_destek/utils/logger/app_logger.dart';
 import 'package:afet_destek/utils/observer/bloc_observer.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,22 @@ class AppFunc {
             'https://bc941e7fb9ab4ae793bbd16c77844d29@o4504644634607616.ingest.sentry.io/4504644636246016',
         firebaseAppName: 'prod',
       );
+
+  static void startLocalizedApp() {
+    runApp(
+      EasyLocalization(
+        supportedLocales: const [
+          Locale('tr', 'TR'),
+          Locale('en', 'US'),
+          Locale('ar', 'SY'),
+        ],
+        startLocale: const Locale('tr', 'TR'),
+        fallbackLocale: const Locale('tr', 'TR'),
+        path: 'assets/translations',
+        child: const DepremDestekApp(),
+      ),
+    );
+  }
 
   static Future<void> _start({
     required FirebaseOptions options,
@@ -88,7 +105,7 @@ class AppFunc {
 
           setPathUrlStrategy();
 
-          runApp(const DepremDestekApp());
+          startLocalizedApp();
         },
         (error, stackTrace) =>
             AppLoggerImpl.log.e(error.toString(), stackTrace),

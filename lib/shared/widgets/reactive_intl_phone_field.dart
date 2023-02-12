@@ -1,3 +1,5 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
@@ -19,8 +21,8 @@ class ReactiveIntlPhoneField extends StatelessWidget {
         return IntlPhoneField(
           pickerDialogStyle: PickerDialogStyle(
             width: MediaQuery.of(context).size.width.clamp(0, 500),
-            searchFieldInputDecoration: const InputDecoration(
-              labelText: 'Ülke ara',
+            searchFieldInputDecoration: InputDecoration(
+              labelText: LocaleKeys.search_country.getStr(),
             ),
           ),
           inputFormatters: [

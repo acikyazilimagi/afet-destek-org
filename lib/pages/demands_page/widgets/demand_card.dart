@@ -1,14 +1,15 @@
 import 'package:afet_destek/data/models/demand.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/demand_details_page/demand_details_page.dart';
 import 'package:afet_destek/pages/demand_details_page/widgets/contacts_group_widget.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_category_chip.dart';
 import 'package:afet_destek/shared/extensions/date_count_down_extension.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// ignore: must_be_immutable
 class DemandCard extends StatelessWidget {
   const DemandCard({
     super.key,
@@ -21,9 +22,10 @@ class DemandCard extends StatelessWidget {
   String get _distanceString {
     final distanceKm = demand.distanceMeter ~/ 1000;
     if (distanceKm < 1) {
-      return '>1km uzaklıkta';
+      return LocaleKeys.one_km_less_away.getStr();
     }
-    return '${distanceKm}km uzaklıkta';
+    return LocaleKeys.distance_km_away
+        .getStrArgs(args: [distanceKm.toString()]);
   }
 
   @override
@@ -76,7 +78,7 @@ class DemandCard extends StatelessWidget {
                       // IconButton(
                       //   onPressed: () {
                       //     Share.share(
-                      //       'Yardım talep linki : https://afetdestek.org/talep/${demand.id}',
+                      //       LocaleKeys.share_demand.getStrArgs(args:['https://afetdestek.org/talep/'+demand.id.toString()]),
                       //     );
                       //   },
                       //   icon: const Icon(Icons.share),
@@ -117,10 +119,10 @@ class DemandCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 8),
                     child: Divider(color: Color(0xffE7EEF5), height: 1),
                   ),
-                  const Text(
-                    'İhtiyaçlar',
+                  Text(
+                    LocaleKeys.needs.getStr(),
                     textAlign: TextAlign.left,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       color: Color(0xff475467),
@@ -147,9 +149,9 @@ class DemandCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 8),
                     child: Divider(color: Color(0xffE7EEF5), height: 1),
                   ),
-                  const Text(
-                    'Detaylar',
-                    style: TextStyle(
+                  Text(
+                    LocaleKeys.details.getStr(),
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Color(
                         0xff475467,
@@ -175,7 +177,7 @@ class DemandCard extends StatelessWidget {
                             demand: demand,
                           ),
                           child: Text(
-                            'Talep Detayını Gör',
+                            LocaleKeys.show_demand_details.getStr(),
                             style: TextStyle(
                               fontSize: 16,
                               color: context.appColors.mainRed,
@@ -195,18 +197,5 @@ class DemandCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String dateFormatter(DateTime date) {
-    final delta = DateTime.now().difference(date);
-    if (delta.inMinutes < 1) {
-      return '${delta.inSeconds} Saniye Önce';
-    } else if (delta.inHours < 1) {
-      return '${delta.inMinutes} Dakika Önce';
-    } else if (delta.inDays < 1) {
-      return '${delta.inHours} Saat Önce';
-    } else {
-      return '${delta.inDays} Gün Önce';
-    }
   }
 }
