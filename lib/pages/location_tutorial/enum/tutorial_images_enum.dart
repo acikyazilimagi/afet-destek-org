@@ -1,5 +1,8 @@
 import 'dart:convert';
+
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/location_tutorial/base64/base_64_images.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:flutter/material.dart';
 
 enum AppleTutorialImages {
@@ -37,15 +40,15 @@ enum AppleTutorialImages {
   String get title {
     switch (this) {
       case AppleTutorialImages.p1:
-        return '1- Ayarlar';
+        return LocaleKeys.apple_tutorial_settings.getStr();
       case AppleTutorialImages.p2:
-        return '2- Gizlilik ve Güvenlik';
+        return LocaleKeys.apple_tutorial_privacy.getStr();
       case AppleTutorialImages.p3:
-        return '3- Konum Servisleri';
+        return LocaleKeys.apple_tutorial_location.getStr();
       case AppleTutorialImages.p4:
-        return '4- Kapalı Butonu';
+        return LocaleKeys.apple_tutorial_closed.getStr();
       case AppleTutorialImages.p5:
-        return '5- Açık Hale Getir';
+        return LocaleKeys.apple_tutorial_opened.getStr();
     }
   }
 }
@@ -80,13 +83,13 @@ enum AndroidTutorialImages {
   String get title {
     switch (this) {
       case AndroidTutorialImages.p1:
-        return '1- Ayarlar';
+        return LocaleKeys.android_tutorial_settings.getStr();
       case AndroidTutorialImages.p2:
-        return '2- Konum Servisleri';
+        return LocaleKeys.android_tutorial_location.getStr();
       case AndroidTutorialImages.p3:
-        return '3- Kapalı Butonu';
+        return LocaleKeys.android_tutorial_closed.getStr();
       case AndroidTutorialImages.p4:
-        return '4- Açık Hale Getir';
+        return LocaleKeys.android_tutorial_opened.getStr();
     }
   }
 }
@@ -121,13 +124,13 @@ enum ChromeTutorialImages {
   String get title {
     switch (this) {
       case ChromeTutorialImages.p1:
-        return '1- Ayarlar';
+        return LocaleKeys.chrome_tutorial_settings.getStr();
       case ChromeTutorialImages.p2:
-        return '2- Konum Servisleri';
+        return LocaleKeys.chrome_tutorial_location.getStr();
       case ChromeTutorialImages.p3:
-        return '3- Kapalı Butonu';
+        return LocaleKeys.chrome_tutorial_closed.getStr();
       case ChromeTutorialImages.p4:
-        return '4- Açık Hale Getir';
+        return LocaleKeys.chrome_tutorial_opened.getStr();
     }
   }
 }
@@ -162,13 +165,13 @@ enum SafariTutorialImages {
   String get title {
     switch (this) {
       case SafariTutorialImages.p1:
-        return '1- AA İkonuna bas';
+        return LocaleKeys.safari_tutorial_settings.getStr();
       case SafariTutorialImages.p2:
-        return '2- Konum Servisleri';
+        return LocaleKeys.safari_tutorial_location.getStr();
       case SafariTutorialImages.p3:
-        return '3- Kapalı Butonu';
+        return LocaleKeys.safari_tutorial_closed.getStr();
       case SafariTutorialImages.p4:
-        return '4- Açık Hale Getir';
+        return LocaleKeys.safari_tutorial_opened.getStr();
     }
   }
 }

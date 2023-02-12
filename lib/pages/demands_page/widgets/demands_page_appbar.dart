@@ -1,6 +1,8 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/auth_page/auth_page.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +25,8 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: ElevatedButton(
-              onPressed: !isAuthorized
+            child: GestureDetector(
+              onTap: !isAuthorized
                   ? () {
                       AuthPage.show(
                         context,
@@ -41,12 +43,20 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                         },
                       );
                     },
-              child: Text(
-                isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: context.appColors.white,
-                  fontSize: 16,
+              child: ColoredBox(
+                color: context.appColors.mainRed,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      isAuthorized
+                          ? LocaleKeys.my_support_demand.getStr()
+                          : LocaleKeys.create_demand.getStr(),
+                      style: TextStyle(
+                        color: context.appColors.secondaryBackground,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -85,8 +95,8 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: ElevatedButton(
-              onPressed: !isAuthorized
+            child: GestureDetector(
+              onTap: !isAuthorized
                   ? () {
                       AuthPage.show(
                         context,
@@ -103,12 +113,20 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                         },
                       );
                     },
-              child: Text(
-                isAuthorized ? 'Destek Talebim' : 'Talep Oluştur',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: context.appColors.white,
-                  fontSize: 16,
+              child: ColoredBox(
+                color: context.appColors.mainRed,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      isAuthorized
+                          ? LocaleKeys.my_support_demand.getStr()
+                          : LocaleKeys.create_demand.getStr(),
+                      style: TextStyle(
+                        color: context.appColors.secondaryBackground,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

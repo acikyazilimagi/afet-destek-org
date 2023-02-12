@@ -1,3 +1,5 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
@@ -59,19 +61,19 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const AppFormFieldTitle(title: 'İhtiyaç Türü'),
+        AppFormFieldTitle(title: LocaleKeys.need_type.getStr()),
         TextFormField(
           readOnly: true,
           controller: controller,
           decoration: InputDecoration(
-            hintText: 'İhtiyaç Türü Seçiniz',
+            hintText: LocaleKeys.please_select_need_type.getStr(),
             focusedBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
               borderSide:
                   BorderSide(width: 2, color: context.appColors.mainRed),
             ),
             border: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
               borderSide: BorderSide(width: 2, color: context.appColors.stroke),
             ),
             hintStyle:
@@ -83,9 +85,12 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
             builder: (context) => StatefulBuilder(
               builder: (context, setStateForAlert) {
                 return Dialog(
-                  insetPadding: const EdgeInsets.symmetric(horizontal: 4),
+                  insetPadding: EdgeInsets.zero,
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.95,
+                    height: (MediaQuery.of(context).size.height * 0.95)
+                        .clamp(0, 1100),
+                    width: (MediaQuery.of(context).size.width * 0.95)
+                        .clamp(0, 500),
                     child: CustomScrollView(
                       slivers: [
                         SliverFillRemaining(
@@ -98,8 +103,12 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'İhtiyaç Türü '
-                                        '(${_selectedCategoryIds.length})',
+                                        LocaleKeys.need_type_with_arg
+                                            .getStrArgs(
+                                          args: [
+                                            '${_selectedCategoryIds.length}'
+                                          ],
+                                        ),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge,
@@ -148,39 +157,34 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                   ),
                                 ),
                                 const Divider(),
-                                Wrap(
-                                  children: [
-                                    SizedBox(
-                                      width: MediaQuery.of(context).size.width,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.06,
-                                      child: ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                          padding: EdgeInsets.zero,
-                                          backgroundColor:
-                                              context.appColors.mainRed,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                        onPressed: () =>
-                                            Navigator.of(context).pop(),
-                                        child: Text(
-                                          'Kaydet',
-                                          textAlign: TextAlign.center,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleLarge
-                                              ?.copyWith(
-                                                color: context.appColors.white,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: (MediaQuery.of(context).size.height *
+                                          0.06)
+                                      .clamp(0, 54),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      padding: EdgeInsets.zero,
+                                      backgroundColor:
+                                          context.appColors.mainRed,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
                                       ),
                                     ),
-                                  ],
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                    child: Text(
+                                      LocaleKeys.save.getStr(),
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge
+                                          ?.copyWith(
+                                            color: context.appColors.white,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),

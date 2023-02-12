@@ -2,11 +2,10 @@ import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_state.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_title.dart';
+import 'package:afet_destek/shared/widgets/app_info_banner.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
-import '../../../shared/widgets/app_info_banner.dart';
 
 class GenericListView extends StatelessWidget {
   const GenericListView({

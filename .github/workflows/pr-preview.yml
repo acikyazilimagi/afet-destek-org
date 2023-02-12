@@ -15,6 +15,7 @@ jobs:
         with:
           flutter-version: "3.3.x"
       - run: flutter pub get
+      - run: flutter pub run easy_localization:generate -S assets/translations -f keys -O lib/gen/translations -o locale_keys.g.dart
       - run: flutter pub run build_runner build --delete-conflicting-outputs
       - run: flutter build web
       - name: Archive Production Artifact

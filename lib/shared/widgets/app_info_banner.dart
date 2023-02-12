@@ -1,3 +1,5 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +28,7 @@ class _AppInfoBannerState extends State<AppInfoBanner> {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.all(16),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Container(
@@ -44,34 +46,42 @@ class _AppInfoBannerState extends State<AppInfoBanner> {
               children: [
                 Row(
                   children: [
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: _lang == _AppInfoLang.tr
-                            ? context.appColors.disabledButton
-                            : null,
+                    Expanded(
+                      child: Wrap(
+                        children: [
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: _lang == _AppInfoLang.tr
+                                  ? context.appColors.disabledButton
+                                  : null,
+                            ),
+                            onPressed: () =>
+                                setState(() => _lang = _AppInfoLang.tr),
+                            child: const Text('TR'),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: _lang == _AppInfoLang.en
+                                  ? context.appColors.disabledButton
+                                  : null,
+                            ),
+                            onPressed: () =>
+                                setState(() => _lang = _AppInfoLang.en),
+                            child: const Text('EN'),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: _lang == _AppInfoLang.ar
+                                  ? context.appColors.disabledButton
+                                  : null,
+                            ),
+                            onPressed: () =>
+                                setState(() => _lang = _AppInfoLang.ar),
+                            child: const Text('AR'),
+                          ),
+                        ],
                       ),
-                      onPressed: () => setState(() => _lang = _AppInfoLang.tr),
-                      child: const Text('TR'),
                     ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: _lang == _AppInfoLang.en
-                            ? context.appColors.disabledButton
-                            : null,
-                      ),
-                      onPressed: () => setState(() => _lang = _AppInfoLang.en),
-                      child: const Text('EN'),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: _lang == _AppInfoLang.ar
-                            ? context.appColors.disabledButton
-                            : null,
-                      ),
-                      onPressed: () => setState(() => _lang = _AppInfoLang.ar),
-                      child: const Text('AR'),
-                    ),
-                    const Spacer(),
                     IconButton(
                       icon: const Icon(Icons.close),
                       onPressed: () {
@@ -82,14 +92,14 @@ class _AppInfoBannerState extends State<AppInfoBanner> {
                     ),
                   ],
                 ),
+                const SizedBox(height: 10),
                 Text(
                   info,
                   textDirection: _lang == _AppInfoLang.ar
                       ? TextDirection.rtl
                       : TextDirection.ltr,
                   style: const TextStyle(
-                    height: 1.5,
-                    fontSize: 20,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -108,9 +118,8 @@ enum _AppInfoLang {
   ar,
 }
 
-final _infoTr =
-    'Bu uygulama, ihtiyaç sahibi depremzedelerin ihtiyaçlarını ve iletişim bilgilerini ekleyebildiği; ihtiyaç taleplerinin listelenerek karşılanabilmesi amacıyla tasarlandı.';
-final _infoEn =
-    'This application is designed to allow earthquake survivors to add their needs and contact information for volunteers to see and reach out.';
-final _infoAr =
-    'تم تصميم هذا التطبيق للسماح للناجين من الزلزال بإضافة احتياجاتهم ومعلومات اتصالهم لتمكين المتطوعين من رؤيتها والتواصل معهم';
+final _infoTr = LocaleKeys.app_info.getStr();
+const _infoEn =
+    '''This application is designed to allow earthquake survivors to add their needs and contact information for volunteers to see and reach out.''';
+const _infoAr =
+    '''تم تصميم هذا التطبيق للسماح للناجين من الزلزال بإضافة احتياجاتهم ومعلومات اتصالهم لتمكين المتطوعين من رؤيتها والتواصل معهم''';

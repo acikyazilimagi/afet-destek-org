@@ -1,14 +1,17 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
+
 extension DateCountDown on DateTime {
   String get asElapsedTimeString {
     final delta = DateTime.now().difference(this);
     if (delta.inMinutes < 1) {
-      return '${delta.inSeconds} Saniye Önce';
+      return LocaleKeys.duration_second.getStrPlural(delta.inSeconds);
     } else if (delta.inHours < 1) {
-      return '${delta.inMinutes} Dakika Önce';
+      return LocaleKeys.duration_min.getStrPlural(delta.inMinutes);
     } else if (delta.inDays < 1) {
-      return '${delta.inHours} Saat Önce';
+      return LocaleKeys.duration_hour.getStrPlural(delta.inHours);
     } else {
-      return '${delta.inDays} Gün Önce';
+      return LocaleKeys.duration_day.getStrPlural(delta.inDays);
     }
   }
 }
