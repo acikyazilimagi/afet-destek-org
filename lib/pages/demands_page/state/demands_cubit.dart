@@ -14,13 +14,12 @@ class DemandsCubit extends Cubit<DemandsState> {
   })  : _demandsRepository = demandsRepository,
         _currentLocation = currentLocation,
         super(
-          DemandsState(
+          const DemandsState(
             demands: null,
-            status: const DemandsStateStatus.loading(),
+            status: DemandsStateStatus.loading(),
           ),
         ) {
-    initFilterState();
-    getDemands();
+    init();
   }
   final GoogleGeocodingLocation _currentLocation;
   final DemandsRepository _demandsRepository;
@@ -28,36 +27,37 @@ class DemandsCubit extends Cubit<DemandsState> {
   int _page = 1;
   bool _isLastPage = false;
 
-  Future<SharedPreferences> get _prefs => SharedPreferences.getInstance();
-  static const String _filterKey = 'demands_filter';
+  SharedPreferences? _prefss;
+  FutureOr<SharedPreferences> get prefs async =>
+      _prefss ??= await SharedPreferences.getInstance();
 
-  Future<void> initFilterState() async {
+  static const String _filterKey = 'filterKey';
+
+  Future<void> init() async {
     emit(state.copyWith(status: const DemandsStateStatus.loading()));
 
-    final savedFilterStr = (await _prefs).getString(_filterKey);
+    try {
+      final savedFilterStr = (await prefs).getString(_filterKey);
 
-    if (savedFilterStr == null) {
-      emit(state.copyWith(status: const DemandsStateStatus.loaded()));
-      return;
-    }
+      if (savedFilterStr != null && savedFilterStr.isNotEmpty) {
+        final savedFilterJson = json.decode(savedFilterStr);
+        final savedFilter = DemandsStateFilter.fromJson(
+          savedFilterJson as Map<String, dynamic>,
+        );
 
-    final savedFilterJson = json.decode(savedFilterStr);
-    final savedFilter = DemandsStateFilter.fromJson(
-      savedFilterJson as Map<String, dynamic>,
-    );
+        emit(
+          state.copyWith(
+            filter: savedFilter,
+          ),
+        );
+      }
+    } catch (_) {}
 
-    emit(
-      state.copyWith(
-        filter: savedFilter,
-        status: const DemandsStateStatus.loaded(),
-      ),
-    );
+    await getDemands();
   }
 
   Future<void> getDemands() async {
     try {
-      emit(state.copyWith(status: const DemandsStateStatus.loading()));
-
       final demands = await _demandsRepository.getDemands(
         page: _page,
         geo: _currentLocation,
@@ -81,7 +81,6 @@ class DemandsCubit extends Cubit<DemandsState> {
       _page = 1;
       emit(
         state.copyWith(
-          filter: DemandsStateFilter.empty(),
           demands: null,
           status: const DemandsStateStatus.loading(),
         ),
@@ -121,10 +120,10 @@ class DemandsCubit extends Cubit<DemandsState> {
     );
 
     unawaited(
-      (await _prefs).setString(
+      (await prefs).setString(
         _filterKey,
         json.encode(
-          state.filter!.toJson(),
+          state.filter.toJson(),
         ),
       ),
     );

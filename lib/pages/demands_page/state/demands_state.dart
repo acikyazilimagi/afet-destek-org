@@ -6,31 +6,32 @@ part 'demands_state.freezed.dart';
 
 @freezed
 class DemandsState with _$DemandsState {
-  factory DemandsState({
+  const factory DemandsState({
     required DemandsStateStatus status,
     required List<Demand>? demands,
-    DemandsStateFilter? filter,
+    @Default(
+      DemandsStateFilter(
+        categoryIds: null,
+        filterRadiusKm: null,
+      ),
+    )
+        DemandsStateFilter filter,
   }) = _DemandsState;
-  DemandsState._();
+  const DemandsState._();
 
-  List<String>? get categoryIds => filter?.categoryIds;
-  double? get filterRadiusKm => filter?.filterRadiusKm;
+  List<String>? get categoryIds => filter.categoryIds;
+  double? get filterRadiusKm => filter.filterRadiusKm;
 
   bool get hasAnyFilters => categoryIds != null || filterRadiusKm != null;
 }
 
 @freezed
 class DemandsStateFilter with _$DemandsStateFilter {
-  factory DemandsStateFilter({
+  const factory DemandsStateFilter({
     required List<String>? categoryIds,
     required double? filterRadiusKm,
   }) = _DemandsStateFilter;
-  DemandsStateFilter._();
-
-  factory DemandsStateFilter.empty() => DemandsStateFilter(
-        categoryIds: null,
-        filterRadiusKm: null,
-      );
+  const DemandsStateFilter._();
 
   factory DemandsStateFilter.fromJson(Map<String, dynamic> json) =>
       _$DemandsStateFilterFromJson(json);
