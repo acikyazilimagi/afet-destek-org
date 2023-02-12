@@ -1,5 +1,7 @@
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/shared/theme/state/theme_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class MobileAppBar extends StatelessWidget implements PreferredSizeWidget {

@@ -16,13 +16,17 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension>
     this.paragraph = const Color(0xFF344054),
     this.whatsApp = const Color(0xFF25D366),
     this.tags = const Color(0xFF344054),
-    this.disabledButton = const Color(0xFFB6C0D5),
+    this.disabledButton = const Color(0xFFA7A6A6),
     this.disabledStroke = const Color(0xFFD9E1E7),
     this.stroke = const Color(0xFFD0D5DD),
     this.errorStroke = const Color(0xFFB71C1C),
     this.mainBackground = const Color(0xFFFFFFFF),
     this.notificationTermTexts = const Color(0xFF667085),
     this.tagsTermsInputTexts = const Color(0xFF686868),
+    this.cardColor = const Color(0xFFFFFFFF),
+    this.chipBackgroundColor = const Color(0xFFFFFFFF),
+    this.chipSelectedTextColor = const Color(0xFFFFFFFF),
+    this.chipSelectedBackgroundColor = const Color(0xFF344054),
   });
 
   factory AppColorsExtension.dark() {
@@ -32,10 +36,14 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension>
       titles: Color(0xFFFFFFFF),
       paragraph: Color(0xFFB7B7B7),
       tags: Color(0xFFFFFFFF),
-      disabledButton: Color(0xFF686868),
       stroke: Color(0xFF343434),
       mainBackground: Color(0xFF1D1D1D),
       notificationTermTexts: Color(0xFFB7B7B7),
+      disabledButton: Color(0xFF686868),
+      cardColor: Color(0xFF565555),
+      chipBackgroundColor: Color(0xFF4E4E4E),
+      chipSelectedTextColor: Color(0xFF000000),
+      chipSelectedBackgroundColor: Color(0xFFDC2626),
     );
   }
   final Color black;
@@ -54,4 +62,8 @@ class AppColorsExtension extends ThemeExtension<AppColorsExtension>
   final Color mainBackground;
   final Color notificationTermTexts;
   final Color tagsTermsInputTexts;
+  final Color cardColor;
+  final Color chipBackgroundColor;
+  final Color chipSelectedTextColor;
+  final Color chipSelectedBackgroundColor;
 }

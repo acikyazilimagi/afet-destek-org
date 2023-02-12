@@ -125,7 +125,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                     children: [
                       TextSpan(
                         text: LocaleKeys.distance.getStr(),
-                        style: const TextStyle(color: Color(0xff475467)),
+                        // style: const TextStyle(color: Color(0xff475467)),
                       ),
                       TextSpan(
                         text: _filterRadiusKm == null
@@ -173,7 +173,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(6),
                                 ),
-                                selectedColor: context.appColors.tags,
+                                // selectedColor: context.appColors.tags,
                                 selected: isSelected,
                                 label: Text(category.name),
                                 onSelected: (value) => setState(() {
@@ -247,7 +247,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
               fontSize: 16,
               color: isFilterButton
                   ? context.appColors.white
-                  : context.appColors.notificationTermTexts,
+                  : context.appColors.black,
             ),
       ),
     );

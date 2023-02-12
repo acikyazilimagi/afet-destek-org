@@ -21,7 +21,7 @@ class DemandCategoryChip extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 14,
-            color: context.appColors.paragraph,
+            // color: context.appColors.paragraph,
           ),
           textAlign: TextAlign.center,
         ),
