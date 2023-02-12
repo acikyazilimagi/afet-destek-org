@@ -24,11 +24,11 @@ class ThemeRepository implements ThemePersistence {
   final _controller = StreamController<CustomTheme>();
 
   Future<String?> _getValue(String key) async {
-    try {
+    final isExist = (await _sharedPreferences).containsKey(key);
+    if (isExist) {
       return (await _sharedPreferences).getString(key);
-    } catch (_) {
-      return null;
     }
+    return null;
   }
 
   Future<void> _setValue(String key, String value) async =>
