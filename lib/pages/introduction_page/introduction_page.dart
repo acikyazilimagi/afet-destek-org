@@ -5,6 +5,7 @@ import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/kvkk_page/kvkk_page.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/shared/widgets/language_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -40,6 +41,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
                 buildContent(context),
                 SizedBox(height: height * 0.05),
                 SizedBox(height: height * 0.01),
+                const LanguageDropdown(),
                 SizedBox(
                   width: width * .8,
                   child: _KVKKCheckBox(

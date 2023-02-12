@@ -4,6 +4,7 @@ import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
+import 'package:afet_destek/shared/widgets/language_dropdown.dart';
 import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,8 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
       hasMobileLeading: true,
       mobileTile: Row(
         children: [
+          const LanguageDropdown(),
+          const SizedBox(width: 12),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: GestureDetector(
@@ -93,6 +96,8 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       desktopTile: Row(
         children: [
+          const LanguageDropdown(),
+          const SizedBox(width: 12),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: GestureDetector(

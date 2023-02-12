@@ -11,20 +11,11 @@ class AppInfoBanner extends StatefulWidget {
 }
 
 class _AppInfoBannerState extends State<AppInfoBanner> {
-  _AppInfoLang _lang = _AppInfoLang.tr;
   static bool _hidden = false;
   @override
   Widget build(BuildContext context) {
     if (_hidden) {
       return const SizedBox.shrink();
-    }
-    var info = '';
-    if (_lang == _AppInfoLang.tr) {
-      info = _infoTr;
-    } else if (_lang == _AppInfoLang.en) {
-      info = _infoEn;
-    } else if (_lang == _AppInfoLang.ar) {
-      info = _infoAr;
     }
 
     return Padding(
@@ -44,64 +35,34 @@ class _AppInfoBannerState extends State<AppInfoBanner> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  LocaleKeys.app_info.getStr(),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 10),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Expanded(
-                      child: Wrap(
-                        children: [
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: _lang == _AppInfoLang.tr
-                                  ? context.appColors.disabledButton
-                                  : null,
-                            ),
-                            onPressed: () =>
-                                setState(() => _lang = _AppInfoLang.tr),
-                            child: const Text('TR'),
-                          ),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: _lang == _AppInfoLang.en
-                                  ? context.appColors.disabledButton
-                                  : null,
-                            ),
-                            onPressed: () =>
-                                setState(() => _lang = _AppInfoLang.en),
-                            child: const Text('EN'),
-                          ),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: _lang == _AppInfoLang.ar
-                                  ? context.appColors.disabledButton
-                                  : null,
-                            ),
-                            onPressed: () =>
-                                setState(() => _lang = _AppInfoLang.ar),
-                            child: const Text('AR'),
-                          ),
-                        ],
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 16,
+                        ),
                       ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.close),
                       onPressed: () {
                         setState(() {
                           _hidden = true;
                         });
                       },
+                      child: Text(
+                        LocaleKeys.ok_btn.getStr(),
+                      ),
                     ),
                   ],
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  info,
-                  textDirection: _lang == _AppInfoLang.ar
-                      ? TextDirection.rtl
-                      : TextDirection.ltr,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
                 ),
               ],
             ),
@@ -111,15 +72,3 @@ class _AppInfoBannerState extends State<AppInfoBanner> {
     );
   }
 }
-
-enum _AppInfoLang {
-  tr,
-  en,
-  ar,
-}
-
-final _infoTr = LocaleKeys.app_info.getStr();
-const _infoEn =
-    '''This application is designed to allow earthquake survivors to add their needs and contact information for volunteers to see and reach out.''';
-const _infoAr =
-    '''تم تصميم هذا التطبيق للسماح للناجين من الزلزال بإضافة احتياجاتهم ومعلومات اتصالهم لتمكين المتطوعين من رؤيتها والتواصل معهم''';

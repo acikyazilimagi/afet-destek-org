@@ -1,4 +1,5 @@
 import 'package:afet_destek/data/models/demand_category.dart';
+import 'package:afet_destek/shared/state/lang_cubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -34,7 +35,10 @@ class Demand with _$Demand {
     json['distanceMeter'] = -1;
     return _$DemandFromJson(json);
   }
-  List<String> categoryNames({required List<DemandCategory> demandCategories}) {
+  List<String> categoryNames({
+    required List<DemandCategory> demandCategories,
+    required AppLang langEnum,
+  }) {
     return categoryIds
         .map(
           (id) =>
@@ -42,7 +46,7 @@ class Demand with _$Demand {
                   .firstWhereOrNull(
                     (category) => category.id == id,
                   )
-                  ?.name ??
+                  ?.localizedName(langEnum) ??
               '-',
         )
         .toList();

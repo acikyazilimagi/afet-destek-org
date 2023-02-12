@@ -1,6 +1,7 @@
 import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/shared/state/lang_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:collection/collection.dart';
@@ -29,7 +30,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                     .firstWhereOrNull(
                       (category) => category.id == id,
                     )
-                    ?.name,
+                    ?.localizedName(context.read<LangCubit>().state),
               ),
         )
         .whereNotNull()
@@ -151,7 +152,11 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
 
                                           setControllerText();
                                         },
-                                        title: Text(category.name),
+                                        title: Text(
+                                          category.localizedName(
+                                            context.read<LangCubit>().state,
+                                          ),
+                                        ),
                                       );
                                     },
                                   ),

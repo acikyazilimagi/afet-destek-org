@@ -2,6 +2,7 @@ import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
+import 'package:afet_destek/shared/state/lang_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:afet_destek/shared/widgets/snackbar.dart';
@@ -175,7 +176,11 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                                 ),
                                 selectedColor: context.appColors.tags,
                                 selected: isSelected,
-                                label: Text(category.name),
+                                label: Text(
+                                  category.localizedName(
+                                    context.read<LangCubit>().state,
+                                  ),
+                                ),
                                 onSelected: (value) => setState(() {
                                   if (isSelected) {
                                     _categoryIds.remove(category.id);

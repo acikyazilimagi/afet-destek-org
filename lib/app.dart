@@ -7,6 +7,7 @@ import 'package:afet_destek/pages/demands_page/demands_page.dart';
 import 'package:afet_destek/pages/introduction_page/introduction_page.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/state/app_state.dart';
+import 'package:afet_destek/shared/state/lang_cubit.dart';
 import 'package:afet_destek/shared/theme/theme.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -23,6 +24,8 @@ class DepremDestekApp extends StatefulWidget {
 class _DepremDestekAppState extends State<DepremDestekApp> {
   @override
   Widget build(BuildContext context) {
+    final lang = EasyLocalization.of(context)?.locale.languageCode;
+
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<AuthRepository>(
@@ -43,6 +46,11 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
             create: (context) => AppCubit(
               demandsRepository: context.read<DemandsRepository>(),
               locationRepository: context.read<LocationRepository>(),
+            ),
+          ),
+          BlocProvider<LangCubit>(
+            create: (context) => LangCubit(
+              languageCode: lang,
             ),
           ),
         ],
