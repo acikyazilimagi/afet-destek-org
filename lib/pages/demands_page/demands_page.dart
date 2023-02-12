@@ -148,12 +148,28 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
             ),
           if (demands.isEmpty)
             Center(
-              child: Text(
-                state.hasAnyFilters
-                    ? LocaleKeys.can_not_find_result_try_clearing_filters
-                        .getStr()
-                    : LocaleKeys.no_demand_yet.getStr(),
-                textAlign: TextAlign.center,
+              child: Column(
+                children: [
+                  Text(
+                    state.hasAnyFilters
+                        ? LocaleKeys.can_not_find_result_try_clearing_filters
+                            .getStr()
+                        : LocaleKeys.no_demand_yet.getStr(),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<DemandsCubit>().setFilters(
+                            categoryIds: null,
+                            filterRadiusKm: null,
+                          );
+                    },
+                    child: Text(LocaleKeys.clear_filters.getStr()),
+                  )
+                ],
               ),
             )
           else
