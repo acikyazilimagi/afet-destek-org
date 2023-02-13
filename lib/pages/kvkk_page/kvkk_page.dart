@@ -40,7 +40,7 @@ class _TermsPageState extends State<TermsPage> {
     return Scaffold(
       appBar: ResponsiveAppBar(
         mobileTile: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SvgPicture.asset(Assets.logoSvg),
         ),
       ),

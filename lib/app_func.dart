@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:afet_destek/app.dart';
+import 'package:afet_destek/shared/state/lang_cubit.dart';
 import 'package:afet_destek/utils/logger/app_logger.dart';
 import 'package:afet_destek/utils/observer/bloc_observer.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -25,7 +26,6 @@ class AppFunc {
           authDomain: 'env-deprem-destek-org.firebaseapp.com',
           storageBucket: 'env-deprem-destek-org.appspot.com',
           measurementId: 'G-G552720SJK',
-          iosBundleId: 'org.afetdestek.ios',
         ),
         sentryDsn:
             'https://a472fdea96db4bd3b3ca80ce8583e9ba@o4504644634607616.ingest.sentry.io/4504651796381696',
@@ -39,7 +39,6 @@ class AppFunc {
           appId: '1:529071733784:web:dfa3729d7ed5c5494c976d',
           messagingSenderId: '529071733784',
           projectId: 'deprem-destek-org',
-          iosBundleId: 'org.afetdestek.ios',
         ),
         sentryDsn:
             'https://bc941e7fb9ab4ae793bbd16c77844d29@o4504644634607616.ingest.sentry.io/4504644636246016',
@@ -49,13 +48,8 @@ class AppFunc {
   static void startLocalizedApp() {
     runApp(
       EasyLocalization(
-        supportedLocales: const [
-          Locale('tr', 'TR'),
-          Locale('en', 'US'),
-          Locale('ar', 'SY'),
-        ],
-        startLocale: const Locale('tr', 'TR'),
-        fallbackLocale: const Locale('tr', 'TR'),
+        supportedLocales: AppLang.values.map((e) => e.locale).toList(),
+        fallbackLocale: AppLang.values.first.locale,
         path: 'assets/translations',
         child: const DepremDestekApp(),
       ),
@@ -104,6 +98,9 @@ class AppFunc {
           // await MixPanelAnalytics.initMixPanelAnalytics();
 
           setPathUrlStrategy();
+
+          WidgetsFlutterBinding.ensureInitialized();
+          await EasyLocalization.ensureInitialized();
 
           startLocalizedApp();
         },
