@@ -59,7 +59,7 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
               home: state.when(
                 initializing: () => const Scaffold(body: Loader()),
                 introduction: () => const IntroductionPage(),
-                loaded: (_, __) => const DemandsPage(),
+                loaded: (_, __, ___) => const DemandsPage(),
                 failed: () => const AppLoadFailurePage(),
                 loading: () => const Scaffold(body: Loader()),
               ),

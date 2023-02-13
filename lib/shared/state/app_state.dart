@@ -1,5 +1,6 @@
 import 'package:afet_destek/data/models/demand_category.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 
 part 'app_state.freezed.dart';
@@ -11,6 +12,7 @@ class AppState with _$AppState {
   const factory AppState.loading() = _loadingAppState;
   const factory AppState.loaded({
     required GoogleGeocodingResult currentLocation,
+    required Position currentPosition,
     required List<DemandCategory> demandCategories,
   }) = _loadedAppState;
   const factory AppState.failed() = _failedAppState;

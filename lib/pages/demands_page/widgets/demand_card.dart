@@ -31,7 +31,7 @@ class DemandCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final demandCategories = context.read<AppCubit>().state.whenOrNull(
-          loaded: (_, demandCategories) => demandCategories,
+          loaded: (_, __, demandCategories) => demandCategories,
         )!;
     return GestureDetector(
       onTap: !isDetailed

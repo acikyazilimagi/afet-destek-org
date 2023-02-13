@@ -7,7 +7,7 @@ class LocationRepository {
     'AIzaSyBhcGwfVK2wWFRwo7fpKQ64BLdH0qS6Nb0',
   );
 
-  Future<GoogleGeocodingResult> getLocation() async {
+  Future<Position> getPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -29,6 +29,12 @@ class LocationRepository {
     }
 
     final position = await Geolocator.getCurrentPosition();
+
+    return position;
+  }
+
+  Future<GoogleGeocodingResult> getGeoLocation() async {
+    final position = await getPosition();
 
     final res = await _googleGeocodingApi.reverse(
       '${position.latitude},${position.longitude}',
