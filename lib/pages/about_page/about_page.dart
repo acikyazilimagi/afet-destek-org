@@ -1,5 +1,6 @@
 import 'package:afet_destek/gen/assets.gen.dart';
-
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -55,7 +56,7 @@ class _AboutPageState extends State<AboutPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Text(
-              'Hakkımızda',
+              LocaleKeys.about_page_title.getStr(),
               style: Theme.of(context)
                   .textTheme
                   .titleMedium
@@ -69,78 +70,78 @@ class _AboutPageState extends State<AboutPage> {
               ),
               shrinkWrap: true,
               children: [
-                const _AboutCard(
-                  title: 'Biz Kimiz?',
+                _AboutCard(
+                  title: LocaleKeys.who_we_are_title.getStr(),
                   initiallyExpanded: true,
                   children: [
-                    Divider(
+                    const Divider(
                       height: 0,
                     ),
                     _AboutDetail(
-                      text: whoWeAreText,
+                      text: LocaleKeys.who_we_are_text.getStr(),
                     )
                   ],
                 ),
                 const SizedBox(height: 10),
-                const _AboutCard(
-                  title: 'Ne yapıyoruz?',
+                _AboutCard(
+                  title: LocaleKeys.what_we_do_title.getStr(),
                   children: [
-                    Divider(
+                    const Divider(
                       height: 0,
                     ),
                     _AboutDetail(
-                      text: whatWeDoText,
+                      text: LocaleKeys.what_we_do_text.getStr(),
                     )
                   ],
                 ),
                 const SizedBox(height: 10),
-                const _AboutCard(
-                  title: 'Amacımız Nedir?',
+                _AboutCard(
+                  title: LocaleKeys.what_is_our_goal_title.getStr(),
                   children: [
-                    Divider(
+                    const Divider(
                       height: 0,
                     ),
                     _AboutDetail(
-                      text: whatIsOurGoalText,
+                      text: LocaleKeys.what_is_our_goal_text.getStr(),
                     )
                   ],
                 ),
                 const SizedBox(height: 10),
-                const _AboutCard(
-                  title: 'Diğer uygulamalardan farkımız?',
+                _AboutCard(
+                  title: LocaleKeys.different_from_others_title.getStr(),
                   children: [
-                    Divider(
+                    const Divider(
                       height: 0,
                     ),
                     _AboutDetail(
-                      text: whatIsDifferentText,
+                      text: LocaleKeys.different_from_others_text.getStr(),
                     )
                   ],
                 ),
                 const SizedBox(height: 10),
-                const _AboutCard(
-                  title: 'İletişim Bilgileri',
+                _AboutCard(
+                  title: LocaleKeys.contact_info_title.getStr(),
                   children: [
-                    Divider(
+                    const Divider(
                       height: 0,
                     ),
                     _AboutDetail(
-                      text: 'Tel:',
+                      text: LocaleKeys.contact_info_phone_title.getStr(),
                       value: '+90 (555) 555 5555',
                     ),
                     _AboutDetail(
-                      text: 'Mail:',
+                      text: LocaleKeys.contact_info_email_title.getStr(),
                       value: 'test@test.com',
                     ),
                     _AboutDetail(
-                      text: contactInfoText,
+                      text: LocaleKeys.contact_info_text.getStr(),
                     )
                   ],
                 ),
                 const SizedBox(height: 10),
-                const _AboutCard(
-                  title: 'Sosyal medya bilgileri',
-                  children: [
+                _AboutCard(
+                  title: LocaleKeys.social_media_info_title.getStr(),
+                  children: const [
                     Divider(
                       height: 0,
                     ),
@@ -164,17 +165,17 @@ class _AboutPageState extends State<AboutPage> {
                 ),
                 const SizedBox(height: 10),
                 _AboutCard(
-                  title: 'Uygulama Sürümü',
+                  title: LocaleKeys.app_version_title.getStr(),
                   children: [
                     const Divider(
                       height: 0,
                     ),
                     _AboutDetail(
-                      text: 'Sürüm:',
+                      text: LocaleKeys.app_version_text.getStr(),
                       value: version ?? '-',
                     ),
                     _AboutDetail(
-                      text: 'Derleme:',
+                      text: LocaleKeys.app_build_number_text.getStr(),
                       value: buildNumber ?? '-',
                     ),
                   ],
@@ -263,14 +264,3 @@ class _AboutCard extends StatelessWidget {
     );
   }
 }
-
-const String whoWeAreText =
-    '''Biz yazılım geliştiriciler, ürün yöneticileri, tasarımcılar ve içerik üreticileri olarak ihtiyaca yönelik toplanmış gönüllü bir ekibiz.''';
-const String whatWeDoText =
-    '''İnsanların eşya ihtiyaçlarını paylaşarak, yardım etmek isteyen kişilerin bu ihtiyaçları karşılamasını sağlayan bir platform geliştiriyoruz.''';
-const String whatIsOurGoalText =
-    '''İnsanlar arasındaki yardımlaşmayı teşvik etmek ve insanların eşya ihtiyaçlarını paylaşarak, yardım etmek isteyen kişilerin bu ihtiyaçları karşılamasına yardımcı olmak amacıyla bir platform sunuyoruz.''';
-const String whatIsDifferentText =
-    '''Paylaşılan yardım ihtiyaçlarının konum uzaklığına göre değerlendirilip yardım severin ulaşabiliceği en yakın ihtiyacı karşılaması sağlanmaktadır.''';
-const String contactInfoText =
-    '''Acil bir durum olmadığı sürece mail ile iletişime geçmenizi rica ediyoruz.''';
