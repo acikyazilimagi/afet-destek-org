@@ -39,6 +39,8 @@ PODS:
   - FirebaseFirestore/WithLeveldb (10.3.0):
     - FirebaseFirestore/Base
   - Flutter (1.0.0)
+  - flutter_native_splash (0.0.1):
+    - Flutter
   - geolocator_apple (1.2.0):
     - Flutter
   - GoogleUtilities/AppDelegateSwizzler (7.11.0):
@@ -87,6 +89,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `10.3.0`)
   - Flutter (from `Flutter`)
+  - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
@@ -119,6 +122,8 @@ EXTERNAL SOURCES:
     :tag: 10.3.0
   Flutter:
     :path: Flutter
+  flutter_native_splash:
+    :path: ".symlinks/plugins/flutter_native_splash/ios"
   geolocator_apple:
     :path: ".symlinks/plugins/geolocator_apple/ios"
   package_info_plus:
@@ -149,6 +154,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: e301297f4c15a17489e48ed722d733b1578e0c02
   FirebaseFirestore: ef5e47e1489c03dc978f94e8b43ad5f67a77df8c
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_native_splash: 52501b97d1c0a5f898d687f1646226c1f93c56ef
   geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   GTMSessionFetcher: c9e714f7eec91a55641e2bab9f45fd83a219b882
