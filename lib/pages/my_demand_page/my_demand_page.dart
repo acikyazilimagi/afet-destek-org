@@ -11,6 +11,7 @@ import 'package:afet_destek/shared/extensions/reactive_forms_extensions.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
+import 'package:afet_destek/shared/widgets/app_form_field_title.dart';
 import 'package:afet_destek/shared/widgets/core_confirmation_dialog.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:afet_destek/shared/widgets/reactive_intl_phone_field.dart';
@@ -195,7 +196,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
           .value = FirebaseAuth.instance.currentUser?.phoneNumber;
 
       final currentLocation = context.read<AppCubit>().state.whenOrNull(
-            loaded: (currentLocation, demandCategories) => currentLocation,
+            loaded: (currentLocation, __, demandCategories) => currentLocation,
           );
 
       _myDemandPageFormGroup
@@ -251,7 +252,8 @@ class _MyDemandPageState extends State<MyDemandPage> {
   @override
   Widget build(BuildContext context) {
     final currentLocation = context.read<AppCubit>().state.whenOrNull(
-          loaded: (currentLocation, demandCategories) => currentLocation,
+          loaded: (currentLocation, position, demandCategories) =>
+              currentLocation,
         );
     final appState = context.read<AppCubit>().state.mapOrNull(
           loaded: (loadedAppState) => loadedAppState,

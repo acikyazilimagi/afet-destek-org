@@ -63,7 +63,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
     final appState = context.read<AppCubit>().state;
     final demandCategories = appState
         .whenOrNull(
-          loaded: (_, demandCategories) => demandCategories,
+          loaded: (_, __, demandCategories) => demandCategories,
         )!
         .toList();
 

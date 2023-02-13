@@ -44,8 +44,12 @@ class AppCubit extends Cubit<AppState> {
 
       emit(const AppState.loading());
 
+      final position = await _locationRepository
+          .getPosition()
+          .timeout(const Duration(seconds: 10));
+
       final geoLocation = await _locationRepository
-          .getLocation()
+          .getGeoLocation()
           .timeout(const Duration(seconds: 10));
 
       final demandCategories = await _demandsRepository
@@ -54,6 +58,7 @@ class AppCubit extends Cubit<AppState> {
 
       emit(
         AppState.loaded(
+          currentPosition: position,
           currentLocation: geoLocation,
           demandCategories: demandCategories,
         ),

@@ -20,7 +20,8 @@ class DemandsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentLocation = context.read<AppCubit>().state.whenOrNull(
-          loaded: (currentLocation, demandCategories) => currentLocation,
+          loaded: (currentLocation, position, demandCategories) =>
+              currentLocation,
         );
 
     if (currentLocation == null) {

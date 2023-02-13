@@ -2,6 +2,7 @@ import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
+import 'package:afet_destek/shared/widgets/app_form_field_title.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -25,11 +26,12 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
     controller.text = _selectedCategoryIds
         .map(
           (id) => context.read<AppCubit>().state.whenOrNull(
-                loaded: (currentLocation, demandCategories) => demandCategories
-                    .firstWhereOrNull(
-                      (category) => category.id == id,
-                    )
-                    ?.name,
+                loaded: (currentLocation, position, demandCategories) =>
+                    demandCategories
+                        .firstWhereOrNull(
+                          (category) => category.id == id,
+                        )
+                        ?.name,
               ),
         )
         .whereNotNull()
@@ -51,7 +53,8 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
     _selectedCategoryIds = List.from(widget.formControl.value as List<String>);
 
     final demandCategories = context.read<AppCubit>().state.whenOrNull(
-          loaded: (currentLocation, demandCategories) => demandCategories,
+          loaded: (currentLocation, position, demandCategories) =>
+              demandCategories,
         );
 
     if (demandCategories == null) {
@@ -198,30 +201,6 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
             ),
           ),
         ),
-      ],
-    );
-  }
-}
-
-class AppFormFieldTitle extends StatelessWidget {
-  const AppFormFieldTitle({
-    super.key,
-    required this.title,
-  });
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          title,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: context.appColors.subtitles,
-              ),
-        ),
-        const SizedBox(height: 8),
       ],
     );
   }
