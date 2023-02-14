@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String _volunteerRequestLocalKey = 'volunteerRequest';
+// const String _volunteerRequestLocalKey = 'volunteerRequest';
 
 class VolunteerCubit extends Cubit<VolunteerState> {
   VolunteerCubit({required DemandsRepository demandsRepository})

@@ -27,6 +27,27 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: GestureDetector(
+              onTap: () => VolunteerPage.show(context),
+              child: ColoredBox(
+                color: context.appColors.mainRed,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Bildirim Al',
+                      style: TextStyle(
+                        color: context.appColors.secondaryBackground,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: GestureDetector(
               onTap: !isAuthorized
                   ? () {
                       AuthPage.show(
@@ -97,15 +118,35 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: GestureDetector(
+              onTap: () => VolunteerPage.show(context),
+              child: ColoredBox(
+                color: context.appColors.mainRed,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Bildirim Al',
+                      style: TextStyle(
+                        color: context.appColors.secondaryBackground,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: GestureDetector(
               onTap: !isAuthorized
                   ? () {
-                      VolunteerPage.show(context);
-                      // AuthPage.show(
-                      //   context,
-                      //   onClose: () {
-                      //     context.read<DemandsCubit>().refreshDemands();
-                      //   },
-                      // );
+                      AuthPage.show(
+                        context,
+                        onClose: () {
+                          context.read<DemandsCubit>().refreshDemands();
+                        },
+                      );
                     }
                   : () {
                       MyDemandPage.show(

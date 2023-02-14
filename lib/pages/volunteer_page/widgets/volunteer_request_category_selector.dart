@@ -29,9 +29,9 @@ class VolunteerCategorySelector extends StatelessWidget {
       return const Loader();
     }
 
-    cats.sort((a, b) {
-      return categoryIds.contains(a.id) ? -1 : 1;
-    });
+    // cats.sort((a, b) {
+    //   return categoryIds.contains(a.id) ? -1 : 1;
+    // });
 
     final demandCategories = cats;
 
