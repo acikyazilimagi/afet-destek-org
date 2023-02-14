@@ -377,6 +377,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  firebase_messaging:
+    dependency: "direct main"
+    description:
+      name: firebase_messaging
+      sha256: dc010a6436333029fba858415fe65887c3fe44d8f6e6ea162bb8d3dd764fbcb6
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.2.1"
+  firebase_messaging_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_messaging_platform_interface
+      sha256: abda2d766486096eb1c568c7b20aef46180596c8b0708190b929133ff03e0a8d
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.10"
+  firebase_messaging_web:
+    dependency: transitive
+    description:
+      name: firebase_messaging_web
+      sha256: "7a0ce957bd2210e8636325152234728874dad039f1c7271ba1be5c752fdc5888"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.11"
   fixnum:
     dependency: transitive
     description:
@@ -422,6 +446,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.11.0"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_native_splash:
     dependency: "direct main"
     description:
@@ -430,11 +459,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.16"
-  flutter_localizations:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   flutter_staggered_grid_view:
     dependency: "direct main"
     description:
@@ -1333,4 +1357,3 @@ packages:
 sdks:
   dart: "2.19.1"
   flutter: ">=3.7.1"
-  

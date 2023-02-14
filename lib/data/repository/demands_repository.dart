@@ -1,9 +1,11 @@
+import 'package:afet_destek/app_func.dart';
 import 'package:afet_destek/data/api/demands_api_client.dart';
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/data/models/demand_category.dart';
 import 'package:afet_destek/shared/extensions/district_address_extension.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
 
 class DemandsRepository {
@@ -12,6 +14,8 @@ class DemandsRepository {
 
   final DemandsApiClient _demandsApiClient;
   final _demandsCollection = FirebaseFirestore.instance.collection('demands');
+  final _notificationsCollection =
+      FirebaseFirestore.instance.collection('notifications');
   final _demandCategoriesCollection =
       FirebaseFirestore.instance.collection('demand_categories');
   final _auth = FirebaseAuth.instance;
@@ -24,6 +28,25 @@ class DemandsRepository {
         ...doc.data(),
       });
     }).toList();
+  }
+
+  Future<void> subscribeToDemands({
+    required GoogleGeocodingResult geo,
+    required List<String> categoryIds,
+  }) async {
+    await FirebaseMessaging.instance.requestPermission();
+
+    final fcmToken = await FirebaseMessaging.instance.getToken(
+      vapidKey: AppFunc.vapidKey,
+    );
+
+    await _notificationsCollection.add({
+      'locale': 'tr_TR',
+      'geo': GeoPoint(geo.geometry!.location.lat, geo.geometry!.location.lng),
+      'categoryIds': FieldValue.arrayUnion(categoryIds),
+      'fcmToken': fcmToken,
+      'createdTime': FieldValue.serverTimestamp(),
+    }).timeout(const Duration(seconds: 3));
   }
 
   Future<void> addDemand({
