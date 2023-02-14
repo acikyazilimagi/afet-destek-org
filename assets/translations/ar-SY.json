@@ -126,6 +126,8 @@
   "become_volunteer_nav_btn": "تطوع",
   "become_volunteer_page_title": "تطوع",
   "become_volunteer_submit_btn": "تطوع",
-  "radius_km_title": "Hangi uzaklıktaki taleplerden haberdar olmak istiyorsunuz?"
-
+  "radius_km_title": "Hangi uzaklıktaki taleplerden haberdar olmak istiyorsunuz?",
+  "volunteer_categories_title": "Hangi tür yardım taleplerinden haberdar olmak istiyorsunuz?",
+  "volunteer_subscribed": "Belirlediğiniz kriterlere uygun talepleri size bildirim olarak göndereceğiz.",
+  "volunteer_subscribe_failed": "Hata oluştu. Lütfen tarayıcınızda bildirim iznini verdiğinizden emin olun."
 }

@@ -95,10 +95,12 @@ class _VolunteerPageState extends State<VolunteerPage> {
   void _listener(BuildContext context, VolunteerState state) {
     state.status.whenOrNull(
       saveFail: () {
-        AppSnackbars.failure(LocaleKeys.save_failed.getStr()).show(context);
+        AppSnackbars.failure(LocaleKeys.volunteer_subscribe_failed.getStr())
+            .show(context);
       },
       saveSuccess: () {
-        AppSnackbars.success(LocaleKeys.save_successed.getStr()).show(context);
+        AppSnackbars.success(LocaleKeys.volunteer_subscribed.getStr())
+            .show(context);
       },
     );
   }
@@ -167,10 +169,11 @@ class _VolunteerPageState extends State<VolunteerPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 32),
                     AppFormFieldTitle(
                       title: LocaleKeys.radius_km_title.getStr(),
                     ),
+                    const SizedBox(height: 8),
                     ReactiveSlider(
                       formControlName: _VolunteerPageFormFields.radiusKm.name,
                       inactiveColor: Colors.grey[200],
@@ -210,7 +213,11 @@ class _VolunteerPageState extends State<VolunteerPage> {
                         );
                       },
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 32),
+                    AppFormFieldTitle(
+                      title: LocaleKeys.volunteer_categories_title.getStr(),
+                    ),
+                    const SizedBox(height: 8),
                     VolunteerCategorySelector(
                       categoryIds: _categoryIds,
                       onChanged: (categoryIds) {
