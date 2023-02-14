@@ -17,6 +17,7 @@ dependencies:
   easy_localization: 3.0.1
   firebase_auth: 4.2.5
   firebase_core: 2.4.1
+  firebase_messaging: 14.2.1
   flutter:
     sdk: flutter
   flutter_bloc: 8.1.1
