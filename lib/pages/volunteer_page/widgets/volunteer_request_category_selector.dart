@@ -35,54 +35,46 @@ class VolunteerCategorySelector extends StatelessWidget {
 
     final demandCategories = cats;
 
-    return Expanded(
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: SingleChildScrollView(
-          child: Wrap(
-            children: demandCategories.map(
-              (category) {
-                final isSelected = categoryIds.contains(
-                  category.id,
-                );
+    return Wrap(
+      children: demandCategories.map(
+        (category) {
+          final isSelected = categoryIds.contains(
+            category.id,
+          );
 
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 4,
-                    horizontal: 4,
-                  ),
-                  child: ChoiceChip(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    selectedColor: context.appColors.tags,
-                    selected: isSelected,
-                    label: Text(category.name),
-                    onSelected: (value) {
-                      final ids = List<String>.from(categoryIds);
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 4,
+              horizontal: 4,
+            ),
+            child: ChoiceChip(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
+              selectedColor: context.appColors.tags,
+              selected: isSelected,
+              label: Text(category.name),
+              onSelected: (value) {
+                final ids = List<String>.from(categoryIds);
 
-                      if (isSelected) {
-                        ids.remove(category.id);
-                      } else {
-                        if (ids.length == 10) {
-                          AppSnackbars.failure(
-                            LocaleKeys.you_can_only_select_10_categories
-                                .getStr(),
-                          ).show(context);
-                        } else {
-                          ids.add(category.id);
-                        }
-                      }
+                if (isSelected) {
+                  ids.remove(category.id);
+                } else {
+                  if (ids.length == 10) {
+                    AppSnackbars.failure(
+                      LocaleKeys.you_can_only_select_10_categories.getStr(),
+                    ).show(context);
+                  } else {
+                    ids.add(category.id);
+                  }
+                }
 
-                      onChanged(ids);
-                    },
-                  ),
-                );
+                onChanged(ids);
               },
-            ).toList(),
-          ),
-        ),
-      ),
+            ),
+          );
+        },
+      ).toList(),
     );
   }
 }

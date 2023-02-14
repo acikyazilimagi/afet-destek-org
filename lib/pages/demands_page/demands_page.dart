@@ -1,6 +1,7 @@
 import 'package:afet_destek/data/repository/auth_repository.dart';
 import 'package:afet_destek/data/repository/demands_repository.dart';
 import 'package:afet_destek/gen/translations/locale_keys.g.dart';
+import 'package:afet_destek/pages/app_load_failure_page/app_load_failure_page.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_filter_popup.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demands_page_appbar.dart';
@@ -72,9 +73,14 @@ class _DemandsPageViewState extends State<_DemandsPageView> {
     final demands = state.demands;
 
     if (demands == null) {
+      if (state.status.maybeWhen(
+        orElse: () => false,
+        failure: () => true,
+      )) {
+        return const AppLoadFailurePage();
+      }
       return const Scaffold(body: Loader());
     }
-    // TODO(enes): failure page for failure state
 
     return Scaffold(
       appBar: DemandPageAppBar(

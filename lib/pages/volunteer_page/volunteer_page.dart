@@ -10,6 +10,7 @@ import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/app_form_field_title.dart';
+import 'package:afet_destek/shared/widgets/infobox.dart';
 import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
 import 'package:afet_destek/shared/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -119,10 +120,10 @@ class _VolunteerPageState extends State<VolunteerPage> {
           appBar: ResponsiveAppBar(
             title: LocaleKeys.become_volunteer_page_title.getStr(),
           ),
-          body: Center(
-            child: ReactiveForm(
-              formGroup: _volunteerPageFormGroup,
-              child: Container(
+          body: ReactiveForm(
+            formGroup: _volunteerPageFormGroup,
+            child: SingleChildScrollView(
+              child: Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,6 +153,10 @@ class _VolunteerPageState extends State<VolunteerPage> {
                         ],
                       ),
                     const SizedBox(height: 16),
+                    Infobox(
+                      info: LocaleKeys.volunteer_not_available_on_ios.getStr(),
+                    ),
+                    const SizedBox(height: 32),
                     AppFormFieldTitle(
                       title: LocaleKeys.current_address.getStr(),
                     ),

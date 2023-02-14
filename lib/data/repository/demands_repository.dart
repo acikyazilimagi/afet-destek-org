@@ -47,9 +47,7 @@ class DemandsRepository {
       'categoryIds': FieldValue.arrayUnion(categoryIds),
       'fcmToken': fcmToken,
       'createdTime': FieldValue.serverTimestamp(),
-      if (radiusKm < 50) ...{
-        'radiusKm': radiusKm.toInt(),
-      },
+      'radiusKm': radiusKm < 50 ? radiusKm.toInt() : null,
     }).timeout(const Duration(seconds: 3));
   }
 
