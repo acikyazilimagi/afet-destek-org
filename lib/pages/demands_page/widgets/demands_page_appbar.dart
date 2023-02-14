@@ -2,6 +2,7 @@ import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/auth_page/auth_page.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
+import 'package:afet_destek/pages/volunteer_page/volunteer_page.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
@@ -98,12 +99,13 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: GestureDetector(
               onTap: !isAuthorized
                   ? () {
-                      AuthPage.show(
-                        context,
-                        onClose: () {
-                          context.read<DemandsCubit>().refreshDemands();
-                        },
-                      );
+                      VolunteerPage.show(context);
+                      // AuthPage.show(
+                      //   context,
+                      //   onClose: () {
+                      //     context.read<DemandsCubit>().refreshDemands();
+                      //   },
+                      // );
                     }
                   : () {
                       MyDemandPage.show(

@@ -33,6 +33,7 @@ class DemandsRepository {
   Future<void> subscribeToDemands({
     required GoogleGeocodingResult geo,
     required List<String> categoryIds,
+    required double radiusKm,
   }) async {
     await FirebaseMessaging.instance.requestPermission();
 
@@ -46,6 +47,9 @@ class DemandsRepository {
       'categoryIds': FieldValue.arrayUnion(categoryIds),
       'fcmToken': fcmToken,
       'createdTime': FieldValue.serverTimestamp(),
+      if (radiusKm < 50) ...{
+        'radiusKm': radiusKm.toInt(),
+      },
     }).timeout(const Duration(seconds: 3));
   }
 
