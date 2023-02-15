@@ -1,14 +1,15 @@
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/gen/translations/locale_keys.g.dart';
-import 'package:afet_destek/pages/demand_details_page/demand_details_page.dart';
 import 'package:afet_destek/pages/demand_details_page/widgets/contacts_group_widget.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_category_chip.dart';
 import 'package:afet_destek/shared/extensions/date_count_down_extension.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
+import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class DemandCard extends StatelessWidget {
   const DemandCard({
@@ -30,13 +31,21 @@ class DemandCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final demandCategories = context.read<AppCubit>().state.whenOrNull(
+    final demandCategories = context.watch<AppCubit>().state.whenOrNull(
           loaded: (_, demandCategories) => demandCategories,
-        )!;
+        );
+    if (demandCategories == null) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text('Detaylar yükleniyor.'),
+          SizedBox(height: 8),
+          Loader(),
+        ],
+      );
+    }
     return GestureDetector(
-      onTap: !isDetailed
-          ? () => DemandDetailsPage.show(context, demandId: demand.id)
-          : null,
+      onTap: !isDetailed ? () => context.go('/demand/${demand.id}') : null,
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: context.appColors.white,
@@ -171,10 +180,7 @@ class DemandCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         TextButton(
-                          onPressed: () => DemandDetailsPage.show(
-                            context,
-                            demandId: demand.id,
-                          ),
+                          onPressed: () => context.go('/demand/${demand.id}'),
                           child: Text(
                             LocaleKeys.show_demand_details.getStr(),
                             style: TextStyle(

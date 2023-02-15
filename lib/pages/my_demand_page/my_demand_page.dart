@@ -381,7 +381,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                             ),
                             const SizedBox(height: 16),
                             AppFormFieldTitle(
-                              title: LocaleKeys.other_needs.getStr(),
+                              title: LocaleKeys.details.getStr(),
                             ),
                             ReactiveTextField<String>(
                               formControlName:
@@ -397,8 +397,7 @@ class _MyDemandPageState extends State<MyDemandPage> {
                                     .getStr(),
                               },
                               decoration: InputDecoration(
-                                hintText:
-                                    LocaleKeys.enter_your_other_needs.getStr(),
+                                hintText: LocaleKeys.demand_details.getStr(),
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
