@@ -65,6 +65,8 @@ class _IntroductionPageState extends State<IntroductionPage> {
                     child: Text(LocaleKeys.give_access_your_location.getStr()),
                   ),
                 ),
+                SizedBox(height: height * 0.02),
+                const SelectableText('info@afetdestek.org')
               ],
             ),
           ),
