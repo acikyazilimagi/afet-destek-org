@@ -140,10 +140,16 @@ class DemandsRepository {
   Future<Demand?> getDemand({required String demandId}) async {
     final doc = await _demandsCollection.doc(demandId).get();
 
-    return Demand.fromFirebaseJson({
+    final demand = Demand.fromFirebaseJson({
       'id': doc.id,
       ...doc.data()!,
     });
+
+    // temp solution
+    if (!demand.isActive) {
+      return null;
+    }
+    return demand;
   }
 
   Future<List<Demand>> getDemands({
