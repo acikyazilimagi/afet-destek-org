@@ -106,6 +106,8 @@ class AppLoadFailurePage extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 16),
+                const SelectableText('info@afetdestek.org')
               ],
             ),
           ),

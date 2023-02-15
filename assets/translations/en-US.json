@@ -139,5 +139,13 @@
   "social_media_info_title": "Sosyal medya bilgileri",
   "app_version_title": "Uygulama Sürümü",
   "app_version_text": "Sürüm:",
-  "app_build_number_text": "Derleme:"
+  "app_build_number_text": "Derleme:",
+  "become_volunteer_nav_btn": "Become a Volunteer",
+  "become_volunteer_page_title": "Become a Volunteer",
+  "become_volunteer_submit_btn": "Submit",
+  "radius_km_title": "Hangi uzaklıktaki taleplerden haberdar olmak istiyorsunuz?",
+  "volunteer_categories_title": "Hangi tür yardım taleplerinden haberdar olmak istiyorsunuz?",
+  "volunteer_subscribed": "Belirlediğiniz kriterlere uygun talepleri size bildirim olarak göndereceğiz.",
+  "volunteer_subscribe_failed": "Hata oluştu. Lütfen tarayıcınızda bildirim iznini verdiğinizden emin olun.",
+  "volunteer_not_available_on_ios": "Bu özellik iOS'ta henüz desteklenmemekedir."
 }

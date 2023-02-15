@@ -2,6 +2,7 @@ import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/auth_page/auth_page.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
+import 'package:afet_destek/pages/volunteer_page/volunteer_page.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
@@ -23,6 +24,27 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
       hasMobileLeading: true,
       mobileTile: Row(
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: GestureDetector(
+              onTap: () => VolunteerPage.show(context),
+              child: ColoredBox(
+                color: context.appColors.mainRed,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Bildirim Al',
+                      style: TextStyle(
+                        color: context.appColors.secondaryBackground,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: GestureDetector(
@@ -93,6 +115,27 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       desktopTile: Row(
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: GestureDetector(
+              onTap: () => VolunteerPage.show(context),
+              child: ColoredBox(
+                color: context.appColors.mainRed,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      'Bildirim Al',
+                      style: TextStyle(
+                        color: context.appColors.secondaryBackground,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: GestureDetector(
