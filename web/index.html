@@ -105,7 +105,7 @@
   <script>
 
     window.addEventListener('load', function (ev) {
-      var loading = document.querySelector("#loading");
+      var loaderAnimation = document.querySelector("#loading");
 
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -117,12 +117,11 @@
       }).then(function (engineInitializer) {
         return engineInitializer.initializeEngine();
       }).then(function (appRunner) {
+        loaderAnimation.remove();
         return appRunner.runApp();
       });
 
-      window.setTimeout(function () {
-        loading.remove();
-      }, 500);
+
     });
 
     // window.addEventListener("load", function () {
