@@ -153,8 +153,9 @@ class _VolunteerPageState extends State<VolunteerPage> {
                         ],
                       ),
                     const SizedBox(height: 16),
-                    Infobox(
-                      info: LocaleKeys.volunteer_not_available_on_ios.getStr(),
+                    const Infobox(
+                      info:
+                          '''Yakınınızda oluşturulan yardım taleplerinden anında haberdar olmak ve yardım edebilmek için bu sayfadan bildirim ayarlarınızı oluşturabilirsiniz. Bu özellik henüz iOS'ta desteklenmemektedir.''',
                     ),
                     const SizedBox(height: 32),
                     AppFormFieldTitle(
