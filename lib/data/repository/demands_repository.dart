@@ -47,7 +47,7 @@ class DemandsRepository {
       'categoryIds': FieldValue.arrayUnion(categoryIds),
       'fcmToken': fcmToken,
       'createdTime': FieldValue.serverTimestamp(),
-      'radiusKm': radiusKm < 50 ? radiusKm.toInt() : null,
+      'radiusKm': radiusKm < 50 ? radiusKm.toInt() : -1,
     }).timeout(const Duration(seconds: 3));
   }
 
@@ -134,6 +134,19 @@ class DemandsRepository {
     return Demand.fromFirebaseJson({
       'id': query.docs.first.id,
       ...query.docs.first.data(),
+    });
+  }
+
+  Future<Demand?> getDemand({required String demandId}) async {
+    if (_auth.currentUser == null) {
+      throw Exception('User is not logged in');
+    }
+
+    final doc = await _demandsCollection.doc(demandId).get();
+
+    return Demand.fromFirebaseJson({
+      'id': doc.id,
+      ...doc.data()!,
     });
   }
 

@@ -35,7 +35,7 @@ class DemandCard extends StatelessWidget {
         )!;
     return GestureDetector(
       onTap: !isDetailed
-          ? () => DemandDetailsPage.show(context, demand: demand)
+          ? () => DemandDetailsPage.show(context, demandId: demand.id)
           : null,
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -174,7 +174,7 @@ class DemandCard extends StatelessWidget {
                         TextButton(
                           onPressed: () => DemandDetailsPage.show(
                             context,
-                            demand: demand,
+                            demandId: demand.id,
                           ),
                           child: Text(
                             LocaleKeys.show_demand_details.getStr(),

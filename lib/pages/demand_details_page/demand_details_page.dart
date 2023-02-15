@@ -1,5 +1,6 @@
 import 'package:afet_destek/data/models/demand.dart';
 import 'package:afet_destek/data/repository/auth_repository.dart';
+import 'package:afet_destek/data/repository/demands_repository.dart';
 import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
@@ -10,20 +11,41 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DemandDetailsPage extends StatelessWidget {
-  const DemandDetailsPage._({required this.demand});
-  final Demand demand;
+class DemandDetailsPage extends StatefulWidget {
+  const DemandDetailsPage._({required this.demandId});
+  final String demandId;
 
   static Future<void> show(
     BuildContext context, {
-    required Demand demand,
+    required String demandId,
   }) async {
     await Navigator.of(context).push<bool>(
       MaterialPageRoute<bool>(
         builder: (context) {
-          return DemandDetailsPage._(demand: demand);
+          return DemandDetailsPage._(demandId: demandId);
         },
       ),
+    );
+  }
+
+  @override
+  State<DemandDetailsPage> createState() => _DemandDetailsPageState();
+}
+
+class _DemandDetailsPageState extends State<DemandDetailsPage> {
+  Demand? _demand;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        _demand = await context
+            .read<DemandsRepository>()
+            .getDemand(demandId: widget.demandId);
+        setState(() {});
+      },
     );
   }
 
@@ -33,7 +55,7 @@ class DemandDetailsPage extends StatelessWidget {
           loaded: (currentLocation, demandCategories) => currentLocation,
         );
 
-    if (currentLocation == null) {
+    if (currentLocation == null || _demand == null) {
       return const Scaffold(body: Loader());
     }
 
@@ -43,7 +65,7 @@ class DemandDetailsPage extends StatelessWidget {
         final authorized = snapshot.data != null;
         return _DemandDetailsPageView(
           isAuthorized: authorized,
-          demand: demand,
+          demand: _demand!,
         );
       },
     );
