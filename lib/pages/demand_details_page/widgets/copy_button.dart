@@ -31,7 +31,12 @@ class CopyButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const FittedBox(child: Icon(Icons.content_copy_rounded)),
-            Text(LocaleKeys.copy_button.getStr()),
+            Text(
+              LocaleKeys.copy_button.getStr(),
+              style: DefaultTextStyle.of(context)
+                  .style
+                  .copyWith(color: context.appColors.titles),
+            ),
           ],
         ),
       ),

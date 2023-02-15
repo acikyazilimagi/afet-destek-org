@@ -177,6 +177,8 @@ class _AuthPageState extends State<AuthPage> {
                           hintText: LocaleKeys.phone_number.getStr(),
                           isDense: false,
                           contentPadding: EdgeInsets.zero,
+                          enabledBorder:
+                              Theme.of(context).inputDecorationTheme.border,
                         ),
                         style: Theme.of(context).textTheme.titleMedium,
                         inputFormatters: [
@@ -211,8 +213,8 @@ class _AuthPageState extends State<AuthPage> {
                                   },
                                 ),
                           isDense: true,
-                          suffixStyle:
-                              TextStyle(color: context.appColors.black),
+                          enabledBorder:
+                              Theme.of(context).inputDecorationTheme.border,
                         ),
                         onChanged: (code) => setState(() => _code = code),
                       ),
@@ -230,6 +232,8 @@ class _AuthPageState extends State<AuthPage> {
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           fixedSize: const Size(double.maxFinite - 40, 50),
+                          disabledBackgroundColor:
+                              context.appColors.disabledButton,
                         ),
                         onPressed: (isButtonEnabled &&
                                 _formKey.currentState != null &&

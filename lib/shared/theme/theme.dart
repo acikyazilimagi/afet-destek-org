@@ -34,35 +34,51 @@ class AppTheme {
       indicatorColor: colorExtensions.mainRed,
       appBarTheme: AppBarTheme(
         centerTitle: true,
-        backgroundColor: colorExtensions.white,
-        foregroundColor: colorExtensions.black,
+        backgroundColor: colorExtensions.mainBackground,
+        foregroundColor: colorExtensions.paragraph,
         elevation: 0,
       ),
       buttonTheme: buttonTheme,
       cardTheme: CardTheme(
+        color: colorExtensions.cardColor,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(9),
         ),
       ),
       elevatedButtonTheme: elevatedButtonTheme,
       chipTheme: chipThemeData(colorExtensions),
-      textTheme: GoogleFonts.interTextTheme().copyWith(
-        headlineSmall: TextStyle(
-          color: colorExtensions.titles,
-          fontWeight: FontWeight.w600,
-        ),
-        titleSmall: TextStyle(
-          color: colorExtensions.tags,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
+      textTheme: GoogleFonts.interTextTheme()
+          .copyWith(
+            headlineSmall: TextStyle(
+              color: colorExtensions.titles,
+              fontWeight: FontWeight.w600,
+            ),
+            titleSmall: TextStyle(
+              color: colorExtensions.tags,
+              fontWeight: FontWeight.w400,
+            ),
+          )
+          .apply(
+            bodyColor: colorExtensions.titles,
+            displayColor: colorExtensions.tags,
+          ),
+      cardColor: colorExtensions.cardColor,
       textButtonTheme: textButtonTheme,
       outlinedButtonTheme: outlinedButtonThemeData(colorExtensions),
       inputDecorationTheme: InputDecorationTheme(
         errorMaxLines: 2,
         isDense: true,
         border: OutlineInputBorder(
+          borderSide: BorderSide(color: colorExtensions.titles),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorExtensions.titles),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: colorExtensions.titles),
           borderRadius: BorderRadius.circular(8),
         ),
       ),
@@ -91,6 +107,7 @@ class AppTheme {
 
   static TextButtonThemeData textButtonTheme = TextButtonThemeData(
     style: ElevatedButton.styleFrom(
+      elevation: 0,
       padding: const EdgeInsets.all(16),
     ),
   );
@@ -115,9 +132,14 @@ class AppTheme {
     AppColorsExtension colorsExtension,
   ) =>
       ChipThemeData(
-        selectedColor: const Color(0xff1F2937),
-        backgroundColor: colorsExtension.white,
-        secondaryLabelStyle: TextStyle(color: colorsExtension.white),
+        selectedColor: colorsExtension.chipSelectedBackgroundColor,
+        backgroundColor: colorsExtension.chipBackgroundColor,
+        labelStyle: TextStyle(
+          color: colorsExtension.titles,
+        ),
+        secondaryLabelStyle: TextStyle(
+          color: colorsExtension.white,
+        ),
         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(9),

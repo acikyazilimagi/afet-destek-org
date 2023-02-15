@@ -1,4 +1,3 @@
-import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 
 class DemandCategoryChip extends StatelessWidget {
@@ -18,10 +17,9 @@ class DemandCategoryChip extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         child: Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 14,
-            color: context.appColors.paragraph,
           ),
           textAlign: TextAlign.center,
         ),

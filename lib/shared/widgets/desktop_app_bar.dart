@@ -19,7 +19,15 @@ class DesktopAppBar extends StatelessWidget implements PreferredSizeWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: SvgPicture.asset(Assets.appbarLogo),
+                child: Row(
+                  children: [
+                    SvgPicture.asset(Assets.logoSvg),
+                    Text(
+                      'afetdestek.org',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    )
+                  ],
+                ),
               ),
               if (tile != null) tile!,
             ],

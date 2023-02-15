@@ -29,12 +29,12 @@ class _AppInfoBannerState extends State<AppInfoBanner> {
 
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
+      child: Card(
+        // borderRadius: BorderRadius.circular(8),
         child: Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: context.appColors.white,
+            // color: context.appColors.white,
             border: Border(
               left: BorderSide(width: 8, color: context.appColors.mainRed),
             ),
@@ -98,10 +98,12 @@ class _AppInfoBannerState extends State<AppInfoBanner> {
                   textDirection: _lang == _AppInfoLang.ar
                       ? TextDirection.rtl
                       : TextDirection.ltr,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  style: DefaultTextStyle.of(context).style.merge(
+                        const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                 ),
               ],
             ),

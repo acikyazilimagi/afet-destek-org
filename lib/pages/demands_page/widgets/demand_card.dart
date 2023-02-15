@@ -37,11 +37,7 @@ class DemandCard extends StatelessWidget {
       onTap: !isDetailed
           ? () => DemandDetailsPage.show(context, demandId: demand.id)
           : null,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: context.appColors.white,
-          borderRadius: BorderRadius.circular(9),
-        ),
+      child: Card(
         child: Column(
           children: [
             Container(
@@ -66,10 +62,10 @@ class DemandCard extends StatelessWidget {
                         child: Text(
                           demand.addressText,
                           maxLines: 4,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
-                            color: context.appColors.titles,
+                            // color: context.appColors.titles,
                           ),
                         ),
                       ),
@@ -93,14 +89,14 @@ class DemandCard extends StatelessWidget {
                         style: const TextStyle(
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
-                          color: Color(0xff475467),
+                          // color: Color(0xff475467),
                         ),
                       ),
                       const SizedBox(width: 6),
                       const Text(
                         '•',
                         style: TextStyle(
-                          color: Color(0xFFB0B5BC),
+                          // color: Color(0xFFB0B5BC),
                           fontSize: 18,
                         ),
                       ),
@@ -110,14 +106,17 @@ class DemandCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
-                          color: Color(0xff475467),
+                          // color: Color(0xff475467),
                         ),
                       ),
                     ],
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Divider(color: Color(0xffE7EEF5), height: 1),
+                    child: Divider(
+                      color: Color(0xffE7EEF5),
+                      height: 1,
+                    ),
                   ),
                   Text(
                     LocaleKeys.needs.getStr(),
@@ -125,7 +124,7 @@ class DemandCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
-                      color: Color(0xff475467),
+                      // color: Color(0xff475467),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -153,9 +152,9 @@ class DemandCard extends StatelessWidget {
                     LocaleKeys.details.getStr(),
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: Color(
-                        0xff475467,
-                      ),
+                      // color: Color(
+                      //   0xff475467,
+                      // ),
                       fontSize: 16,
                     ),
                   ),
@@ -164,7 +163,9 @@ class DemandCard extends StatelessWidget {
                     demand.notes,
                     maxLines: isDetailed ? 10000 : 5,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(color: Color(0xff475467)),
+                    // style: const TextStyle(
+                    //   // color: Color(0xff475467),
+                    // ),
                   ),
                   const SizedBox(height: 8),
                   if (!isDetailed) ...[

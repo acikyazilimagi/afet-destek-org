@@ -1,6 +1,7 @@
 import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/auth_page/auth_page.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
+import 'package:afet_destek/pages/demands_page/widgets/theme_button.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
 import 'package:afet_destek/pages/volunteer_page/volunteer_page.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
@@ -24,6 +25,7 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
       hasMobileLeading: true,
       mobileTile: Row(
         children: [
+          const ThemeButton(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: GestureDetector(
@@ -74,9 +76,7 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                       isAuthorized
                           ? LocaleKeys.my_support_demand.getStr()
                           : LocaleKeys.create_demand.getStr(),
-                      style: TextStyle(
-                        color: context.appColors.secondaryBackground,
-                      ),
+                      style: TextStyle(color: context.appColors.white),
                     ),
                   ),
                 ),
@@ -115,6 +115,7 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       desktopTile: Row(
         children: [
+          const ThemeButton(),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: GestureDetector(
@@ -165,9 +166,7 @@ class DemandPageAppBar extends StatelessWidget implements PreferredSizeWidget {
                       isAuthorized
                           ? LocaleKeys.my_support_demand.getStr()
                           : LocaleKeys.create_demand.getStr(),
-                      style: TextStyle(
-                        color: context.appColors.secondaryBackground,
-                      ),
+                      style: TextStyle(color: context.appColors.white),
                     ),
                   ),
                 ),

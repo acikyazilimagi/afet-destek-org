@@ -67,18 +67,12 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
           controller: controller,
           decoration: InputDecoration(
             hintText: LocaleKeys.please_select_need_type.getStr(),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              borderSide:
-                  BorderSide(width: 2, color: context.appColors.mainRed),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              borderSide: BorderSide(width: 2, color: context.appColors.stroke),
-            ),
             hintStyle:
                 TextStyle(color: context.appColors.notificationTermTexts),
-            suffixIcon: const Icon(Icons.arrow_forward_ios),
+            suffixIcon: Icon(
+              Icons.arrow_forward_ios,
+              color: context.appColors.titles,
+            ),
           ),
           onTap: () => showDialog<void>(
             context: context,
