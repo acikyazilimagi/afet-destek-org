@@ -1,4 +1,6 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
@@ -81,7 +83,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
       ..addAll([...selectedList, ...unSelectedList]);
 
     return Scaffold(
-      appBar: const ResponsiveAppBar(title: 'Filtrele'),
+      appBar: ResponsiveAppBar(title: LocaleKeys.filter.getStr()),
       body: Center(
         child: SizedBox(
           width: 700,
@@ -121,14 +123,16 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                 Text.rich(
                   TextSpan(
                     children: [
-                      const TextSpan(
-                        text: 'Mesafe: ',
-                        style: TextStyle(color: Color(0xff475467)),
+                      TextSpan(
+                        text: LocaleKeys.distance.getStr(),
+                        style: const TextStyle(color: Color(0xff475467)),
                       ),
                       TextSpan(
                         text: _filterRadiusKm == null
-                            ? 'Her yer'
-                            : '${_filterRadiusKm!.toInt()}km',
+                            ? LocaleKeys.everywhere.getStr()
+                            : LocaleKeys.distance_km.getStrArgs(
+                                args: ['${_filterRadiusKm!.toInt()}'],
+                              ),
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: context.appColors.mainRed,
@@ -144,7 +148,10 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                 const SizedBox(height: 8),
                 Align(
                   alignment: Alignment.topLeft,
-                  child: Text('İhtiyaç türü (${_categoryIds.length})'),
+                  child: Text(
+                    LocaleKeys.demands_type
+                        .getStrArgs(args: ['${_categoryIds.length}']),
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Expanded(
@@ -174,8 +181,10 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
                                     _categoryIds.remove(category.id);
                                   } else {
                                     if (_categoryIds.length == 10) {
-                                      const AppSnackbars.failure(
-                                        'En fazla 10 ihtiyaç eklenebilir.',
+                                      AppSnackbars.failure(
+                                        LocaleKeys
+                                            .you_can_only_select_10_categories
+                                            .getStr(),
                                       ).show(context);
                                     } else {
                                       _categoryIds.add(category.id);
@@ -233,7 +242,7 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
         ),
       ),
       child: Text(
-        isFilterButton ? 'Filtrele' : 'Temizle',
+        isFilterButton ? LocaleKeys.filter.getStr() : LocaleKeys.clear.getStr(),
         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontSize: 16,
               color: isFilterButton

@@ -9,6 +9,7 @@ import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/state/app_state.dart';
 import 'package:afet_destek/shared/theme/theme.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -52,6 +53,9 @@ class _DepremDestekAppState extends State<DepremDestekApp> {
               darkTheme: AppTheme.dark(context),
               themeMode: ThemeMode.light,
               debugShowCheckedModeBanner: false,
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
               home: state.when(
                 initializing: () => const Scaffold(body: Loader()),
                 introduction: () => const IntroductionPage(),

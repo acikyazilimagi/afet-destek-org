@@ -1,3 +1,5 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
@@ -59,12 +61,12 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const AppFormFieldTitle(title: 'İhtiyaç Türü'),
+        AppFormFieldTitle(title: LocaleKeys.need_type.getStr()),
         TextFormField(
           readOnly: true,
           controller: controller,
           decoration: InputDecoration(
-            hintText: 'İhtiyaç Türü Seçiniz',
+            hintText: LocaleKeys.please_select_need_type.getStr(),
             focusedBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               borderSide:
@@ -101,8 +103,12 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        'İhtiyaç Türü '
-                                        '(${_selectedCategoryIds.length})',
+                                        LocaleKeys.need_type_with_arg
+                                            .getStrArgs(
+                                          args: [
+                                            '${_selectedCategoryIds.length}'
+                                          ],
+                                        ),
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleLarge,
@@ -168,7 +174,7 @@ class _DemandCategorySelectorState extends State<DemandCategorySelector> {
                                     onPressed: () =>
                                         Navigator.of(context).pop(),
                                     child: Text(
-                                      'Kaydet',
+                                      LocaleKeys.save.getStr(),
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme

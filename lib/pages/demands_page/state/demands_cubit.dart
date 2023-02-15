@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:afet_destek/data/repository/demands_repository.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_geocoding_api/google_geocoding_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DemandsCubit extends Cubit<DemandsState> {
   DemandsCubit({
@@ -13,13 +15,11 @@ class DemandsCubit extends Cubit<DemandsState> {
         _currentLocation = currentLocation,
         super(
           const DemandsState(
-            categoryIds: null,
             demands: null,
-            filterRadiusKm: null,
             status: DemandsStateStatus.loading(),
           ),
         ) {
-    getDemands();
+    init();
   }
   final GoogleGeocodingLocation _currentLocation;
   final DemandsRepository _demandsRepository;
@@ -27,10 +27,37 @@ class DemandsCubit extends Cubit<DemandsState> {
   int _page = 1;
   bool _isLastPage = false;
 
+  SharedPreferences? _prefss;
+  FutureOr<SharedPreferences> get prefs async =>
+      _prefss ??= await SharedPreferences.getInstance();
+
+  static const String _filterKey = 'filterKey';
+
+  Future<void> init() async {
+    emit(state.copyWith(status: const DemandsStateStatus.loading()));
+
+    try {
+      final savedFilterStr = (await prefs).getString(_filterKey);
+
+      if (savedFilterStr != null && savedFilterStr.isNotEmpty) {
+        final savedFilterJson = json.decode(savedFilterStr);
+        final savedFilter = DemandsStateFilter.fromJson(
+          savedFilterJson as Map<String, dynamic>,
+        );
+
+        emit(
+          state.copyWith(
+            filter: savedFilter,
+          ),
+        );
+      }
+    } catch (_) {}
+
+    await getDemands();
+  }
+
   Future<void> getDemands() async {
     try {
-      emit(state.copyWith(status: const DemandsStateStatus.loading()));
-
       final demands = await _demandsRepository.getDemands(
         page: _page,
         geo: _currentLocation,
@@ -54,8 +81,6 @@ class DemandsCubit extends Cubit<DemandsState> {
       _page = 1;
       emit(
         state.copyWith(
-          categoryIds: null,
-          filterRadiusKm: null,
           demands: null,
           status: const DemandsStateStatus.loading(),
         ),
@@ -83,11 +108,23 @@ class DemandsCubit extends Cubit<DemandsState> {
     required double? filterRadiusKm,
   }) async {
     _page = 1;
+
     emit(
       state.copyWith(
-        categoryIds: categoryIds,
-        filterRadiusKm: filterRadiusKm,
+        filter: DemandsStateFilter(
+          categoryIds: categoryIds,
+          filterRadiusKm: filterRadiusKm,
+        ),
         demands: null,
+      ),
+    );
+
+    unawaited(
+      (await prefs).setString(
+        _filterKey,
+        json.encode(
+          state.filter.toJson(),
+        ),
       ),
     );
 

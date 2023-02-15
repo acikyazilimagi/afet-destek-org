@@ -1,3 +1,5 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -116,8 +118,7 @@ enum _AppInfoLang {
   ar,
 }
 
-const _infoTr =
-    '''Bu uygulama, ihtiyaç sahibi depremzedelerin ihtiyaçlarını ve iletişim bilgilerini ekleyebildiği; ihtiyaç taleplerinin listelenerek karşılanabilmesi amacıyla tasarlandı.''';
+final _infoTr = LocaleKeys.app_info.getStr();
 const _infoEn =
     '''This application is designed to allow earthquake survivors to add their needs and contact information for volunteers to see and reach out.''';
 const _infoAr =

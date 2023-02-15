@@ -1,0 +1,18 @@
+# flutter pub run flutter_native_splash:create
+flutter_native_splash:
+  color: '#DC2626'
+  image: assets/splash.png
+  web: false
+  android_12:
+    # The image parameter sets the splash screen icon image.  If this parameter is not specified,
+    # the app's launcher icon will be used instead.
+    # Please note that the splash screen will be clipped to a circle on the center of the screen.
+    # App icon with an icon background: This should be 960×960 pixels, and fit within a circle
+    # 640 pixels in diameter.
+    # App icon without an icon background: This should be 1152×1152 pixels, and fit within a circle
+    # 768 pixels in diameter.
+    image: assets/splash_android_12.png
+    # Splash screen background color.
+    color: '#DC2626'
+    # App icon background color.
+    icon_background_color: '#DC2626'

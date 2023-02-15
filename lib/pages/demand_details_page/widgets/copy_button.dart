@@ -1,3 +1,5 @@
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -27,9 +29,9 @@ class CopyButton extends StatelessWidget {
         height: 40,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            FittedBox(child: Icon(Icons.content_copy_rounded)),
-            Text('Kopyala'),
+          children: [
+            const FittedBox(child: Icon(Icons.content_copy_rounded)),
+            Text(LocaleKeys.copy_button.getStr()),
           ],
         ),
       ),

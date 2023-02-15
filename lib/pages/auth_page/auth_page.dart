@@ -4,11 +4,13 @@ import 'dart:async';
 
 import 'package:afet_destek/data/repository/auth_repository.dart';
 import 'package:afet_destek/gen/assets.gen.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/auth_page/state/auth_cubit.dart';
 import 'package:afet_destek/pages/auth_page/state/auth_state.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_cubit.dart';
 import 'package:afet_destek/pages/demands_page/widgets/new_demand_information_popup.dart';
 import 'package:afet_destek/pages/my_demand_page/my_demand_page.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
@@ -149,7 +151,7 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     const SizedBox(height: 28),
                     Text(
-                      'Giriş Yap',
+                      LocaleKeys.login.getStr(),
                       style: Theme.of(context).textTheme.displaySmall,
                     ),
                     const SizedBox(height: 28),
@@ -166,13 +168,13 @@ class _AuthPageState extends State<AuthPage> {
                         pickerDialogStyle: PickerDialogStyle(
                           width:
                               MediaQuery.of(context).size.width.clamp(0, 500),
-                          searchFieldInputDecoration: const InputDecoration(
-                            labelText: 'Ülke ara',
+                          searchFieldInputDecoration: InputDecoration(
+                            labelText: LocaleKeys.search_country.getStr(),
                           ),
                         ),
                         textAlignVertical: TextAlignVertical.center,
-                        decoration: const InputDecoration(
-                          hintText: 'Telefon Numarası',
+                        decoration: InputDecoration(
+                          hintText: LocaleKeys.phone_number.getStr(),
                           isDense: false,
                           contentPadding: EdgeInsets.zero,
                         ),
@@ -181,7 +183,8 @@ class _AuthPageState extends State<AuthPage> {
                           FilteringTextInputFormatter.digitsOnly,
                         ],
                         autovalidateMode: AutovalidateMode.disabled,
-                        invalidNumberMessage: 'Geçersiz telefon numarası',
+                        invalidNumberMessage:
+                            LocaleKeys.invalid_phone_number.getStr(),
                         onChanged: (number) {
                           setState(() => _number = number.completeNumber);
                           _formKey.currentState!.validate();
@@ -189,18 +192,18 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     ),
                     if (authState.status == AuthStateStatus.smsFailure) ...[
-                      const _AuthErrorMessage('Sms gönderme başarısız'),
+                      _AuthErrorMessage(LocaleKeys.sms_sending_failed.getStr()),
                     ],
                     if (!isFirstStep) ...[
                       const SizedBox(height: 8),
                       TextFormField(
                         autofocus: true,
                         decoration: InputDecoration(
-                          hintText: 'SMS Kodu',
+                          hintText: LocaleKeys.sms_code.getStr(),
                           suffix: _smsResendCountdown > 0
                               ? Text('$_smsResendCountdown')
                               : TextButton(
-                                  child: const Text('Tekrar Dene'),
+                                  child: Text(LocaleKeys.try_again.getStr()),
                                   onPressed: () {
                                     context
                                         .read<AuthCubit>()
@@ -215,7 +218,9 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                       if (authState.status ==
                           AuthStateStatus.codeVerificationFailure) ...[
-                        const _AuthErrorMessage('Kod doğrulama başarısız'),
+                        _AuthErrorMessage(
+                          LocaleKeys.code_validation_failed.getStr(),
+                        ),
                       ]
                     ],
                     const SizedBox(height: 16),
@@ -238,7 +243,7 @@ class _AuthPageState extends State<AuthPage> {
                                 }
                               }
                             : null,
-                        child: const Text('Devam Et'),
+                        child: Text(LocaleKeys.continue_text.getStr()),
                       )
                     ]
                   ],
