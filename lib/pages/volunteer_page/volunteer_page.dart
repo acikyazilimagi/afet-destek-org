@@ -243,6 +243,7 @@ class _VolunteerPageState extends State<VolunteerPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
+                          padding: EdgeInsets.zero,
                         ),
                         onPressed: deactivateButtons ? null : _onSave,
                         child: Text(

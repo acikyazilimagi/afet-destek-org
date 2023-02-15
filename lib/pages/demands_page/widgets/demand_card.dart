@@ -105,23 +105,25 @@ class DemandCard extends StatelessWidget {
                           color: Color(0xff475467),
                         ),
                       ),
-                      const SizedBox(width: 6),
-                      const Text(
-                        '•',
-                        style: TextStyle(
-                          color: Color(0xFFB0B5BC),
-                          fontSize: 18,
+                      if (!isDetailed) ...[
+                        const SizedBox(width: 6),
+                        const Text(
+                          '•',
+                          style: TextStyle(
+                            color: Color(0xFFB0B5BC),
+                            fontSize: 18,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        _distanceString,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xff475467),
+                        const SizedBox(width: 6),
+                        Text(
+                          _distanceString,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xff475467),
+                          ),
                         ),
-                      ),
+                      ]
                     ],
                   ),
                   const Padding(
