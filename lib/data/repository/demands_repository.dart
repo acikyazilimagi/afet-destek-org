@@ -138,10 +138,6 @@ class DemandsRepository {
   }
 
   Future<Demand?> getDemand({required String demandId}) async {
-    if (_auth.currentUser == null) {
-      throw Exception('User is not logged in');
-    }
-
     final doc = await _demandsCollection.doc(demandId).get();
 
     return Demand.fromFirebaseJson({

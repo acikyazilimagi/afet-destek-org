@@ -1,32 +1,29 @@
 import 'package:afet_destek/data/models/demand.dart';
-import 'package:afet_destek/data/repository/auth_repository.dart';
 import 'package:afet_destek/data/repository/demands_repository.dart';
 import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/shared/extensions/translation_extension.dart';
-import 'package:afet_destek/shared/state/app_cubit.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:afet_destek/shared/widgets/responsive_app_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DemandDetailsPage extends StatefulWidget {
-  const DemandDetailsPage._({required this.demandId});
+  const DemandDetailsPage({super.key, required this.demandId});
   final String demandId;
 
-  static Future<void> show(
-    BuildContext context, {
-    required String demandId,
-  }) async {
-    await Navigator.of(context).push<bool>(
-      MaterialPageRoute<bool>(
-        builder: (context) {
-          return DemandDetailsPage._(demandId: demandId);
-        },
-      ),
-    );
-  }
+  // static Future<void> show(
+  //   BuildContext context, {
+  //   required String demandId,
+  // }) async {
+  //   await Navigator.of(context).push<bool>(
+  //     MaterialPageRoute<bool>(
+  //       builder: (context) {
+  //         return DemandDetailsPage._(demandId: demandId);
+  //       },
+  //     ),
+  //   );
+  // }
 
   @override
   State<DemandDetailsPage> createState() => _DemandDetailsPageState();
@@ -34,51 +31,42 @@ class DemandDetailsPage extends StatefulWidget {
 
 class _DemandDetailsPageState extends State<DemandDetailsPage> {
   Demand? _demand;
-
+  bool _isLoading = true;
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        _demand = await context
-            .read<DemandsRepository>()
-            .getDemand(demandId: widget.demandId);
-        setState(() {});
+        try {
+          _demand = await context
+              .read<DemandsRepository>()
+              .getDemand(demandId: widget.demandId);
+        } catch (_) {}
+        setState(() {
+          _isLoading = false;
+        });
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final currentLocation = context.read<AppCubit>().state.whenOrNull(
-          loaded: (currentLocation, demandCategories) => currentLocation,
-        );
-
-    if (currentLocation == null || _demand == null) {
+    if (_isLoading) {
       return const Scaffold(body: Loader());
     }
 
-    return StreamBuilder<User?>(
-      stream: context.read<AuthRepository>().userStream,
-      builder: (context, snapshot) {
-        final authorized = snapshot.data != null;
-        return _DemandDetailsPageView(
-          isAuthorized: authorized,
-          demand: _demand!,
-        );
-      },
+    return _DemandDetailsPageView(
+      demand: _demand,
     );
   }
 }
 
 class _DemandDetailsPageView extends StatelessWidget {
   const _DemandDetailsPageView({
-    required this.isAuthorized,
     required this.demand,
   });
-  final Demand demand;
-  final bool isAuthorized;
+  final Demand? demand;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +92,7 @@ class _DemandDetailsPageView extends StatelessWidget {
                           icon: const Icon(Icons.arrow_back),
                         ),
                       Text(
-                        LocaleKeys.help_demands.getStr(),
+                        LocaleKeys.demand_details.getStr(),
                         maxLines: 1,
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
@@ -114,18 +102,43 @@ class _DemandDetailsPageView extends StatelessWidget {
                       )
                     ],
                   ),
-                  const SizedBox(height: 16),
-                  DemandCard(
-                    demand: demand,
-                    isDetailed: true,
-                  ),
-                  const SizedBox(height: 32),
-                  Center(
-                    child: Text(
-                      LocaleKeys.please_prefer_sms_or_whatsapp.getStr(),
-                      textAlign: TextAlign.center,
+                  if (demand == null) ...[
+                    const SizedBox(height: 32),
+                    Row(
+                      children: const [
+                        Expanded(
+                          child: Text(
+                            '''Talep bulunamadı. Talebin sahibi talebi silmiş olabilir.''',
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                      ],
                     ),
-                  )
+                  ] else ...[
+                    const SizedBox(height: 16),
+                    DemandCard(
+                      demand: demand!,
+                      isDetailed: true,
+                    ),
+                    const SizedBox(height: 32),
+                    const Center(
+                      child: Text(
+                        '''Bu yardım talebini paylaşmak için aşağıdaki linki kopayalabilirsiniz.''',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Center(
+                      child: SelectableText(
+                        'https://afetdestek.org/demand/${demand!.id}',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                  ]
                 ],
               ),
             ),
