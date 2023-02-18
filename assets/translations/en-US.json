@@ -1,6 +1,6 @@
 {
   "app_name": "Afet Destek Platformu",
-  "app_info": "Bu uygulama, ihtiyaç sahibi depremzedelerin ihtiyaçlarını ve iletişim bilgilerini ekleyebildiği; ihtiyaç taleplerinin listelenerek karşılanabilmesi amacıyla tasarlandı.",
+  "app_info": "This platform was established to bring together earthquake victims who need help and volunteers who want to help. Please share us on all social media channels to let more volunteers know.",
   "duration_second": {
     "zero": "{} saniye önce",
     "one": "{} saniye önce",

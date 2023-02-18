@@ -1,6 +1,6 @@
 {
   "app_name": "Afet Destek Platformu",
-  "app_info": "Bu uygulama, ihtiyaç sahibi depremzedelerin ihtiyaçlarını ve iletişim bilgilerini ekleyebildiği; ihtiyaç taleplerinin listelenerek karşılanabilmesi amacıyla tasarlandı.",
+  "app_info": "Bu platform, yardıma ihtiyacı olan depremzedeler ile yardım etmek isteyen gönüllüleri bir araya getirmek amacıyla kurulmuştur. Daha fazla bağışçının haberdar olması için lütfen bizi tüm sosyal medya kanallarında paylaşın.",
   "duration_second": {
     "zero": "{} saniye önce",
     "one": "{} saniye önce",

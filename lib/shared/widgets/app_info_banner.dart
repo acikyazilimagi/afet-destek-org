@@ -1,5 +1,3 @@
-import 'package:afet_destek/gen/translations/locale_keys.g.dart';
-import 'package:afet_destek/shared/extensions/translation_extension.dart';
 import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -118,8 +116,9 @@ enum _AppInfoLang {
   ar,
 }
 
-final _infoTr = LocaleKeys.app_info.getStr();
+const _infoTr =
+    '''Bu platform, yardıma ihtiyacı olan depremzedeler ile yardım etmek isteyen gönüllüleri bir araya getirmek amacıyla kurulmuştur. Daha fazla yardımseverin haberdar olması için lütfen bizi tüm sosyal medya kanallarında paylaşın.''';
 const _infoEn =
-    '''This application is designed to allow earthquake survivors to add their needs and contact information for volunteers to see and reach out.''';
+    '''This platform was established to bring together earthquake victims who need help and volunteers who want to help. Please share us on all social media channels so that more donors will be notified.''';
 const _infoAr =
-    '''تم تصميم هذا التطبيق للسماح للناجين من الزلزال بإضافة احتياجاتهم ومعلومات اتصالهم لتمكين المتطوعين من رؤيتها والتواصل معهم''';
+    '''تم إنشاء هذه المنصة لجمع ضحايا الزلزال الذين يحتاجون إلى المساعدة والمتطوعين الذين يرغبون في المساعدة. يرجى مشاركتنا على جميع قنوات التواصل الاجتماعي لإعلام المزيد من المتبرعين.''';
