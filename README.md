@@ -1,11 +1,6 @@
 # Duyuru
 
-Senior Flutter Developer ihtiyacımız var. İlgilenenler onboarding için Discord üzerinden HR ile iletişime geçebilir. HR listesi:
-
-- Tuba Habalı#0725
-- arzuozkan#0452
-- mugeekilic#7288
-- Buse Yalçın#2338
+Daha fazla yardımsevere ulaşabilmek için lütfen platformu (afetdestek.org) tüm sosyal medya kanallarında paylaşın.
 
 ## Yardım Ağı Projesi
 
