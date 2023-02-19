@@ -231,15 +231,14 @@ class _DemandFilterDrawerState extends State<DemandFilterDrawer> {
   ElevatedButton getElevatedButton({required bool isFilterButton}) {
     return ElevatedButton(
       onPressed: isFilterButton ? _onSave : _onClear,
-      style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll<Color>(
-          isFilterButton ? context.appColors.mainRed : context.appColors.white,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: isFilterButton
+            ? context.appColors.mainRed
+            : context.appColors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
         ),
-        shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
+        padding: EdgeInsets.zero,
       ),
       child: Text(
         isFilterButton ? LocaleKeys.filter.getStr() : LocaleKeys.clear.getStr(),

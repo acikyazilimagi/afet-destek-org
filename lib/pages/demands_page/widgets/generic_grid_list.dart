@@ -1,7 +1,10 @@
 import 'package:afet_destek/data/models/demand.dart';
+import 'package:afet_destek/gen/translations/locale_keys.g.dart';
 import 'package:afet_destek/pages/demands_page/state/demands_state.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_card.dart';
 import 'package:afet_destek/pages/demands_page/widgets/demand_title.dart';
+import 'package:afet_destek/shared/extensions/translation_extension.dart';
+import 'package:afet_destek/shared/theme/color_extensions.dart';
 import 'package:afet_destek/shared/widgets/app_info_banner.dart';
 import 'package:afet_destek/shared/widgets/loader.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +36,48 @@ class GenericListView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const AppInfoBanner(),
-            const DemandTitle(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DemandTitle(title: LocaleKeys.help_demands.getStr()),
+                Builder(
+                  builder: (ctx) {
+                    return TextButton.icon(
+                      onPressed: () => Scaffold.of(ctx).openEndDrawer(),
+                      icon: Stack(
+                        children: [
+                          Icon(
+                            Icons.filter_list,
+                            color: context.appColors.black,
+                          ),
+                          if (state.hasAnyFilters) ...[
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: Container(
+                                width: 8,
+                                height: 8,
+                                decoration: BoxDecoration(
+                                  color: context.appColors.mainRed,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                      label: Text(
+                        LocaleKeys.filter.getStr(),
+                        style:
+                            Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  color: context.appColors.black,
+                                ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
             Expanded(
               child: MasonryGridView.builder(
                 //    crossAxisCount: crossAxisCount,
