@@ -1,6 +1,6 @@
 # Duyuru
 
-Daha fazla yardımsevere ulaşabilmek için lütfen platformu (afetdestek.org) tüm sosyal medya kanallarında paylaşın.
+Bu proje durdurulmuştur. Herkesin emeğine sağlık.
 
 ## Yardım Ağı Projesi
 
